@@ -7,11 +7,15 @@ using Microsoft.Office.Interop.Word;
 
 namespace FirstWordAddIn.DataStructures
 {
-    struct SelectionData
-    {
-         public String SelectionPage { get; set; }
-         public String SelectionDocName { get; set; }
-        public String SelectionText { get; set; }
-         
+    
+
+    public class WordEventArgs : ZaveEvents.SrcEventArgs{
+
+        
+        public WordEventArgs(ZaveEvents.Data_Structures.SelectionData sd) : base(sd) {
+            
+            
+        }
+
     }
 }

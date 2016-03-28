@@ -7,12 +7,14 @@ using System.Text.RegularExpressions;
 using WordInterop = Microsoft.Office.Interop.Word;
 using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
+using FirstWordAddIn.DataStructures;
+using ZaveEvents.Data_Structures;
 
 namespace FirstWordAddIn
 {
     public partial class ThisAddIn
     {
-        public event EventHandler WordFired;
+        public static event EventHandler<WordEventArgs> WordFired;
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             this.Application.DocumentOpen +=
@@ -26,11 +28,7 @@ namespace FirstWordAddIn
         {
         }
 
-        void Application_DocumentBeforeSave(WordInterop.Document Doc, ref bool SaveAsUI, ref bool Cancel)
-        {
-            Doc.Paragraphs[1].Range.InsertParagraphBefore();
-            Doc.Paragraphs[1].Range.Text = "This text was added by using code. ";
-        }
+      
 
         private void WorkWithDocument(Microsoft.Office.Interop.Word.Document Doc)
         {
@@ -52,11 +50,12 @@ namespace FirstWordAddIn
                 
                 if (e.Selection.Text.Length >= 2)
                 {
-                    DataStructures.SelectionData selDat = new DataStructures.SelectionData();
+                    SelectionData selDat = new SelectionData();
                     selDat.SelectionDocName = e.Selection.Application.ActiveDocument.Name;
                     selDat.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber];
                     selDat.SelectionText = e.Selection.Text;
-                    
+                    selDat.st = SrcType.WORD;
+                    OnWordFired(selDat);
                 }
 
             }
@@ -66,6 +65,17 @@ namespace FirstWordAddIn
                 System.Windows.Forms.MessageBox.Show(ex.GetType().ToString() + '\n' + ex.Message);
             }
             
+        }
+
+        private void OnWordFired(ZaveEvents.Data_Structures.SelectionData selDat)
+        {
+            EventHandler<WordEventArgs> handler = WordFired;
+            if (handler != null)
+            {
+                WordEventArgs wea = new WordEventArgs(selDat);
+                
+                handler(this, wea);
+            }
         }
 
 

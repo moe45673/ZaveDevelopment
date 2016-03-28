@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ZDFList\ZDFList.cs" />
+    <Compile Include="ZDFSource\SourceFactory.cs" />
+    <Compile Include="ZDFSource\WordSourceFactory.cs" />
+    <Compile Include="ZDF\ZDF.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,6 +100,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Global Settings\EventInit.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -128,8 +133,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ZDF\" />
+    <ProjectReference Include="..\FirstWordAddIn\ZaveWordAddin.csproj">
+      <Project>{2fec93ab-a5de-49ee-84e5-43090c2b007b}</Project>
+      <Name>ZaveWordAddin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveEvents\ZaveEvents.csproj">
+      <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
+      <Name>ZaveEvents</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
