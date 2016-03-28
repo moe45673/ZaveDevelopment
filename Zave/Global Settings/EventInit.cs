@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using FirstWordAddIn;
 using FirstWordAddIn.DataStructures;
 using Zave.ZDFSource;
@@ -12,6 +13,8 @@ namespace Zave.Global_Settings
 {
     public sealed class EventInitSingleton
     {
+        private MainWindow mainwin;
+
         private static readonly EventInitSingleton instance = new EventInitSingleton();
 
         private EventInitSingleton()
@@ -33,6 +36,10 @@ namespace Zave.Global_Settings
             {
                 SourceFactory sf = new WordSourceFactory();
                 Source ws = sf.produceSource(e.selDat);
+
+                mainwin = (MainWindow)App.Current.MainWindow;
+                mainwin.setTextBoxes(e.selDat.SelectionDocName, e.selDat.SelectionPage, e.selDat.SelectionText);
+                
                 
             }
         }

@@ -69,18 +69,6 @@
     <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ColorCategory.cs">
       <Link>Global Settings\ColorCategory.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ZaveProject\App.cs">
-      <Link>App.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ZaveProject\MainWindow.cs">
-      <Link>MainWindow.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ZaveProject\Properties\Resources.cs">
-      <Link>Resources.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ZaveProject\Properties\Settings.cs">
-      <Link>Settings.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ZDFEntry\IEntryComment.cs">
       <Link>ZDFEntry\IEntryComment.cs</Link>
     </Compile>

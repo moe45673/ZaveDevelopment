@@ -22,7 +22,14 @@ namespace Zave
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
+        public void setTextBoxes(string docname, string page, string text)
+        {
+            docNameTxtBx.Text = docname;
+            docPgNmbrTxtBx.Text = page;
+            docTextTxtBx1.Text = text;
+        }
+        
     }
 }
