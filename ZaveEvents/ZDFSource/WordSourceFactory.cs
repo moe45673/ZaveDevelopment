@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Zave.ZDFSource
+namespace ZaveSourceAdapter.ZDFSource
 {
     public class WordSourceFactory : SourceFactory
     {

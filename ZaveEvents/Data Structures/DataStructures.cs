@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace ZaveEvents.Data_Structures
+namespace ZaveSourceAdapter.Data_Structures
 {
     public enum SrcType { WORD, EXCEL }
 

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using FirstWordAddIn;
 using FirstWordAddIn.DataStructures;
-using Zave.ZDFSource;
-using ZaveEvents;
+using ZaveSourceAdapter.ZDFSource;
+using ZaveSourceAdapter;
 
-namespace Zave.Global_Settings
+namespace ZaveSourceAdapter.Global_Settings
 {
     public sealed class EventInitSingleton
     {
@@ -32,7 +31,7 @@ namespace Zave.Global_Settings
 
         private void SrcHighlightEventHandler(Object o, SrcEventArgs e)
         {
-            if (e.selDat.st.Equals(ZaveEvents.Data_Structures.SrcType.WORD))
+            if (e.selDat.st.Equals(ZaveSourceAdapter.Data_Structures.SrcType.WORD))
             {
                 SourceFactory sf = new WordSourceFactory();
                 Source ws = sf.produceSource(e.selDat);

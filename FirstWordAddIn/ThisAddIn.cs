@@ -8,7 +8,7 @@ using WordInterop = Microsoft.Office.Interop.Word;
 using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
 using FirstWordAddIn.DataStructures;
-using ZaveEvents.Data_Structures;
+using ZaveSourceAdapter.Data_Structures;
 
 namespace FirstWordAddIn
 {
@@ -18,10 +18,10 @@ namespace FirstWordAddIn
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             this.Application.DocumentOpen +=
-            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(WorkWithDocument);
+            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
             ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
-                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(WorkWithDocument);
+                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -36,7 +36,7 @@ namespace FirstWordAddIn
             vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
         }
 
-        private void DocumentSelectionChange()
+        private void DocumentSelectionChange(Microsoft.Office.Interop.Word.Document Doc)
         {
             WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(this.Application.ActiveDocument);
             vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
@@ -52,10 +52,11 @@ namespace FirstWordAddIn
                 {
                     SelectionData selDat = new SelectionData();
                     selDat.SelectionDocName = e.Selection.Application.ActiveDocument.Name;
-                    selDat.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber];
+                    selDat.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString();
                     selDat.SelectionText = e.Selection.Text;
                     selDat.st = SrcType.WORD;
                     OnWordFired(selDat);
+                    System.Windows.Forms.MessageBox.Show("Thingie Fired");
                 }
 
             }
@@ -67,7 +68,7 @@ namespace FirstWordAddIn
             
         }
 
-        private void OnWordFired(ZaveEvents.Data_Structures.SelectionData selDat)
+        private void OnWordFired(ZaveSourceAdapter.Data_Structures.SelectionData selDat)
         {
             EventHandler<WordEventArgs> handler = WordFired;
             if (handler != null)

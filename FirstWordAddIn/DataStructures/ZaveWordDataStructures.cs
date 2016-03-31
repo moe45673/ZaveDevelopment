@@ -9,10 +9,10 @@ namespace FirstWordAddIn.DataStructures
 {
     
 
-    public class WordEventArgs : ZaveEvents.SrcEventArgs{
+    public class WordEventArgs : ZaveSourceAdapter.SrcEventArgs{
 
         
-        public WordEventArgs(ZaveEvents.Data_Structures.SelectionData sd) : base(sd) {
+        public WordEventArgs(ZaveSourceAdapter.Data_Structures.SelectionData sd) : base(sd) {
             
             
         }

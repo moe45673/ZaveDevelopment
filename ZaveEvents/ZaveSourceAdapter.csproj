@@ -40,9 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\..\desktop\generated code\class model\zave\zdfentry\ISource.cs">
+      <Link>ZDFSource\ISource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\desktop\generated code\class model\zave\zdfsource\WordSource.cs">
+      <Link>ZDFSource\WordSource.cs</Link>
+    </Compile>
     <Compile Include="Data Structures\DataStructures.cs" />
+    <Compile Include="EventInit.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZDFSource\SourceFactory.cs" />
+    <Compile Include="ZDFSource\WordSourceFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

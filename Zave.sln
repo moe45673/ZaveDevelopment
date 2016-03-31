@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zave", "Zave\Zave.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveWordAddin", "FirstWordAddIn\ZaveWordAddin.csproj", "{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveEvents", "ZaveEvents\ZaveEvents.csproj", "{6BCC0D8D-FDCA-4BB4-9824-242878FBBE36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveSourceAdapter", "ZaveEvents\ZaveSourceAdapter.csproj", "{6BCC0D8D-FDCA-4BB4-9824-242878FBBE36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

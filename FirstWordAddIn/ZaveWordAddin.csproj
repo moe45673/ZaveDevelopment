@@ -185,9 +185,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ZaveEvents\ZaveEvents.csproj">
+    <ProjectReference Include="..\ZaveEvents\ZaveSourceAdapter.csproj">
       <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
-      <Name>ZaveEvents</Name>
+      <Name>ZaveSourceAdapter</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
