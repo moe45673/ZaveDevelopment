@@ -40,27 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\..\moe\desktop\ICategory.cs">
-      <Link>Global Settings\ICategory.cs</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="..\..\..\..\..\desktop\generated code\class model\zave\ColorCategory.cs">
-      <Link>Global Settings\ColorCategory.cs</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="..\..\..\..\..\desktop\generated code\class model\zave\zdfentry\IEntryComment.cs">
-      <Link>ZDFEntry\IEntryComment.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\desktop\generated code\class model\zave\zdfentry\ISource.cs">
-      <Link>ZDFEntry\ISource.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\desktop\generated code\class model\zave\zdfentry\IZDFEntry.cs">
-      <Link>ZDFEntry\IZDFEntry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\desktop\test\ZDFEntry.cs">
-      <Link>ZDFEntry\ZDFEntry.cs</Link>
-    </Compile>
+    <Compile Include="Global Settings\ColorCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZDFEntry\IEntryComment.cs" />
+    <Compile Include="ZDFEntry\ISource.cs" />
+    <Compile Include="ZDFEntry\IZDFEntry.cs" />
+    <Compile Include="ZDFEntry\ZDFEntry.cs" />
     <Compile Include="ZDFList\ZDFList.cs" />
     <Compile Include="ZDF\ZDF.cs" />
   </ItemGroup>
