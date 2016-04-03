@@ -13,15 +13,18 @@ using System.IO;
 
 
 
-using GlobalSettings;
-public class ColorCategory : ICategory {
 
-	public ColorCategory(){
 
-	}
+namespace ZaveModel.GlobalSettings {
+    public class ColorCategory{
 
-	~ColorCategory(){
+        public ColorCategory() {
 
-	}
+        }
 
-}//end ColorCategory
+        ~ColorCategory() {
+
+        }
+
+    }//end ColorCategory
+}

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.ComponentModel;
-using GlobalSettings;
+using ZaveModel.GlobalSettings;
 using ZaveModel.ZDFSource;
 
 
@@ -20,7 +20,7 @@ namespace ZDFEntry {
 
     public class ZDFEntry : IZDFEntry, INotifyPropertyChanged {
 
-        private GlobalSettings.ICategory hColor;
+        private ZaveModel.GlobalSettings.ColorCategory hColor;
         private string title;
         public List<IEntryComment> m_IEntryComment;
 
@@ -32,7 +32,7 @@ namespace ZDFEntry {
 
         }
 
-        public ICategory HColor {
+        public ColorCategory HColor {
             get {
                 return hColor;
             }
