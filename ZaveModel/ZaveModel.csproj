@@ -42,9 +42,11 @@
   <ItemGroup>
     <Compile Include="..\..\..\..\..\..\moe\desktop\ICategory.cs">
       <Link>Global Settings\ICategory.cs</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="..\..\..\..\..\desktop\generated code\class model\zave\ColorCategory.cs">
       <Link>Global Settings\ColorCategory.cs</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="..\..\..\..\..\desktop\generated code\class model\zave\zdfentry\IEntryComment.cs">
       <Link>ZDFEntry\IEntryComment.cs</Link>
