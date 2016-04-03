@@ -189,6 +189,10 @@
       <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
       <Name>ZaveSourceAdapter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
+      <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
+      <Name>ZaveModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

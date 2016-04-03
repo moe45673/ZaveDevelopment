@@ -20,12 +20,21 @@ namespace Zave
     public partial class App : Application
     {
 
-        Zave.ZDF.ZDF activeZDF { get; set; }
+        /// <summary>
+        /// Prototype hardcoded ZDF for early version
+        /// </summary>
+        public ZaveModel.ZDF.ZDF activeZDF { get; set; }
 
+        public Window mainwin { get; set;  }
+        
 
         public App()
         {
-            this.Init();
+            mainwin = this.MainWindow;
+            //System.Windows.MessageBox.Show("This opens");
+
+            
+            
         }
 
         ~App()
@@ -35,7 +44,7 @@ namespace Zave
 
         public void Init()
         {
-            activeZDF = new Zave.ZDF.ZDF();
+            activeZDF = new ZaveModel.ZDF.ZDF();
         }
 
     }//end App

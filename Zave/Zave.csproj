@@ -55,27 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ZDFList\ZDFList.cs" />
-    <Compile Include="ZDF\ZDF.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="..\..\..\..\..\..\Moe\Desktop\ICategory.cs">
-      <Link>Global Settings\ICategory.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ColorCategory.cs">
-      <Link>Global Settings\ColorCategory.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ZDFEntry\IEntryComment.cs">
-      <Link>ZDFEntry\IEntryComment.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Generated Code\Class Model\Zave\ZDFEntry\IZDFEntry.cs">
-      <Link>ZDFEntry\IZDFEntry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\..\Desktop\Test\ZDFEntry.cs">
-      <Link>ZDFEntry\ZDFEntry.cs</Link>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -86,6 +69,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -114,13 +98,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\FirstWordAddIn\ZaveWordAddin.csproj">
-      <Project>{2fec93ab-a5de-49ee-84e5-43090c2b007b}</Project>
-      <Name>ZaveWordAddin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZaveEvents\ZaveSourceAdapter.csproj">
-      <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
-      <Name>ZaveSourceAdapter</Name>
+    <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
+      <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
+      <Name>ZaveModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

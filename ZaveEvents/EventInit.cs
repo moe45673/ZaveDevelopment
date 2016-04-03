@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FirstWordAddIn;
-using FirstWordAddIn.DataStructures;
 using ZaveSourceAdapter.ZDFSource;
-using ZaveSourceAdapter;
+using ZaveSourceAdapter.Data_Structures;
+using ZaveModel.ZDFSource;
 
 namespace ZaveSourceAdapter.Global_Settings
 {
     public sealed class EventInitSingleton
     {
-        private MainWindow mainwin;
+        
 
         private static readonly EventInitSingleton instance = new EventInitSingleton();
 
+     
+
         private EventInitSingleton()
         {
-            ThisAddIn.WordFired += new EventHandler<WordEventArgs>(SrcHighlightEventHandler);
+            
         }
 
         public static EventInitSingleton Instance
@@ -29,18 +30,14 @@ namespace ZaveSourceAdapter.Global_Settings
             }
         }
 
-        private void SrcHighlightEventHandler(Object o, SrcEventArgs e)
+        public void SrcHighlightEventHandler(Object o, ZaveSourceAdapter.Data_Structures.SrcEventArgs e)
         {
-            if (e.selDat.st.Equals(ZaveSourceAdapter.Data_Structures.SrcType.WORD))
-            {
-                SourceFactory sf = new WordSourceFactory();
-                Source ws = sf.produceSource(e.selDat);
 
-                mainwin = (MainWindow)App.Current.MainWindow;
-                mainwin.setTextBoxes(e.selDat.SelectionDocName, e.selDat.SelectionPage, e.selDat.SelectionText);
-                
-                
-            }
+            Zave.MVVM.View.MainWindow.MainWindowViewModel.setTextBoxes(e.zSrc);
+            
+
+
+
         }
 
 

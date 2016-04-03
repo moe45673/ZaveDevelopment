@@ -22,13 +22,24 @@ namespace Zave
     {
         public MainWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            MainWin = (MainWindow)App.Current.Windows[0];
+            
         }
+
+        
+
+        //private ZaveSourceAdapter.Global_Settings.EventInitSingleton eventInit;
+        public MainWindow MainWin { get; set; }
+        
+
+        
+
+
         public void setTextBoxes(string docname, string page, string text)
         {
-            docNameTxtBx.Text = docname;
-            docPgNmbrTxtBx.Text = page;
-            docTextTxtBx1.Text = text;
+            //Zave.MVVM.View.MainWindow.MainWindowViewModel.se
         }
         
     }
