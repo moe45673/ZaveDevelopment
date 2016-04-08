@@ -25,16 +25,16 @@ namespace Zave
         /// </summary>
         public ZaveModel.ZDF.ZDF activeZDF { get; set; }
 
-        public Window mainwin { get; set;  }
         
 
+        /// <summary>
+        /// Runs Init() Method
+        /// </summary>
         public App()
         {
-            mainwin = this.MainWindow;
-            //System.Windows.MessageBox.Show("This opens");
+            Init();
 
-            
-            
+
         }
 
         ~App()
@@ -42,8 +42,12 @@ namespace Zave
 
         }
 
+        /// <summary>
+        /// Runs Debug code. Right now, creates a ZDF to work with.
+        /// </summary>
         public void Init()
         {
+            
             activeZDF = new ZaveModel.ZDF.ZDF();
         }
 

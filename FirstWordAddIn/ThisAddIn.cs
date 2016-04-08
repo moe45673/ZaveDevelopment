@@ -18,42 +18,41 @@ namespace FirstWordAddIn
     public partial class ThisAddIn
     {
 
+        //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
         EventInitSingleton eventInit;
+
         public static event EventHandler<WordEventArgs> WordFired;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            
+            //only start listening for the event when a document is opened or created
             this.Application.DocumentOpen +=
             new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
             ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
                 new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
 
-             eventInit = EventInitSingleton.Instance;
+            eventInit = EventInitSingleton.Instance;
 
-            //System.Windows.Forms.MessageBox.Show("Word Addin Opens");
-
-             WordFired += new EventHandler<WordEventArgs>(eventInit.SrcHighlightEventHandler);
+            //Tie the highlight to the singleton handler
+            WordFired += new EventHandler<WordEventArgs>(eventInit.SrcHighlightEventHandler);
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
         }
-
-      
-
-        private void WorkWithDocument(Microsoft.Office.Interop.Word.Document Doc)
-        {
-            WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(this.Application.ActiveDocument);
-            vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
-        }
-
+        
+        /// <summary>
+        /// Get the current doc and pass it to the event handler
+        /// </summary>
+        /// <param name="Doc"></param>
         private void DocumentSelectionChange(Microsoft.Office.Interop.Word.Document Doc)
         {
+
             WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(this.Application.ActiveDocument);
             vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
         }
+
 
         void ThisDocument_SelectionChange(object sender, Microsoft.Office.Tools.Word.SelectionEventArgs e)
         {

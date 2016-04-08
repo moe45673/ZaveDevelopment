@@ -20,6 +20,9 @@ namespace Zave
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// initializes MainWindow and creates a property reference to itself
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +33,7 @@ namespace Zave
 
         
 
-        //private ZaveSourceAdapter.Global_Settings.EventInitSingleton eventInit;
+        
         public MainWindow MainWin { get; set; }
         
 
