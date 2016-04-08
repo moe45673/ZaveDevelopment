@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6B255A10-65F0-400A-9B9D-1254CD934ECC}</ProjectGuid>
+    <ProjectGuid>{61E09293-709D-447D-BC4C-306E3118F20C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZaveModel</RootNamespace>
-    <AssemblyName>ZaveModel</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>ZaveMVVM</RootNamespace>
+    <AssemblyName>ZaveMVVM</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -36,19 +36,17 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\ZDFEntryFactory.cs" />
-    <Compile Include="Global Settings\ColorCategory.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZDFEntry\IEntryComment.cs" />
-    <Compile Include="ZDFEntry\ISource.cs" />
-    <Compile Include="ZDFEntry\IZDFEntry.cs" />
-    <Compile Include="ZDFEntry\ZDFEntry.cs" />
-    <Compile Include="ZDFList\ZDFList.cs" />
-    <Compile Include="ZDF\ZDF.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
+      <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
+      <Name>ZaveModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zave", "Zave\Zave.csproj", "{4E456E7F-FA26-4D6F-A99A-99DC0D481982}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveSourceAdapter", "ZaveEvents\ZaveSourceAdapter.csproj", "{6BCC0D8D-FDCA-4BB4-9824-242878FBBE36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveModel", "ZaveModel\ZaveModel.csproj", "{6B255A10-65F0-400A-9B9D-1254CD934ECC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveMVVM", "ZaveMVVM\ZaveMVVM.csproj", "{61E09293-709D-447D-BC4C-306E3118F20C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6B255A10-65F0-400A-9B9D-1254CD934ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B255A10-65F0-400A-9B9D-1254CD934ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B255A10-65F0-400A-9B9D-1254CD934ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E09293-709D-447D-BC4C-306E3118F20C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E09293-709D-447D-BC4C-306E3118F20C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E09293-709D-447D-BC4C-306E3118F20C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E09293-709D-447D-BC4C-306E3118F20C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using ZaveModel.ZDF;
 
-namespace Zave.MVVM.View.MainWindow
+namespace ZaveMVVM.MainWindowVM
 {
     public static class MainWindowViewModel
     {
         //public static ZDFEntry.ZDFEntry ZdfEntry { get; set; }
 
-
+        private ZDFEntry.IZDFEntry zdfEntry = 
 
 
 
