@@ -29,7 +29,7 @@ namespace FirstWordAddIn.DataStructures
     public class WordSource : ZaveSrc
     {
 
-        ZaveSourceAdapter.Data_Structures.SrcType srcType { get; }
+        ZaveSourceAdapter.Data_Structures.SrcType srcType { get; set; }
 
         public WordSource(string name, string page, string text) : base(name, page, text)
         {

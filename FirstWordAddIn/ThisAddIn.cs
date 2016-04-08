@@ -15,6 +15,7 @@ using ZaveSourceAdapter.ZDFSource;
 
 namespace FirstWordAddIn
 {
+
     public partial class ThisAddIn
     {
 
@@ -69,7 +70,7 @@ namespace FirstWordAddIn
                     selDat.SelectionText = e.Selection.Text;
                     selDat.srcType = SrcType.WORD;
                     OnWordFired(selDat);
-                    System.Windows.Forms.MessageBox.Show("Thingie Fired");
+                    //System.Windows.Forms.MessageBox.Show("Thingie Fired");
                 }
 
             }
