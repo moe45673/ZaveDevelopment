@@ -11,71 +11,64 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.ComponentModel;
+using System.Linq;
 using ZaveModel.GlobalSettings;
 using ZaveModel.ZDFSource;
 
 
 
-namespace ZDFEntry {
+namespace ZaveModel.ZDFEntry {
 
-    public class ZDFEntry : IZDFEntry, INotifyPropertyChanged {
+    public class ZDFEntry : IZDFEntry
+    {
 
-        private ZaveModel.GlobalSettings.ColorCategory hColor;
-        private string title;
-        public List<IEntryComment> m_IEntryComment;
 
-        public ZDFEntry() {
 
-        }
+        public List<Comment.IEntryComment> m_IEntryComment;
 
-        ~ZDFEntry() {
+        public ZDFEntry()
+        {
 
         }
 
-        public ColorCategory HColor {
-            get {
-                return hColor;
-            }
-            set {
-                hColor = value;
-
-            }
+        public ZDFEntry(Source src)
+        {
+            Source = src;
         }
 
-        private Source source;
-        public Source Source {
-            get { return source; }
-            set
-            {
-                source = value;
-                OnPropertyChanged("Source");
+        ~ZDFEntry()
+        {
 
-            }
         }
 
-        public string Title {
-            get {
-                return title;
-            }
-            set {
-                title = value;
 
-            }
+
+        public ColorCategory HColor
+        {
+            get;
+            set;
         }
+
+        public Source Source
+        {
+            get;
+            set;
+        }
+
+
+        public string Title
+        {
+            get;
+            set;
+        }
+
+
+
+
+    }
 
         //end ZDFEntry//end IZDFEntry
 
-        #region INotifyPropertyChanged Members
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this,
-                    new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        #endregion
-    }
+       
 
 }//end namespace ZDFEntry

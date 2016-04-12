@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 using ZaveSrc = ZaveModel.ZDFSource.Source;
 
 
-namespace ZaveSourceAdapter.Data_Structures
+namespace ZaveMVVM.Data_Structures
 {
     public enum SrcType { WORD, EXCEL }
 
     public struct SelectionData
     {
+        public SelectionData(string name = "", string page = "", string text = "", SrcType src = 0)
+        {
+            SelectionPage = page;
+            SelectionDocName = name;
+            SelectionText = text;
+            srcType = src;
+        }
         public String SelectionPage { get; set; }
         public String SelectionDocName { get; set; }
         public String SelectionText { get; set; }
@@ -19,13 +26,5 @@ namespace ZaveSourceAdapter.Data_Structures
         public SrcType srcType { get; set; }
 
     }
-    public class SrcEventArgs : EventArgs
-    {
-        public ZaveSrc zSrc {get; set;}
-
-        public SrcEventArgs(ZaveSrc src) : base()
-        {
-            zSrc = src;
-        }
-    }
+    
 }

@@ -10,11 +10,32 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using ZaveModel.GlobalSettings;
+using ZaveModel.ZDFSource;
 
 
-
-namespace ZDFEntry {
+namespace ZaveModel {
 	public interface IZDFEntry  {
+
+
+        ColorCategory HColor
+        {
+            get;
+            set;
+        }
+
+        Source Source
+        {
+            get;
+            set;
+        }
+
+
+        string Title
+        {
+            get;
+            set;
+        }
 
 	}//end IZDFEntry
 

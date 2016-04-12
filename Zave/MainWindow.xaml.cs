@@ -27,23 +27,20 @@ namespace Zave
         {
             InitializeComponent();
 
-            MainWin = (MainWindow)App.Current.Windows[0];
+            
             
         }
 
         
 
         
-        public MainWindow MainWin { get; set; }
-        
 
         
 
+        
 
-        public void setTextBoxes(string docname, string page, string text)
-        {
-            //Zave.MVVM.View.MainWindow.MainWindowViewModel.se
-        }
+
+        
         
     }
 }

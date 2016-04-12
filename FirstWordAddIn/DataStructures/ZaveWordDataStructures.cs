@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
-using ZaveSrc = ZaveModel.ZDFSource.Source;
+using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionData;
 using ZaveModel;
-using ZaveSourceAdapter.ZDFSource;
+using ZaveController.ZDFSource;
 
 namespace FirstWordAddIn.DataStructures
 {
 
 
-    public class WordEventArgs : ZaveSourceAdapter.Data_Structures.SrcEventArgs
+    public class WordEventArgs : ZaveController.Data_Structures.SrcEventArgs
     {
 
         
@@ -26,19 +26,24 @@ namespace FirstWordAddIn.DataStructures
 
     }
 
-    public class WordSource : ZaveSrc
+    public class WordSelectionData
     {
 
-        ZaveSourceAdapter.Data_Structures.SrcType srcType { get; set; }
+        ZaveGlobalSettings.Data_Structures.SrcType srcType { get; set; }
 
-        public WordSource(string name, string page, string text) : base(name, page, text)
+        public WordSelectionData(string name, string page, string text)
         {
-            srcType = ZaveSourceAdapter.Data_Structures.SrcType.WORD;
+            srcType = ZaveGlobalSettings.Data_Structures.SrcType.WORD;
         }
 
-        ~WordSource()
+        ~WordSelectionData()
         {
 
+        }
+
+        public override string ToString()
+        {
+            return this.srcType.ToString();
         }
 
 
@@ -55,7 +60,8 @@ namespace FirstWordAddIn.DataStructures
         }
         protected override ZaveSrc createSrc(string name, string page, string text)
         {
-            return new WordSource(name, page, text);
+            return new ZaveSrc(name, page, text);
+            throw new NotImplementedException();
         }
     }
 } //end namespace ZDFSource

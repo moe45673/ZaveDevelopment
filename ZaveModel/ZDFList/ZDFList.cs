@@ -6,13 +6,29 @@ using System.Threading.Tasks;
 
 namespace ZaveModel.ZDFList
 {
-    public class ZDFList
+    public class ZDFList : IZDFList
     {
-        public List<ZDF.ZDF> zdfList { get; set; }
+        //Needs to be changed to Linq code when data access layer is implemented
+        private List<ZDF.ZDF> zdfList { get; set; }
 
         public ZDFList()
         {
             zdfList = new List<ZDF.ZDF>();
+        }
+
+        public bool CreateZdf(ZDF.ZDF zdf)
+        {
+            try
+            {
+                zdfList.Add(zdf);
+                //zdfList.SaveChanges(); //Linq for Data Access
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

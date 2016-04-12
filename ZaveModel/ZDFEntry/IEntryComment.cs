@@ -13,7 +13,7 @@ using System.IO;
 
 
 
-namespace ZDFEntry {
+namespace ZaveModel.ZDFEntry.Comment {
 	public interface IEntryComment  {
 
 		string CommentText{

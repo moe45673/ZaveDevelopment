@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZaveSourceAdapter.ZDFSource;
-using ZaveSourceAdapter.Data_Structures;
+using ZaveController.ZDFSource;
+using ZaveGlobalSettings.Data_Structures;
 using ZaveModel.ZDFSource;
+using ZaveModel;
 
-namespace ZaveSourceAdapter.Global_Settings
+namespace ZaveController.Global_Settings
 {
     public sealed class EventInitSingleton
     {
         
 
         private static readonly EventInitSingleton instance = new EventInitSingleton();
-
+        public ZaveService.ZDFEntry.IZDFEntryHandler zdfEntryHandler { get; set; }
      
 
         private EventInitSingleton()
@@ -30,14 +31,11 @@ namespace ZaveSourceAdapter.Global_Settings
             }
         }
 
-        public void SrcHighlightEventHandler(Object o, ZaveSourceAdapter.Data_Structures.SrcEventArgs e)
+        public void SrcHighlightEventHandler(Object o, Data_Structures.SrcEventArgs e)
         {
 
-            Zave.MVVM.View.MainWindow.MainWindowViewModel.setTextBoxes(e.zSrc);
-            
-
-
-
+            zdfEntryHandler = new ZaveService.ZDFEntry.ZDFEntryHandler(e.zSrc);
+        
         }
 
 

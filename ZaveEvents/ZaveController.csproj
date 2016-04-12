@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6B255A10-65F0-400A-9B9D-1254CD934ECC}</ProjectGuid>
+    <ProjectGuid>{6BCC0D8D-FDCA-4BB4-9824-242878FBBE36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZaveModel</RootNamespace>
-    <AssemblyName>ZaveModel</AssemblyName>
+    <RootNamespace>ZaveController</RootNamespace>
+    <AssemblyName>ZaveEvents</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,22 +40,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\ZDFEntry\DefaultZDFEntry.cs" />
-    <Compile Include="Factories\ZDFEntry\ZDFEntryFactory.cs" />
-    <Compile Include="Global Settings\ColorCategory.cs" />
-    <Compile Include="Global Settings\Data_Structures\ZaveModelDataStructures.cs" />
+    <Compile Include="Data_Structures\DataStructures.cs" />
+    <Compile Include="EventInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZDFEntry\IEntryComment.cs" />
-    <Compile Include="ZDFEntry\Source.cs" />
-    <Compile Include="ZDFEntry\IZDFEntry.cs" />
-    <Compile Include="ZDFEntry\ZDFEntry.cs" />
-    <Compile Include="ZDFList\IZDFList.cs" />
-    <Compile Include="ZDFList\ZDFList.cs" />
-    <Compile Include="ZDF\ZDF.cs" />
+    <Compile Include="ZDFSource\SourceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ZDFList\DevNotes.txt" />
+    <ProjectReference Include="..\ZaveGlobalSettings\ZaveGlobalSettings.csproj">
+      <Project>{0f1f4a8f-44fd-4537-88a1-21034ac4335a}</Project>
+      <Name>ZaveGlobalSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
+      <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
+      <Name>ZaveModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveMVVM\ZaveMVVM.csproj">
+      <Project>{61e09293-709d-447d-bc4c-306e3118f20c}</Project>
+      <Name>ZaveMVVM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveService\ZaveService.csproj">
+      <Project>{7564b53b-b138-4e6f-8d37-acdd1e51f787}</Project>
+      <Name>ZaveService</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

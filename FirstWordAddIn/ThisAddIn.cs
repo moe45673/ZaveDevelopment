@@ -8,10 +8,10 @@ using WordInterop = Microsoft.Office.Interop.Word;
 using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
 using FirstWordAddIn.DataStructures;
-using ZaveSourceAdapter.Data_Structures;
-using ZaveSourceAdapter.Global_Settings;
-using ZaveSrc = ZaveModel.ZDFSource.Source;
-using ZaveSourceAdapter.ZDFSource;
+using ZaveGlobalSettings.Data_Structures;
+using ZaveController.Global_Settings;
+using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionData;
+using ZaveController.ZDFSource;
 
 namespace FirstWordAddIn
 {
@@ -81,13 +81,10 @@ namespace FirstWordAddIn
             
         }
 
-        private void OnWordFired(ZaveSourceAdapter.Data_Structures.SelectionData selDat)
+        private void OnWordFired(ZaveGlobalSettings.Data_Structures.SelectionData selDat)
         {
 
-
-            SourceFactory  wsf = new WordSourceFactory();
-            ZaveSrc src = wsf.produceSource(selDat);
-            
+            ZaveSrc src = selDat;           
 
 
             EventHandler<WordEventArgs> handler = WordFired;

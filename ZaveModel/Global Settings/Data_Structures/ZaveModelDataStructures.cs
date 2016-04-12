@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZaveModel.Factories
+namespace ZaveModel.Global_Settings.Data_Structures
 {
-    class ZDFEntryFactory
+    class ZaveModelDataStructures
     {
-
     }
+
 }
