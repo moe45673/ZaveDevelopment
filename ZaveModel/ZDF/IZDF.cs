@@ -8,7 +8,7 @@ namespace ZaveModel.ZDF
 {
     public interface IZDF
     {
-        
+        void Add(ZaveModel.ZDFEntry.IZDFEntry zEntry);
 
     }
 }

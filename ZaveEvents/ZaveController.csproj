@@ -50,6 +50,10 @@
       <Project>{0f1f4a8f-44fd-4537-88a1-21034ac4335a}</Project>
       <Name>ZaveGlobalSettings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
+      <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
+      <Name>ZaveModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZaveMVVM\ZaveViewModel.csproj">
       <Project>{61e09293-709d-447d-bc4c-306e3118f20c}</Project>
       <Name>ZaveViewModel</Name>

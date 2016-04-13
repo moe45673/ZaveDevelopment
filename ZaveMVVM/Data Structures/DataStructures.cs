@@ -10,9 +10,9 @@ namespace ZaveViewModel.Data_Structures
 {
     public enum SrcType { WORD, EXCEL }
 
-    public struct SelectionData
+    public struct SelectionState
     {
-        public SelectionData(string name = "", string page = "", string text = "", SrcType src = 0)
+        public SelectionState(string name = "", string page = "", string text = "", SrcType src = 0)
         {
             SelectionPage = page;
             SelectionDocName = name;

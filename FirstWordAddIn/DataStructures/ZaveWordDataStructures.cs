@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
-using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionData;
+using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
 using ZaveController.ZDFSource;
 
 namespace FirstWordAddIn.DataStructures
@@ -25,17 +25,17 @@ namespace FirstWordAddIn.DataStructures
 
     }
 
-    public class WordSelectionData
+    public class WordSelectionState
     {
 
         ZaveGlobalSettings.Data_Structures.SrcType srcType { get; set; }
 
-        public WordSelectionData(string name, string page, string text)
+        public WordSelectionState(string name, string page, string text)
         {
             srcType = ZaveGlobalSettings.Data_Structures.SrcType.WORD;
         }
 
-        ~WordSelectionData()
+        ~WordSelectionState()
         {
 
         }

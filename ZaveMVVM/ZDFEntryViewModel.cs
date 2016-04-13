@@ -8,6 +8,7 @@ using ZaveModel.ZDF;
 using ZaveModel.ZDFSource;
 //using ZaveModel.Factories.ZDFEntry;
 using ZaveGlobalSettings.Data_Structures;
+//using Zave
 
 namespace ZaveViewModel.ZDFEntryViewModel
 {
@@ -15,21 +16,22 @@ namespace ZaveViewModel.ZDFEntryViewModel
     {
         //public static ZDFEntry.ZDFEntry ZdfEntry { get; set; }
 
-        private ZaveModel.IZDFEntry zdfEntry;
+        private ZaveModel.ZDFEntry.IZDFEntry zdfEntry = new ZaveModel.ZDFEntry.ZDFEntry();
 
         public ZDFEntryViewModel()
         {
-            using (DefaultZDFEntryFactory dzdff = new DefaultZDFEntryFactory())
-            {
-                try
-                {
-                    zdfEntry = dzdff.produceZDFEntry("default");
-                }
-                catch (Exception ex)
-                {
-                    System.Windows.Forms.MessageBox.Show(ex.Message);
-                }
-            }
+            //using (DefaultZDFEntryHAandler dzdff = new DefaultZDFEntryHandler())
+            //{
+            //    try
+            //    {
+            //        zdfEntry = dzdff.produceZDFEntry("default");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        System.Windows.Forms.MessageBox.Show(ex.Message);
+            //    }
+            //}
+            
         }
 
         public String TxtDocname{

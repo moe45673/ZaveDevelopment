@@ -9,9 +9,9 @@ namespace ZaveController.Data_Structures
 {
     public class SrcEventArgs : EventArgs
     {
-        public SelectionData zSrc { get; set; }
+        public SelectionState zSrc { get; set; }
 
-        public SrcEventArgs(SelectionData src)
+        public SrcEventArgs(SelectionState src)
             : base()
         {
             zSrc = src;

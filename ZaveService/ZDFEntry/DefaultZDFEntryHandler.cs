@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using ZaveModel.ZDF;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace ZaveService.ZDFEntry
 {
@@ -12,7 +13,7 @@ namespace ZaveService.ZDFEntry
     {
         
 
-        public DefaultZDFEntryHandler(ModelStateDictionary modelState, IZDF repository) : base(modelState, repository)
+        public DefaultZDFEntryHandler(SelectionState modelState, IZDF repository) : base(modelState, repository)
         {
             
         }

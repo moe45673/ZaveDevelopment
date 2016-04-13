@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Source = ZaveGlobalSettings.Data_Structures.SelectionData;
+using Source = ZaveGlobalSettings.Data_Structures.SelectionState;
 using System.ComponentModel;
 
 namespace ZaveController.ZDFSource
@@ -16,7 +16,7 @@ namespace ZaveController.ZDFSource
         private bool disposed = false;
         
 
-        public Source produceSource(ZaveGlobalSettings.Data_Structures.SelectionData selDat)
+        public Source produceSource(ZaveGlobalSettings.Data_Structures.SelectionState selDat)
         {
             Source Src = createSrc(selDat.SelectionDocName, selDat.SelectionPage, selDat.SelectionText);
             

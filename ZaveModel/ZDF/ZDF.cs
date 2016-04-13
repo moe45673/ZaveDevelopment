@@ -20,7 +20,18 @@ namespace ZaveModel.ZDF
 
         public IEnumerable<IZDFEntry> ListEntries()
         {
+            return EntryList.ToList<ZDFEntry.IZDFEntry>();
+        }
 
+        public void Add(IZDFEntry zEntry)
+        {
+            try {
+                EntryList.Add(zEntry);
+            }
+            catch(ArgumentException ae)
+            {
+                throw ae;
+            }
         }
     }
 }

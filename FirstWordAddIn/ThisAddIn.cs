@@ -10,7 +10,7 @@ using WordTools = Microsoft.Office.Tools.Word;
 using FirstWordAddIn.DataStructures;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveController.Global_Settings;
-using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionData;
+using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
 using ZaveController.ZDFSource;
 
 namespace FirstWordAddIn
@@ -63,7 +63,7 @@ namespace FirstWordAddIn
                 
                 if (e.Selection.Text.Length >= 2)
                 {
-                    SelectionData selDat = new SelectionData();
+                    SelectionState selDat = new SelectionState();
                     selDat.SelectionDocName = e.Selection.Application.ActiveDocument.Name;
                     selDat.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString();
                     selDat.SelectionText = e.Selection.Text;
@@ -81,7 +81,7 @@ namespace FirstWordAddIn
             
         }
 
-        private void OnWordFired(ZaveGlobalSettings.Data_Structures.SelectionData selDat)
+        private void OnWordFired(ZaveGlobalSettings.Data_Structures.SelectionState selDat)
         {
 
             ZaveSrc src = selDat;           
