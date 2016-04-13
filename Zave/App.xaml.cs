@@ -23,7 +23,7 @@ namespace Zave
         /// <summary>
         /// Prototype hardcoded ZDF for early version
         /// </summary>
-        public ZaveModel.ZDF.ZDF activeZDF { get; set; }
+        public ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel activeZDFEntry { get; set; }
 
         
 
@@ -48,7 +48,7 @@ namespace Zave
         public void Init()
         {
             
-            activeZDF = new ZaveModel.ZDF.ZDF();
+            activeZDFEntry = new ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel();
         }
 
     }//end App

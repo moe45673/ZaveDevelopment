@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zave"
-        xmlns:custns="clr-namespace:ZaveMVVM.ZDFEntryViewModel;assembly=ZaveMVVM"
+        xmlns:custns="clr-namespace:ZaveViewModel.ZDFEntryViewModel;assembly=ZaveMVVM"
         mc:Ignorable="d"
         Title="ZDFEntry" Height="350" Width="525">
     <Window.Resources>
-       <!-- <custns:ZDFEntryViewModel
-            x:Key="zdfEntryVM" />-->
+        <custns:ZDFEntryViewModel
+            x:Key="zdfEntryVM" 
+            TxtDocname="" TxtDocPage="" TxtDocText=""/>
+        
             
     </Window.Resources>
     <Grid>
@@ -17,13 +19,14 @@
         <Label x:Name="docPageLbl" Content="Page Number" HorizontalAlignment="Left" Margin="205,136,0,0" VerticalAlignment="Top"/>
         <Label x:Name="docTextLbl" Content="Highlighted Text" HorizontalAlignment="Left" Margin="205,221,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="docNameTxtBx" HorizontalAlignment="Left" Height="23" Margin="166,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" RenderTransformOrigin="-0.34,0.242">
-            <TextBox.CacheMode>
-                <BitmapCache/>
-            </TextBox.CacheMode>
-            <TextBox.BindingGroup>
-                <BindingGroup/>
-            </TextBox.BindingGroup>
+            <TextBox.ContextMenu>
+                <ContextMenu/>
+            </TextBox.ContextMenu>
+            <TextBox.DataContext>
+                <custns:ZDFEntryViewModel/>
+            </TextBox.DataContext>
         </TextBox>
+
         <TextBox x:Name="docPgNmbrTxtBx" HorizontalAlignment="Left" Height="18" Margin="205,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77" RenderTransformOrigin="-0.079,0.14"/>
         <TextBox x:Name="docTextTxtBx1" HorizontalAlignment="Left" Height="32" Margin="30,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="394"/>
 

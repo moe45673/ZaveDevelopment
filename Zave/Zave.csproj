@@ -104,9 +104,9 @@
       <Project>{0f1f4a8f-44fd-4537-88a1-21034ac4335a}</Project>
       <Name>ZaveGlobalSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ZaveMVVM\ZaveMVVM.csproj">
+    <ProjectReference Include="..\ZaveMVVM\ZaveViewModel.csproj">
       <Project>{61e09293-709d-447d-bc4c-306e3118f20c}</Project>
-      <Name>ZaveMVVM</Name>
+      <Name>ZaveViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
