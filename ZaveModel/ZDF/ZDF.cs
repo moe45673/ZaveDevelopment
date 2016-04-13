@@ -7,15 +7,20 @@ using ZaveModel.ZDFEntry;
 
 namespace ZaveModel.ZDF
 {
-    public class ZDF
+    public class ZDF : IZDF
     {
         public ZDF()
         {
             isActive = true;
             
-            EntryList = new List<ZDFEntry.ZDFEntry>();
+            EntryList = new List<ZDFEntry.IZDFEntry>();
         }
         public bool isActive { get; set; }
-        public List<ZDFEntry.ZDFEntry> EntryList { get; set; }
+        public List<ZDFEntry.IZDFEntry> EntryList { get; set; }
+
+        public IEnumerable<IZDFEntry> ListEntries()
+        {
+
+        }
     }
 }

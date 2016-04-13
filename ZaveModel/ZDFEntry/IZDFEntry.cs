@@ -14,7 +14,7 @@ using ZaveModel.GlobalSettings;
 using ZaveModel.ZDFSource;
 
 
-namespace ZaveModel {
+namespace ZaveModel.ZDFEntry {
 	public interface IZDFEntry  {
 
 
@@ -36,6 +36,8 @@ namespace ZaveModel {
             get;
             set;
         }
+
+        
 
 	}//end IZDFEntry
 

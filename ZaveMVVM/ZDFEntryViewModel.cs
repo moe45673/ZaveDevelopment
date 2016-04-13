@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using ZaveModel;
 using ZaveModel.ZDF;
 using ZaveModel.ZDFSource;
-using ZaveModel.Factories.ZDFEntry;
+//using ZaveModel.Factories.ZDFEntry;
 using ZaveGlobalSettings.Data_Structures;
 
-namespace ZaveMVVM.ZDFEntryViewModel
+namespace ZaveViewModel.ZDFEntryViewModel
 {
     public class ZDFEntryViewModel
     {

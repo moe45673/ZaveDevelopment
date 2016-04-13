@@ -16,7 +16,7 @@ namespace ZaveModel.ZDFList
             zdfList = new List<ZDF.ZDF>();
         }
 
-        public bool CreateZdf(ZDF.ZDF zdf)
+        public bool CreateZDFList(ZDF.ZDF zdf)
         {
             try
             {
@@ -29,6 +29,11 @@ namespace ZaveModel.ZDFList
                 return false;
             }
 
+        }
+
+        public IEnumerable<ZDF.ZDF> ListZDFs()
+        {
+            return zdfList;
         }
     }
 }

@@ -44,6 +44,8 @@ namespace ZaveModel.ZDFSource {
 			get;
 			set;
 		}
+
+
 	}//end ISource
 
 }//end namespace ZDFEntry

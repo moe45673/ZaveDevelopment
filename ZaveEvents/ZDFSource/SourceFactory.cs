@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZaveModel.ZDFSource;
+using Source = ZaveGlobalSettings.Data_Structures.SelectionData;
 using System.ComponentModel;
 
 namespace ZaveController.ZDFSource

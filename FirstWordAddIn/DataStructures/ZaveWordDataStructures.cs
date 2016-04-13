@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionData;
-using ZaveModel;
 using ZaveController.ZDFSource;
 
 namespace FirstWordAddIn.DataStructures

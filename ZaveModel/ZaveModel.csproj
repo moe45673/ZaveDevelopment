@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\ZDFEntry\DefaultZDFEntry.cs" />
-    <Compile Include="Factories\ZDFEntry\ZDFEntryFactory.cs" />
     <Compile Include="Global Settings\ColorCategory.cs" />
     <Compile Include="Global Settings\Data_Structures\ZaveModelDataStructures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,10 +49,14 @@
     <Compile Include="ZDFEntry\ZDFEntry.cs" />
     <Compile Include="ZDFList\IZDFList.cs" />
     <Compile Include="ZDFList\ZDFList.cs" />
+    <Compile Include="ZDF\IZDF.cs" />
     <Compile Include="ZDF\ZDF.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ZDFList\DevNotes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Factories\ZDFEntry\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
