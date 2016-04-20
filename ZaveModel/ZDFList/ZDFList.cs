@@ -9,14 +9,14 @@ namespace ZaveModel.ZDFList
     public class ZDFList : IZDFList
     {
         //Needs to be changed to Linq code when data access layer is implemented
-        private List<ZDF.ZDF> zdfList { get; set; }
+        private List<ZDF.ZDFSingleton> zdfList { get; set; }
 
         public ZDFList()
         {
-            zdfList = new List<ZDF.ZDF>();
+            zdfList = new List<ZDF.ZDFSingleton>();
         }
 
-        public bool CreateZDFList(ZDF.ZDF zdf)
+        public bool CreateZDFList(ZDF.ZDFSingleton zdf)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace ZaveModel.ZDFList
 
         }
 
-        public IEnumerable<ZDF.ZDF> ListZDFs()
+        public IEnumerable<ZDF.ZDFSingleton> ListZDFs()
         {
             return zdfList;
         }

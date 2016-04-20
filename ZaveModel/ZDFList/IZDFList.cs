@@ -8,7 +8,7 @@ namespace ZaveModel.ZDFList
 {
     public interface IZDFList
     {
-        bool CreateZDFList(ZDF.ZDF zdf);
-        IEnumerable<ZDF.ZDF> ListZDFs();
+        bool CreateZDFList(ZDF.ZDFSingleton zdf);
+        IEnumerable<ZDF.ZDFSingleton> ListZDFs();
     }
 }

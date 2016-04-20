@@ -63,12 +63,12 @@ namespace FirstWordAddIn
                 
                 if (e.Selection.Text.Length >= 2)
                 {
-                    SelectionState selDat = new SelectionState();
-                    selDat.SelectionDocName = e.Selection.Application.ActiveDocument.Name;
-                    selDat.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString();
-                    selDat.SelectionText = e.Selection.Text;
-                    selDat.srcType = SrcType.WORD;
-                    OnWordFired(selDat);
+                    SelectionState selState = new SelectionState();
+                    selState.SelectionDocName = e.Selection.Application.ActiveDocument.Name;
+                    selState.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString();
+                    selState.SelectionText = e.Selection.Text;
+                    selState.srcType = SrcType.WORD;
+                    OnWordFired(selState);
                     //System.Windows.Forms.MessageBox.Show("Thingie Fired");
                 }
 

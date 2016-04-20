@@ -10,12 +10,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.ComponentModel;
 using ZaveModel.GlobalSettings;
 using ZaveModel.ZDFSource;
 
 
 namespace ZaveModel.ZDFEntry {
-	public interface IZDFEntry  {
+	public interface IZDFEntry {
+
+        event EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs> PropertyChanged;
+
 
 
         ColorCategory HColor
@@ -24,7 +28,7 @@ namespace ZaveModel.ZDFEntry {
             set;
         }
 
-        Source Source
+        ZaveGlobalSettings.Data_Structures.SelectionState Source
         {
             get;
             set;
@@ -36,6 +40,7 @@ namespace ZaveModel.ZDFEntry {
             get;
             set;
         }
+        
 
         
 

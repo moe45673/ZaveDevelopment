@@ -24,6 +24,7 @@ namespace ZaveGlobalSettings.Data_Structures
             SelectionPage = page;
             SelectionText = text;
             srcType = src;
+            IsValid = true;
         }
         public String SelectionPage { get; set; }
         public String SelectionDocName { get; set; }
@@ -53,6 +54,26 @@ namespace ZaveGlobalSettings.Data_Structures
 
 
 
+    }
+
+    public class ModelEventArgs : EventArgs
+    {
+        public ModelEventArgs(string description, SelectionState selState)
+        {
+            _selState = selState;
+            _description = description;
+        }
+        private SelectionState _selState;
+        private string _description;
+        public SelectionState SelState
+        {
+            get { return _selState; }
+        }
+
+        public string Description
+        {
+            get;
+        }
     }
 
   

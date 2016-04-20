@@ -26,4 +26,26 @@ namespace ZaveModel.ZDFEntry.Comment {
 		int Edit(string newComm);
 	}//end IEntryComment
 
+    public class EntryComment : IEntryComment
+    {
+
+        public EntryComment(string commText = "") : base()
+        {
+            CommentText = commText;
+        }
+        public string CommentText
+        {
+            get;
+            set;
+        
+        }
+
+        public int Edit(string newComm)
+        {
+            CommentText = newComm;
+            return 1;
+        }
+    }
+
 }//end namespace ZDFEntry
+

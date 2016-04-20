@@ -55,7 +55,12 @@
   <ItemGroup>
     <Content Include="ZDFList\DevNotes.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ZaveGlobalSettings\ZaveGlobalSettings.csproj">
+      <Project>{0f1f4a8f-44fd-4537-88a1-21034ac4335a}</Project>
+      <Name>ZaveGlobalSettings</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

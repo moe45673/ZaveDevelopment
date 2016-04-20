@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ZaveViewModel.ZDFEntryViewModel;
+
 
 namespace Zave
 {
@@ -32,23 +32,10 @@ namespace Zave
             
         }
 
-        private void displayUI(ZDFEntryViewModel zaveEntry)
-        {
-            docNameTxtBx.Text = zaveEntry.TxtDocname;
-            docPgNmbrTxtBx.Text = zaveEntry.TxtDocPage;
-            docTextTxtBx1.Text = zaveEntry.TxtDocText;
-        }
-
         
 
-        
-
-        
-
-        
-
-
-        
         
     }
+
+    
 }

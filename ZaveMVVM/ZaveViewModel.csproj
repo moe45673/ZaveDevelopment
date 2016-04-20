@@ -7,8 +7,8 @@
     <ProjectGuid>{61E09293-709D-447D-BC4C-306E3118F20C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZaveMVVM</RootNamespace>
-    <AssemblyName>ZaveMVVM</AssemblyName>
+    <RootNamespace>ZaveViewModel</RootNamespace>
+    <AssemblyName>ZaveViewModel</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -33,6 +33,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />

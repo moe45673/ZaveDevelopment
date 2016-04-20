@@ -4,16 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZaveModel.ZDFEntry;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace ZaveModel.ZDF
 {
-    public class ZDF : IZDF
+    public sealed class ZDFSingleton : IZDF
     {
-        public ZDF()
+        public static event EventHandler<ModelEventArgs> PropertyChanged;
+
+        private void OnPropertyChanged(string description, ZDFEntry.IZDFEntry info)
+        {
+            SelectionState selState = info.Source;
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new ModelEventArgs(description, selState));
+        }
+
+        private static ZDFSingleton instance;
+
+        private ZDFSingleton()
         {
             isActive = true;
             
             EntryList = new List<ZDFEntry.IZDFEntry>();
+        }
+
+        public static ZDFSingleton Instance
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = new ZDFSingleton();
+                }
+                return instance;
+            }
         }
         public bool isActive { get; set; }
         public List<ZDFEntry.IZDFEntry> EntryList { get; set; }
@@ -27,6 +52,7 @@ namespace ZaveModel.ZDF
         {
             try {
                 EntryList.Add(zEntry);
+                OnPropertyChanged(zEntry.Title, zEntry);
             }
             catch(ArgumentException ae)
             {

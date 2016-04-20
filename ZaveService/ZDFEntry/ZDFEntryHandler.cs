@@ -20,7 +20,7 @@ namespace ZaveService.ZDFEntry
 
         public bool ValidateZDFEntry(ZaveModel.ZDFEntry.IZDFEntry entryToValidate)
         {
-            if (entryToValidate.Source.DocText.Trim().Length == 0)
+            if (entryToValidate.Source.SelectionDocName.Trim().Length == 0)
             {
                 _modelState.AddError("Highlighted Text", "Highlighted Text is required");
             }

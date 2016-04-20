@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZaveController</RootNamespace>
-    <AssemblyName>ZaveEvents</AssemblyName>
+    <AssemblyName>ZaveController</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,9 +29,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,6 +67,10 @@
     <ProjectReference Include="..\ZaveService\ZaveService.csproj">
       <Project>{7564b53b-b138-4e6f-8d37-acdd1e51f787}</Project>
       <Name>ZaveService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zave\Zave.csproj">
+      <Project>{4e456e7f-fa26-4d6f-a99a-99dc0d481982}</Project>
+      <Name>Zave</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -3,72 +3,152 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.ComponentModel;
 using ZaveModel;
-using ZaveModel.ZDF;
-using ZaveModel.ZDFSource;
+using ZaveModel.ZDFEntry;
+
 //using ZaveModel.Factories.ZDFEntry;
 using ZaveGlobalSettings.Data_Structures;
 //using Zave
 
 namespace ZaveViewModel.ZDFEntryViewModel
 {
-    public class ZDFEntryViewModel
+    //using activeZDF = ZaveModel.ZDF.ZDFSingleton;
+    public class ZDFEntryViewModel : INotifyPropertyChanged
     {
         //public static ZDFEntry.ZDFEntry ZdfEntry { get; set; }
+        
 
-        private ZaveModel.ZDFEntry.IZDFEntry zdfEntry = new ZaveModel.ZDFEntry.ZDFEntry();
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private ZaveModel.ZDF.ZDFSingleton activeZDF;
+
+        private IZDFEntry zdfEntry;
+
+        //public ZaveModel.ZDF.IZDF ActiveZDF
+        //{
+        //    get { return activeZDF; }
+        //    set
+        //    {
+        //        activeZDF = value;
+                
+        //        this.NotifyPropertyChanged("ActiveZDF");
+        //    }
+        //}
+
+        //public IZDFEntry ZDFEntry
+        //{
+        //    get { return zdfEntry; }
+        //    set
+        //    {
+        //        if (zdfEntry != null)
+        //            zdfEntry.PropertyChanged -= ModelPropertyChanged;
+
+        //        if (value != null)
+        //        {
+        //            value.PropertyChanged += ModelPropertyChanged;
+        //        }
+
+        //        zdfEntry = value;
+        //        NotifyPropertyChanged("Model");
+        //    }
+        //}
+
+        private void ModelPropertyChanged(object sender, ModelEventArgs e)
+        {
+            zdfEntry = activeZDF.EntryList.Find(x => x.Title == e.Description);
+            UpdateGui(e.SelState);
+        }
+
+        public void UpdateGui(SelectionState selState)
+        {
+            TxtDocName = selState.SelectionDocName;
+            TxtDocPage = selState.SelectionPage;
+            TxtDocText = selState.SelectionText;
+        }
+
+        //public ZDFEntryViewModel(ZaveModel.ZDF.IZDF zdf, IZDFEntry zdfEntry = null) : base()
+        //{
+
+
+
+        //   ActiveZDF = zdf;
+        //    if (this.zdfEntry != null)
+        //    {
+        //        ActiveZDF.Add(zdfEntry);
+        //        this.zdfEntry = zdfEntry;
+        //    }
+
+        //    else
+        //        this.zdfEntry = activeZDF.EntryList[activeZDF.EntryList.Count - 1];
+
+
+        //}
 
         public ZDFEntryViewModel()
         {
-            //using (DefaultZDFEntryHAandler dzdff = new DefaultZDFEntryHandler())
-            //{
-            //    try
-            //    {
-            //        zdfEntry = dzdff.produceZDFEntry("default");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        System.Windows.Forms.MessageBox.Show(ex.Message);
-            //    }
-            //}
+            this.zdfEntry = new ZDFEntry();
+
+            activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+
+            ZaveModel.ZDF.ZDFSingleton.PropertyChanged += ModelPropertyChanged;
+            activeZDF.Add(zdfEntry);
             
+
         }
 
-        public String TxtDocname{
-            get{return zdfEntry.Source.DocName;}
+        
+
+        //public void ShowMessage(object obj)
+        //{
+            
+
+        //}
+        
+        
+
+        public String TxtDocName{
+            get{return zdfEntry.Source.SelectionDocName; }
             set
             {
-                zdfEntry.Source.DocName = value;
+
+                
+                zdfEntry.Source.SelectionDocName = value;
+
+                NotifyPropertyChanged("TxtDocName");
+                //System.Windows.Forms.MessageBox.Show(value.ToString());
+               
+                
             }
         
         }
 
         public String TxtDocPage
         {
-            get { return zdfEntry.Source.DocPage; }
+            get { return zdfEntry.Source.SelectionPage; }
             set
             {
-                zdfEntry.Source.DocPage = value;
+                zdfEntry.Source.SelectionPage = value;
             }
 
         }
 
         public String TxtDocText
         {
-            get { return zdfEntry.Source.DocText; }
+            get { return zdfEntry.Source.SelectionText; }
             set
             {
-                zdfEntry.Source.DocText = value;
+                zdfEntry.Source.SelectionText = value;
             }
         }
-        
-        public void setTextBoxes(ZaveModel.ZDFSource.Source zsrc)
+
+        private void NotifyPropertyChanged(String info)
         {
-            
-            //zdfEntry.
-            //zsrc.DocName;
-            //zsrc.DocPage;
-            //zsrc.DocText;
+            var handler = PropertyChanged;
+            if(handler != null)
+            handler(this, new PropertyChangedEventArgs(info));
+
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.IO;
 using System.ComponentModel;
 using System.Linq;
+using ZaveGlobalSettings.Data_Structures;
 using ZaveModel.GlobalSettings;
 using ZaveModel.ZDFSource;
 
@@ -23,15 +24,25 @@ namespace ZaveModel.ZDFEntry {
     {
 
 
+        public event EventHandler<ModelEventArgs> PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string description, SelectionState info)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new ModelEventArgs(description, info));
+
+        }
 
         public List<Comment.IEntryComment> m_IEntryComment;
 
         public ZDFEntry()
         {
-
+            m_IEntryComment = new List<Comment.IEntryComment>();
+            Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
         }
 
-        public ZDFEntry(Source src)
+        public ZDFEntry(ZaveGlobalSettings.Data_Structures.SelectionState src) : this()
         {
             Source = src;
         }
@@ -42,17 +53,27 @@ namespace ZaveModel.ZDFEntry {
         }
 
 
-
+        private ColorCategory hColor;
         public ColorCategory HColor
         {
-            get;
-            set;
+            get { return hColor; }
+            set
+            {
+                hColor = value;
+                OnPropertyChanged("HColor", Source);
+            }
+
         }
 
-        public Source Source
+        private ZaveGlobalSettings.Data_Structures.SelectionState _source;
+        public ZaveGlobalSettings.Data_Structures.SelectionState Source
         {
-            get;
-            set;
+            get { return _source; }
+            set
+            {
+                _source = value;
+                OnPropertyChanged("Source", Source);
+            }
         }
 
 
