@@ -9,6 +9,7 @@ using ZaveController.ZDFSource;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveService.ZDFEntry;
 using ZaveModel;
+using System.IO;
 //using ZaveMo
 
 namespace ZaveController.Global_Settings
@@ -42,13 +43,16 @@ namespace ZaveController.Global_Settings
         public void SrcHighlightEventHandler(Object o, Data_Structures.SrcEventArgs e)
         {
 
+
+
             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
             //zdfEntryHandler = new ZaveService.ZDFEntry.DefaultZDFEntryHandler(e.zSrc, activeZDF);
             //zdfEntryHandler.CreateZDFEntry(new ZaveModel.ZDFEntry.ZDFEntry(e.zSrc));
             entry.Source = e.zSrc;
+           
             activeZDF.Add(entry);
 
-
+            
             //zevm.TxtDocName = activeZDF.EntryList[activeZDF.EntryList.Count - 1].Source.SelectionDocName;
             
             

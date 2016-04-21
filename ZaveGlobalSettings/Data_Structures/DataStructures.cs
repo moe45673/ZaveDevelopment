@@ -18,7 +18,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
     
-        public SelectionState(string name = "", string page = "", string text = "", SrcType src = 0)
+        public SelectionState(string name = "", string page = "", string text = "", SrcType src = SrcType.WORD)
         {
             SelectionDocName = name;
             SelectionPage = page;
@@ -35,7 +35,7 @@ namespace ZaveGlobalSettings.Data_Structures
 
         public bool IsValid { get; set; }
 
-        public List<SelectionStateError> ErrorCollection { get; }
+        public List<SelectionStateError> ErrorCollection { get; private set; }
 
         public void AddError(string property, string message)
         {
@@ -64,7 +64,9 @@ namespace ZaveGlobalSettings.Data_Structures
             _description = description;
         }
         private SelectionState _selState;
+
         private string _description;
+
         public SelectionState SelState
         {
             get { return _selState; }
@@ -73,6 +75,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public string Description
         {
             get;
+            private set;
         }
     }
 
@@ -81,8 +84,8 @@ namespace ZaveGlobalSettings.Data_Structures
 
     public class SelectionStateError
     {
-        public String ErrorMessage { get; }
-        public Exception Exception { get; }
+        public String ErrorMessage { get; private set; }
+        public Exception Exception { get; private set; }
 
         public SelectionStateError(Exception ex = null, String msg = "") : base()
         {

@@ -58,6 +58,7 @@ namespace ZaveViewModel.ZDFEntryViewModel
         private void ModelPropertyChanged(object sender, ModelEventArgs e)
         {
             zdfEntry = activeZDF.EntryList.Find(x => x.Title == e.Description);
+            System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
             UpdateGui(e.SelState);
         }
 
@@ -66,6 +67,7 @@ namespace ZaveViewModel.ZDFEntryViewModel
             TxtDocName = selState.SelectionDocName;
             TxtDocPage = selState.SelectionPage;
             TxtDocText = selState.SelectionText;
+            System.Windows.Forms.MessageBox.Show(TxtDocText);
         }
 
         //public ZDFEntryViewModel(ZaveModel.ZDF.IZDF zdf, IZDFEntry zdfEntry = null) : base()
@@ -93,7 +95,10 @@ namespace ZaveViewModel.ZDFEntryViewModel
             activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
             ZaveModel.ZDF.ZDFSingleton.PropertyChanged += ModelPropertyChanged;
-            activeZDF.Add(zdfEntry);
+            
+                System.Windows.Forms.MessageBox.Show("It Works!");
+            
+            //activeZDF.Add(zdfEntry);
             
 
         }

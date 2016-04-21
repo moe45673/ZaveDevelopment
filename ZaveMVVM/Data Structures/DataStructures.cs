@@ -15,15 +15,22 @@ namespace ZaveViewModel.Data_Structures
     {
         public SelectionState(string name = "", string page = "", string text = "", SrcType src = 0)
         {
-            SelectionPage = page;
-            SelectionDocName = name;
-            SelectionText = text;
-            srcType = src;
+            _selectionPage = page;
+            _selectionDocName = name;
+            
+            
+            _selectionText = text;
+            _srcType = src;
         }
-        public String SelectionPage { get; set; }
-        public String SelectionDocName { get; set; }
-        public String SelectionText { get; set; }
-        public SrcType srcType { get; set; }
+
+        private String _selectionPage;
+        public String SelectionPage { get { return _selectionPage; } set { _selectionPage = value; } }
+        private String _selectionDocName;
+        public String SelectionDocName { get{return _selectionDocName;} set{_selectionDocName = value;} }
+        private String _selectionText;
+        public String SelectionText { get { return _selectionText; } set { _selectionText = value; } }
+        private SrcType _srcType;
+        public SrcType SrcType { get { return _srcType; } set { _srcType = value; } }
 
     }
 

@@ -51,7 +51,7 @@ namespace ZaveModel.ZDF
         public void Add(IZDFEntry zEntry)
         {
             try {
-                EntryList.Add(zEntry);
+                EntryList.Add(zEntry);                
                 OnPropertyChanged(zEntry.Title, zEntry);
             }
             catch(ArgumentException ae)
