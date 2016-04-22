@@ -94,13 +94,21 @@ namespace ZaveViewModel.ZDFEntryViewModel
 
             activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
-            ZaveModel.ZDF.ZDFSingleton.PropertyChanged += ModelPropertyChanged;
             
-                System.Windows.Forms.MessageBox.Show("It Works!");
+            activeZDF.ModelPropertyChanged += new EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs>(this.ModelPropertyChanged);
+            
+            
+            System.Windows.Forms.MessageBox.Show("ViewModelOpened!");
             
             //activeZDF.Add(zdfEntry);
             
 
+        }
+
+        ~ZDFEntryViewModel()
+        {
+            activeZDF.ModelPropertyChanged -= new EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs>(this.ModelPropertyChanged);
+            System.Windows.Forms.MessageBox.Show("ViewModel Closed!");
         }
 
         

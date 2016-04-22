@@ -10,14 +10,20 @@ namespace ZaveModel.ZDF
 {
     public sealed class ZDFSingleton : IZDF
     {
-        public static event EventHandler<ModelEventArgs> PropertyChanged;
+
+        public event EventHandler<ModelEventArgs> ModelPropertyChanged;
+        
 
         private void OnPropertyChanged(string description, ZDFEntry.IZDFEntry info)
         {
             SelectionState selState = info.Source;
-            var handler = PropertyChanged;
+            var handler = ModelPropertyChanged;
+            System.Windows.Forms.MessageBox.Show("Inside Event!");
             if (handler != null)
+            {
+                System.Windows.Forms.MessageBox.Show("Event Fired!");
                 handler(this, new ModelEventArgs(description, selState));
+            }
         }
 
         private static ZDFSingleton instance;
