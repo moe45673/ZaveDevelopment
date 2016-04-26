@@ -186,13 +186,13 @@
     <None Include="ZaveWordAddin_1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ZaveEvents\ZaveController.csproj">
-      <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
-      <Name>ZaveController</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZaveGlobalSettings\ZaveGlobalSettings.csproj">
       <Project>{0f1f4a8f-44fd-4537-88a1-21034ac4335a}</Project>
       <Name>ZaveGlobalSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
+      <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
+      <Name>ZaveModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

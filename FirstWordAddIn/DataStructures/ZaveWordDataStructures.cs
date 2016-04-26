@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
-using ZaveController.ZDFSource;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace FirstWordAddIn.DataStructures
 {
 
 
-    public class WordEventArgs : ZaveController.Data_Structures.SrcEventArgs
+    public class WordEventArgs : ZaveGlobalSettings.Data_Structures.SrcEventArgs
     {
 
         

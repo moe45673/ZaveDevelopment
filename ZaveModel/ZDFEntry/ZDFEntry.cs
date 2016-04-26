@@ -60,7 +60,7 @@ namespace ZaveModel.ZDFEntry {
             set
             {
                 hColor = value;
-                OnPropertyChanged("HColor", Source);
+                //OnPropertyChanged("HColor", Source);
             }
 
         }
@@ -72,7 +72,7 @@ namespace ZaveModel.ZDFEntry {
             set
             {
                 _source = value;
-                OnPropertyChanged("Source", Source);
+                //OnPropertyChanged("Source", Source);
             }
         }
 

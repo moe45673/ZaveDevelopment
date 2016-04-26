@@ -1,30 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using ZaveModel.ZDFEntry;
 using ZaveGlobalSettings.Data_Structures;
+
+
 
 namespace ZaveModel.ZDF
 {
     public sealed class ZDFSingleton : IZDF
     {
 
-        public event EventHandler<ModelEventArgs> ModelPropertyChanged;
+        public static event EventHandler<ModelEventArgs> ModelPropertyChanged;
         
 
         private void OnPropertyChanged(string description, ZDFEntry.IZDFEntry info)
         {
+            this.VerifyPropertyName(description);
             SelectionState selState = info.Source;
             var handler = ModelPropertyChanged;
+#if DEBUG
             System.Windows.Forms.MessageBox.Show("Inside Event!");
+#endif
             if (handler != null)
             {
+#if DEBUG
                 System.Windows.Forms.MessageBox.Show("Event Fired!");
+#endif
                 handler(this, new ModelEventArgs(description, selState));
             }
         }
+
+        [Conditional("DEBUG")]
+        [DebuggerStepThrough]
+        public void VerifyPropertyName(string propertyName)
+        {
+            // Verify that the property name matches a real,
+            // public, instance property on this object.
+            if (TypeDescriptor.GetProperties(this)[propertyName] == null)
+            {
+                string msg = "Invalid property name: " + propertyName;
+
+                if (this.ThrowOnInvalidPropertyName)
+                    throw new Exception(msg);
+                else
+                    Debug.Fail(msg);
+            }
+        }
+
+        //Needs to be protected virtual with private set
+        private bool ThrowOnInvalidPropertyName { get; set; }
 
         private static ZDFSingleton instance;
 
@@ -47,6 +76,7 @@ namespace ZaveModel.ZDF
             }
         }
         public bool isActive { get; set; }
+        
         public List<ZDFEntry.IZDFEntry> EntryList { get; set; }
 
         public IEnumerable<IZDFEntry> ListEntries()
@@ -58,7 +88,7 @@ namespace ZaveModel.ZDF
         {
             try {
                 EntryList.Add(zEntry);                
-                OnPropertyChanged(zEntry.Title, zEntry);
+                OnPropertyChanged("EntryList", zEntry);
             }
             catch(ArgumentException ae)
             {

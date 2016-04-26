@@ -9,6 +9,7 @@ using ZaveController.ZDFSource;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveService.ZDFEntry;
 using ZaveModel;
+//using ZaveViewModel.Commands;
 using System.IO;
 //using ZaveMo
 
@@ -22,6 +23,7 @@ namespace ZaveController.Global_Settings
 
         public ZaveModel.ZDF.ZDFSingleton activeZDF;
         private static readonly EventInitSingleton instance = new EventInitSingleton();
+        
         public ZDFEntryHandler zdfEntryHandler { get; set; }
         
 
@@ -48,9 +50,13 @@ namespace ZaveController.Global_Settings
             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
             //zdfEntryHandler = new ZaveService.ZDFEntry.DefaultZDFEntryHandler(e.zSrc, activeZDF);
             //zdfEntryHandler.CreateZDFEntry(new ZaveModel.ZDFEntry.ZDFEntry(e.zSrc));
-            entry.Source = e.zSrc;
+//            entry.Source = e.zSrc;
+
+//            _saveZDFEntryCommand = new RelayCommand(param => SaveZDFEntry(entry)
+//, param => (entry != null));
+
            
-            activeZDF.Add(entry);
+           // activeZDF.Add(entry);
 
             
             //zevm.TxtDocName = activeZDF.EntryList[activeZDF.EntryList.Count - 1].Source.SelectionDocName;
@@ -58,6 +64,8 @@ namespace ZaveController.Global_Settings
             
             
         }
+
+        
 
 
     }

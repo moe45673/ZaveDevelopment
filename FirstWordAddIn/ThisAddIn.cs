@@ -9,9 +9,9 @@ using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
 using FirstWordAddIn.DataStructures;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveController.Global_Settings;
+using ZaveModel.ZDF;
+
 using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
-using ZaveController.ZDFSource;
 
 namespace FirstWordAddIn
 {
@@ -20,7 +20,7 @@ namespace FirstWordAddIn
     {
 
         //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
-        EventInitSingleton eventInit;
+        ZDFSingleton activeZDF = ZDFSingleton.Instance;
 
         public static event EventHandler<WordEventArgs> WordFired;
 
@@ -33,10 +33,24 @@ namespace FirstWordAddIn
             ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
                 new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
 
-            eventInit = EventInitSingleton.Instance;
+
 
             //Tie the highlight to the singleton handler
-            WordFired += new EventHandler<WordEventArgs>(eventInit.SrcHighlightEventHandler);
+            ZDFSingleton.ModelPropertyChanged += new EventHandler<ModelEventArgs>(ZDFSingleton_ModelPropertyChanged);
+        }
+
+        private void ZDFSingleton_ModelPropertyChanged(object sender, ModelEventArgs e)
+        {
+            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
+            //zdfEntryHandler = new ZaveService.ZDFEntry.DefaultZDFEntryHandler(e.zSrc, activeZDF);
+            //zdfEntryHandler.CreateZDFEntry(new ZaveModel.ZDFEntry.ZDFEntry(e.zSrc));
+            entry.Source = e.SelState;
+
+            //            _saveZDFEntryCommand = new RelayCommand(param => SaveZDFEntry(entry)
+            //, param => (entry != null));
+
+
+            activeZDF.Add(entry);
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -68,7 +82,8 @@ namespace FirstWordAddIn
                     selState.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString();
                     selState.SelectionText = e.Selection.Text;
                     selState.srcType = SrcType.WORD;
-                    OnWordFired(selState);
+                    //ModelEventArgs mea = 
+                    ZDFSingleton_ModelPropertyChanged(this, new ModelEventArgs("WordEntry", selState));
                     //System.Windows.Forms.MessageBox.Show("Thingie Fired");
                 }
 

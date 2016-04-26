@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows;
+using ZaveViewModel.ZDFEntryViewModel;
 
 namespace Zave
 {
@@ -33,6 +34,10 @@ namespace Zave
         public App()
         {
             //Init();
+            //MainWindow app = new MainWindow();
+            //ZDFEntryViewModel viewModel = new ZDFEntryViewModel();
+            //app.DataContext = viewModel;
+            //app.Show();
 
 
         }

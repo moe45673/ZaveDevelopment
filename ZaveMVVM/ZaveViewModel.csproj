@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data Structures\DataStructures.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="ZDFEntryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using ZaveModel;
 using ZaveModel.ZDFEntry;
+using ZaveViewModel.Commands;
 
 //using ZaveModel.Factories.ZDFEntry;
 using ZaveGlobalSettings.Data_Structures;
@@ -23,6 +24,9 @@ namespace ZaveViewModel.ZDFEntryViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ZaveModel.ZDF.ZDFSingleton activeZDF;
+
+        private ICommand _getZDFEntryCommand;
+        private ICommand _saveZDFEntryCommand;
 
         private IZDFEntry zdfEntry;
 
@@ -70,6 +74,26 @@ namespace ZaveViewModel.ZDFEntryViewModel
             System.Windows.Forms.MessageBox.Show(TxtDocText);
         }
 
+        public ICommand SaveZDFEntryCommand
+        {
+            get
+            {
+                if (_saveZDFEntryCommand == null)
+                {
+                    _saveZDFEntryCommand = new RelayCommand(
+                        param => SaveZDFEntry(),
+                        param => (zdfEntry != null)
+                    );
+                }
+                return _saveZDFEntryCommand;
+            }
+        }
+
+        private void SaveZDFEntry()
+        {
+            
+        }
+
         //public ZDFEntryViewModel(ZaveModel.ZDF.IZDF zdf, IZDFEntry zdfEntry = null) : base()
         //{
 
@@ -95,31 +119,34 @@ namespace ZaveViewModel.ZDFEntryViewModel
             activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
             
-            activeZDF.ModelPropertyChanged += new EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs>(this.ModelPropertyChanged);
-            
-            
+            ZaveModel.ZDF.ZDFSingleton.ModelPropertyChanged += new EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs>(this.ModelPropertyChanged);
+
+#if DEBUG
             System.Windows.Forms.MessageBox.Show("ViewModelOpened!");
-            
+#endif
+
             //activeZDF.Add(zdfEntry);
-            
+
 
         }
 
         ~ZDFEntryViewModel()
         {
-            activeZDF.ModelPropertyChanged -= new EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs>(this.ModelPropertyChanged);
+            ZaveModel.ZDF.ZDFSingleton.ModelPropertyChanged -= new EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs>(this.ModelPropertyChanged);
+#if DEBUG
             System.Windows.Forms.MessageBox.Show("ViewModel Closed!");
+#endif
         }
 
-        
+
 
         //public void ShowMessage(object obj)
         //{
-            
+
 
         //}
-        
-        
+
+
 
         public String TxtDocName{
             get{return zdfEntry.Source.SelectionDocName; }
