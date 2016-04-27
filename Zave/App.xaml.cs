@@ -47,12 +47,20 @@ namespace Zave
 
         }
 
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            MainWindow wnd = new Zave.MainWindow();
+
+            wnd.Title = "Zave";
+            wnd.Show();
+        }
+
         /// <summary>
         /// Runs Debug code. Right now, creates a ZDF to work with.
         /// </summary>
         //public void Init()
         //{
-            
+
         //    activeZDFEntry = new ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel();
         //}
 

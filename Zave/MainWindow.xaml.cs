@@ -21,13 +21,16 @@ namespace Zave
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel ZdfObj;
         /// <summary>
         /// initializes MainWindow and creates a property reference to itself
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-
+           // ZdfObj = new ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel();
+            //gridEntry.DataContext = ZdfObj;
             
             
         }

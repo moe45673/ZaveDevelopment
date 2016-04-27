@@ -12,48 +12,18 @@ using ZaveGlobalSettings.Data_Structures;
 
 namespace ZaveModel.ZDF
 {
-    public sealed class ZDFSingleton : IZDF
+    public sealed class ZDFSingleton : ObservableObject, IZDF
     {
 
-        public static event EventHandler<ModelEventArgs> ModelPropertyChanged;
+        //public static event PropertyChangedEventHandler ModelPropertyChanged;
         
 
-        private void OnPropertyChanged(string description, ZDFEntry.IZDFEntry info)
-        {
-            this.VerifyPropertyName(description);
-            SelectionState selState = info.Source;
-            var handler = ModelPropertyChanged;
-#if DEBUG
-            System.Windows.Forms.MessageBox.Show("Inside Event!");
-#endif
-            if (handler != null)
-            {
-#if DEBUG
-                System.Windows.Forms.MessageBox.Show("Event Fired!");
-#endif
-                handler(this, new ModelEventArgs(description, selState));
-            }
-        }
+        
 
-        [Conditional("DEBUG")]
-        [DebuggerStepThrough]
-        public void VerifyPropertyName(string propertyName)
-        {
-            // Verify that the property name matches a real,
-            // public, instance property on this object.
-            if (TypeDescriptor.GetProperties(this)[propertyName] == null)
-            {
-                string msg = "Invalid property name: " + propertyName;
-
-                if (this.ThrowOnInvalidPropertyName)
-                    throw new Exception(msg);
-                else
-                    Debug.Fail(msg);
-            }
-        }
+       
 
         //Needs to be protected virtual with private set
-        private bool ThrowOnInvalidPropertyName { get; set; }
+       
 
         private static ZDFSingleton instance;
 
@@ -88,7 +58,7 @@ namespace ZaveModel.ZDF
         {
             try {
                 EntryList.Add(zEntry);                
-                OnPropertyChanged("EntryList", zEntry);
+                OnPropertyChanged("EntryList");
             }
             catch(ArgumentException ae)
             {

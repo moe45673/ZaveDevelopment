@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zave"
-        xmlns:custns="clr-namespace:ZaveViewModel.ZDFEntryViewModel;assembly=ZaveViewModel" 
+        xmlns:custns="clr-namespace:ZaveViewModel.ZDFEntryViewModel;assembly=ZaveViewModel"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="ZDFEntry" Height="350" Width="525">
+        Title="Zave" Height="350" Width="525" SizeToContent="Height">
     <Window.Resources>
         <custns:ZDFEntryViewModel x:Key="ZdfObj" />
     </Window.Resources>
-    <Grid DataContext="{StaticResource ZdfObj}">
+    <Grid Name="gridEntry" DataContext="{Binding Mode=OneWay, Source={StaticResource ZdfObj}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             
@@ -27,9 +28,9 @@
         <Label x:Name="docNameLbl" Grid.Row="0" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docPageLbl" Grid.Row="1" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docTextLbl" Grid.Row="2" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox x:Name="docNameTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding Path=TxtDocName, UpdateSourceTrigger=PropertyChanged}"  />
-        <TextBox x:Name="docPgNmbrTxtBx" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox x:Name="docTextTxtBx1" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docNameTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, diag:PresentationTraceSources.TraceLevel=High, UpdateSourceTrigger=PropertyChanged}"  />
+        <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docTextTxtBx1" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
 
     </Grid>
 </Window>

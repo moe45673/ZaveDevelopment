@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using System.Text.RegularExpressions;
+//using System.Text.RegularExpressions;
+using System.ComponentModel;
 using WordInterop = Microsoft.Office.Interop.Word;
 using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
-using FirstWordAddIn.DataStructures;
+//using FirstWordAddIn.DataStructures;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveModel.ZDF;
 
-using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
+//using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
 
 namespace FirstWordAddIn
 {
@@ -22,7 +23,7 @@ namespace FirstWordAddIn
         //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
         ZDFSingleton activeZDF = ZDFSingleton.Instance;
 
-        public static event EventHandler<WordEventArgs> WordFired;
+        //public static event EventHandler<WordEventArgs> WordFired;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
@@ -35,23 +36,11 @@ namespace FirstWordAddIn
 
 
 
-            //Tie the highlight to the singleton handler
-            ZDFSingleton.ModelPropertyChanged += new EventHandler<ModelEventArgs>(ZDFSingleton_ModelPropertyChanged);
+            
+            
         }
 
-        private void ZDFSingleton_ModelPropertyChanged(object sender, ModelEventArgs e)
-        {
-            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
-            //zdfEntryHandler = new ZaveService.ZDFEntry.DefaultZDFEntryHandler(e.zSrc, activeZDF);
-            //zdfEntryHandler.CreateZDFEntry(new ZaveModel.ZDFEntry.ZDFEntry(e.zSrc));
-            entry.Source = e.SelState;
-
-            //            _saveZDFEntryCommand = new RelayCommand(param => SaveZDFEntry(entry)
-            //, param => (entry != null));
-
-
-            activeZDF.Add(entry);
-        }
+        
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
@@ -82,9 +71,14 @@ namespace FirstWordAddIn
                     selState.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString();
                     selState.SelectionText = e.Selection.Text;
                     selState.srcType = SrcType.WORD;
-                    //ModelEventArgs mea = 
-                    ZDFSingleton_ModelPropertyChanged(this, new ModelEventArgs("WordEntry", selState));
-                    //System.Windows.Forms.MessageBox.Show("Thingie Fired");
+
+                    ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
+                   
+                    entry.Source = selState;
+
+                    activeZDF.Add(entry);
+
+                   
                 }
 
             }
@@ -96,20 +90,7 @@ namespace FirstWordAddIn
             
         }
 
-        private void OnWordFired(ZaveGlobalSettings.Data_Structures.SelectionState selDat)
-        {
-
-            ZaveSrc src = selDat;           
-
-
-            EventHandler<WordEventArgs> handler = WordFired;
-            if (handler != null)
-            {
-                WordEventArgs wea = new WordEventArgs(src);
-                
-                handler(this, wea);
-            }
-        }
+        
 
 
         #region VSTO generated code

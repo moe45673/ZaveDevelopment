@@ -16,16 +16,16 @@ using ZaveGlobalSettings.Data_Structures;
 namespace ZaveViewModel.ZDFEntryViewModel
 {
     //using activeZDF = ZaveModel.ZDF.ZDFSingleton;
-    public class ZDFEntryViewModel : INotifyPropertyChanged
+    public class ZDFEntryViewModel : ObservableObject
     {
         //public static ZDFEntry.ZDFEntry ZdfEntry { get; set; }
-        
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        private ZaveModel.ZDF.ZDFSingleton activeZDF;
 
-        private ICommand _getZDFEntryCommand;
+
+        private ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+
+        //private ICommand _getZDFEntryCommand;
         private ICommand _saveZDFEntryCommand;
 
         private IZDFEntry zdfEntry;
@@ -59,11 +59,27 @@ namespace ZaveViewModel.ZDFEntryViewModel
         //    }
         //}
 
-        private void ModelPropertyChanged(object sender, ModelEventArgs e)
+        public ZaveModel.ZDF.ZDFSingleton ActiveZDF
         {
-            zdfEntry = activeZDF.EntryList.Find(x => x.Title == e.Description);
-            System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
-            UpdateGui(e.SelState);
+            get
+            {
+                return activeZDF;
+            }
+            set
+            {
+                activeZDF = value;
+                OnPropertyChanged("ActiveZDF");
+            }
+        }
+
+        private void ModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "EntryList") {
+                int index = activeZDF.EntryList.Count - 1;
+                zdfEntry = activeZDF.EntryList[index];
+                System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
+                UpdateGui(zdfEntry.Source);
+            }
         }
 
         public void UpdateGui(SelectionState selState)
@@ -116,10 +132,10 @@ namespace ZaveViewModel.ZDFEntryViewModel
         {
             this.zdfEntry = new ZDFEntry();
 
-            activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+            //activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
             
-            ZaveModel.ZDF.ZDFSingleton.ModelPropertyChanged += new EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs>(this.ModelPropertyChanged);
+            activeZDF.PropertyChanged += new PropertyChangedEventHandler(ModelPropertyChanged);
 
 #if DEBUG
             System.Windows.Forms.MessageBox.Show("ViewModelOpened!");
@@ -132,7 +148,7 @@ namespace ZaveViewModel.ZDFEntryViewModel
 
         ~ZDFEntryViewModel()
         {
-            ZaveModel.ZDF.ZDFSingleton.ModelPropertyChanged -= new EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs>(this.ModelPropertyChanged);
+            activeZDF.PropertyChanged -= new PropertyChangedEventHandler(this.ModelPropertyChanged);
 #if DEBUG
             System.Windows.Forms.MessageBox.Show("ViewModel Closed!");
 #endif
@@ -156,7 +172,7 @@ namespace ZaveViewModel.ZDFEntryViewModel
                 
                 zdfEntry.Source.SelectionDocName = value;
 
-                NotifyPropertyChanged("TxtDocName");
+                OnPropertyChanged("TxtDocName");
                 //System.Windows.Forms.MessageBox.Show(value.ToString());
                
                 
@@ -183,12 +199,6 @@ namespace ZaveViewModel.ZDFEntryViewModel
             }
         }
 
-        private void NotifyPropertyChanged(String info)
-        {
-            var handler = PropertyChanged;
-            if(handler != null)
-            handler(this, new PropertyChangedEventArgs(info));
-
-        }
+        
     }
 }
