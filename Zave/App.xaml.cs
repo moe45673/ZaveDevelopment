@@ -24,8 +24,8 @@ namespace Zave
         /// <summary>
         /// Prototype hardcoded ZDF for early version
         /// </summary>
-        //public ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel activeZDFEntry { get; set; }
-
+        public ZaveModel.ZDFEntry.ZDFEntry Entry { get; set; }
+        ZaveModel.ZDF.ZDFSingleton activeZDF;
         
 
         /// <summary>
@@ -50,9 +50,18 @@ namespace Zave
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             MainWindow wnd = new Zave.MainWindow();
+            activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
+            activeZDF.PropertyChanged += activeZDF_PropertyChanged;
             wnd.Title = "Zave";
             wnd.Show();
+        }
+
+        void activeZDF_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            int index = activeZDF.EntryList.Count - 1;
+            Entry = activeZDF.EntryList[index] as ZaveModel.ZDFEntry.ZDFEntry;
+            System.Windows.Forms.MessageBox.Show(Entry.Source.SelectionText);
         }
 
         /// <summary>

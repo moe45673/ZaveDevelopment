@@ -11,7 +11,7 @@
     <Window.Resources>
         <custns:ZDFEntryViewModel x:Key="ZdfObj" />
     </Window.Resources>
-    <Grid Name="gridEntry" DataContext="{Binding Mode=OneWay, Source={StaticResource ZdfObj}}">
+    <Grid Name="gridEntry" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             
@@ -28,7 +28,7 @@
         <Label x:Name="docNameLbl" Grid.Row="0" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docPageLbl" Grid.Row="1" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docTextLbl" Grid.Row="2" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="docNameTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, diag:PresentationTraceSources.TraceLevel=High, UpdateSourceTrigger=PropertyChanged}"  />
+        <TextBlock x:Name="docNameTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" DataContext="{Binding Path=TxtDocName, Mode=TwoWay}"  />
         <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock x:Name="docTextTxtBx1" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
 

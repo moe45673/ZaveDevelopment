@@ -15,13 +15,6 @@ namespace ZaveModel.ZDF
     public sealed class ZDFSingleton : ObservableObject, IZDF
     {
 
-        //public static event PropertyChangedEventHandler ModelPropertyChanged;
-        
-
-        
-
-       
-
         //Needs to be protected virtual with private set
        
 
