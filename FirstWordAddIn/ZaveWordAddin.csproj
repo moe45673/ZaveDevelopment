@@ -183,7 +183,7 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
-    <None Include="ZaveWordAddin_1_TemporaryKey.pfx" />
+    <None Include="ZaveWordAddin_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZaveGlobalSettings\ZaveGlobalSettings.csproj">
@@ -203,10 +203,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ZaveWordAddin_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>ZaveWordAddin_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>ACF45564C3E3B13F4D1DB6856C7C39ECBA4DE5B1</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>806CBE4C1C68E3DEA0F6582D852613993EE96236</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -39,8 +39,14 @@ namespace ZaveModel.ZDF
             }
         }
         public bool isActive { get; set; }
+
+        private List<ZDFEntry.IZDFEntry> _entryList;
         
-        public List<ZDFEntry.IZDFEntry> EntryList { get; set; }
+        public List<ZDFEntry.IZDFEntry> EntryList
+        {
+            get { return _entryList; }
+            set { _entryList = value; OnPropertyChanged("EntryList"); }
+        }
 
         public IEnumerable<IZDFEntry> ListEntries()
         {
@@ -50,7 +56,8 @@ namespace ZaveModel.ZDF
         public void Add(IZDFEntry zEntry)
         {
             try {
-                EntryList.Add(zEntry);                
+                EntryList.Add(zEntry);
+
                 OnPropertyChanged("EntryList");
             }
             catch(ArgumentException ae)

@@ -22,7 +22,7 @@ namespace Zave
     public partial class MainWindow : Window
     {
 
-        public ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel ZdfObj;
+        //public ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel ZdfObj;
         /// <summary>
         /// initializes MainWindow and creates a property reference to itself
         /// </summary>

@@ -137,9 +137,9 @@ namespace ZaveViewModel.ZDFEntryViewModel
             
             activeZDF.PropertyChanged += new PropertyChangedEventHandler(ModelPropertyChanged);
 
-#if DEBUG
+
             System.Windows.Forms.MessageBox.Show("ViewModelOpened!");
-#endif
+
 
             //activeZDF.Add(zdfEntry);
 
