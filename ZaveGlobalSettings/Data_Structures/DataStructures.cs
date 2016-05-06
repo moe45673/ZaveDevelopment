@@ -5,6 +5,8 @@ using System.Text;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
+using System.Threading;
 using Source = ZaveGlobalSettings.Data_Structures.SelectionState;
 
 namespace ZaveGlobalSettings.Data_Structures
@@ -33,6 +35,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public String SelectionPage { get; set; }
         public String SelectionDocName { get; set; }
         public String SelectionText { get; set; }
+        public DateTime SelectionDateModified { get; set; }
         // String SelectionType { get; set; }
         public SrcType srcType { get; set; }
 
@@ -54,11 +57,45 @@ namespace ZaveGlobalSettings.Data_Structures
             ErrorCollection.Add(error);
         }
 
-
-
-
-
     }
+
+//    public static class FileChecker
+//    {
+
+//        private const int NumberOfRetries = 20;
+//        private const int DelayOnRetry = 50;
+
+//        public delegate void StreamChecker(string filepath);
+//        private Object obj;
+
+
+        
+
+//        public static void checkFile(Object stream, string filepath){
+        
+
+//        for (int i=1; i <= NumberOfRetries; ++i) {
+//            try {
+//                // Do stuff with file
+//                if (stream is StreamWriter)
+//                    stream = new StreamWriter(filepath);
+//                else if (stream is StreamReader)
+//                {
+//                    stream = new StreamReader(filepath);
+//                }
+//                break; // When done we can break loop
+//            }
+//            catch (IOException e) {
+//                // You may check error code to filter some exceptions, not every error
+//                // can be recovered.
+//                if (i == NumberOfRetries) // Last one, (re)throw exception and exit
+//                    throw;
+
+//                Thread.Sleep(DelayOnRetry);
+//            }
+//        }
+//    }
+
 
     public class ModelEventArgs : EventArgs
     {
@@ -205,16 +242,16 @@ namespace ZaveGlobalSettings.Data_Structures
         protected virtual void OnPropertyChanged(string propertyName)
         {
             this.VerifyPropertyName(propertyName);
-#if DEBUG
-            MessageBox.Show("Time is " + propertyName);
-#endif
+//#if DEBUG
+//            MessageBox.Show("Time is " + propertyName);
+//#endif
             
             var handler = this.PropertyChanged;
             if (handler != null)
             {
-#if DEBUG
-                MessageBox.Show("Event Fired!");
-#endif
+//#if DEBUG
+//                MessageBox.Show("Event Fired!");
+//#endif
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }

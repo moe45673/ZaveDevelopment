@@ -22,9 +22,9 @@ namespace Zave
     public partial class App : Application
     {
 
-        
-        
-        
+
+
+        EventInitSingleton eventInit;
 
         /// <summary>
         /// Runs Init() Method
@@ -42,13 +42,13 @@ namespace Zave
 
         ~App()
         {
-
+            eventInit.Dispose();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             MainWindow wnd = new Zave.MainWindow();
-            EventInitSingleton eventInit = EventInitSingleton.Instance;
+            eventInit = EventInitSingleton.Instance;
             wnd.Title = "Zave";
             wnd.Show();
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Xml.Linq;
 //using System.Text.RegularExpressions;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
 using FirstWordAddIn.DataStructures;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.ZaveFile;
 
 
 
@@ -26,7 +28,6 @@ namespace FirstWordAddIn
         //ZDFSingleton activeZDF = ZDFSingleton.Instance;
 
         public static event EventHandler<SrcEventArgs> WordFired;
-        private List<SelectionState> _selStateList = new List<SelectionState>();
 
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
@@ -65,23 +66,50 @@ namespace FirstWordAddIn
             try
             {
                 WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(Application.ActiveDocument);
-
+                //_selStateList = new List<SelectionState>();
+                
                 if (e.Selection.Text.Length >= 2)
                 {
-                    _selStateList.Add(new SelectionState() {                    
+                    List<SelectionState> _selStateList = new List<SelectionState>();
+                    
+                    _selStateList.Insert(0, new SelectionState()
+                    {
                         SelectionDocName = e.Selection.Application.ActiveDocument.Name,
                         SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString(),
                         SelectionText = e.Selection.Text,
+                        SelectionDateModified = DateTime.Now,
                         srcType = SrcType.WORD
                     });
 
+//#if DEBUG
+//                    System.Windows.Forms.MessageBox.Show("Before Serialization");
+//#endif
                     string json = Newtonsoft.Json.JsonConvert.SerializeObject(_selStateList.ToArray());
-                    //OnWordFired(selState);         
-                    string projDir = System.IO.Path.GetTempPath();
 
-                    System.Windows.Forms.MessageBox.Show(projDir);
-                    System.IO.File.WriteAllText(projDir + @"\transfer.txt", json);
-                    //System.IO.File.SetAttributes(projDir, System.IO.FileAttributes.Normal);
+//#if DEBUG
+//                    System.Windows.Forms.MessageBox.Show("After Serialization");
+//#endif
+                    //OnWordFired(selState);         
+                    string projFile = System.IO.Path.GetTempPath() + @"\transfer.txt";
+
+                    //System.Windows.Forms.MessageBox.Show(projDir);
+
+
+                    using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
+                    {
+                        try
+                        {
+                            sw.Write(json);
+                            sw.Close();
+                        }
+                        catch (IOException ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                        
+                   
+                   
 
                 }
 

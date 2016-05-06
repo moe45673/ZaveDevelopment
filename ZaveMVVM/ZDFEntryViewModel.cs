@@ -77,7 +77,7 @@ namespace ZaveViewModel.ZDFEntryViewModel
             if (e.PropertyName == "EntryList") {
                 int index = activeZDF.EntryList.Count - 1;
                 zdfEntry = activeZDF.EntryList[index];
-                System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
+                //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
                 UpdateGui(zdfEntry.Source);
             }
         }
@@ -87,7 +87,7 @@ namespace ZaveViewModel.ZDFEntryViewModel
             TxtDocName = selState.SelectionDocName;
             TxtDocPage = selState.SelectionPage;
             TxtDocText = selState.SelectionText;
-            System.Windows.Forms.MessageBox.Show(TxtDocText);
+            //System.Windows.Forms.MessageBox.Show(TxtDocText);
         }
 
         public ICommand SaveZDFEntryCommand
@@ -128,6 +128,8 @@ namespace ZaveViewModel.ZDFEntryViewModel
 
         //}
 
+
+
         public ZDFEntryViewModel()
         {
             this.zdfEntry = new ZDFEntry();
@@ -137,8 +139,8 @@ namespace ZaveViewModel.ZDFEntryViewModel
             
             activeZDF.PropertyChanged += new PropertyChangedEventHandler(ModelPropertyChanged);
 
-
-            System.Windows.Forms.MessageBox.Show("ViewModelOpened!");
+            //zdfEntry.Source.SelectionDateModified = null;
+            //System.Windows.Forms.MessageBox.Show("ViewModelOpened!");
 
 
             //activeZDF.Add(zdfEntry);
@@ -149,9 +151,9 @@ namespace ZaveViewModel.ZDFEntryViewModel
         ~ZDFEntryViewModel()
         {
             activeZDF.PropertyChanged -= new PropertyChangedEventHandler(this.ModelPropertyChanged);
-#if DEBUG
-            System.Windows.Forms.MessageBox.Show("ViewModel Closed!");
-#endif
+//#if DEBUG
+//            System.Windows.Forms.MessageBox.Show("ViewModel Closed!");
+//#endif
         }
 
 
@@ -162,6 +164,8 @@ namespace ZaveViewModel.ZDFEntryViewModel
 
         //}
 
+
+        #region Properties
 
 
         public String TxtDocName{
@@ -186,6 +190,7 @@ namespace ZaveViewModel.ZDFEntryViewModel
             set
             {
                 zdfEntry.Source.SelectionPage = value;
+                OnPropertyChanged("TxtDocPage");
             }
 
         }
@@ -196,9 +201,21 @@ namespace ZaveViewModel.ZDFEntryViewModel
             set
             {
                 zdfEntry.Source.SelectionText = value;
+                OnPropertyChanged("TxtDocText");
             }
         }
 
-        
+        public String TxtDocLastModified
+        {
+            get { return (zdfEntry.Source.SelectionDateModified.ToShortDateString()); }
+            set
+            {
+                zdfEntry.Source.SelectionDateModified = DateTime.Parse(value);
+                OnPropertyChanged(TxtDocLastModified);
+            }
+        }
+
+        #endregion
+
     }
 }

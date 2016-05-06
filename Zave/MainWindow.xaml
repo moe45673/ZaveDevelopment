@@ -18,7 +18,9 @@
             <RowDefinition Height="*" />
            
             <RowDefinition Height="*" />
-            
+
+            <RowDefinition Height="*" />
+
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -28,9 +30,11 @@
         <Label x:Name="docNameLbl" Grid.Row="0" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docPageLbl" Grid.Row="1" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docTextLbl" Grid.Row="2" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="docLastModdedLbl" Grid.Row="3" Grid.Column="0" Content="Date Modified" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock x:Name="docNameTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  />
         <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock x:Name="docTextTxtBx1" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
 
     </Grid>
 </Window>
