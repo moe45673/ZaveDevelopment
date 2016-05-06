@@ -6,11 +6,11 @@ using System.Security;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ZaveWordAddIn")]
+[assembly: AssemblyTitle("ZaveWordAddIn1")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Zave")]
+[assembly: AssemblyProduct("ZaveWordAddIn1")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +21,7 @@ using System.Security;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8be108fc-2310-4dc4-b72e-13d7ffd97c8c")]
+[assembly: Guid("35a79bcf-804a-4207-967e-e82d8680b589")]
 
 // Version information for an assembly consists of the following four values:
 //

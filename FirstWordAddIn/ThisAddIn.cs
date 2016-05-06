@@ -8,22 +8,26 @@ using System.ComponentModel;
 using WordInterop = Microsoft.Office.Interop.Word;
 using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
-//using FirstWordAddIn.DataStructures;
+using FirstWordAddIn.DataStructures;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveModel.ZDF;
+
+
 
 //using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
 
 namespace FirstWordAddIn
 {
 
+    
     public partial class ThisAddIn
     {
 
         //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
-        ZDFSingleton activeZDF = ZDFSingleton.Instance;
+        //ZDFSingleton activeZDF = ZDFSingleton.Instance;
 
-        //public static event EventHandler<WordEventArgs> WordFired;
+        public static event EventHandler<SrcEventArgs> WordFired;
+        private List<SelectionState> _selStateList = new List<SelectionState>();
+
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
@@ -32,14 +36,12 @@ namespace FirstWordAddIn
             new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
             ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
-                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
-
-
-
+                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);     
             
+                  
             
         }
-
+        
         
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -63,22 +65,24 @@ namespace FirstWordAddIn
             try
             {
                 WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(Application.ActiveDocument);
-                
+
                 if (e.Selection.Text.Length >= 2)
                 {
-                    SelectionState selState = new SelectionState();
-                    selState.SelectionDocName = e.Selection.Application.ActiveDocument.Name;
-                    selState.SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString();
-                    selState.SelectionText = e.Selection.Text;
-                    selState.srcType = SrcType.WORD;
+                    _selStateList.Add(new SelectionState() {                    
+                        SelectionDocName = e.Selection.Application.ActiveDocument.Name,
+                        SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString(),
+                        SelectionText = e.Selection.Text,
+                        srcType = SrcType.WORD
+                    });
 
-                    ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
-                   
-                    entry.Source = selState;
+                    string json = Newtonsoft.Json.JsonConvert.SerializeObject(_selStateList.ToArray());
+                    //OnWordFired(selState);         
+                    string projDir = System.IO.Path.GetTempPath();
 
-                    activeZDF.Add(entry);
+                    System.Windows.Forms.MessageBox.Show(projDir);
+                    System.IO.File.WriteAllText(projDir + @"\transfer.txt", json);
+                    //System.IO.File.SetAttributes(projDir, System.IO.FileAttributes.Normal);
 
-                   
                 }
 
             }
@@ -88,6 +92,13 @@ namespace FirstWordAddIn
                 System.Windows.Forms.MessageBox.Show(ex.GetType().ToString() + '\n' + ex.Message);
             }
             
+        }
+
+        public void OnWordFired(SelectionState selState)
+        {
+            var handler = WordFired;
+            if (handler != null)
+                handler(this, new SrcEventArgs(selState));
         }
 
         

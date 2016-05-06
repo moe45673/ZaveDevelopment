@@ -33,6 +33,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Tools.Word, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,10 +71,6 @@
     <ProjectReference Include="..\ZaveService\ZaveService.csproj">
       <Project>{7564b53b-b138-4e6f-8d37-acdd1e51f787}</Project>
       <Name>ZaveService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zave\Zave.csproj">
-      <Project>{4e456e7f-fa26-4d6f-a99a-99dc0d481982}</Project>
-      <Name>Zave</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -7,11 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using ZaveModel.ZDFEntry;
 using ZaveGlobalSettings.Data_Structures;
+using System.IO;
+using Newtonsoft.Json;
 
 
 
 namespace ZaveModel.ZDF
 {
+
+
     public sealed class ZDFSingleton : ObservableObject, IZDF
     {
 
@@ -19,21 +23,30 @@ namespace ZaveModel.ZDF
        
 
         private static ZDFSingleton instance;
+        private static readonly object syncRoot = new Object();
+        private string _date = DateTime.Now.ToShortTimeString();
+        //FileSystemWatcher watcher;
+
+
 
         private ZDFSingleton()
         {
             isActive = true;
             
             EntryList = new List<ZDFEntry.IZDFEntry>();
+            //CreateFileWatcher(Path.GetTempPath());
         }
 
         public static ZDFSingleton Instance
         {
             get
             {
-                if(instance == null)
+                lock (syncRoot)
                 {
-                    instance = new ZDFSingleton();
+                    if (instance == null)
+                    {
+                        instance = new ZDFSingleton();
+                    }
                 }
                 return instance;
             }
@@ -65,5 +78,7 @@ namespace ZaveModel.ZDF
                 throw ae;
             }
         }
+
+        
     }
 }

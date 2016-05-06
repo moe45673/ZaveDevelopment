@@ -206,7 +206,7 @@ namespace ZaveGlobalSettings.Data_Structures
         {
             this.VerifyPropertyName(propertyName);
 #if DEBUG
-            MessageBox.Show("Inside Event!");
+            MessageBox.Show("Time is " + propertyName);
 #endif
             
             var handler = this.PropertyChanged;

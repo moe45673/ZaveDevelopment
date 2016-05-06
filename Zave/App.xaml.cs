@@ -12,6 +12,7 @@ using System.Text;
 using System.IO;
 using System.Windows;
 using ZaveViewModel.ZDFEntryViewModel;
+using ZaveController.Global_Settings;
 
 namespace Zave
 {
@@ -47,7 +48,7 @@ namespace Zave
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             MainWindow wnd = new Zave.MainWindow();
-            
+            EventInitSingleton eventInit = EventInitSingleton.Instance;
             wnd.Title = "Zave";
             wnd.Show();
         }

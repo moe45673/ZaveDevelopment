@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>Zave.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
@@ -109,6 +109,10 @@
     <Resource Include="DevNotes.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ZaveEvents\ZaveController.csproj">
+      <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
+      <Name>ZaveController</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZaveGlobalSettings\ZaveGlobalSettings.csproj">
       <Project>{0f1f4a8f-44fd-4537-88a1-21034ac4335a}</Project>
       <Name>ZaveGlobalSettings</Name>
