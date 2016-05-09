@@ -43,7 +43,7 @@ namespace ZaveController.Global_Settings
             
             activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
             CreateFileWatcher(Path.GetTempPath());
-            System.Windows.Forms.MessageBox.Show("EventInit Started!");
+            //System.Windows.Forms.MessageBox.Show("EventInit Started!");
             //ThisAddIn.WordFired += new EventHandler<SrcEventArgs>(SrcHighlightEventHandler);
         }
 
@@ -91,13 +91,14 @@ namespace ZaveController.Global_Settings
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             // Only watch text files.
-            watcher.Filter = "transfer.txt";
+
+            watcher.Filter = GuidGenerator.getGuid();
 
             // Add event handlers.
             watcher.Changed += new FileSystemEventHandler(OnChanged);
             watcher.Created += new FileSystemEventHandler(OnChanged);
             //watcher.Deleted += new FileSystemEventHandler(OnChanged);
-            watcher.Renamed += new RenamedEventHandler(OnRenamed);
+            //watcher.Renamed += new RenamedEventHandler(OnRenamed);
 
             // Begin watching.
             watcher.EnableRaisingEvents = true;
@@ -145,15 +146,15 @@ namespace ZaveController.Global_Settings
         }
 
 
-        public void SrcHighlightEventHandler(Object o, SrcEventArgs e)
-        {
+        //public void SrcHighlightEventHandler(Object o, SrcEventArgs e)
+        //{
 
 
 
-            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
+        //    ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
 
-            entry.Source = e.zSrc;
-            activeZDF.Add(entry);
+        //    entry.Source = e.zSrc;
+        //    activeZDF.Add(entry);
             //zdfEntryHandler = new ZaveService.ZDFEntry.DefaultZDFEntryHandler(e.zSrc, activeZDF);
             //zdfEntryHandler.CreateZDFEntry(new ZaveModel.ZDFEntry.ZDFEntry(e.zSrc));
 //            entry.Source = e.zSrc;
@@ -169,7 +170,7 @@ namespace ZaveController.Global_Settings
             
             
             
-        }
+        //}
 
         
 

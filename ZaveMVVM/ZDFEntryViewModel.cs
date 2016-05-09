@@ -87,6 +87,7 @@ namespace ZaveViewModel.ZDFEntryViewModel
             TxtDocName = selState.SelectionDocName;
             TxtDocPage = selState.SelectionPage;
             TxtDocText = selState.SelectionText;
+            TxtDocLastModified = selState.SelectionDateModified.ToShortDateString() + " " + selState.SelectionDateModified.ToShortTimeString();
             //System.Windows.Forms.MessageBox.Show(TxtDocText);
         }
 
@@ -207,11 +208,19 @@ namespace ZaveViewModel.ZDFEntryViewModel
 
         public String TxtDocLastModified
         {
-            get { return (zdfEntry.Source.SelectionDateModified.ToShortDateString()); }
+            get { 
+                string date;
+                if(! zdfEntry.Source.SelectionDateModified.Equals(default(DateTime)))
+                                date = zdfEntry.Source.SelectionDateModified.ToShortDateString() + " " + zdfEntry.Source.SelectionDateModified.ToShortTimeString(); 
+                else
+                    date = "";
+                return date;
+                            
+            }
             set
             {
                 zdfEntry.Source.SelectionDateModified = DateTime.Parse(value);
-                OnPropertyChanged(TxtDocLastModified);
+                OnPropertyChanged("TxtDocLastModified");
             }
         }
 

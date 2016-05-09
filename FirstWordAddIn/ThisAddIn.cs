@@ -90,7 +90,7 @@ namespace FirstWordAddIn
 //                    System.Windows.Forms.MessageBox.Show("After Serialization");
 //#endif
                     //OnWordFired(selState);         
-                    string projFile = System.IO.Path.GetTempPath() + @"\transfer.txt";
+                    string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
 
                     //System.Windows.Forms.MessageBox.Show(projDir);
 

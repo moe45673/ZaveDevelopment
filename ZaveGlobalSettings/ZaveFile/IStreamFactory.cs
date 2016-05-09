@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace ZaveGlobalSettings.ZaveFile
 {
@@ -88,4 +90,17 @@ namespace ZaveGlobalSettings.ZaveFile
             
         }
     }
+
+    public static class GuidGenerator
+    {
+        private static Assembly _assembly = Assembly.GetExecutingAssembly();
+
+        public static string getGuid()
+        {
+            var attribute = (GuidAttribute)_assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0];
+            var id = attribute.Value;
+            return (string)id;
+        }
+    }
+
 }

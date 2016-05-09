@@ -24,7 +24,7 @@ namespace ZaveModel.ZDF
 
         private static ZDFSingleton instance;
         private static readonly object syncRoot = new Object();
-        private string _date = DateTime.Now.ToShortTimeString();
+        //private string _date = DateTime.Now.ToShortTimeString();
         //FileSystemWatcher watcher;
 
 

@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using Source = ZaveGlobalSettings.Data_Structures.SelectionState;
 
+
 namespace ZaveGlobalSettings.Data_Structures
 {
 
@@ -17,18 +18,20 @@ namespace ZaveGlobalSettings.Data_Structures
     /// </summary>
     public enum SrcType { GENERIC = 0, WORD = 1, EXCEL = 2 }
 
+    
 
     /// <summary>
     /// High Level class that holds all data/metadata from an Entry abstractly
     /// </summary>
     public class SelectionState
     {
-
-        public SelectionState(string name = "", string page = "", string text = "", SrcType src = SrcType.WORD)
+        
+        public SelectionState(string name = "", string page = "", string text = "", DateTime date = default(DateTime), SrcType src = SrcType.WORD)
         {
             SelectionDocName = name;
             SelectionPage = page;
             SelectionText = text;
+            SelectionDateModified = date;
             srcType = src;
             IsValid = true;
         }
