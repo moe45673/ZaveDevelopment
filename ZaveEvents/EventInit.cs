@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ZaveController.ZDFSource;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveService.ZDFEntry;
-using ZaveModel;
+//using ZaveService.ZDFEntry;
 using WordInterop = Microsoft.Office.Interop.Word;
 using Microsoft.Win32.SafeHandles;
 using Office = Microsoft.Office.Core;
@@ -30,6 +29,7 @@ namespace ZaveController.Global_Settings
 
         bool disposed = false;
         public ZaveModel.ZDF.ZDFSingleton activeZDF;
+        
         private static readonly EventInitSingleton instance = new EventInitSingleton();
         private FileSystemWatcher watcher;
         

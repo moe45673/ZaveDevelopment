@@ -88,8 +88,7 @@ namespace ZaveModel.ZDFEntry {
 
     }
 
-        //end ZDFEntry//end IZDFEntry
-
+        //end ZDFEntry
        
 
 }//end namespace ZDFEntry

@@ -1,0 +1,39 @@
+﻿<Window x:Class="Zave.ZDFEntry.ZDFEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zave.ZDFEntry"
+        xmlns:custns="clr-namespace:ZaveViewModel.ZDFEntryViewModel;assembly=ZaveViewModel"
+        mc:Ignorable="d"        
+        Title="ZDFEntry" Height="300" Width="300">
+    <Window.Resources>
+        <custns:ZDFEntryViewModel x:Key="ZdfObj" />
+    </Window.Resources>
+    <Grid Name="gridEntry" DataContext="{Binding Mode=OneWay, Source={StaticResource ZdfObj}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+
+            <RowDefinition Height="*" />
+
+            <RowDefinition Height="*" />
+
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label x:Name="docNameLbl" Grid.Row="0" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="docPageLbl" Grid.Row="1" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="docTextLbl" Grid.Row="2" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="docLastModdedLbl" Grid.Row="3" Grid.Column="0" Content="Date Modified" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="docNameTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  />
+        <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docTextTxtBx1" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
+
+    </Grid>
+</Window>
