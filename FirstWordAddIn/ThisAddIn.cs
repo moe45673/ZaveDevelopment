@@ -82,7 +82,7 @@ namespace FirstWordAddIn
                     });
 
 //#if DEBUG
-//                    System.Windows.Forms.MessageBox.Show("Before Serialization");
+                    //System.Windows.Forms.MessageBox.Show(default(DateTime).ToString());
 //#endif
                     string json = Newtonsoft.Json.JsonConvert.SerializeObject(_selStateList.ToArray());
 

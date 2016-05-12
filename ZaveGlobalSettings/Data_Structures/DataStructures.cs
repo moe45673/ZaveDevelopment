@@ -31,7 +31,10 @@ namespace ZaveGlobalSettings.Data_Structures
             SelectionDocName = name;
             SelectionPage = page;
             SelectionText = text;
-            SelectionDateModified = date;
+            if (date == default(DateTime))
+                SelectionDateModified = DateTime.Now;
+            else
+                SelectionDateModified = date;
             srcType = src;
             IsValid = true;
         }

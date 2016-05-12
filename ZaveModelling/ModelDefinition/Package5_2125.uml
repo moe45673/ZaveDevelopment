@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="71bc5639-2f59-4b22-b6f7-e573a9eaa0af"
+  name="ZDFList"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="c2e7868b-81f3-4ebf-b09c-afd6a2937d3b"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DZaveModel.ZDFList"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="0bb31489-45a1-46e2-8e7d-1b4948e0dc88"
+        name="IZDFList"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="63f79bf7-5ee0-4df2-a439-ca8c8529d2f5"
+            handle="viewcode://./CodeSchema_Interface?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DIZDFList"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="f68e7f05-0810-4a48-8484-0fb88e274f3c"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4340e379-d2b7-4c49-b836-67db85fb76ca">
+                <propertyInstance
+                  Id="ddef0789-c83d-4add-b7c8-3fb8a02f87c6"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="63cb7c1f-0a21-407f-b41d-6bd826be4e93">
+                <propertyInstance
+                  Id="325cca10-6b7d-4b48-b320-04459656f9a3"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8032f915-6331-4fa2-81ed-e926fa03e26f">
+                <propertyInstance
+                  Id="dda3d19d-5b2a-4c7b-ae34-8cb5396f072d"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2b7f3afe-9432-4b95-9c9f-1ac444580619">
+                <propertyInstance
+                  Id="220c2ca4-60de-4c69-a30b-e07e1c7827a8"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedOperations>
+          <operation
+            Id="9e96027b-a534-4cb0-8ddf-ff099f870d81"
+            name="CreateZDFList"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="b5dbc063-aa91-4caa-aac2-cfae2b627fb3"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DIZDFList Member%3D(Name%3DCreateZDFList OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDF Type%3DZDFSingleton)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="1d564bc4-4ba4-462e-921e-21db065f1515"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6b283ef6-bec8-493e-a34b-c8acecee731b">
+                    <propertyInstance
+                      Id="d5e4b370-f4e8-4bb2-872e-4a93a7c6729c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9bf5a5bd-5a6b-4428-b86a-ddca3e0f8ca4">
+                    <propertyInstance
+                      Id="5c8677b0-7aa6-4dbc-986d-421ff39b97e1"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="42e33c6e-36d1-4e0a-b4b9-efe0e2866edd">
+                    <propertyInstance
+                      Id="0d33187b-a0db-4ace-8b3c-abe79132ac87"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c9ca30e0-2dae-4522-ac12-fbefd753e85a">
+                    <propertyInstance
+                      Id="1ff4ee7d-1d03-4ab4-85b9-999dd54530b9"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7227b359-bfb9-43d0-8fdb-74b91b03f5b3">
+                    <propertyInstance
+                      Id="0b563a81-3b09-4d6f-879d-b89f8b3f3367"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6931038f-dfc8-4932-b306-742d181d52d9">
+                    <propertyInstance
+                      Id="74e64bb2-cdd1-448d-962b-e9e40beaa04e"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6ac9352c-dc88-4d4c-a770-55b7afd2a17c"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="20b13380-e10a-4cf1-b6b4-71fb2d2d5042"
+                  name="zdf"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="8735ce8d-a06d-4193-8104-61e63fb912ba"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DIZDFList Member%3D(Name%3DCreateZDFList OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDF Type%3DZDFSingleton)]) ParameterIdentifier%3Dzdf"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="d85d2081-f01e-4be1-90f9-17e1b3c19047"
+                      LastKnownName="ZDFSingleton"
+                      LastKnownLocation="Package4_2125.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="354e69b3-ca44-4d7a-a67d-2183f0314bc3"
+            name="ListZDFs"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="e04e9658-9bbb-47af-9427-2eb085837bf0"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DIZDFList Member%3DListZDFs"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b6df8609-c777-4a77-82d2-bbd59f2b2e1e"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="28e9d053-fe01-48a3-ae3e-1a05b410b034">
+                    <propertyInstance
+                      Id="bc1d2184-5504-48f8-81b9-7515c96326b9"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ca0f4804-f6ec-4f54-9394-2683d671e28b">
+                    <propertyInstance
+                      Id="82ccff51-680b-41c2-9fb0-acaa84aa5d07"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e77ee184-10d8-420f-ba1c-67fa62d653b0">
+                    <propertyInstance
+                      Id="4018af35-9898-4fad-9dac-aec91420e32f"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e39b112c-e102-4716-a0c5-1c7a6bf54460">
+                    <propertyInstance
+                      Id="bb099376-658e-486c-bbf5-9a520eda2e72"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a11b25f2-ca7e-47fc-ae1e-6ed1ebaecba9">
+                    <propertyInstance
+                      Id="974f11b5-8a62-4de4-9da6-8ea4ba5e6f2b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d7d43ae1-5c17-45a1-ad89-23aa3c2c9801">
+                    <propertyInstance
+                      Id="1f9c8119-3fbe-4b15-a83b-2149de896fd1"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ec4ba967-b2d8-4499-a74e-dc40b423b0e8"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="0eb43444-4f2a-4f05-aa15-1b7ba2a480af"
+                      LastKnownName="IEnumerable&lt;ZDFSingleton‎&gt;"
+                      LastKnownLocation="Package7_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="b1bf4d4a-9840-4750-bd1a-b29973fb3517"
+        name="ZDFList"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="e5479260-30cd-4925-986c-bc48a667643a"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DZDFList"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="c973a151-f027-44ae-852d-abd71403d3d9"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="09c4f9e0-475d-4588-a097-513e3b9e3529">
+                <propertyInstance
+                  Id="85e4b313-5c8b-4a77-964b-bd2fcb351d01"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="eb38400c-2491-43bf-89fd-def24a7c3c48">
+                <propertyInstance
+                  Id="8630ba4e-7b29-4671-af78-e60998e50d2d"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="353e8b81-d8cd-4def-bac5-39c0190a03c6">
+                <propertyInstance
+                  Id="04b947fd-06b9-4c60-a0e4-8aa8eee6d658"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3f2fc17e-db3b-4fa7-886d-1a2edfb61c60">
+                <propertyInstance
+                  Id="3f86e8f3-ea7d-4e2c-b142-436bcceff97c"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7b5f85c8-8be4-4627-8cda-c57cb1514c4c">
+                <propertyInstance
+                  Id="26bd7477-8363-4381-9a98-17a9878857d2"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="f845973c-c860-49fd-bee3-f656534a780d">
+            <interfaceMoniker
+              Id="0bb31489-45a1-46e2-8e7d-1b4948e0dc88"
+              LastKnownName="IZDFList"
+              LastKnownLocation="Package5_2125.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="ad24cf07-b982-456d-8163-ca8d54b1cbd2"
+            name="zdfList"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="8c4a9751-e78b-4b65-9945-55b9ac37241a"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DZDFList Member%3DzdfList"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="d7334688-c692-45c5-8ae0-05c9537c09b8"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c00ac42d-0cb0-4c8f-9fc5-1f84c437798b">
+                    <propertyInstance
+                      Id="06155adc-19ce-4c42-ba23-7e68df031a55"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d333e5cf-a1dc-4995-8fb2-d586f58ff33b">
+                    <propertyInstance
+                      Id="6d661f5d-42e0-41c7-8ce1-d6d78e60187d"
+                      name="Get"
+                      value="private" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c1d706e7-193b-4e62-a69d-c2da307ac9c2">
+                    <propertyInstance
+                      Id="3362eeb8-18af-4ee5-a843-a70877e79f43"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6d31ae0d-fee7-4c05-906b-a9a96b35a0f6">
+                    <propertyInstance
+                      Id="d3c830a0-7f93-4d2b-8bce-e2406c656082"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f4db049a-c624-4dde-8fe8-efb68b2c8466">
+                    <propertyInstance
+                      Id="fab32fe7-0d03-4b2e-b0b3-88e4c0385240"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fd6d3fbe-4569-4961-877c-472a6a1dc2d7">
+                    <propertyInstance
+                      Id="bd209857-ae8e-470a-aef4-9c202ed5cc89"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bd348af8-d100-4bf4-bb2a-d935e1edd4ee">
+                    <propertyInstance
+                      Id="601c9e5f-a684-4f9c-96f9-947e3bf37fc6"
+                      name="Set"
+                      value="private" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="babdb8cc-898a-4b1f-9d00-4b6477b0729d"
+                LastKnownName="List&lt;ZDFSingleton‎&gt;"
+                LastKnownLocation="Package7_2122.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="41d347ec-228d-4065-bf2e-bb498d804345"
+            name="ZDFList"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="ed65205a-c7bd-4ba8-9b69-b5abf88c077f"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DZDFList Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="a52cfa36-1efa-4207-b79d-4926367aa231"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="165c2d9c-e58c-4a85-b741-a3f0d9aaec88">
+                    <propertyInstance
+                      Id="b854951c-e192-47c5-9e42-87bcc3cbe86c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f14a10f3-f314-4dc6-a8c3-e294188b8977">
+                    <propertyInstance
+                      Id="027fdf66-e04c-4ba9-89f7-fde7f0c84284"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="518d410b-6fcf-4034-b79b-3da8de139975">
+                    <propertyInstance
+                      Id="3da2585c-df60-4c60-bd26-a5696fcd4e23"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bc2e779f-b596-415d-a896-de1ae5948bfc">
+                    <propertyInstance
+                      Id="5e0f0c64-1fe1-4cdd-9581-4e32ec1fb921"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8e19c481-df33-4b7a-b339-cd9ce293a32a">
+                    <propertyInstance
+                      Id="a76215a8-daf0-482a-ae5f-48faeb75c50b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f0b62b77-0667-48c6-bd34-b5b770419e65">
+                    <propertyInstance
+                      Id="6ff9e381-6d92-4c16-8ea8-cb4eae331a26"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="07f86c05-1985-453a-802f-c131006e8b99"
+            name="CreateZDFList"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="d580780e-8361-4b11-b528-a65d483e8b00"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DZDFList Member%3D(Name%3DCreateZDFList OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDF Type%3DZDFSingleton)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b461ab1a-a54a-4ce7-aae7-ff38e515d572"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ea58572-1c70-4aff-a0e9-a932d5abe793">
+                    <propertyInstance
+                      Id="de2e577c-fd25-4fc2-ad9e-52d22d34a481"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d6733991-c224-4578-80c2-58900d023101">
+                    <propertyInstance
+                      Id="0a94df13-e676-47c2-9246-1a4a9bda24f9"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b17d8b05-6504-4c46-a92f-44ee56c82b5f">
+                    <propertyInstance
+                      Id="63d58902-862f-4a52-b9e0-f786ac70def6"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ed587d67-87e6-4fc8-8299-ba5a01ba02a9">
+                    <propertyInstance
+                      Id="bd20775b-74d4-4a8d-a723-cc00fb745e2c"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a16b4523-4eb5-425e-9c29-e04dfc2b23f2">
+                    <propertyInstance
+                      Id="48e03b4f-cb80-4f57-b971-94243f3e8f7b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4fbef8a6-4ff4-426f-8c4f-5d8b29504df1">
+                    <propertyInstance
+                      Id="b16bfd1e-37ff-4a62-9404-55e3cbae1267"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="19df55c3-3d77-4c75-a810-3d562a856ea9"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b93af2cd-dce0-408e-8ea9-5278ebaeb0b5"
+                  name="zdf"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="d3fd8745-7fb2-496d-9df6-c20c0fa22046"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DZDFList Member%3D(Name%3DCreateZDFList OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDF Type%3DZDFSingleton)]) ParameterIdentifier%3Dzdf"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="d85d2081-f01e-4be1-90f9-17e1b3c19047"
+                      LastKnownName="ZDFSingleton"
+                      LastKnownLocation="Package4_2125.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="4c124468-7787-45e6-ab6b-8e1773a4c855"
+            name="ListZDFs"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="1dfb0eac-971b-401a-8f9e-ee6c028c43db"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFList Type%3DZDFList Member%3DListZDFs"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="689f5d4b-e4c6-4779-a57f-1bccd55c5db0"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b6ba9c0f-21b7-42e0-a48c-7d11d0be0f36">
+                    <propertyInstance
+                      Id="81bb2335-cb33-4af7-a6f2-9e063855fcd3"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="afd07869-4e6b-493b-ad6e-999179d9fb4c">
+                    <propertyInstance
+                      Id="4b8aa0bb-86f2-4f0f-b7fe-1c4eda6a24f7"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e2eb1d74-e343-40aa-833f-10dbc390fc89">
+                    <propertyInstance
+                      Id="71e5167d-3186-4a5f-a9ce-a9565317498d"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d77e0b8d-06c3-4b6c-abb3-54f1e5c57a84">
+                    <propertyInstance
+                      Id="7199bdf9-1337-49fd-bc81-f4d31639e6be"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2645aba4-9f0e-49ad-b026-4be300cef837">
+                    <propertyInstance
+                      Id="fd8d8cee-8193-46a8-9add-061852c59155"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c5b761d6-727d-4ebd-928a-d0371eff0eb6">
+                    <propertyInstance
+                      Id="fb6ece12-5115-45d8-9bc2-735456b28e95"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b606dfa9-70f8-481e-8f39-4ef5ffd0b3ef"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="0eb43444-4f2a-4f05-aa15-1b7ba2a480af"
+                      LastKnownName="IEnumerable&lt;ZDFSingleton‎&gt;"
+                      LastKnownLocation="Package7_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

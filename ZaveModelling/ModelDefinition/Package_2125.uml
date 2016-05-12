@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="5dab779f-05b7-4c39-96fc-992f4c52af32"
+  name="ZaveModel"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="d905e018-bd27-40bd-961b-9e3a7502aa57"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DZaveModel"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="8011bda3-c7d4-43b6-8908-6b70b2324d1c"
+        LastKnownName="GlobalSettings"
+        LastKnownLocation="Package1_2125.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="b7c23781-62a4-486a-8c22-a7080a66e707"
+        LastKnownName="ZDFEntry"
+        LastKnownLocation="Package2_2125.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="afc4e565-2324-4c2e-9a7a-cb1933167c65"
+        LastKnownName="ZDF"
+        LastKnownLocation="Package4_2125.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="71bc5639-2f59-4b22-b6f7-e573a9eaa0af"
+        LastKnownName="ZDFList"
+        LastKnownLocation="Package5_2125.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="03866ab3-0666-49f2-b5ad-c1b6ebab0924"
+        LastKnownName="ZDFSource"
+        LastKnownLocation="Package6_2125.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="1ebf2c9f-a08c-47b7-9775-e26eb67cf098"
+        LastKnownName="Global_Settings"
+        LastKnownLocation="Package7_2125.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

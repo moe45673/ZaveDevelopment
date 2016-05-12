@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="03866ab3-0666-49f2-b5ad-c1b6ebab0924"
+  name="ZDFSource"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="43e68a7f-ae51-4548-8fe6-c67d5b656a13"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DZaveModel.ZDFSource"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="5d52f718-b19c-4858-b848-0b5a98f2ca29"
+        name="Source"
+        isAbstract="true"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="85d93af2-1d62-4779-bd79-3db7da8affe3"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFSource Type%3DSource"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="8ef139b1-4e1d-4321-9cee-949b87dd9f2b"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c335c152-9772-4d15-9119-465b2d56663d">
+                <propertyInstance
+                  Id="03f0caf4-9778-4e65-8b06-348db733d27f"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f1a06a1f-c5ef-4581-a13d-94be8fcf13b7">
+                <propertyInstance
+                  Id="5ddb9cbf-d011-4533-bd9c-b7b6fc00c9d7"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ebbd30be-d9aa-45d4-a7dd-003e890250a7">
+                <propertyInstance
+                  Id="36a2259d-01d3-4686-b0b7-8852466644dd"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d5f9c978-8a19-4b71-aa8e-68a84d88e060">
+                <propertyInstance
+                  Id="4b98b3b4-837d-4d0a-af8d-44148a85cd8d"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="609f0873-20fa-40b0-b081-54417c819084">
+                <propertyInstance
+                  Id="8af0cf11-259b-4585-b00f-c3f59f230ff0"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="699644b0-0859-4e90-a3ce-f908d4a07c3c"
+            name="DocName"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="7d2131f0-301a-45e8-a5c4-007278e2374d"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFSource Type%3DSource Member%3DDocName"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="a1ae6424-b097-47fe-892d-a03816b90be3"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1526dad8-4e67-4d78-98c1-b617f917f9f6">
+                    <propertyInstance
+                      Id="445a8007-6962-43da-8d1a-7fdff9bfbbea"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b0244af-d688-440d-b9d0-22d0c2251a9a">
+                    <propertyInstance
+                      Id="6def195b-1554-436c-93e6-2a1dc9919ac9"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2d39fa6d-a88c-4c5b-be41-cb412b6384f7">
+                    <propertyInstance
+                      Id="d1017278-e4e2-45ee-8237-2824e1347297"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f9460420-f81a-406e-ba74-461ebe64f0f0">
+                    <propertyInstance
+                      Id="e61780e3-2599-4664-bcc8-2adcdf2ef8e8"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="129ad999-856b-4965-98ee-2eb8a631f152">
+                    <propertyInstance
+                      Id="131680b4-037b-4298-9a19-25e8f8bfd463"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1d531aad-19ae-4116-8729-31cd39328b5d">
+                    <propertyInstance
+                      Id="0c88d6a7-c2f4-4bb5-9ec8-210638ec3efe"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="97d57cb7-bbe2-4496-907d-ed4841e91b65">
+                    <propertyInstance
+                      Id="61b8b5e1-dd7d-4a8c-9967-45ace3d131fe"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="fc5747f7-0968-40d2-bec7-a8ccdedbc603"
+            name="DocPage"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="4e163fb9-0b9e-45f7-acc1-a9a5d6ae9dff"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFSource Type%3DSource Member%3DDocPage"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="13ca972d-997b-493e-8ed0-6d6f54facf5f"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="32cd59ea-7f5d-4db7-82e9-c8e6dcf4444e">
+                    <propertyInstance
+                      Id="754f89fc-aef9-461a-91da-ad8f39dacfb1"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="96f62063-f523-4419-ae37-555f022c1eb0">
+                    <propertyInstance
+                      Id="1e177f8f-e8e2-439c-8733-2dd1d7f1f133"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6482ae0a-a685-4d15-9be5-e4af99b5f5cf">
+                    <propertyInstance
+                      Id="4e0af4ee-99a0-4658-9d2c-60eec34d862a"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f6cd5aaa-92f0-4027-ae9a-4e16e09bf136">
+                    <propertyInstance
+                      Id="2eb384de-62de-43ab-a467-f0a2b30e25ea"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="eb3a6dbf-f330-4ebf-80ca-18940c34b155">
+                    <propertyInstance
+                      Id="8662eb1c-4861-42a1-8598-48c3b81140b1"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dc0145f2-beeb-450d-be43-0b55e88c035f">
+                    <propertyInstance
+                      Id="5aa7e535-c313-4f3c-8869-3dc8eca7cfa4"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3a7d77ca-c2fc-441a-bb0b-6ab2f9ebd569">
+                    <propertyInstance
+                      Id="7752605a-76ae-48a9-ad8b-a2ed374c8cd1"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="f6348ebc-5dbc-4ddd-8297-9e917c66daeb"
+            name="DocText"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="2ea1c04e-b9fb-42ad-b3c4-017af6bd4174"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFSource Type%3DSource Member%3DDocText"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="396c05d3-0cff-4cd3-9c96-e84841067692"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="950926d6-e734-46bc-bc30-d1936ed303eb">
+                    <propertyInstance
+                      Id="e63f9358-d079-4a35-aa98-510424ec8af1"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1e3ceeec-85f7-4fb3-afcd-0364a3395c2f">
+                    <propertyInstance
+                      Id="e667529c-afee-49b3-9879-3cdc2800ae71"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f2075b88-1b2a-4cc9-8e02-5afcf73be905">
+                    <propertyInstance
+                      Id="d2b100ae-c55c-448f-9cf9-08b4d2a98caa"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="77ea48fb-3773-4b26-8e76-78ea0b6ba7df">
+                    <propertyInstance
+                      Id="a3cef6d8-9f3d-424a-936d-5190604b98b6"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6de64b3a-787f-4038-9664-2d3efd04ba0b">
+                    <propertyInstance
+                      Id="b9dd668b-bdd5-4323-9ec3-adae70f1e869"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3d835f5f-cb85-4791-9e27-59b79feec82c">
+                    <propertyInstance
+                      Id="d050faf2-98ac-434b-8450-058e7da3ca1a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4030f79c-9c5b-4845-9f61-9e6f14c37ff9">
+                    <propertyInstance
+                      Id="b96f992c-45df-4895-ad1f-ec5a2eb32590"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="d2ed5c02-912a-4c84-9ed3-0050fc6afb4e"
+            name="Source"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="e0824ed0-2c35-4658-a519-402ded9e8d30"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFSource Type%3DSource Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="89be4bab-de9c-4ffb-89f6-0950641dfe71"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="57e42db1-abcb-411a-bba4-df52e20a1387">
+                    <propertyInstance
+                      Id="6e8ea553-66bd-4fd5-b9d0-63bdbbeb1795"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="02ccbde9-ade8-4943-b920-a86f12f7effe">
+                    <propertyInstance
+                      Id="c3cbaf56-8f1a-4c26-b052-36a2fd91273b"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="52db013a-02ce-4880-84aa-5b0486d8ab75">
+                    <propertyInstance
+                      Id="666d039f-9570-459a-8e06-7150ed496701"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2b398e84-b15d-4be5-84fa-e88a52392116">
+                    <propertyInstance
+                      Id="0dabd1e2-fa92-4d8e-b832-1e85534e0bbb"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f1cf9f67-0c3c-4d81-a10a-ce241de142f8">
+                    <propertyInstance
+                      Id="e338ba08-a568-4300-9165-f9e481e3079b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="214a6a63-4f36-4f33-8759-bf18789aeb36">
+                    <propertyInstance
+                      Id="b184fa79-867c-430d-8f46-28c643076c44"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b212e0f1-37f1-4c1c-90d4-674636f9e764"
+                  name="name"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="ffb4511c-8520-4431-b9ac-8da5e4f9c6bd"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFSource Type%3DSource Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dname"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="beb5f357-503f-44e4-a91f-d5b04991311d"
+                  name="page"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="1a0ece2e-843f-4cdd-b237-3d04613b0e51"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFSource Type%3DSource Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dpage"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="46f3ef75-efc8-4a10-94ad-f290ca12e0a3"
+                  name="text"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="18c3a623-039a-4b55-af68-72faf3198954"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.ZDFSource Type%3DSource Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dtext"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

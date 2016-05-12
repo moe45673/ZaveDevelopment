@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="8011bda3-c7d4-43b6-8908-6b70b2324d1c"
+  name="GlobalSettings"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="f4f641f5-34e5-4503-9761-a52f38a66a96"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DZaveModel.GlobalSettings"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="c3ee7c99-a659-4dcb-9405-3b9b6ec5b3d1"
+        name="ColorCategory"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="81cdf9ec-2eaf-4c96-b3ae-1e237544c96e"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.GlobalSettings Type%3DColorCategory"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="6c0482f0-b8b4-477e-9076-b3bb5da86979"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ff48e933-81b0-4fcc-aedc-444f26388e8c">
+                <propertyInstance
+                  Id="b4ee12ae-9c04-4a58-9c89-60f899d12161"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="60b136c9-46eb-40b1-a494-1a33cccefac4">
+                <propertyInstance
+                  Id="e66dc496-9abd-4323-ab53-ed04ad358e7d"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7b21e4f7-438f-4cd7-b658-9a1c6602b1cb">
+                <propertyInstance
+                  Id="4abcc19a-dd68-4f36-83dc-198c9571ca9f"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c16df43f-bec7-487d-aa6a-cf50c733c215">
+                <propertyInstance
+                  Id="821db343-6801-4d63-926f-b69bfaf740eb"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6023daac-6643-48d3-8b7e-ff8c270d5124">
+                <propertyInstance
+                  Id="6ebc0169-ceb6-4844-a925-c5020f67e6e3"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="6d58a8f9-f773-4e0e-bb89-4c28ad416628"
+            name="ColorCategory"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="ca14dc5b-68ae-495e-a922-d27b335a78f6"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.GlobalSettings Type%3DColorCategory Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9f3d165b-1802-4426-acfc-f5a1fd41994d"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34d7b51e-331c-41be-8e6c-04efb2a98b78">
+                    <propertyInstance
+                      Id="b7267075-153a-4bbe-8e31-a298c553f618"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="931b1c34-2e81-4de2-8f4f-fc063e2c8ecc">
+                    <propertyInstance
+                      Id="b9809a32-13af-40e6-accd-7736b2f177ef"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c509b684-058c-4c6d-b0dd-58167ac7c1b0">
+                    <propertyInstance
+                      Id="a5a868f9-35ed-4760-b80c-5284c6d5d596"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="513c8b7a-44c6-4dad-8d9d-323eb1f7de14">
+                    <propertyInstance
+                      Id="3d6e9c31-5ce0-43d0-a407-6e3bec8d14dd"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5ac38ee6-b72d-4adc-94f6-dfbce29d7081">
+                    <propertyInstance
+                      Id="c25891c1-d275-4c07-a49a-cdcfd3cfbd86"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="42c28721-0550-42c6-a2e2-0f9f3fb31ab8">
+                    <propertyInstance
+                      Id="2c5f9b63-d0c7-4b76-b4f6-22951493f4a0"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="dc9f273e-fea5-4f1b-ac81-f9b8d77dc3b1"
+            name="~ColorCategory"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="ab0a1f27-5e6e-455b-802e-40133da6897d"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveModel%2Fbin%2FDebug%2FZaveModel.dll Namespace%3DZaveModel.GlobalSettings Type%3DColorCategory Member%3DFinalize"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="748151c2-f561-458b-b4b5-724cc4b5b7b0"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3f2c0141-415f-47d0-b493-4b84f4b67ca6">
+                    <propertyInstance
+                      Id="63ee6b89-97dd-4970-92a2-d469496398a2"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="33727f47-4706-4be7-9c24-9cdfba547c8a">
+                    <propertyInstance
+                      Id="97aea016-bbc5-4f08-90d1-357bc2227e99"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4f7c4069-705d-4848-a438-3c3ed3ea47bc">
+                    <propertyInstance
+                      Id="afce876b-ba95-43ea-943b-7916fd190b9f"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34832a7f-92cd-41d4-961e-43f92df0164a">
+                    <propertyInstance
+                      Id="462d920d-83b7-4fce-8c0d-dff42b4fe669"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8d7ac4b9-3b0a-4ded-9175-ede62d78567c">
+                    <propertyInstance
+                      Id="58e9eec7-4370-43f2-aa3c-505777b3aeb2"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="72a2ccfa-eebd-4b3d-9f07-843a4dc3e807">
+                    <propertyInstance
+                      Id="4872b3e6-1153-4153-add9-91ad23d33825"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

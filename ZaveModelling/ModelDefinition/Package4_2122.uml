@@ -1,0 +1,2510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="0b6ba83e-dc5d-44de-a5b4-6575ea8540bd"
+  name="Data_Structures"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="212085b3-b881-468f-83b8-a528b940ef6a"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DZaveGlobalSettings.Data_Structures"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="207a3d24-ad31-4ef0-9de8-69a623e58f80"
+        name="ObservableObject"
+        isAbstract="true"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="6b1272da-b9c8-4afa-9ac9-4c0f07fe688f"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DObservableObject"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="4f651477-c2d3-437f-9974-ca993b5ef35a"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c60482cf-d60a-411d-88c9-c40e96109282">
+                <propertyInstance
+                  Id="453046f2-581d-4819-92fb-11381beec5d6"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a09ae6c7-6052-409a-a431-8907fc190768">
+                <propertyInstance
+                  Id="6c2d9c3f-e034-423c-83d2-efa3b65ffc62"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="51552f9c-2b59-4c8a-aea2-a21901b62e39">
+                <propertyInstance
+                  Id="d446a514-827e-4be2-985f-74e00a0e2832"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d6993309-9044-4bf2-afae-c8794b624a5b">
+                <propertyInstance
+                  Id="1253bcfc-9531-4e10-b5ee-1b945ec867d3"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b2c1f65c-1af9-4ee8-a008-ff363932e59d">
+                <propertyInstance
+                  Id="18bbdd1c-a093-4bff-97bd-de7d02ed05d1"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="1c149de8-96bd-4558-8fb8-d996a6c6b06d">
+            <interfaceMoniker
+              Id="51d19084-565e-4a46-83de-539a91f7412e"
+              LastKnownName="INotifyPropertyChanged"
+              LastKnownLocation="Package5_2122.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="e233005c-8300-46f5-b503-8e59fedbeb36"
+            name="ThrowOnInvalidPropertyName"
+            visibility="Protected"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="371b80bd-4d8d-4750-9693-ca36c7323a6a"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DObservableObject Member%3DThrowOnInvalidPropertyName"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="79c2af96-d4ed-4cab-9891-a5566a43f3f3"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="14b8dc62-36de-44bf-adec-1d925a074c9b">
+                    <propertyInstance
+                      Id="887504e7-06fd-4a43-9bfb-26898499c632"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ccb23a71-84cc-45a5-97da-63793e4fb1c1">
+                    <propertyInstance
+                      Id="cf09fa43-6302-45c4-85fd-d146c4608419"
+                      name="Get"
+                      value="protected" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a86e931c-fe2d-4371-bf6e-2c505c338f4a">
+                    <propertyInstance
+                      Id="4418f40c-fdf7-4258-8726-9d13e70c1135"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="02e676b9-e838-4c3d-b170-29d1eb0ca132">
+                    <propertyInstance
+                      Id="eebd8cd1-629d-4d60-b2fc-83dda907a071"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f355f82e-7e0f-4706-93c7-d76bde6e29b8">
+                    <propertyInstance
+                      Id="68abb617-be0f-4fa0-b572-dff3390506b5"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fb36e40f-66fd-4794-9202-a91b474ba9a2">
+                    <propertyInstance
+                      Id="a72f08c5-7c94-4f2e-ba51-df6af7d289ca"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a7c89126-484c-4e2b-a112-bff609c00119">
+                    <propertyInstance
+                      Id="aaee6f49-b32f-4a4c-b384-bf45792098b6"
+                      name="Set"
+                      value="protected" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                LastKnownName="Boolean"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="fd234984-d41a-47c8-8fdd-913fc59115e5"
+            name="PropertyChanged"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="e4251ffd-56a1-4337-abeb-0e33cc7aecb5"
+                handle="viewcode://./CodeSchema_Event?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DObservableObject Member%3DPropertyChanged"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="f9c70cf3-a607-4491-a1c2-a08aecddeb2b"
+                name="event"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7d5c8594-eaf3-45bc-9c1f-833f3ccdbcff">
+                    <propertyInstance
+                      Id="d650a7e0-e8b6-42d6-822a-f5280ef76fcb"
+                      name="Add"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="17639550-bf75-4dc1-ba30-adef53fcd81d">
+                    <propertyInstance
+                      Id="70fa65c9-7d11-445a-b9f2-2badc6c76ac7"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="db298740-a7c9-4694-a324-b5f1ac7c2966">
+                    <propertyInstance
+                      Id="0b1d63a5-a452-4a79-91a0-4356bdc594f3"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c45a4007-c349-4aed-8efe-041e7cbfa893">
+                    <propertyInstance
+                      Id="4171dc0b-156b-472d-b0b4-52332ec5919a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="eb4d1a9e-2b56-472f-86eb-94fdea6e6add">
+                    <propertyInstance
+                      Id="ac15060a-a92d-47cf-b8c3-23e293be36c1"
+                      name="Remove"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="697f2beb-6ebd-4dbe-ae7c-052ba721ffe8"
+                LastKnownName="PropertyChangedEventHandler"
+                LastKnownLocation="Package5_2122.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="4a354c85-6654-40c5-aaaa-de6dfe1ef0cf"
+            name="ObservableObject"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="04d80384-d9e7-4c65-8bfb-a7cbc5d872b5"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DObservableObject Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="65f60a69-38bd-457d-92a7-959bc6d2e403"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cec480e1-017e-4d55-9400-068ea96920ea">
+                    <propertyInstance
+                      Id="cc7a29f3-ee5d-421e-b850-223765aa910d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a5297705-366c-4675-8ab7-867c7bbbc17d">
+                    <propertyInstance
+                      Id="15ab162e-95b3-430a-9a32-57e7cdd888cc"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4ad9f1e5-1ebd-4bd4-911e-6c4810a86d0e">
+                    <propertyInstance
+                      Id="12cd14d0-64c5-4857-8653-8b9b1cb2b7ab"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="89cc9290-525c-4f22-838b-5542a9898725">
+                    <propertyInstance
+                      Id="1a5955c5-b97d-4a58-b9fe-12fc0122e1c6"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="871bad4f-c418-43f6-bfe8-5265142b1fe5">
+                    <propertyInstance
+                      Id="3f7a9250-734d-49b5-ac83-80bf2872d5d3"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f151817b-c872-4437-b756-c24a06d26dec">
+                    <propertyInstance
+                      Id="966880d3-ff1e-4e74-81ba-489f61d0e0c0"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="8d906bf4-a4da-41a3-9b06-277ad1f1929f"
+            name="OnPropertyChanged"
+            visibility="Protected"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="eb445641-f4c0-42e2-a186-c9254611e0fc"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DObservableObject Member%3D(Name%3DOnPropertyChanged OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="6fabf030-fa9a-43a5-9a0b-8839aad19828"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dc643a1d-f7ed-4a29-ad28-21b9b6d30624">
+                    <propertyInstance
+                      Id="85497fab-57ce-4bb4-825f-33b1c9f1d50d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7e2a6753-eaa7-455f-9f90-8e461dc34cec">
+                    <propertyInstance
+                      Id="f8c1204e-d006-46b6-a38c-5cc38725708a"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="325dfc0f-37f5-40ca-809a-e5c8cdc0fc3f">
+                    <propertyInstance
+                      Id="91bf2029-a488-4078-a6f3-3f9f05c8b94e"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a9565b27-c3dc-4e92-9207-723334abb977">
+                    <propertyInstance
+                      Id="50cb5385-292d-486c-b91b-27cdbe54d3f3"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8c7a9bca-e17e-46b4-945b-01f2eee26cdb">
+                    <propertyInstance
+                      Id="caccf85c-041e-4f3c-8b1d-2edfba767595"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0ce2f7be-4e39-4e3a-a414-6d965045cde6">
+                    <propertyInstance
+                      Id="22d9fcf1-b075-4ab2-928d-5465d05ac7d8"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6b8d96b3-6166-469b-9ed5-dad6d638e387"
+                  name="propertyName"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="c9d82c42-d1f1-4b5c-8b97-3d15959556a3"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DObservableObject Member%3D(Name%3DOnPropertyChanged OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3DpropertyName"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="29b26b42-2fba-4dec-aac6-9fa526937966"
+            name="VerifyPropertyName"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="aee8848e-b56b-4e47-9f8e-430304a7a9c1"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DObservableObject Member%3D(Name%3DVerifyPropertyName OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="6cd22c26-0457-4737-be19-20dd579ea8c9"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="15028d8b-bb23-4c54-bf91-29343a627e0a">
+                    <propertyInstance
+                      Id="1d54ebd6-2bd0-4b9c-bb17-db04d7d7412f"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ab41ac84-bd36-418e-abdc-fa9204676e14">
+                    <propertyInstance
+                      Id="68766c74-cebf-474a-8ee7-c94d7f097cef"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a97c61eb-fe01-45a4-9d9e-5c38fb406a71">
+                    <propertyInstance
+                      Id="9f8a7e4c-413f-4c85-939c-0a094ba3c441"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="96e60797-38d8-43d9-838e-c7ef749f8254">
+                    <propertyInstance
+                      Id="6ce9c0aa-0289-4ec5-ab58-1105caccd690"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9e3e0f6a-1f6f-49fe-aec5-a63576311ddd">
+                    <propertyInstance
+                      Id="5ecf02bb-6e66-440a-afaf-bc981e974e6b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="546bba64-d427-409a-9438-80271be8e513">
+                    <propertyInstance
+                      Id="538f4adb-94c2-40e1-9701-c767be1d3188"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8347c7db-fc48-40f1-82b7-4c377ed35a6e"
+                  name="propertyName"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="bff420e5-6b5d-40f2-8666-b50ee0f0e754"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DObservableObject Member%3D(Name%3DVerifyPropertyName OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3DpropertyName"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="79c09bdf-194d-4396-91fd-d5eb2cc99160"
+        name="SelectionState"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="c7333e3a-d44b-4a9f-b34b-09a57d51f84d"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="7d1f83aa-b21b-4d0f-933c-600233ddf337"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="49c883c5-c470-4a04-848a-8ea3a7f41af1">
+                <propertyInstance
+                  Id="f1866cde-3280-47c9-aa2c-c5f74c93b3e1"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3db605b1-fbf6-42bf-a6e1-5548fb71c99b">
+                <propertyInstance
+                  Id="ef4b6873-5a5f-4ea0-8128-cb0f6f34d00f"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="522d3130-16c4-4f72-9744-47ac16b099cf">
+                <propertyInstance
+                  Id="4d278dc3-f57b-4920-a86c-f0765bc2308e"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="53c16f25-304d-42cf-80cc-18068c405564">
+                <propertyInstance
+                  Id="983f3d3d-a5ba-47a5-a951-ef6c01891777"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="27d9ed47-bc2d-4171-9fff-7e8f58da8122">
+                <propertyInstance
+                  Id="6a6128f7-adad-4964-8f39-51d7b8bfd899"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <targetEnds>
+          <association
+            Id="7ffc0c54-0542-4391-9523-6071867eb7a7"
+            isDerived="false"
+            sourceEndRoleName="SelectionState"
+            targetEndRoleName="ErrorCollection"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="56f0e4b4-e031-4a65-8c88-57927667b12b"
+              LastKnownName="List&lt;SelectionStateError‎&gt;"
+              LastKnownLocation="Package7_2122.uml" />
+            <description>Property ErrorCollection references type List&lt;SelectionStateError‎&gt;.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="29fda3f7-2876-4fa9-bdf1-cbddfa662b24"
+                  name="SelectionState"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="6d14fbce-acf2-4e4d-b137-0fb812f9a68a"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="6034b3e3-df82-4bba-a800-a65be1d9a7aa"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9b86dfdc-670c-4b74-b14b-cc4efa79e130"
+                  name="ErrorCollection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="42131c54-bb4d-4c10-b0a7-74219791fb3c"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="bea3e7b3-ca3f-479a-9821-3ce474b2754d"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="816baf10-f271-405e-a366-fa1559a2194b"
+            isDerived="false"
+            sourceEndRoleName="SelectionState"
+            targetEndRoleName="SelectionDateModified"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="dc8e888e-e27a-4cfd-82d5-925d5f7434ca"
+              LastKnownName="DateTime"
+              LastKnownLocation="Package2_2122.uml" />
+            <description>Property SelectionDateModified references type DateTime.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8348b305-4d85-4122-8f44-8954e54540d9"
+                  name="SelectionState"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="78df3d39-0a38-4b1d-978b-a65380fb9c69"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="cda824cd-e5f5-4f94-8da3-d8da52476024"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f447af7b-aa87-4a09-ac1a-5c0a06e99927"
+                  name="SelectionDateModified"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="4e90e524-8021-465a-b699-d3f982baaeba"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="5d5b20ba-bff1-4c48-ae92-7abcb618a43d"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="e5543d1f-2c4d-49f4-a0e6-65954024e53b"
+            isDerived="false"
+            sourceEndRoleName="SelectionState"
+            targetEndRoleName="srcType"
+            isLeaf="false"
+            isAbstract="false">
+            <enumerationMoniker
+              Id="d087dbcb-206c-4fee-9853-1aaa217af607"
+              LastKnownName="SrcType"
+              LastKnownLocation="Package4_2122.uml" />
+            <description>Property srcType references type SrcType.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9f037671-3039-45bf-8162-cf1ccb9c41d6"
+                  name="SelectionState"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="03e49a37-f8c4-45bc-8d7a-2669c3531eca"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="d0045656-75a3-4953-a44b-95cb95251260"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="da9ae553-acc7-4d6e-b376-9fa3e68b8a56"
+                  name="srcType"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="ae459ec3-aa20-43b7-9687-0aab52e4f070"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="2d315be4-3d6c-41ee-aac4-78e79bf95acb"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="3632a175-cc87-4528-a1e8-90f53afc3c41"
+            name="ErrorCollection"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="5aeb4ad3-dc73-4d53-8adc-d711dca21e5e"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3DErrorCollection"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="ba8a36c8-aafe-4a50-abef-1fa6792725f9"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dc1e1b2c-c833-445a-9bd3-da32c0242785">
+                    <propertyInstance
+                      Id="061e318c-ac09-4c78-a167-067828b65ee2"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b4f37f1b-516d-4598-b9bb-900d55b9b07e">
+                    <propertyInstance
+                      Id="290adb28-168f-4ae3-9796-5ceab2e006e7"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4237bddc-7fc7-47ad-8246-011b3fde33ce">
+                    <propertyInstance
+                      Id="5f6f4991-bf29-4e6b-b59c-5dc8eb90ba7b"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="18d11e5c-4ba5-4a08-bbd6-c9176e7729f4">
+                    <propertyInstance
+                      Id="a21e97a4-dfae-4817-aae5-563ea990be39"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5ab7a04e-bc92-4950-a94e-fb07837d318e">
+                    <propertyInstance
+                      Id="fdb0ec70-2c34-43c6-8cbb-619be8799bf4"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1966eafb-187b-4d83-ac4e-a376d839167d">
+                    <propertyInstance
+                      Id="48268cfc-d19d-4a35-834d-a489cc4fbed4"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="98069b2f-e92c-4518-be2a-3666dfb763d1">
+                    <propertyInstance
+                      Id="2e9bf4bc-69a8-4c19-ba68-6cb2c874bd46"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="56f0e4b4-e031-4a65-8c88-57927667b12b"
+                LastKnownName="List&lt;SelectionStateError‎&gt;"
+                LastKnownLocation="Package7_2122.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="7f6db1fb-e313-45d8-87c1-0f55797aaeff"
+            name="IsValid"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="c11b0fb7-2cd9-4a46-89b1-555afae09b62"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3DIsValid"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="87a50d00-bc2e-4e38-b868-156af927fe14"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3b0b107a-1093-4d78-99b6-c0e208ce6548">
+                    <propertyInstance
+                      Id="975855e1-ce13-415b-b867-77440f37f22f"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="13a587f3-1134-4a1d-9efe-5058f13506da">
+                    <propertyInstance
+                      Id="940221ba-ec17-4a4f-9b27-fb47d0489366"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4425d791-53a2-48e1-a3f8-bb6fef456af2">
+                    <propertyInstance
+                      Id="a6a815c8-6dd9-4de5-be9f-4108dc006ea2"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8001bcb0-60df-42ab-bcc0-65f5f792d86c">
+                    <propertyInstance
+                      Id="8dbf18c3-62b5-44c8-83af-abd589135b3c"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bed1be31-2534-465b-847e-7a83d207b726">
+                    <propertyInstance
+                      Id="8d7bbd51-b366-474d-9342-42809059eeb2"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cec8fd23-84a6-494c-a1f1-7ff9e08a1682">
+                    <propertyInstance
+                      Id="e81c1f77-5871-4cc6-b6d9-6d63623313a2"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0013ebd2-4856-4c26-acd7-91e25debe027">
+                    <propertyInstance
+                      Id="dc757382-c273-47fa-b4bf-a88db411f0df"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                LastKnownName="Boolean"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="bb472f74-d4dc-46ee-ab27-db106aa45baa"
+            name="SelectionDateModified"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="471ca860-9f1c-4fb5-8cf0-52d634c69f49"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3DSelectionDateModified"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="94bf5238-3868-4c4b-9bf5-1576062412fd"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="92b3da34-ad8b-48c5-b274-d5c8b807cca7">
+                    <propertyInstance
+                      Id="89abb7c6-62a4-47a4-8e87-e894798bf809"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8ceed102-22ab-4b2d-996b-415036e8adc1">
+                    <propertyInstance
+                      Id="1c9d18fb-bb0e-4b87-b398-ed2a249ce8e6"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="205e577c-a4f0-4154-9760-888db44f9aed">
+                    <propertyInstance
+                      Id="37be7f6f-a5ba-4456-821f-f9fe1097189f"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="92067754-b437-4453-b13e-c815b4cdb5e2">
+                    <propertyInstance
+                      Id="de849c20-1e74-4db2-a5a3-1d44ec889999"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8d8efb7a-152c-4322-93f7-f0fefca4cdc2">
+                    <propertyInstance
+                      Id="cbed1063-ed69-4333-a2a2-f599294f5dfe"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="14480245-3da2-442e-82ac-a221e90a34f7">
+                    <propertyInstance
+                      Id="b0da0e6d-9ece-41b6-a5a5-aea6a3b941e1"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d820ee00-48c8-4904-8645-417255b50be3">
+                    <propertyInstance
+                      Id="039803af-cc45-4668-916c-dcbb0793c4e2"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="dc8e888e-e27a-4cfd-82d5-925d5f7434ca"
+                LastKnownName="DateTime"
+                LastKnownLocation="Package2_2122.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="4f96da3c-f0b7-48ae-8b61-ff2b8bce93ea"
+            name="SelectionDocName"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="a4152fe6-d238-4d6e-b3de-61d074c5a653"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3DSelectionDocName"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="cdc5888a-e896-4da9-a1ed-7b86b5fdabf9"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a25bc8a8-b133-4be9-a113-7abcc5a6774f">
+                    <propertyInstance
+                      Id="fd1b876b-b3fa-472f-a570-b609b6015ea3"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2cd5a320-6064-4172-a6cc-0633301aa0e8">
+                    <propertyInstance
+                      Id="4f252c72-6520-4fc3-987a-8c976b3d33e6"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fe6e75d2-82be-4b79-b8ac-714ceebb10f8">
+                    <propertyInstance
+                      Id="10ba3848-b53d-4cf4-b855-98cef41c434b"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cee3347d-4a9e-49cf-9916-f22b07d63255">
+                    <propertyInstance
+                      Id="e82ca52a-d834-430d-a402-ddfcebe14443"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="89285444-9f00-4d1a-92c7-a19df4f95a04">
+                    <propertyInstance
+                      Id="477c1fde-09f0-4c72-bd07-bfbf54ed5d0e"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="30a50bfa-5082-4063-91de-5a96a7de1757">
+                    <propertyInstance
+                      Id="4c07af4a-6975-4e14-bc63-3b4c9ed5bbce"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e014e618-9efc-497e-8fbe-8e0255e97603">
+                    <propertyInstance
+                      Id="79e75cd2-7a0d-42c0-8977-fa32cb241fa2"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="305cb741-e5e1-4f56-8bd8-f127d0e9b5a4"
+            name="SelectionPage"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="5619983f-20ae-4697-a5ea-9d109b5cb2f8"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3DSelectionPage"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="4cb7a7c5-639b-4b8c-b9de-26fef9deafd5"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="90cd8442-79f4-4033-bf63-09e8c37dced9">
+                    <propertyInstance
+                      Id="2be1631b-7bb5-4068-a377-672ec5725e96"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b500fde7-adff-484c-abe1-4dc7fd813109">
+                    <propertyInstance
+                      Id="fb244f51-36d4-4c7c-9b7a-490d4e47e795"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="31591153-2700-4716-b313-2492f20906f9">
+                    <propertyInstance
+                      Id="87c0343c-73a2-4051-990b-2b77e7e7f3b5"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c19adebb-ac47-4ce6-baff-cb27e9498375">
+                    <propertyInstance
+                      Id="4418e0f9-7266-4d8c-955b-5a56edf9caba"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1fe3d352-0584-475d-879f-804e48c9ea44">
+                    <propertyInstance
+                      Id="86a94332-f4b6-416f-99ae-3e4e29df0238"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4f587e75-df75-45f3-893a-b674940da3ee">
+                    <propertyInstance
+                      Id="73be46b5-6503-4a5b-b889-d6eac111eaee"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d5ab9d13-eeae-4ed8-86d8-bd302325d5f7">
+                    <propertyInstance
+                      Id="c56a3d1b-a631-4adc-bb9f-ae8a624be92f"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="2c769e45-d16b-4ea5-9748-b697e7c5e41b"
+            name="SelectionText"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="788e1eee-679d-4f38-be62-feafe3a34257"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3DSelectionText"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="48173567-26e8-4d6f-a02b-259da39e88c1"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="63248572-15de-4f18-85e4-2e655eb72888">
+                    <propertyInstance
+                      Id="d367ceca-a6ed-4cdb-9509-6f61832ae963"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="30207381-d451-4b2b-84bb-f3c0c2456db3">
+                    <propertyInstance
+                      Id="11149735-9719-4b45-a664-9aa7368cd4e1"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c2bd787c-72d1-4341-915a-714d67812c4b">
+                    <propertyInstance
+                      Id="a2f08839-a3d6-4171-b9ef-2c9bff810bda"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="757542b7-36ad-40ee-8cbc-a78085f547f3">
+                    <propertyInstance
+                      Id="41fdc743-b73d-4489-8738-6efdb8dfc872"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="05561c3a-c54a-4fc1-bb8c-8488cf7481fb">
+                    <propertyInstance
+                      Id="39249598-03cf-477c-a800-7c32faec141a"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e057b6a2-b173-4d89-a9d3-30c8d0bda92e">
+                    <propertyInstance
+                      Id="adac0d21-aabc-40b9-a774-ccd2e061fc8d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a0dbbb5f-32a3-487e-b8b4-90ee54aa3ff5">
+                    <propertyInstance
+                      Id="90437fa7-46f8-4848-b946-2bfdecb7203b"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="22bc998d-1dba-4d23-a7a6-aee96cee8d1f"
+            name="srcType"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="f9f5ec3d-11a4-4ce1-a711-920547573934"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3DsrcType"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="12d20cb3-6df5-4a68-9949-44b3bdbfda5c"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f38312e0-ee65-47c4-855a-bfd6cac10978">
+                    <propertyInstance
+                      Id="25ff4b9c-a2af-4231-8269-76b087ce15f2"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c58b5037-e869-4b3c-ad23-b3e0d8bdd38f">
+                    <propertyInstance
+                      Id="37eba8c6-05f0-4b81-8786-4293b540ec71"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6368a6bb-2453-4e5f-902d-14dc945a1c5e">
+                    <propertyInstance
+                      Id="6734c104-0e35-496e-9808-06ecbb337e03"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c15ef129-e3a9-4b2d-be99-f47b74f2eec5">
+                    <propertyInstance
+                      Id="eb3f319a-e86c-4692-8b51-f989f15572d0"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="33011336-964a-4814-98b4-fd795aad8f75">
+                    <propertyInstance
+                      Id="998f0dd1-aa84-4b2f-94fb-7345fd02751a"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dbcef2cf-7f04-4c31-b426-f8a8bc8c89ac">
+                    <propertyInstance
+                      Id="8f59420b-fbda-472c-a53c-a817365e315f"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="848ac270-8267-4092-b720-607d9920ddc5">
+                    <propertyInstance
+                      Id="cc0f2d1d-0208-44b3-b2e1-7a18b48ae3f8"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <enumerationMoniker
+                Id="d087dbcb-206c-4fee-9853-1aaa217af607"
+                LastKnownName="SrcType"
+                LastKnownLocation="Package4_2122.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="0faf54f0-bb59-4864-ba86-8eae901d6312"
+            name="SelectionState"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="c052f21c-3960-4302-a980-ae31b5881729"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDateTime)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="8a9802d3-451a-4195-b589-fceb30517718"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dc874447-f3d4-499a-afce-a1a937b98102">
+                    <propertyInstance
+                      Id="ca4369e3-179a-4772-a780-154d7557805d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f8799da5-250a-441d-a721-4332ac337cb7">
+                    <propertyInstance
+                      Id="bfaf1c5a-1721-471e-b7c9-af29df6186a5"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8e44d79f-decc-4457-a1a4-1476523627ba">
+                    <propertyInstance
+                      Id="5a67988b-10f8-48b4-b9e6-fcb81b2a48d6"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c3d1f10c-1879-4ba6-a492-c4c23ac719f4">
+                    <propertyInstance
+                      Id="e8170357-c42c-46eb-8976-c917b8956463"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6d730be2-a6df-4718-8fbe-c36882eeb859">
+                    <propertyInstance
+                      Id="ec3bacd3-ac5a-4fac-9e2e-8c30334ee2d1"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a5d13394-63ad-4bf2-9582-530ecb8261e7">
+                    <propertyInstance
+                      Id="a8054ccd-00d1-48c8-ba6b-93d4c87c1bcd"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="32dd75c5-e9d9-4ecc-a405-346eaa5bd1d8"
+                  name="name"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="4415ee5d-8c32-4386-8da5-66bcdb46c85b"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDateTime)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType)]) ParameterIdentifier%3Dname"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4082272b-839e-4fef-80fa-cb80f39896b0"
+                  name="page"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="4771b6af-b749-4516-a3c5-bf730c552881"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDateTime)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType)]) ParameterIdentifier%3Dpage"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="151cba37-34e8-4fe1-b91f-8b1b293be869"
+                  name="text"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="5bc7085a-20d3-440f-82b3-6f7954a3cdd0"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDateTime)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType)]) ParameterIdentifier%3Dtext"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1974f47c-e95a-41da-b3da-aaa45c85fd3f"
+                  name="date"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="eae3e8a7-b0fa-411f-b430-df23f1db2a4d"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDateTime)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType)]) ParameterIdentifier%3Ddate"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="dc8e888e-e27a-4cfd-82d5-925d5f7434ca"
+                      LastKnownName="DateTime"
+                      LastKnownLocation="Package2_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ae641f18-2165-41cd-8c2a-8099b3b916a3"
+                  name="src"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="c4758650-190e-4076-a808-b0e3d872fca1"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDateTime)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType)]) ParameterIdentifier%3Dsrc"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <enumerationMoniker
+                      Id="d087dbcb-206c-4fee-9853-1aaa217af607"
+                      LastKnownName="SrcType"
+                      LastKnownLocation="Package4_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="876d2349-7690-49f4-848f-567fd29be02f"
+            name="AddError"
+            visibility="Protected"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="641c28c6-f34e-4b39-a971-62506134329d"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3DAddError OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="f878f127-9c68-43cf-b599-084462e7f3c1"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="179db6c1-caa2-4fed-9f1c-5003e82f75b6">
+                    <propertyInstance
+                      Id="d4e97e75-91ef-4e07-bd72-806d187f44f2"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7ff521e1-55fc-46b1-b2c4-643b83c8de2a">
+                    <propertyInstance
+                      Id="38a53650-2bea-4f92-827d-0babe361c0c0"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c8ee9790-2c6b-4728-b612-4307a845991a">
+                    <propertyInstance
+                      Id="f4aa1848-43c0-4821-8ebf-29e8fc80c1d3"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d7656740-1d00-4d70-bc1b-fdadb9bbf20d">
+                    <propertyInstance
+                      Id="69e000f7-13ee-411b-9450-e1e91978b343"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="db8924f0-3459-4ad7-b6fa-cb6c8fba18af">
+                    <propertyInstance
+                      Id="fdbb5bc7-dce6-4ff4-b8bd-74c2329cad62"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="32bc11dc-f683-42e3-a97e-1e9f2cbd160f">
+                    <propertyInstance
+                      Id="20a2ef19-218d-45e0-a4b5-ad13156b618f"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7e196ba5-849c-42fc-8cb1-8e141d9d92b1"
+                  name="property"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="1bdd8ed2-659b-4553-be04-cd4bb6128cd9"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3DAddError OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError)]) ParameterIdentifier%3Dproperty"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3c786dd0-0bf8-4168-957d-df363a3429a3"
+                  name="error"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="2378423f-a5c2-4c39-a439-35980fd17bf7"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3DAddError OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError)]) ParameterIdentifier%3Derror"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="440e365e-bd9c-40dc-b469-41f74b44130c"
+                      LastKnownName="SelectionStateError"
+                      LastKnownLocation="Package4_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="14da4bf6-2199-4ea9-aaec-9b7633fee815"
+            name="AddError"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="cac61f38-0254-4e67-a97e-e12e13f412fe"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3DAddError OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="2b724388-e0cc-4f61-b034-81e4d01e52ea"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a5979e40-4290-47f6-88ba-e38d08ee320d">
+                    <propertyInstance
+                      Id="5025ff64-9026-4a76-b7e1-8956b486a2f1"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="375d91b6-f858-4004-880d-aa62abc5439a">
+                    <propertyInstance
+                      Id="7bd472aa-f706-427b-bda6-03808644f235"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f6731d81-7d1c-4067-b10f-7ff7378c7f37">
+                    <propertyInstance
+                      Id="883ab6ff-b490-42a3-8f8d-d846580627ec"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="abe228b9-40c6-4308-90c9-f63689a26713">
+                    <propertyInstance
+                      Id="9bc1728f-a636-4114-bc3d-a118211f11ec"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e93b64d8-89dd-4fe2-8096-6edcd80e89c8">
+                    <propertyInstance
+                      Id="915f815e-3e4b-4126-8196-0252a1ac49c7"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bbc09e55-4aa1-4af6-a26c-3d572a5aea3f">
+                    <propertyInstance
+                      Id="dba1ce41-0abf-47e3-bf17-bb283cf6b0e1"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="07d84882-855b-493b-a962-b3d992e11092"
+                  name="property"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="fda03916-a52e-4125-9f3c-012f7d19cf2b"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3DAddError OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dproperty"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7e0f92e3-967b-4565-bb81-331e6448eb98"
+                  name="message"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="c3022c0f-b357-4c1a-b134-dd1b394e6a57"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState Member%3D(Name%3DAddError OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dmessage"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="d087dbcb-206c-4fee-9853-1aaa217af607"
+        name="SrcType"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="ed35603b-e14e-486c-91f6-9ef7f9d4e58c"
+            handle="viewcode://./CodeSchema_Enum?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="1353416f-6caa-4008-92fe-fc833d8fd102"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="10bca734-162b-4f02-b0ff-305b9da47008">
+                <propertyInstance
+                  Id="14bfc53f-222e-43b2-828f-550644704d55"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="85ed48a3-62a7-491c-b96d-cf52fed562fa">
+                <propertyInstance
+                  Id="7b744437-ceee-4bac-8dde-79fe8f654dd9"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3bb76731-5beb-4f21-bd91-d624d1a09ff7">
+                <propertyInstance
+                  Id="80eeb674-ee6c-4753-a56a-432ac270bb1f"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="644dd576-bfd7-4a48-ac1d-ba94d82fb8b1"
+            name="EXCEL">
+            <referencesInternal>
+              <reference
+                Id="54220c13-1a87-421e-ab7d-d34fbacd6752"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType Member%3DEXCEL"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="d19e6241-0f8a-4c00-9935-f19b8d98e5d7"
+            name="GENERIC">
+            <referencesInternal>
+              <reference
+                Id="0e11421c-7ed1-4c87-baaa-c3aa3bb9f396"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType Member%3DGENERIC"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="a421eed6-4b9b-4647-be00-1022a81375a8"
+            name="WORD">
+            <referencesInternal>
+              <reference
+                Id="560b3a27-a603-40ec-8de1-ba57d902f81a"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcType Member%3DWORD"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+        </ownedLiterals>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="440e365e-bd9c-40dc-b469-41f74b44130c"
+        name="SelectionStateError"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="b92d7937-7725-4944-9bd0-f6e0589b3edc"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="3aa7ba2d-8f86-43ea-95e2-527a76aa4e92"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bd18a7d6-f18a-44c0-948e-5e237121661e">
+                <propertyInstance
+                  Id="06d2610e-2307-476a-936a-58976672fcaf"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="62916dd3-cec4-441b-bf4c-7a6bc0e3ce37">
+                <propertyInstance
+                  Id="43908521-53be-4fa5-96b2-95dcde1d39bb"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="817cb503-7f1f-428b-ae07-672d601b55ba">
+                <propertyInstance
+                  Id="963be733-cca5-4db2-a54e-894065cd9519"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9c4ede6b-1881-4590-9539-e1ba87ea559f">
+                <propertyInstance
+                  Id="b4e4de97-98cd-45ef-9f33-653916175334"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="dd41f7c9-13a6-4825-8364-27226c555e8a">
+                <propertyInstance
+                  Id="3a93b672-4531-4100-95f0-6a0a0874f774"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <targetEnds>
+          <association
+            Id="ba531c05-6f8e-4126-b949-b85e9e434361"
+            isDerived="false"
+            sourceEndRoleName="SelectionStateError"
+            targetEndRoleName="Exception"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a0f72144-e36c-48de-9628-c1568b6a7a80"
+              LastKnownName="Exception"
+              LastKnownLocation="Package2_2122.uml" />
+            <description>Property Exception references type Exception.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="34b1fca8-899f-4c2a-9240-b07183c3886b"
+                  name="SelectionStateError"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="0520d64a-2683-47d3-816d-5da237930d5e"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="b1b7e85a-ac64-4cab-bc75-69971a85f454"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="84f91f27-3b67-4d1c-911b-88e7cc27b874"
+                  name="Exception"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="252eb065-a892-4c30-b646-b27005c74d6a"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="74883849-0423-4bcd-90fd-b15adbfcaaa3"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="b2457189-1a54-4f86-936a-8190b468671d"
+            name="ErrorMessage"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="3b2dfb84-3bd7-4034-a5f2-f6fdfe4d2f0d"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError Member%3DErrorMessage"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="1fc65040-a1f3-4a3c-8e92-4d5b74631a5b"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bd9294d4-854f-4a49-9137-024574a2da46">
+                    <propertyInstance
+                      Id="8f2632d7-da99-4a57-ac05-d924182cefaf"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e5920067-6b7f-4f22-b13a-b527785a4c37">
+                    <propertyInstance
+                      Id="6908aabe-0ef2-41e9-ae83-5ad77c6ef1bf"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0ef6a3da-4193-4ec8-9bec-9de77bb3679b">
+                    <propertyInstance
+                      Id="755ae2d6-5280-4d92-9aee-b07196830aa2"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="703ccdc6-24ac-4a26-89c5-99b3d17c11c8">
+                    <propertyInstance
+                      Id="e793ace4-f9b3-4317-a2a0-74c42717b632"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dc52f93a-0634-41b6-986c-98b5d6665a5b">
+                    <propertyInstance
+                      Id="1885073a-c587-4c78-9cf1-f62ffceb4afd"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a0245b7e-cb54-4ec0-92d1-dc84746a448d">
+                    <propertyInstance
+                      Id="e02bfd9e-e070-4112-a002-42d78828faa1"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7ee277b0-19d7-40e7-98bc-c8e9638eb201">
+                    <propertyInstance
+                      Id="ec4919d2-671f-4121-b882-593b6d8fd664"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ZaveModelling.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="56a10ad4-8c28-452a-a976-a67ca19f5c86"
+            name="Exception"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="ff18f07c-5cf7-4ae7-8c52-ac13c5ded1bb"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError Member%3DException"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="91d0b383-38a7-4a67-9515-a5f038add507"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="359c3bf8-a8cf-4e81-84f8-d2c3f8983317">
+                    <propertyInstance
+                      Id="65a5a7c0-8905-4a33-b016-3979b61375b6"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="06b27b23-83f8-4ed4-a1d9-f7e60ff9c1aa">
+                    <propertyInstance
+                      Id="da0a17a5-6456-43b5-b850-3bdf83c8e9d3"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9bd96cb5-4c07-4182-9002-48ac228979be">
+                    <propertyInstance
+                      Id="d609d2c4-2be5-4462-8cef-423b7b67354c"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="85e50981-07c6-4c47-9043-e38e62b3cafe">
+                    <propertyInstance
+                      Id="b2aac8f4-1107-43b9-ac91-af4ddff4b3bb"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1cceea8d-c09e-49b4-85a2-22fb732d58e3">
+                    <propertyInstance
+                      Id="61f64a26-95aa-40d5-b67f-7c5ca7613dc0"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d9ec7e65-e251-4946-b3fa-7cd57a4ac659">
+                    <propertyInstance
+                      Id="c77934fd-97a5-46b2-95a7-41985ee3f2c9"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="38881bca-c3d1-4a19-a926-4d42da760fb8">
+                    <propertyInstance
+                      Id="14c2d555-1570-4e35-86f0-cd987aa18a5a"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="a0f72144-e36c-48de-9628-c1568b6a7a80"
+                LastKnownName="Exception"
+                LastKnownLocation="Package2_2122.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="1a673be4-fd82-480b-9382-dea0febb1cdc"
+            name="SelectionStateError"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="a690ec2b-0d25-466f-b15a-d7e86045d160"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DException)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="c3f4320f-50f6-4bb0-9091-34cc1bf134d3"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fccae8ff-b98e-45cc-80bf-1726a9806480">
+                    <propertyInstance
+                      Id="7cec7a50-3679-435c-bb7e-d41733271ae7"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c6bcc0cd-a432-4744-bfb5-f901e2c55f9e">
+                    <propertyInstance
+                      Id="4a591c7b-bdbe-4fc8-85e7-c4180a0f3b6c"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5b9a081d-7d23-49c6-9a5c-744bb0556923">
+                    <propertyInstance
+                      Id="1d6acbc0-04a3-4a67-8341-8d3dadb31306"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="05fbcf26-8f0c-431a-8ca6-b6d99e663659">
+                    <propertyInstance
+                      Id="8480b65c-8172-4c14-898f-bbf8ba39dfa3"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="954769d0-4b12-42eb-9695-cef537790883">
+                    <propertyInstance
+                      Id="561d5493-25f0-4e8a-b261-d486c0548d1e"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2946eb87-27a2-4862-9aa1-fd157295ce83">
+                    <propertyInstance
+                      Id="ad2aba7f-c682-4c9b-89fe-f053fd469978"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="258d6ab4-957d-461f-b407-e6569a7e0bc2"
+                  name="ex"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="929b6fc2-9b8b-4df7-9b10-dc620700960b"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DException)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dex"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a0f72144-e36c-48de-9628-c1568b6a7a80"
+                      LastKnownName="Exception"
+                      LastKnownLocation="Package2_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b2a3f033-f2e0-41f0-9cdc-be394980cfe3"
+                  name="msg"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="4680d2ab-5e46-4fbb-baf3-e130213f9eb3"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionStateError Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DException)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dmsg"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="31b89f66-364a-4ac2-8c0d-5dd05f353ebe"
+        name="SrcEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="b2547f55-30da-48c0-b7a5-e11af7a8e7af"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="cfc4f0d5-61d8-4b50-8097-1f91568bcbc8"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a4e66b98-9c73-43d0-8d02-1f5043e9b1f5">
+                <propertyInstance
+                  Id="d167b5fb-daec-4087-be98-5b45ddfe2780"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1fbc8e55-4b7e-459e-b0fe-79478790c6c4">
+                <propertyInstance
+                  Id="d28c5d1e-84b2-48fd-ba03-feaa2b243ed9"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="67a2e8dc-bd27-428b-99b1-2de781715f52">
+                <propertyInstance
+                  Id="6a37a4c8-9bfd-4037-a664-64a1f4d7f799"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bb371a0f-ebfc-415b-a0dc-e18348d6b45c">
+                <propertyInstance
+                  Id="6ed329ae-e697-4ff1-8465-ebdee4520776"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0288b6ef-3669-460f-86c6-4ae8ee4e34ec">
+                <propertyInstance
+                  Id="9378e24e-f8f2-4d17-9f60-a3c418e4c5db"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="1a05b0cf-30bc-4492-ad9c-315cbeb73e24"
+            isSubstitutable="false">
+            <classMoniker
+              Id="a1f14dfb-2e2d-48af-999b-72320644451f"
+              LastKnownName="EventArgs"
+              LastKnownLocation="Package2_2122.uml" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association
+            Id="a4566069-cf9f-4a71-b52d-7726b5c47b82"
+            isDerived="false"
+            sourceEndRoleName="SrcEventArgs"
+            targetEndRoleName="zSrc"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="79c09bdf-194d-4396-91fd-d5eb2cc99160"
+              LastKnownName="SelectionState"
+              LastKnownLocation="Package4_2122.uml" />
+            <description>Property zSrc references type SelectionState.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e4d39cf0-05de-48c8-bec1-cd0fe75490a7"
+                  name="SrcEventArgs"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="279c6b31-3c05-46f6-b4d1-f9c07fbf4d90"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="eb119697-f8f8-4d77-b662-4376f6e42299"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cfda4362-ae59-499d-ad0c-db2936b58cbf"
+                  name="zSrc"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="c8edbb66-d0e2-4e75-abf1-48609993d6e0"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="b050dd35-709a-429a-9c17-6f1e5a518b2a"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="8f956e6a-f37c-4dfb-8800-9ffc2641ebab"
+            name="zSrc"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="52a7d5f6-9a2c-4df0-bdba-1ffd70bcb55c"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcEventArgs Member%3DzSrc"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="15ede3f1-bdee-4607-96f5-ec2b4a50cd95"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="abc586d1-b9bd-4e73-a0ef-254725c59a27">
+                    <propertyInstance
+                      Id="45c7bdba-6d6f-452f-aa84-09deeed08167"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="20b6af99-4a51-42b9-9473-09227b9a993d">
+                    <propertyInstance
+                      Id="48edad68-0013-4b20-8c26-157ed8a7d089"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c7415e77-f91a-49d4-81b2-95cdf794f790">
+                    <propertyInstance
+                      Id="dd43b4e2-843b-47a5-a9bc-3ed1e80abd52"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="23ad12e4-6769-47ff-bc2c-80d2cc98101c">
+                    <propertyInstance
+                      Id="cf3cd3f1-3de2-469c-a24d-cba1f60fb48b"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="79dc295b-415b-4f12-9877-26a27d788f5f">
+                    <propertyInstance
+                      Id="e66a3bcf-d6ed-4e78-b344-a1516c0d222f"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="44a2cebf-3949-4e42-821b-0719d7e8eb13">
+                    <propertyInstance
+                      Id="65797a08-e94d-414e-b69a-8b13a4aae41a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5474995d-0717-4c34-9778-8fc01becf342">
+                    <propertyInstance
+                      Id="4744e971-9892-45c8-98f1-861b798d325a"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="79c09bdf-194d-4396-91fd-d5eb2cc99160"
+                LastKnownName="SelectionState"
+                LastKnownLocation="Package4_2122.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="17f319df-c450-450d-8d1e-472b4555b191"
+            name="SrcEventArgs"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="32a84f3d-25c8-4d57-a789-b3206f0fad9a"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcEventArgs Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b8e158e9-a475-49ef-ad24-03f966ae771a"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6e888393-ee23-4474-b3cc-2415ade2c560">
+                    <propertyInstance
+                      Id="b16b616e-43f2-464a-8210-043be408a506"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5f9a9d88-3791-4acc-8062-5279cc00e59b">
+                    <propertyInstance
+                      Id="279044ad-d83c-4308-a277-1fd863b402dc"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5e926ceb-4188-4ca2-b687-cd36cd232185">
+                    <propertyInstance
+                      Id="1e8f4f15-2571-42d4-a84e-1c4006a97fd2"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="84216ea1-c4c1-4677-b305-676cf1ad449d">
+                    <propertyInstance
+                      Id="cc55bacd-0a15-4350-9346-46c4d785e67b"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="48947e5c-5191-403a-be6e-ffdc24665169">
+                    <propertyInstance
+                      Id="75caabc8-8cce-4e5f-9d5f-6fe5139cf2b8"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b0ceac74-0280-4a8d-b4d4-423b60e264e2">
+                    <propertyInstance
+                      Id="af19ba89-dbd8-443b-9700-544e10d72912"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="03b07ff9-cdd4-40ac-962d-ad6a6e2c31bf"
+                  name="src"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="c0c9f76a-1f04-4438-bab5-3434a90f7946"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSrcEventArgs Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DSelectionState)]) ParameterIdentifier%3Dsrc"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="79c09bdf-194d-4396-91fd-d5eb2cc99160"
+                      LastKnownName="SelectionState"
+                      LastKnownLocation="Package4_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0dfbd695-f615-4db8-a6b1-ebc03476678a"
+        name="ModelEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="f47b1d5e-3747-4343-b98e-2aa2812fbdfa"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.Data_Structures Type%3DModelEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="d9b7af7d-c7a2-414e-aa33-13e2d217e287"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8ad120a0-2dd5-4f5a-b9ab-9f2aab8340f1">
+                <propertyInstance
+                  Id="f6131e51-ffe7-4759-be76-6ddcb2a277ce"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="60f434a8-a5a4-4763-ad03-f188a720e12a">
+                <propertyInstance
+                  Id="1fb40a3e-2ec6-43fa-a291-3c1733cc0a40"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e1d4767d-1d78-48ba-8087-d65cfc9342fc">
+                <propertyInstance
+                  Id="c923c62a-3c75-45df-a997-4d82d4a4bd79"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0e8641fe-8c2b-41ba-9027-893992106427">
+                <propertyInstance
+                  Id="eb261a8d-b2c4-4d56-a0f7-e694cd49cf98"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7d7bc0be-854a-43d1-8906-a0e4bca3c731">
+                <propertyInstance
+                  Id="9653285f-70ee-4cad-a51e-c794f05b0410"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="23da7f39-c12a-49b0-b380-4b4b7d0d2b9a"
+            isSubstitutable="false">
+            <classMoniker
+              Id="a1f14dfb-2e2d-48af-999b-72320644451f"
+              LastKnownName="EventArgs"
+              LastKnownLocation="Package2_2122.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

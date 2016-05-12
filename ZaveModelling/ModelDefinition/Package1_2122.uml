@@ -1,0 +1,669 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="eff94778-c3ce-47a0-8164-205b21f36140"
+  name="ZaveFile"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="7470d26d-d9dd-4adc-b307-e682b3f1680e"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DZaveGlobalSettings.ZaveFile"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="29357e96-e51a-4f42-bebf-83747691da1e"
+        name="GuidGenerator"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="71903ad0-853e-48dc-9986-97a14b91eab9"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DGuidGenerator"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="e2aa3499-7c12-4b2b-b2f8-aebef65b2cef"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f4293a38-0522-46c0-8fde-fd6d6bec6497">
+                <propertyInstance
+                  Id="2f51c17e-d1b6-4bae-afae-9a04fc2e0776"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="31c19110-2000-4e36-90fb-631b6e8eeb42">
+                <propertyInstance
+                  Id="6080bd42-5cdb-4e98-9b5f-9632873275bf"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3a768b85-49e6-4b5a-ba65-a548703ac286">
+                <propertyInstance
+                  Id="c3affe08-2418-4f14-a617-b90fb1323fd2"
+                  name="IsStatic"
+                  value="True" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9a87a38d-1a86-438a-8c46-39676df32d95">
+                <propertyInstance
+                  Id="c466459c-b923-41a7-a48c-f12dff96175c"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="65bbf124-b9ad-484e-af5f-d4d9876229ca">
+                <propertyInstance
+                  Id="95de2744-2919-46c0-9a28-4ae9caf9f1eb"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="813f467c-156d-4fe0-87c6-17bfacb28c96"
+            name="_assembly"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="12924167-9bf7-4b0a-8aa4-4e73c29806b3"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DGuidGenerator Member%3D_assembly"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="2c127ee6-63c7-4f21-baf1-9ecd00f472ce"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="caa2b3c8-9f28-4a9f-ab7a-357fe903fbeb">
+                    <propertyInstance
+                      Id="e505d549-784a-4eb4-b280-f12a1a0a3c86"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2bbbd135-4e85-498f-b334-5890903b9589">
+                    <propertyInstance
+                      Id="1af5ecbc-7c3d-4c68-a78e-fb9268298f64"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d0e8964e-72f8-4bcc-ad74-8201f96c6e73">
+                    <propertyInstance
+                      Id="2df07306-d324-4a49-9488-f1be601231f4"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9732c7a2-95b1-4ee6-844e-23ddaa30f04c">
+                    <propertyInstance
+                      Id="0549aac8-01a0-4fc1-a622-f9816eb59f36"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e6574792-fa0d-48d5-9aed-e67c439307ee">
+                    <propertyInstance
+                      Id="3ceebbc7-061f-4ab6-b5f6-eaf5381b6c16"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="f01f5e0e-b394-4497-abec-7018cf0396ad"
+                LastKnownName="Assembly"
+                LastKnownLocation="Package3_2122.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="4c495096-8fa3-4f68-b196-84611699274c"
+            name="getGuid"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="d9af7b49-8b2f-4d72-b807-f4b8b070f2c2"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DGuidGenerator Member%3DgetGuid"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="00418014-3243-40f2-94cf-857a16ddc615"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="79d5fc36-ba1d-4456-a29e-749f670ed046">
+                    <propertyInstance
+                      Id="f756b299-4a7a-4b52-ba8a-099145610562"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="929829f2-99db-44cb-84fc-c1ef19b626ed">
+                    <propertyInstance
+                      Id="53ac7cb7-b1e1-4b8b-8c8f-7f02ca4d81a8"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1dac4e6d-5be0-46fe-a291-71f33659a7e6">
+                    <propertyInstance
+                      Id="932362a1-92c7-442b-a060-9ab9fab56e00"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d48c535e-8334-490d-b0ec-9e904ea05e3e">
+                    <propertyInstance
+                      Id="af3ebff3-58ab-4eda-82b4-910dc14090d2"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fd7ac43d-0cec-4812-ae87-9f06c3fd8f0d">
+                    <propertyInstance
+                      Id="9bf616c5-aae2-42dc-9f95-4785c944da32"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b3694873-f63b-4a13-9fb3-aa07ca9ef8da">
+                    <propertyInstance
+                      Id="603586f3-eb54-4bd1-a130-89038486592d"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ba0d1494-e69f-453f-9004-6cf5c33b76da"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="acc2ff4e-cbab-47ea-8be6-6e8a0ed386e1"
+        name="StreamReaderFactory"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="6c5a62da-07fc-4a56-8919-4c35a9bcc001"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DStreamReaderFactory"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="1b50d900-067f-4637-b56e-c20cad4eb7e8"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b0fb26d3-d485-4110-afc3-25c672691c6d">
+                <propertyInstance
+                  Id="fbaee780-41a6-476a-820b-c458c0da82be"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d25166ad-93d6-485c-bd8c-7549f4625242">
+                <propertyInstance
+                  Id="0b3d921f-691f-49aa-ad39-878b74af9d25"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="90492eea-54e8-4174-8778-cc6e880c250c">
+                <propertyInstance
+                  Id="b008863b-bfb4-45fa-8cc7-0ac50b0aa3eb"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8ce304d3-fb54-421c-b111-bc3c4d3186f6">
+                <propertyInstance
+                  Id="cdc76498-1343-4453-8cc7-cccfbe9133c6"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="912541bc-afa0-4a51-bd3c-86b6ebfb7079">
+                <propertyInstance
+                  Id="c464f4c9-07ac-44c0-87c1-0171db349db1"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="f1e81931-92f1-4c39-afc8-0f53c0d6c760"
+            name="StreamReaderFactory"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="56336fb9-b0ef-44ad-b0dd-b9fad6b14e4d"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DStreamReaderFactory Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="128eb800-c1c4-46ee-aece-b13293817db1"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34a92adc-bac3-4428-8a68-01a72c8e3847">
+                    <propertyInstance
+                      Id="2b40fe4c-e5ba-44f0-984d-bb2462794528"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="58461e69-b928-47f7-b708-ccc47e38f462">
+                    <propertyInstance
+                      Id="6d4afbb1-98be-4468-abc7-0a3e4b70ce6e"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ca3ff27-8265-4daf-a65b-ceb4906833cb">
+                    <propertyInstance
+                      Id="3183c8f5-1e2a-47e5-8bb9-e33243dea527"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="230b307e-11e7-4db6-9d1f-baeafc2582ed">
+                    <propertyInstance
+                      Id="7f7f2380-a891-44c3-9f24-7c3b4de4d763"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="77f1382a-b1eb-4950-b25b-f371d60e56e3">
+                    <propertyInstance
+                      Id="184d89a8-b1d5-4927-9dc7-06871e1e1086"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="10653469-a977-45f8-b66b-8b3e389d6670">
+                    <propertyInstance
+                      Id="5c871574-a9aa-4ca8-ad0a-3b8f13d8bbdb"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="07292b38-2025-49aa-96ed-d9dc984a77b8"
+            name="createStreamReader"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="2bf468ef-a78c-44a1-aee6-a074d7adca7a"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DStreamReaderFactory Member%3D(Name%3DcreateStreamReader OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="7ab55fbe-6167-4a11-8415-8c54cbf3c01b"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="25707383-b0a1-4903-9281-19cf1d8cc9e7">
+                    <propertyInstance
+                      Id="cf65ae15-2342-426b-9d10-40d00e909db4"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="891665a6-416d-44c2-9d5c-5afe96bb5cde">
+                    <propertyInstance
+                      Id="6b5a8e99-4b8d-4f6c-b67b-ccb35881d982"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dfd77333-e514-4037-8512-7361b1abc027">
+                    <propertyInstance
+                      Id="949b6727-7848-405d-ad40-913b116c15ac"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6713acef-0f5a-4b81-925f-0d8d952c87c9">
+                    <propertyInstance
+                      Id="0ab5cced-3413-4a99-85e1-24f136c5f288"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3b2541c8-f96c-428f-b45d-facda99cf0c8">
+                    <propertyInstance
+                      Id="36df6678-dfe8-4cf2-aaa1-b08fe5ad844d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="56d5a450-921c-443b-87f2-193cde540350">
+                    <propertyInstance
+                      Id="21c95d5c-35b8-47d6-a784-b4928c0c9999"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="77742c92-2ee2-4c51-aadf-df0d641aa2c3"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="70e1e2bb-c0a1-4fe2-9271-e492c80d44a2"
+                      LastKnownName="StreamReader"
+                      LastKnownLocation="Package8_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="fce63db1-efd5-40cc-9028-f25d8a61f164"
+                  name="filepath"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="08e50341-2362-4558-882a-7c85fb87c12c"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DStreamReaderFactory Member%3D(Name%3DcreateStreamReader OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dfilepath"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="bac1d900-9d4e-43ac-b17b-b7404fae00d8"
+        name="StreamWriterFactory"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="13cf6d8a-219b-4064-9381-1906583eac6c"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DStreamWriterFactory"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="349bc8d5-0569-4ac1-b528-8c64c543774a"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="284bea36-c1cd-4d01-94e1-3408399bb33f">
+                <propertyInstance
+                  Id="ed7b5446-5bef-4eb0-a55f-76f3afb3609d"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0f3d6be0-e255-4406-8800-697ed6bfa53c">
+                <propertyInstance
+                  Id="ec818815-a0fe-4905-85a2-94b9c07b2717"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a1755a19-7737-4440-8b45-a7bfd065e937">
+                <propertyInstance
+                  Id="f2f95492-462a-45c0-8714-2b352903bd67"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9727851f-1504-4452-89db-863ca359b548">
+                <propertyInstance
+                  Id="1ec71a86-bdbe-4ef4-9931-28ac42fb8117"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d5bef0fa-3b60-45d0-b15b-f520067d2a6e">
+                <propertyInstance
+                  Id="176279fc-0ebc-4850-85ad-671facf32fb8"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="81ccc38f-f65e-4c8c-b795-00ab48c4e673"
+            name="StreamWriterFactory"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="7773af55-1980-4ddf-97e3-64256c9af4eb"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DStreamWriterFactory Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="02e3c700-b06d-45e2-a5e3-5eefe49c7e70"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="61440252-acb1-480b-9b2b-92a096eab4de">
+                    <propertyInstance
+                      Id="bce0a39b-012e-47c2-9ef9-872ddb462996"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bf6aa00c-a8eb-4eb5-ad11-cb841b59a2da">
+                    <propertyInstance
+                      Id="1e6aa229-bad9-4e9f-81fb-ad38e75cca2d"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="96bc547a-ffed-452e-9ad7-6b0cfb2c5299">
+                    <propertyInstance
+                      Id="7aa6063f-91d5-4a07-9ba5-6eddf3b3be40"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="38fb2f3b-e638-4dda-a32e-132185ad7241">
+                    <propertyInstance
+                      Id="3ab00542-e4a4-4584-a7d0-77e017dc8ed3"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e9798ec8-cd1c-4bba-b20e-253e0c64c951">
+                    <propertyInstance
+                      Id="a3319fd2-d220-413d-a610-bae6650ca315"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ce332b0d-5d21-43ba-a875-4c6170a5230c">
+                    <propertyInstance
+                      Id="e1e54ce5-e20e-4bae-be83-9bd2096eb155"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="e8ace6d7-9dcb-4e0f-bcdf-855ba2cadc76"
+            name="createStreamWriter"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="c29670c0-4448-4dc0-90ac-7f644314f6f1"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DStreamWriterFactory Member%3D(Name%3DcreateStreamWriter OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="151d88ac-23f1-4907-bfdc-ab985bcad2e6"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2e533f04-f020-455a-b11a-4a7c6dffd20b">
+                    <propertyInstance
+                      Id="2bbab8e2-4065-4421-a0cb-8f6cd34c42d5"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="370f2ded-ab30-4966-97ff-819635243323">
+                    <propertyInstance
+                      Id="034c441d-c38e-4b48-bbfc-58cf35f1c554"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="211ab197-3e0e-446d-8939-2aec05cbd1fd">
+                    <propertyInstance
+                      Id="9ebfc01f-4034-4bf6-b997-720700412b50"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="01d9cdc2-3335-4654-b121-135393e410c4">
+                    <propertyInstance
+                      Id="8c86cd8d-a1f2-4843-a763-9c9136e307a5"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b0625804-e513-4bd8-8187-f57395e3b23c">
+                    <propertyInstance
+                      Id="c2e56c47-7ebe-468c-85ac-57cad2ed6f1d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bb967f37-0a51-4f2d-9415-3b061dfd9170">
+                    <propertyInstance
+                      Id="b53a8731-54f0-4fa6-88c0-3062beb6f73f"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0dd54db9-a3cf-4041-a655-2098cbee2201"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="4a154ab6-adda-4e55-a542-2a28a22d2b59"
+                      LastKnownName="StreamWriter"
+                      LastKnownLocation="Package8_2122.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="173b22b9-2dd1-4992-89b2-9895be3e9dac"
+                  name="filepath"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="f1a539ac-e4f1-461c-9e21-8bbda94d2554"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FMoe%2FSource%2FRepos%2FZaveDevelopment3%2FZaveGlobalSettings%2Fbin%2FDebug%2FZaveGlobalSettings.dll Namespace%3DZaveGlobalSettings.ZaveFile Type%3DStreamWriterFactory Member%3D(Name%3DcreateStreamWriter OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.2%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dfilepath"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ZaveModelling.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
