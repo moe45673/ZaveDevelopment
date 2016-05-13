@@ -29,7 +29,8 @@ namespace ZaveController.Global_Settings
 
         bool disposed = false;
         public ZaveModel.ZDF.ZDFSingleton activeZDF;
-        
+        private static DateTime lastRead;
+
         private static readonly EventInitSingleton instance = new EventInitSingleton();
         private FileSystemWatcher watcher;
         
@@ -43,6 +44,7 @@ namespace ZaveController.Global_Settings
             
             activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
             CreateFileWatcher(Path.GetTempPath());
+            lastRead = DateTime.MinValue;
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
             //ThisAddIn.WordFired += new EventHandler<SrcEventArgs>(SrcHighlightEventHandler);
         }
@@ -96,7 +98,7 @@ namespace ZaveController.Global_Settings
 
             // Add event handlers.
             watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Created += new FileSystemEventHandler(OnChanged);
+            //watcher.Created += new FileSystemEventHandler(OnChanged);
             //watcher.Deleted += new FileSystemEventHandler(OnChanged);
             //watcher.Renamed += new RenamedEventHandler(OnRenamed);
 
@@ -107,36 +109,48 @@ namespace ZaveController.Global_Settings
         // Define the event handlers.
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            // Specify what is done when a file is changed, created, or deleted.
-            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
+
+
+            DateTime lastWriteTime = File.GetLastWriteTime(e.FullPath);
+            if (lastWriteTime != lastRead)
+            {
+                // Specify what is done when a file is changed, created, or deleted.
+                ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
 
             //List<SelectionState> _selState = new List<SelectionState>();
             //SelectionState selState = new SelectionState();
 
             //_selState.Add(JsonConvert.DeserializeObject<SelectionState>(File.ReadAllText(e.FullPath)));
             //SelectionState temp = new SelectionState>();
-             using (StreamReader sr = StreamReaderFactory.createStreamReader(e.FullPath))
-            {
-                try
+                using (StreamReader sr = StreamReaderFactory.createStreamReader(e.FullPath))
                 {
-                    string json = sr.ReadToEnd();
+                    try
+                    {
+                        string json = sr.ReadToEnd();
 
-                    var temp = JsonConvert.DeserializeObject<SelectionState[]>(json).ToList<SelectionState>();
+                        var temp = JsonConvert.DeserializeObject<SelectionState[]>(json).ToList<SelectionState>();
+                    
+                        if (temp.Any<SelectionState>())
+                        {
+                            entry.Source = temp[0];
 
-                    entry.Source = temp[0];
+                            ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
-                    ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
-
-                    activeZDF.Add(entry);
-                    sr.Close();
+                            activeZDF.Add(entry);
+                        }
+                        sr.Close();
+                    }
+                    catch (IOException ex)
+                    {
+                        throw ex;
+                    }
                 }
-                catch (IOException ex)
-                {
-                    throw ex;
-                }
+            lastRead = lastWriteTime;
+
             }
-               
-            
+
+
+
         }
 
         private static void OnRenamed(object source, RenamedEventArgs e)

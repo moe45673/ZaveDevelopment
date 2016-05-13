@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zave.ZDFEntry"
-        xmlns:custns="clr-namespace:ZaveViewModel.ZDFEntryViewModel;assembly=ZaveViewModel"
+        xmlns:custns="clr-namespace:ZaveViewModel.ZDFViewModel;assembly=ZaveViewModel"
         mc:Ignorable="d"        
         Title="ZDFEntry" Height="300" Width="300">
     <Window.Resources>
-        <custns:ZDFEntryViewModel x:Key="ZdfObj" />
+        <custns:ZDFViewModel x:Key="ZdfObj" />
     </Window.Resources>
     <Grid Name="gridEntry" DataContext="{Binding Mode=OneWay, Source={StaticResource ZdfObj}}">
         <Grid.RowDefinitions>

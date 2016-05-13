@@ -11,15 +11,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows;
-using ZaveViewModel.ZDFEntryViewModel;
+using ZaveViewModel.ZDFViewModel;
 using ZaveController.Global_Settings;
+using ZaveGlobalSettings.ZaveFile;
 
 namespace Zave
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class ZaveApp : Application
     {
 
 
@@ -29,7 +30,7 @@ namespace Zave
         /// <summary>
         /// Runs Init() Method
         /// </summary>
-        public App()
+        public ZaveApp()
         {
             //Init();
             //MainWindow app = new MainWindow();
@@ -40,15 +41,53 @@ namespace Zave
 
         }
 
-        ~App()
+        ~ZaveApp()
         {
+
             eventInit.Dispose();
+
+            string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
+            
+            int maxAttempts = 20;
+            int retryMilliseconds = 100;
+            
+            for (int attempts = 0; attempts <= maxAttempts; attempts++)
+            {
+                try
+                {
+                    File.Delete(projFile);
+
+                }
+                catch (IOException iox)
+                {
+                    if (attempts == maxAttempts)
+                    {
+                        throw iox;
+                    }
+                    System.Threading.Thread.Sleep(retryMilliseconds);
+                    
+                }
+               
+            }
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             MainWindow wnd = new Zave.MainWindow();
             eventInit = EventInitSingleton.Instance;
+            string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
+            using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
+            {
+                try
+                {
+                    sw.Write("[]");
+                    sw.Close();
+                }
+                catch (IOException ex)
+                {
+                    throw ex;
+                }
+            }
             wnd.Title = "Zave";
             wnd.Show();
         }
