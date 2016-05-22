@@ -49,6 +49,7 @@ namespace ZaveModel.ZDFEntry {
         public ZDFEntry(ZaveGlobalSettings.Data_Structures.SelectionState src) : this()
         {
             Source = src;
+            _id = ZDF.ZDFSingleton.setID();
         }
 
         ~ZDFEntry()

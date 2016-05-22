@@ -306,7 +306,7 @@ namespace ZaveViewModel.ZDFViewModel
 
         public string TxtDocID
         {
-            get { return _zdfEntry.Source.ID.ToString(); }
+            get { return _zdfEntry.ID.ToString(); }
             private set
             {
                 _zdfEntry.Source.ID = int.Parse(value);

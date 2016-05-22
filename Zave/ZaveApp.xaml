@@ -1,9 +1,12 @@
-﻿<Application x:Class="Zave.ZaveApp"
+﻿<Application
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Zave"
+             xmlns:CommandWpf="clr-namespace:GalaSoft.MvvmLight.CommandWpf;assembly=GalaSoft.MvvmLight.Platform" x:Class="Zave.ZaveApp"
              Startup="Application_Startup">
     <Application.Resources>
-         
+
+        
+
     </Application.Resources>
 </Application>
