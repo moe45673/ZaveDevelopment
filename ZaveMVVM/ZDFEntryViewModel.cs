@@ -1,4 +1,6 @@
 ﻿using System;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
@@ -18,7 +20,7 @@ using ZaveGlobalSettings.Data_Structures;
 namespace ZaveViewModel.ZDFViewModel
 {
     //using activeZDF = ZaveModel.ZDF.ZDFSingleton;
-    public class ZDFViewModel : ObservableObject
+    public class ZDFViewModel : ZaveGlobalSettings.Data_Structures.ObservableObject
     {
         private ZDFEntryViewModel _activeZdfEntry;
 
@@ -27,18 +29,18 @@ namespace ZaveViewModel.ZDFViewModel
         //private ICommand _getZDFEntryCommand;
         private ICommand _saveZDFEntryCommand;
 
-        
 
-        //public ZaveModel.ZDF.IZDF ActiveZDF
-        //{
-        //    get { return activeZDF; }
-        //    set
-        //    {
-        //        activeZDF = value;
-                
-        //        this.NotifyPropertyChanged("ActiveZDF");
-        //    }
-        //}
+
+        public ZDFEntryViewModel ActiveZDFEntry
+        {
+            get { return _activeZdfEntry; }
+            set
+            {
+                _activeZdfEntry = value;
+
+                OnPropertyChanged("ActiveZDFEntry");
+            }
+        }
 
         //public IZDFEntry ZDFEntry
         //{
@@ -90,11 +92,54 @@ namespace ZaveViewModel.ZDFViewModel
             if (e.PropertyName == "EntryList") {
                 int index = activeZDF.EntryList.Count - 1;
                 
-                _activeZdfEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
+                ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
                 //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
-                ZDFEntries.Add(_activeZdfEntry);
+                ZDFEntries.Add(ActiveZDFEntry);
                 //UpdateGui(zdfEntry.Source);
             }
+        }
+
+        //private void ViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName == "TxtDocID")
+        //    {
+        //        _activeZdfEntry = ZDFEntries.SingleOrDefault(x => x.TxtDocID == sender.ID as ZDFEntryViewModel);
+        //    }
+        //}
+
+        private RelayCommand<string> _selectItemRelayCommand;
+
+        /// <summary>
+        /// Relay command associated with the selection of an item in the observablecollection
+        /// </summary>
+        public RelayCommand<string> SelectItemRelayCommand
+        {
+            get
+            {
+                if (_selectItemRelayCommand == null)
+                {
+                    _selectItemRelayCommand = new RelayCommand<string>(async (id) =>
+                    {
+                        await selectItem(id);
+                    });
+                }
+
+                return _selectItemRelayCommand;
+            }
+            set { _selectItemRelayCommand = value; }
+        }
+
+        /// <summary>
+        /// I went with async in case you sub is a long task, and you don't want to lock you UI
+        /// </summary>
+        /// <returns></returns>
+        private async Task<int> selectItem(string id)
+        {
+            this.ActiveZDFEntry = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id);
+            
+            //Do async work
+
+            return await Task.FromResult(1);
         }
 
         //public void UpdateGui(SelectionState selState)
@@ -165,6 +210,7 @@ namespace ZaveViewModel.ZDFViewModel
             
 
             activeZDF.PropertyChanged += new PropertyChangedEventHandler(ModelPropertyChanged);
+            //_activeZdfEntry.PropertyChanged += new PropertyChangedEventHandler(ViewPropertyChanged);
 
             //zdfEntry.Source.SelectionDateModified = null;
             //System.Windows.Forms.MessageBox.Show("ViewModelOpened!");
@@ -192,17 +238,19 @@ namespace ZaveViewModel.ZDFViewModel
 
 
 
-    public class ZDFEntryViewModel : ObservableObject
+    public class ZDFEntryViewModel : ZaveGlobalSettings.Data_Structures.ObservableObject
     {
 
         private IZDFEntry _zdfEntry;
+        //private string _txtDocId;
 
-        private void setProperties(string name, string page, string txt, DateTime dateModded)
+        private void setProperties(int id, string name, string page, string txt, DateTime dateModded)
         {
             if (_zdfEntry == null) { 
                 throw new NullReferenceException("No ZDFEntryViewModel referenced!");
             }
 
+            TxtDocID = id.ToString();
             TxtDocName = name;
             TxtDocPage = page;
             TxtDocText = txt;
@@ -214,7 +262,7 @@ namespace ZaveViewModel.ZDFViewModel
         {
             try
             {
-                setProperties(selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified);
+                setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified);
             }
             catch(NullReferenceException nre)
             {
@@ -254,6 +302,17 @@ namespace ZaveViewModel.ZDFViewModel
 
             }
 
+        }
+
+        public string TxtDocID
+        {
+            get { return _zdfEntry.Source.ID.ToString(); }
+            private set
+            {
+                _zdfEntry.Source.ID = int.Parse(value);
+                OnPropertyChanged("TxtDocID");
+            }
+            
         }
 
         public String TxtDocPage

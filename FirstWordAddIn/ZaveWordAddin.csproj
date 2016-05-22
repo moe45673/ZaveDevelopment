@@ -231,7 +231,7 @@
     <ManifestKeyFile>ZaveWordAddin_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>289DA2FBBF3A8CED2212A790CDE2AFB0E626B388</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3F49A3A1F315BAF580A8E7E18AA57D27C9E3D83E</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

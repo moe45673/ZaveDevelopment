@@ -40,6 +40,11 @@ namespace ZaveModel.ZDFEntry {
             get;
             set;
         }
+
+        int ID
+        {
+            get;
+        }
         
 
         

@@ -107,13 +107,15 @@ namespace ZaveController.Global_Settings
         }
 
         // Define the event handlers.
-        private static void OnChanged(object source, FileSystemEventArgs e)
+        private void OnChanged(object source, FileSystemEventArgs e)
         {
 
-
-            DateTime lastWriteTime = File.GetLastWriteTime(e.FullPath);
-            if (lastWriteTime != lastRead)
-            {
+            //onchanged called multiple times, this ensures
+            watcher.EnableRaisingEvents = false;
+            System.Threading.Thread.Sleep(250);
+            watcher.EnableRaisingEvents = true;
+           
+           
                 // Specify what is done when a file is changed, created, or deleted.
                 ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
 
@@ -122,6 +124,7 @@ namespace ZaveController.Global_Settings
 
             //_selState.Add(JsonConvert.DeserializeObject<SelectionState>(File.ReadAllText(e.FullPath)));
             //SelectionState temp = new SelectionState>();
+               
                 using (StreamReader sr = StreamReaderFactory.createStreamReader(e.FullPath))
                 {
                     try
@@ -129,7 +132,7 @@ namespace ZaveController.Global_Settings
                         string json = sr.ReadToEnd();
 
                         var temp = JsonConvert.DeserializeObject<SelectionState[]>(json).ToList<SelectionState>();
-                    
+
                         if (temp.Any<SelectionState>())
                         {
                             entry.Source = temp[0];
@@ -144,8 +147,8 @@ namespace ZaveController.Global_Settings
                     {
                         throw ex;
                     }
-                }
-            lastRead = lastWriteTime;
+                   
+            
 
             }
 

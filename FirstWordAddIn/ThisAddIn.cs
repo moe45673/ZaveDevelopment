@@ -72,7 +72,7 @@ namespace FirstWordAddIn
                 {
                     List<SelectionState> _selStateList = new List<SelectionState>();
                     
-                    _selStateList.Insert(0, new SelectionState()
+                    _selStateList.Add(new SelectionState()
                     {
                         SelectionDocName = e.Selection.Application.ActiveDocument.Name,
                         SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString(),
@@ -99,7 +99,9 @@ namespace FirstWordAddIn
                     {
                         try
                         {
+                            //sw.BaseStream.Seek(0, SeekOrigin.End);
                             sw.Write(json);
+                            
                             sw.Close();
                         }
                         catch (IOException ex)

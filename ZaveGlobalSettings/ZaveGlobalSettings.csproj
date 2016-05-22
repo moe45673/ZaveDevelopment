@@ -46,6 +46,9 @@
     <Compile Include="Data_Structures\DataStructures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZaveFile\IStreamFactory.cs" />
+    <Compile Include="ZaveFile\ZaveFileSystemWatcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

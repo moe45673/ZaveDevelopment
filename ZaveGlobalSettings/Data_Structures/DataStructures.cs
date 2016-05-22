@@ -18,7 +18,39 @@ namespace ZaveGlobalSettings.Data_Structures
     /// </summary>
     public enum SrcType { GENERIC = 0, WORD = 1, EXCEL = 2 }
 
-    
+
+    public sealed class SelectionStateList : List<SelectionState>
+    {
+        public List<SelectionState> SelStateList;
+
+        private static readonly Lazy<SelectionStateList> lazy = new Lazy<SelectionStateList>(() => new SelectionStateList());
+
+        public static SelectionStateList Instance { get { return lazy.Value; } }
+
+        private readonly object _selStateLock = new object();
+
+        private SelectionStateList() : base()
+        {
+            SelStateList = new List<SelectionState>();
+        }
+
+        public void Add(SelectionState selstate)
+        {
+            lock (_selStateLock)
+            {
+                SelStateList.Add(selstate);
+            }
+        }
+
+        public SelectionState Find(int id)
+        {
+            return SelStateList.SingleOrDefault(x => x.ID == id);
+        }
+
+
+
+        
+    }    
 
     /// <summary>
     /// High Level class that holds all data/metadata from an Entry abstractly
@@ -38,6 +70,8 @@ namespace ZaveGlobalSettings.Data_Structures
             srcType = src;
             IsValid = true;
         }
+
+        public int ID { get; set; }
         public String SelectionPage { get; set; }
         public String SelectionDocName { get; set; }
         public String SelectionText { get; set; }

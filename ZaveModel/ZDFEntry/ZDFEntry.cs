@@ -34,12 +34,16 @@ namespace ZaveModel.ZDFEntry {
 
         }
 
+        private int _id;
+        public int ID { get { return _id; } }
+
         public List<Comment.IEntryComment> m_IEntryComment;
 
         public ZDFEntry()
         {
             m_IEntryComment = new List<Comment.IEntryComment>();
             Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
+            _id = ZDF.ZDFSingleton.setID();
         }
 
         public ZDFEntry(ZaveGlobalSettings.Data_Structures.SelectionState src) : this()
@@ -83,7 +87,7 @@ namespace ZaveModel.ZDFEntry {
             set;
         }
 
-
+        
 
 
     }

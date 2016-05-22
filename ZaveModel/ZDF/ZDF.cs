@@ -24,18 +24,37 @@ namespace ZaveModel.ZDF
 
         private static ZDFSingleton instance;
         private static readonly object syncRoot = new Object();
+        private static int _iDTracker;
         //private string _date = DateTime.Now.ToShortTimeString();
         //FileSystemWatcher watcher;
+
+        public static int setID()
+        {          
+            
+            return ++_iDTracker;
+        }
 
 
 
         private ZDFSingleton()
         {
             isActive = true;
+
+           
             
             EntryList = new List<ZDFEntry.IZDFEntry>();
+            
+            
+            if (EntryList.Count.Equals(0))
+                _iDTracker = 0;
+            else
+            {
+                //get highest existing id and set _iDtracker to it
+            }
             //CreateFileWatcher(Path.GetTempPath());
         }
+
+
 
         public static ZDFSingleton Instance
         {
@@ -51,6 +70,9 @@ namespace ZaveModel.ZDF
                 return instance;
             }
         }
+
+        public static int IDTracker { get { return _iDTracker; } }
+
         public bool isActive { get; set; }
 
         private List<ZDFEntry.IZDFEntry> _entryList;
