@@ -5,17 +5,18 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Custom="clr-namespace:GalaSoft.MvvmLight;assembly=GalaSoft.MvvmLight"
-        
-        xmlns:local="clr-namespace:Zave"
-        
-        xmlns:viewmodelns="clr-namespace:ZaveViewModel.ZDFViewModel;assembly=ZaveViewModel"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Zave"        
+        xmlns:controlsns="clr-namespace:ZaveViewModel.ZaveControlsViewModel;assembly=ZaveViewModel"
+        xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ZDFViewModel;assembly=ZaveViewModel"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:CommandWpf="clr-namespace:GalaSoft.MvvmLight.CommandWpf;assembly=GalaSoft.MvvmLight.Platform" x:Name="ZaveMain" x:Class="Zave.MainWindow"
         mc:Ignorable="d"
         Title="Zave" Height="600" Width="800" WindowStyle="ThreeDBorderWindow" Cursor="Pen">
     <Window.Resources>
 
-        <viewmodelns:ZDFViewModel x:Key="ZdfObj"/>
+        <zdfviewmodelns:ZDFViewModel x:Key="ZdfObj"/>
+        <x:StaticExtension Member="controlsns:ZaveControlsViewModel.Instance" x:Key="ControlsObj" />
 
         <DataTemplate x:Key="ChosenEntry">
             <Grid x:Name="gridEntry" Margin="4" DataContext="{Binding ZDFEntries, Source={StaticResource ZdfObj}}">
@@ -75,11 +76,16 @@
 
         </Grid.RowDefinitions>
         <Border Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black">
-            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" Text="[Zave Controls]" FontSize="72" FontFamily="Franklin Gothic Heavy" Opacity="0.8" >
-                <TextBlock.Effect>
-                    <DropShadowEffect Color="#FFF3FF00"/>
-                </TextBlock.Effect>
-            </TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock   Text="[Zave Controls]" FontSize="72" FontFamily="Franklin Gothic Heavy" Opacity="0.8" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#FFF3FF00"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                
+                <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Source={StaticResource ControlsObj}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" />
+
+            </StackPanel>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="2" BorderThickness="1" BorderBrush="Black">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="[List of ZDF Files]" FontSize="50" FontFamily="Franklin Gothic Heavy" Opacity="0.8" >

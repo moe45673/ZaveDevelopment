@@ -18,6 +18,7 @@ using ZaveViewModel.Commands;
 using ZaveGlobalSettings.Data_Structures;
 //using Zave
 
+
 namespace ZaveViewModel.ZDFViewModel
 {
     //using activeZDF = ZaveModel.ZDF.ZDFSingleton;
@@ -28,7 +29,7 @@ namespace ZaveViewModel.ZDFViewModel
         private ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
         //private ICommand _getZDFEntryCommand;
-        private ICommand _saveZDFEntryCommand;
+        //private ICommand _saveZDFEntryCommand;
 
 
 
@@ -260,6 +261,8 @@ namespace ZaveViewModel.ZDFViewModel
             
         }
 
+        
+
         private void setProperties(SelectionState selState)
         {
             try
@@ -278,7 +281,7 @@ namespace ZaveViewModel.ZDFViewModel
 
             try
             {
-                setProperties(zdfEntry.Source);
+                setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified);
             }
             catch(NullReferenceException nre)
             {
@@ -291,12 +294,12 @@ namespace ZaveViewModel.ZDFViewModel
 
         public String TxtDocName
         {
-            get { return _zdfEntry.Source.SelectionDocName; }
+            get { return _zdfEntry.Name; }
             set
             {
 
 
-                _zdfEntry.Source.SelectionDocName = value;
+                _zdfEntry.Name = value;
 
                 OnPropertyChanged("TxtDocName");
                 //System.Windows.Forms.MessageBox.Show(value.ToString());
@@ -311,7 +314,7 @@ namespace ZaveViewModel.ZDFViewModel
             get { return _zdfEntry.ID.ToString(); }
             private set
             {
-                _zdfEntry.Source.ID = int.Parse(value);
+                
                 OnPropertyChanged("TxtDocID");
             }
             
@@ -319,10 +322,10 @@ namespace ZaveViewModel.ZDFViewModel
 
         public String TxtDocPage
         {
-            get { return _zdfEntry.Source.SelectionPage; }
+            get { return _zdfEntry.Page; }
             set
             {
-                _zdfEntry.Source.SelectionPage = value;
+                _zdfEntry.Page = value;
                 OnPropertyChanged("TxtDocPage");
             }
 
@@ -330,10 +333,10 @@ namespace ZaveViewModel.ZDFViewModel
 
         public String TxtDocText
         {
-            get { return _zdfEntry.Source.SelectionText; }
+            get { return _zdfEntry.Text; }
             set
             {
-                _zdfEntry.Source.SelectionText = value;
+                _zdfEntry.Text = value;
                 OnPropertyChanged("TxtDocText");
             }
         }
@@ -343,8 +346,8 @@ namespace ZaveViewModel.ZDFViewModel
             get
             {
                 string date;
-                if (!_zdfEntry.Source.SelectionDateModified.Equals(default(DateTime)))
-                    date = _zdfEntry.Source.SelectionDateModified.ToShortDateString() + " " + _zdfEntry.Source.SelectionDateModified.ToShortTimeString();
+                if (!_zdfEntry.DateModified.Equals(default(DateTime)))
+                    date = _zdfEntry.DateModified.ToShortDateString() + " " + _zdfEntry.DateModified.ToShortTimeString();
                 else
                     date = "";
                 return date;
@@ -352,7 +355,7 @@ namespace ZaveViewModel.ZDFViewModel
             }
             set
             {
-                _zdfEntry.Source.SelectionDateModified = DateTime.Parse(value);
+                _zdfEntry.DateModified = DateTime.Parse(value);
                 OnPropertyChanged("TxtDocLastModified");
             }
         }

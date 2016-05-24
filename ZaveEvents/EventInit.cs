@@ -117,7 +117,7 @@ namespace ZaveController.Global_Settings
            
            
                 // Specify what is done when a file is changed, created, or deleted.
-                ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
+            
 
             //List<SelectionState> _selState = new List<SelectionState>();
             //SelectionState selState = new SelectionState();
@@ -135,9 +135,9 @@ namespace ZaveController.Global_Settings
 
                         if (temp.Any<SelectionState>())
                         {
-                            entry.Source = temp[0];
+                        ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
 
-                            ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+                        ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
                             activeZDF.Add(entry);
                         }

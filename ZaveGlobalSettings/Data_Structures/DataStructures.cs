@@ -53,6 +53,17 @@ namespace ZaveGlobalSettings.Data_Structures
     }    
 
     /// <summary>
+    /// 
+    /// 
+    /// </summary>
+        
+    public enum AvailableColors
+    {
+        BLACK, BLUE, AQUA, LIME, FUCHSIA, WHITE, NAVY, TEAL, GREEN, PURPLE, MAROON, OLIVE, GRAY, SILVER, YELLOW, RED
+    }
+
+
+    /// <summary>
     /// High Level class that holds all data/metadata from an Entry abstractly
     /// </summary>
     public class SelectionState
@@ -71,8 +82,11 @@ namespace ZaveGlobalSettings.Data_Structures
             IsValid = true;
         }
 
+
+
         public int ID { get; set; }
         public String SelectionPage { get; set; }
+        public System.Drawing.Color Color { get; set; }
         public String SelectionDocName { get; set; }
         public String SelectionText { get; set; }
         public DateTime SelectionDateModified { get; set; }
@@ -139,19 +153,19 @@ namespace ZaveGlobalSettings.Data_Structures
 
     public class ModelEventArgs : EventArgs
     {
-        public ModelEventArgs(string description, SelectionState selState)
+        public ModelEventArgs(string description)
         {
-            _selState = selState;
+            //_selState = selState;
             _description = description;
         }
-        private SelectionState _selState;
+        //private SelectionState _selState;
 
         private string _description;
 
-        public SelectionState SelState
-        {
-            get { return _selState; }
-        }
+        //public SelectionState SelState
+        //{
+        //    get { return _selState; }
+        //}
 
         public string Description
         {

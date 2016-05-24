@@ -26,11 +26,11 @@ namespace ZaveModel.ZDFEntry {
 
         public event EventHandler<ModelEventArgs> PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string description, SelectionState info)
+        protected virtual void OnPropertyChanged(string description)
         {
             var handler = PropertyChanged;
             if (handler != null)
-                handler(this, new ModelEventArgs(description, info));
+                handler(this, new ModelEventArgs(description));
 
         }
 
@@ -42,14 +42,20 @@ namespace ZaveModel.ZDFEntry {
         public ZDFEntry()
         {
             m_IEntryComment = new List<Comment.IEntryComment>();
-            Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
+            //Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
             _id = ZDF.ZDFSingleton.setID();
         }
 
         public ZDFEntry(ZaveGlobalSettings.Data_Structures.SelectionState src) : this()
         {
-            Source = src;
+            m_IEntryComment = new List<Comment.IEntryComment>();
             _id = ZDF.ZDFSingleton.setID();
+            _page = src.SelectionPage;
+            _name = src.SelectionDocName;
+            _text = src.SelectionText;
+            _dateModified = src.SelectionDateModified;
+            _format = src.srcType;
+            
         }
 
         ~ZDFEntry()
@@ -58,42 +64,91 @@ namespace ZaveModel.ZDFEntry {
         }
 
 
-        private ColorCategory hColor;
+        #region Properties
+        private ColorCategory _hColor;
         public ColorCategory HColor
         {
-            get { return hColor; }
+            get { return _hColor; }
             set
             {
-                hColor = value;
-                //OnPropertyChanged("HColor", Source);
+                _hColor = value;
+                OnPropertyChanged("HColor");
             }
 
         }
 
-        private ZaveGlobalSettings.Data_Structures.SelectionState _source;
-        public ZaveGlobalSettings.Data_Structures.SelectionState Source
+        //private ZaveGlobalSettings.Data_Structures.SelectionState _source;
+        //public ZaveGlobalSettings.Data_Structures.SelectionState Source
+        //{
+        //    get { return _source; }
+        //    set
+        //    {
+        //        _source = value;
+        //        //OnPropertyChanged("Source", Source);
+        //    }
+        //}
+
+        private string _page;
+        public string Page
         {
-            get { return _source; }
+            get { return _page; }
             set
             {
-                _source = value;
-                //OnPropertyChanged("Source", Source);
+                _page = value;
+                OnPropertyChanged("Page");
             }
         }
 
-
-        public string Title
+        private string _text;
+        public string Text
         {
-            get;
-            set;
+            get { return _text; }
+            set
+            {
+                _text = value;
+                OnPropertyChanged("Text");
+            }
         }
 
-        
+        private DateTime _dateModified;
+        public DateTime DateModified
+        {
+            get { return _dateModified; }
+            set
+            {
+                _dateModified = value;
+                OnPropertyChanged("DateModified");
+            }
+        }
+
+        private SrcType _format;
+        public SrcType Format
+        {
+            get { return _format; }
+            set
+            {
+                _format = value;
+                OnPropertyChanged("DateModified");
+            }
+        }
+
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+        #endregion
 
 
     }
 
-        //end ZDFEntry
-       
+    //end ZDFEntry
+
 
 }//end namespace ZDFEntry

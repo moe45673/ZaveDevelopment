@@ -28,14 +28,37 @@ namespace ZaveModel.ZDFEntry {
             set;
         }
 
-        ZaveGlobalSettings.Data_Structures.SelectionState Source
+        //ZaveGlobalSettings.Data_Structures.SelectionState Source
+        //{
+        //    get;
+        //    set;
+        //}
+
+        string Page
         {
             get;
             set;
         }
 
+        string Name
+        {
+            get;
+            set;
+        }
 
-        string Title
+        string Text
+        {
+            get;
+            set;
+        }
+
+        DateTime DateModified
+        {
+            get;
+            set;
+        }
+
+        ZaveGlobalSettings.Data_Structures.SrcType Format
         {
             get;
             set;

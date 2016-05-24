@@ -26,6 +26,7 @@ namespace Zave
 
 
         EventInitSingleton eventInit;
+       
 
         /// <summary>
         /// Runs Init() Method
@@ -94,14 +95,7 @@ namespace Zave
 
         
 
-        /// <summary>
-        /// Runs Debug code. Right now, creates a ZDF to work with.
-        /// </summary>
-        //public void Init()
-        //{
-
-        //    activeZDFEntry = new ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel();
-        //}
+        
 
     }//end App
 
