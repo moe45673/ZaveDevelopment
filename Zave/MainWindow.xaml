@@ -46,27 +46,20 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="EntryList">
-            <Border DataContext="{Binding Mode=OneWay, Source={StaticResource ZdfObj}}">
-               
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction
-        					Command="{Binding DataContext.SelectItemRelayCommand, RelativeSource={RelativeSource AncestorType={x:Type Border}, Mode=FindAncestor}, PresentationTraceSources.TraceLevel=High}"
-        					CommandParameter="{Binding TxtDocID}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+        <DataTemplate x:Key="EntryList">               
 
-                <StackPanel DataContext="{Binding ActiveZDFEntry}" >
+                <StackPanel >
+
+                
 
 
-                    <TextBlock x:Name="docIDTxtBx" Visibility="Hidden" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock x:Name="docNameTxtBx" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True"  />
 
                     <TextBlock x:Name="docTextTxtBx1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" />
 
                 </StackPanel>
-            </Border>
+            
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -98,11 +91,19 @@
         <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch" />
 
 
-        <ListView Grid.Row="1" ItemTemplate="{DynamicResource EntryList}" ItemsSource="{Binding ZDFEntries, Source={StaticResource ZdfObj}}" Margin="7,0,0,2" Grid.ColumnSpan="2"  />
+        <ListView Grid.Row="1" ItemTemplate="{StaticResource EntryList}" ItemsSource="{Binding ZDFEntries, Source={StaticResource ZdfObj}}" Margin="7,0,0,2" Grid.ColumnSpan="2" Name="LV_EntryList" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction
+        					    Command="{Binding SelectItemRelayCommand, Source={StaticResource ZdfObj}, PresentationTraceSources.TraceLevel=High}"
+        					    CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
 
 
         <Border Grid.Column="2" Grid.Row="1">
-            <Grid x:Name="gridEntry" Margin="10,-2,-2,10">
+            <Grid x:Name="gridEntry" Margin="10,-2,-2,10" DataContext="{Binding ActiveZDFEntry, Source={StaticResource ZdfObj}}" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
 
@@ -122,16 +123,17 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Label x:Name="docIdLbl" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label x:Name="docIdLbl" Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label x:Name="docNameLbl" Grid.Row="1" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label x:Name="docPageLbl" Grid.Row="2" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label x:Name="docTextLbl" Grid.Row="4" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label x:Name="docLastModdedLbl" Grid.Row="3" Grid.Column="0" Content="Date Modified" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock x:Name="docIdTxtBx" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}"  />
+                <TextBlock x:Name="docIdTxtBx" Visibility="Collapsed" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}"  />
                 <TextBlock x:Name="docNameTxtBx" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  />
                 <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock x:Name="docTextTxtBx1" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock x:Name="docTextTxtBx1" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
+                
 
             </Grid>
         </Border>

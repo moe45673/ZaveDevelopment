@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Linq;
 using System.Text;
@@ -92,9 +93,9 @@ namespace ZaveViewModel.ZDFViewModel
             if (e.PropertyName == "EntryList") {
                 int index = activeZDF.EntryList.Count - 1;
                 
-                ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
+                //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
                 //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
-                ZDFEntries.Add(ActiveZDFEntry);
+                ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index]));
                 //UpdateGui(zdfEntry.Source);
             }
         }
@@ -107,18 +108,18 @@ namespace ZaveViewModel.ZDFViewModel
         //    }
         //}
 
-        private RelayCommand<string> _selectItemRelayCommand;
+        private RelayCommand<System.Collections.IList> _selectItemRelayCommand;
 
         /// <summary>
         /// Relay command associated with the selection of an item in the observablecollection
         /// </summary>
-        public RelayCommand<string> SelectItemRelayCommand
+        public RelayCommand<System.Collections.IList> SelectItemRelayCommand
         {
             get
             {
                 if (_selectItemRelayCommand == null)
                 {
-                    _selectItemRelayCommand = new RelayCommand<string>(async (id) =>
+                    _selectItemRelayCommand = new RelayCommand<System.Collections.IList>(async (id) =>
                     {
                         await selectItem(id);
                     });
@@ -133,9 +134,10 @@ namespace ZaveViewModel.ZDFViewModel
         /// I went with async in case you sub is a long task, and you don't want to lock you UI
         /// </summary>
         /// <returns></returns>
-        private async Task<int> selectItem(string id)
+        private async Task<int> selectItem(System.Collections.IList items)
         {
-            this.ActiveZDFEntry = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id);
+            var id = items.Cast<ZDFEntryViewModel>();
+            this.ActiveZDFEntry = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID);
             
             //Do async work
 
@@ -280,7 +282,7 @@ namespace ZaveViewModel.ZDFViewModel
             }
             catch(NullReferenceException nre)
             {
-
+                throw nre;
             }
             
         }
