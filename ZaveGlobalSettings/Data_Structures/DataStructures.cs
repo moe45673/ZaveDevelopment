@@ -57,7 +57,7 @@ namespace ZaveGlobalSettings.Data_Structures
     /// 
     /// </summary>
         
-    internal enum AvailableColors
+    public enum AvailableColors
     {
         YELLOW, LIGHTBLUE, LIGHTGREEN, FUCHSIA, BLACK, AQUA, LIME,  WHITE, NAVY, TEAL, PURPLE, MAROON, OLIVE, GRAY, SILVER, RED
     }
@@ -70,7 +70,7 @@ namespace ZaveGlobalSettings.Data_Structures
 
     //    }
 
-    }
+    //}
 
 
     /// <summary>
