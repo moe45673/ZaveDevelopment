@@ -57,9 +57,19 @@ namespace ZaveGlobalSettings.Data_Structures
     /// 
     /// </summary>
         
-    public enum AvailableColors
+    internal enum AvailableColors
     {
-        BLACK, BLUE, AQUA, LIME, FUCHSIA, WHITE, NAVY, TEAL, GREEN, PURPLE, MAROON, OLIVE, GRAY, SILVER, YELLOW, RED
+        YELLOW, LIGHTBLUE, LIGHTGREEN, FUCHSIA, BLACK, AQUA, LIME,  WHITE, NAVY, TEAL, PURPLE, MAROON, OLIVE, GRAY, SILVER, RED
+    }
+
+    //public struct AvailableColors
+    //{
+    //    public static Dictionary<string, string> getColors()
+    //    {
+    //        Dictionary<string, string> temp = new Dictionary<string, string>();
+
+    //    }
+
     }
 
 
