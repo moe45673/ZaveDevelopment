@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using ZaveModel;
 using ZaveModel.ZDFEntry;
+using System.Windows.Media;
 using ZaveViewModel.Commands;
 
 //using ZaveModel.Factories.ZDFEntry;
@@ -357,6 +358,19 @@ namespace ZaveViewModel.ZDFViewModel
             {
                 _zdfEntry.DateModified = DateTime.Parse(value);
                 OnPropertyChanged("TxtDocLastModified");
+            }
+        }
+
+        public String TxtDocColor
+        {
+            get
+            {
+                return _zdfEntry.HColor.getColor().ToString();
+            }
+            set
+            {
+                _zdfEntry.HColor.setColor((Color)ColorConverter.ConvertFromString(value));
+                OnPropertyChanged("TxtDocColor");
             }
         }
 

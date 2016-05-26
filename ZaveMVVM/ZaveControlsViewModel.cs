@@ -20,6 +20,28 @@ namespace ZaveViewModel.ZaveControlsViewModel
 
         }
 
+        public static ZaveControlsViewModel Instance
+        {
+            get
+            {
+                return instance;
+               
+            }
+        }
+
+        private static Color _activeColor;
+        public Color ActiveColor
+        {
+            
+            get { return _activeColor; }
+            set
+            {
+                _activeColor = value;
+                OnPropertyChanged("ActiveColor");
+            }
+                
+        }
+
         public ObservableCollection<ColorItem> ColorItemList
         {
             get;
@@ -33,17 +55,12 @@ namespace ZaveViewModel.ZaveControlsViewModel
             foreach(string color in Enum.GetNames(typeof(AvailableColors)))
             {
                 items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(color), color));
-            }
+                
+            }                     
 
             return items;
         }
 
-        public static ZaveControlsViewModel Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        
     }
 }

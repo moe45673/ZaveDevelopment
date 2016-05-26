@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Source = ZaveGlobalSettings.Data_Structures.SelectionState;
+using System.Drawing;
 
 
 namespace ZaveGlobalSettings.Data_Structures
@@ -79,7 +80,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
         
-        public SelectionState(string name = "", string page = "", string text = "", DateTime date = default(DateTime), SrcType src = SrcType.WORD)
+        public SelectionState(string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD)
         {
             SelectionDocName = name;
             SelectionPage = page;
@@ -88,6 +89,7 @@ namespace ZaveGlobalSettings.Data_Structures
                 SelectionDateModified = DateTime.Now;
             else
                 SelectionDateModified = date;
+            this.Color = col;
             srcType = src;
             IsValid = true;
         }
@@ -96,7 +98,7 @@ namespace ZaveGlobalSettings.Data_Structures
 
         public int ID { get; set; }
         public String SelectionPage { get; set; }
-        public System.Drawing.Color Color { get; set; }
+        public Color Color { get; set; }
         public String SelectionDocName { get; set; }
         public String SelectionText { get; set; }
         public DateTime SelectionDateModified { get; set; }

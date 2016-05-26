@@ -13,7 +13,7 @@ using System.IO;
 using System.ComponentModel;
 using System.Linq;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveModel.GlobalSettings;
+using ZaveModel.Colors;
 using ZaveModel.ZDFSource;
 
 
@@ -55,6 +55,7 @@ namespace ZaveModel.ZDFEntry {
             _text = src.SelectionText;
             _dateModified = src.SelectionDateModified;
             _format = src.srcType;
+            _hColor = new ColorCategory(src.Color);
             
         }
 
