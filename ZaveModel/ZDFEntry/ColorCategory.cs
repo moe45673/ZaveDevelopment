@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Drawing;
+using WPFColor = System.Windows.Media.Color;
 
 
 
@@ -20,30 +21,77 @@ using System.Drawing;
 namespace ZaveModel.Colors {
     public class ColorCategory{
 
-        public ColorCategory(Color col) {
+        private ColorCategory(Color col) {
             Color = col;
+        }
+
+        public ColorCategory(Color col, String name) : this(col)
+        {
+            Name = name;
         }
 
         ~ColorCategory() {
 
         }
 
-        private Color Color;
 
-        public Color getColor()
+        public Color Color
         {
-            return Color;
+            get;
+            set;
         }
 
-        public void setColor(System.Drawing.Color col)
+        public String Name
         {
-            Color = col;
+            get;
+            set;
         }
 
-        public void setColor(System.Windows.Media.Color col)
+        public WPFColor toWPFColor()
         {
-            Color = Color.FromArgb(col.A, col.R, col.G, col.B);
+            WPFColor wCol = WPFColor.FromArgb(Color.A, Color.R, Color.G, Color.B);
+            return wCol;
         }
+
+        public void FromWPFColor(WPFColor wCol)
+        {
+            try
+            {
+                Color = Color.FromArgb(wCol.A, wCol.R, wCol.G, wCol.B);
+               
+                Name = GetWPFColorName(wCol);
+            }
+            catch(System.Data.ObjectNotFoundException onf)
+            {
+                System.Windows.Forms.MessageBox.Show("The Specified Color Could Not Be Found", "Color Not Found", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Warning);
+            }
+
+
+        }
+
+        public ColorCategory ParseFromString(string str)
+        {
+            ColorConverter converter = new ColorConverter();
+            Color = (Color)converter.ConvertFromString(str);
+            Name = str;
+            return this;
+
+        }
+
+        private string GetWPFColorName(WPFColor color)
+        {
+            Type colors = typeof(System.Windows.Media.Colors);
+            foreach (var prop in colors.GetProperties())
+            {
+                if (((System.Windows.Media.Color)prop.GetValue(null, null)) == color)
+                    return prop.Name;
+            }
+
+            throw new System.Data.ObjectNotFoundException("The provided Color is not named.");
+        }
+
+
+
 
 
 

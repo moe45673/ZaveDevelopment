@@ -55,7 +55,7 @@ namespace ZaveModel.ZDFEntry {
             _text = src.SelectionText;
             _dateModified = src.SelectionDateModified;
             _format = src.srcType;
-            _hColor = new ColorCategory(src.Color);
+            _hColor = new ColorCategory(src.Color, src.Color.Name);
             
         }
 

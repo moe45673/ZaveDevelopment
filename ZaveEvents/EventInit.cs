@@ -143,7 +143,7 @@ namespace ZaveController.Global_Settings
                         if (temp.Any<SelectionState>())
                         {
                         ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
-                        entry.HColor.setColor(ZaveControlsViewModel.Instance.ActiveColor);
+                        entry.HColor.FromWPFColor(ZaveControlsViewModel.Instance.ActiveColor);
 
                         ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 

@@ -97,7 +97,7 @@
         <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch" />
 
 
-        <ListView Grid.Row="1" ItemTemplate="{StaticResource EntryList}" ItemsSource="{Binding ZDFEntries, Source={StaticResource ZdfObj}}" Margin="7,0,0,2" Grid.ColumnSpan="2" Name="LV_EntryList" >
+        <ListView Grid.Row="1" ItemTemplate="{StaticResource EntryList}" ItemsSource="{Binding ZDFEntries, Source={StaticResource ZdfObj}}" Margin="7,0,0,2" Name="LV_EntryList" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction

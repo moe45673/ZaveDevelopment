@@ -365,11 +365,11 @@ namespace ZaveViewModel.ZDFViewModel
         {
             get
             {
-                return _zdfEntry.HColor.getColor().ToString();
+                return _zdfEntry.HColor.Name;
             }
             set
             {
-                _zdfEntry.HColor.setColor((Color)ColorConverter.ConvertFromString(value));
+                _zdfEntry.HColor.ParseFromString(value);
                 OnPropertyChanged("TxtDocColor");
             }
         }
