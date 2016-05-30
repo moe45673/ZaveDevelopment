@@ -13,8 +13,9 @@ using Microsoft.Win32.SafeHandles;
 using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
 using System.Runtime.InteropServices;
+
 using ZaveGlobalSettings.ZaveFile;
-//using ZaveViewModel.Commands;
+using ZaveViewModel.ZaveControlsViewModel;
 using System.IO;
 using Newtonsoft.Json;
 //using ZaveMo
@@ -45,8 +46,14 @@ namespace ZaveController.Global_Settings
             activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
             CreateFileWatcher(Path.GetTempPath());
             lastRead = DateTime.MinValue;
+            ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
             //ThisAddIn.WordFired += new EventHandler<SrcEventArgs>(SrcHighlightEventHandler);
+        }
+
+        private System.Windows.Media.Color setStartupColor()
+        {
+            return System.Windows.Media.Colors.Yellow;
         }
 
         //private ~EventInitSingleton()
@@ -97,7 +104,7 @@ namespace ZaveController.Global_Settings
             watcher.Filter = GuidGenerator.getGuid();
 
             // Add event handlers.
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.Changed += new FileSystemEventHandler(OnFileChanged);
             //watcher.Created += new FileSystemEventHandler(OnChanged);
             //watcher.Deleted += new FileSystemEventHandler(OnChanged);
             //watcher.Renamed += new RenamedEventHandler(OnRenamed);
@@ -107,7 +114,7 @@ namespace ZaveController.Global_Settings
         }
 
         // Define the event handlers.
-        private void OnChanged(object source, FileSystemEventArgs e)
+        private void OnFileChanged(object source, FileSystemEventArgs e)
         {
 
             //onchanged called multiple times, this ensures
@@ -136,6 +143,7 @@ namespace ZaveController.Global_Settings
                         if (temp.Any<SelectionState>())
                         {
                         ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
+                        entry.HColor.FromWPFColor(ZaveControlsViewModel.Instance.ActiveColor);
 
                         ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 

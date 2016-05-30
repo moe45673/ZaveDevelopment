@@ -8,6 +8,7 @@ using Xceed.Wpf.Toolkit;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 
+
 namespace ZaveViewModel.ZaveControlsViewModel
 {
     public sealed class ZaveControlsViewModel : ObservableObject
@@ -18,6 +19,28 @@ namespace ZaveViewModel.ZaveControlsViewModel
         {
             ColorItemList = new ObservableCollection<ColorItem>(setColors());
 
+        }
+
+        public static ZaveControlsViewModel Instance
+        {
+            get
+            {
+                return instance;
+               
+            }
+        }
+
+        private static Color _activeColor;
+        public Color ActiveColor
+        {
+            
+            get { return _activeColor; }
+            set
+            {
+                _activeColor = value;
+                OnPropertyChanged("ActiveColor");
+            }
+                
         }
 
         public ObservableCollection<ColorItem> ColorItemList
@@ -33,17 +56,12 @@ namespace ZaveViewModel.ZaveControlsViewModel
             foreach(string color in Enum.GetNames(typeof(AvailableColors)))
             {
                 items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(color), color));
-            }
+                
+            }                     
 
             return items;
         }
 
-        public static ZaveControlsViewModel Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        
     }
 }

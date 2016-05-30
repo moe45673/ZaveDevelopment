@@ -11,8 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.ComponentModel;
-using ZaveModel.GlobalSettings;
-using ZaveModel.ZDFSource;
+using ZaveModel.Colors;
 
 
 namespace ZaveModel.ZDFEntry {

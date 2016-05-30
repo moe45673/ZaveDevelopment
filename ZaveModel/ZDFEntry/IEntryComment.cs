@@ -36,8 +36,7 @@ namespace ZaveModel.ZDFEntry.Comment {
         public string CommentText
         {
             get;
-            set;
-        
+            set;                    
         }
 
         public int Edit(string newComm)

@@ -62,6 +62,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -90,6 +91,10 @@
     <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
       <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
       <Name>ZaveModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveMVVM\ZaveViewModel.csproj">
+      <Project>{61e09293-709d-447d-bc4c-306e3118f20c}</Project>
+      <Name>ZaveViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZaveService\ZaveService.csproj">
       <Project>{7564b53b-b138-4e6f-8d37-acdd1e51f787}</Project>
