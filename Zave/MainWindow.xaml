@@ -47,20 +47,20 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="EntryList">               
-
-                <StackPanel >
-
-                
+        <DataTemplate x:Key="EntryList">
+            <Border BorderBrush="DodgerBlue" BorderThickness="5,1,1,1" Margin="0" Width="{Binding ActualWidth, ElementName=LV_EntryList}">
+                <StackPanel MaxHeight="100">
 
 
-                <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock x:Name="docNameTxtBx" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True"  />
 
-                    <TextBlock x:Name="docTextTxtBx1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" />
+
+                    <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock x:Name="docNameTxtBx" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" TextTrimming="CharacterEllipsis"/>
+
+                    <TextBlock x:Name="docTextTxtBx1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" TextTrimming="CharacterEllipsis" MaxHeight="60"/>
 
                 </StackPanel>
-            
+            </Border>
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -97,7 +97,8 @@
         <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch" />
 
 
-        <ListView Grid.Row="1" ItemTemplate="{StaticResource EntryList}" ItemsSource="{Binding ZDFEntries, Source={StaticResource ZdfObj}}" Margin="7,0,0,2" Name="LV_EntryList" >
+        <ListView Grid.Row="1" ItemTemplate="{StaticResource EntryList}" ItemsSource="{Binding ZDFEntries, Source={StaticResource ZdfObj}}" Margin="0" Name="LV_EntryList" BorderThickness="0" >
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
