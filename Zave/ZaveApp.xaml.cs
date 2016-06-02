@@ -14,6 +14,7 @@ using System.Windows;
 using ZaveViewModel.ZDFViewModel;
 using ZaveController.Global_Settings;
 using ZaveGlobalSettings.ZaveFile;
+using Prism.Mvvm;
 
 namespace Zave
 {
@@ -74,7 +75,9 @@ namespace Zave
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow wnd = new Zave.MainWindow();
+            var bs = new BootStrapper();
+            bs.Run();            
+            
             eventInit = EventInitSingleton.Instance;
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
@@ -89,8 +92,7 @@ namespace Zave
                     throw ex;
                 }
             }
-            wnd.Title = "Zave";
-            wnd.Show();
+            
         }
 
         

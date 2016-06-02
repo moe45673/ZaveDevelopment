@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,10 @@ namespace ZaveModel.ZDF
         //static event EventHandler<ModelEventArgs> PropertyChanged;
         void Add(ZaveModel.ZDFEntry.IZDFEntry zEntry);
 
-        List<ZDFEntry.IZDFEntry> EntryList { get; set; }
+        ObservableCollection<ZDFEntry.IZDFEntry> EntryList { get; set; }
 
-        IEnumerable<ZDFEntry.IZDFEntry> ListEntries();
+        SelectionStateList toSelectionStateList();
+        
 
     }
 }

@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using Source = ZaveGlobalSettings.Data_Structures.SelectionState;
 using System.Drawing;
+using Prism.Events;
 
 
 namespace ZaveGlobalSettings.Data_Structures
@@ -48,7 +49,7 @@ namespace ZaveGlobalSettings.Data_Structures
             return SelStateList.SingleOrDefault(x => x.ID == id);
         }
 
-
+        
 
         
     }    
@@ -356,4 +357,17 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+}
+
+namespace ZaveGlobalSettings.Events
+{
+    public class EntryUpdateEvent : PubSubEvent<Data_Structures.SelectionState>
+    {
+
+    }
+
+    public class ZDFUpdateEvent : PubSubEvent<Data_Structures.SelectionStateList>
+    {
+
+    }
 }

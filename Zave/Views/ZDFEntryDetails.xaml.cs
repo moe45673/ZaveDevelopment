@@ -13,32 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-namespace Zave
+namespace Zave.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ZDFEntryDetails.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ZDFEntryDetails : UserControl
     {
-
-        //public ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel ZdfObj;
         /// <summary>
-        /// initializes MainWindow and creates a property reference to itself
+        /// View for ZDFEntry Details
         /// </summary>
-        public MainWindow()
+        public ZDFEntryDetails()
         {
             InitializeComponent();
-           // ZdfObj = new ZaveViewModel.ZDFEntryViewModel.ZDFEntryViewModel();
-            //gridEntry.DataContext = ZdfObj;
-            
-            
         }
-
-        
-
-        
     }
-
-    
 }

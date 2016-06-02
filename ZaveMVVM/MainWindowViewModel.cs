@@ -1,33 +1,39 @@
 ﻿using System;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using System.ComponentModel;
-using ZaveModel;
-using ZaveModel.ZDFEntry;
-using System.Windows.Media;
-using ZaveViewModel.Commands;
+using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using Prism.Events;
+using ZaveViewModel.ZDFViewModel;
+using System.Collections.ObjectModel;
 using ZaveGlobalSettings.Events;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Windows.Data;
+using GalaSoft.MvvmLight.CommandWpf;
 
-//using ZaveModel.Factories.ZDFEntry;
-using ZaveGlobalSettings.Data_Structures;
-//using Zave
-
-
-namespace ZaveViewModel.ZDFViewModel
+namespace ZaveViewModel
 {
-    //using activeZDF = ZaveModel.ZDF.ZDFSingleton;
-    public class ZDFViewModel : BindableBase
-    {       
+    public class MainWindowViewModel : BindableBase
+    {
+        //private readonly IRegionManager _regionManager;
+
+        //public DelegateCommand<string> NavigateCommand { get; set; }
+
+        //public ZaveMainWindowViewModel(IRegionManager regionManager)
+        //{
+        //    _regionManager = regionManager;
+        //    NavigateCommand = new DelegateCommand<string>(Navigate);
+
+        //}
+
+        //private void Navigate(string uri)
+        //{
+        //    _regionManager.RequestNavigate("ContentRegion", uri);
+        //}
 
         private ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
         private IEventAggregator _eventAggregator;
@@ -42,7 +48,7 @@ namespace ZaveViewModel.ZDFViewModel
         //    }
         //}
 
-        
+
 
         protected ObservableCollection<ZDFEntryViewModel> createEntryList(ZaveModel.ZDF.IZDF zdf)
         {
@@ -68,14 +74,15 @@ namespace ZaveViewModel.ZDFViewModel
                 _zdfEntries = value;
                 BindingOperations.EnableCollectionSynchronization(_zdfEntries, _zdfEntriesLock);
             }
-            
+
         }
 
         private void ModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-                if (e.PropertyName == "EntryList") {
+            if (e.PropertyName == "EntryList")
+            {
                 int index = activeZDF.EntryList.Count - 1;
-                
+
                 //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
                 //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
                 ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
@@ -123,7 +130,7 @@ namespace ZaveViewModel.ZDFViewModel
             //var selStateList = SelectionStateList.Instance;
             //selStateList.Add(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState());
             _eventAggregator.GetEvent<EntryUpdateEvent>().Publish(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState());
-            
+
             //Do async work
 
             return await Task.FromResult(1);
@@ -155,7 +162,7 @@ namespace ZaveViewModel.ZDFViewModel
 
         private void SaveZDFEntry()
         {
-            
+
         }
 
         //public ZDFEntryViewModel(ZaveModel.ZDF.IZDF zdf, IZDFEntry zdfEntry = null) : base()
@@ -180,21 +187,22 @@ namespace ZaveViewModel.ZDFViewModel
         {
             ZDFEntries = new ObservableCollection<ZDFEntryViewModel>();
             ZDFEntries = createEntryList(activeZDF);
-            
+
         }
 
-        public ZDFViewModel(IEventAggregator eventAggregator)
+        public MainWindowViewModel(IEventAggregator eventAggregator)
         {
 
             _eventAggregator = eventAggregator;
+            //_eventAggregator.GetEvent<ZDFUpdateEvent>().Subscribe(ModelPropertyChanged);
             activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
             if (activeZDF.EntryList.Count != 0)
                 //_activeZdfEntry = new ZDFEntryViewModel(activeZDF.EntryList[0]);
-            _zdfEntriesLock = new Object();
+                _zdfEntriesLock = new Object();
             createEntryList();
 
-            
+
 
             activeZDF.PropertyChanged += new PropertyChangedEventHandler(ModelPropertyChanged);
             //_activeZdfEntry.PropertyChanged += new PropertyChangedEventHandler(ViewPropertyChanged);
@@ -208,162 +216,12 @@ namespace ZaveViewModel.ZDFViewModel
 
         }
 
-        ~ZDFViewModel()
+        ~MainWindowViewModel()
         {
             activeZDF.PropertyChanged -= new PropertyChangedEventHandler(this.ModelPropertyChanged);
-//#if DEBUG
-//            System.Windows.Forms.MessageBox.Show("ViewModel Closed!");
-//#endif
+            //#if DEBUG
+            //            System.Windows.Forms.MessageBox.Show("ViewModel Closed!");
+            //#endif
         }
-
-
-
-       
-    }
-
-
-
-
-
-    public class ZDFEntryViewModel : ZaveGlobalSettings.Data_Structures.ObservableObject
-    {
-
-        private IZDFEntry _zdfEntry;
-        private IEventAggregator _eventAggregator;
-        //private string _txtDocId;
-
-        private void setProperties(int id, string name, string page, string txt, DateTime dateModded)
-        {
-            if (_zdfEntry == null) { 
-                throw new NullReferenceException("No ZDFEntryViewModel referenced!");
-            }
-
-            TxtDocID = id.ToString();
-            TxtDocName = name;
-            TxtDocPage = page;
-            TxtDocText = txt;
-            TxtDocLastModified = dateModded.ToShortDateString() + " " + dateModded.ToShortTimeString();
-            
-        }
-
-        public SelectionState toSelectionState()
-        {
-            return _zdfEntry.toSelectionState();
-        }
-
-        private void setProperties(SelectionState selState)
-        {
-            try
-            {
-                setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified);
-            }
-            catch(NullReferenceException nre)
-            {
-                throw nre;
-            }
-        }
-
-        public ZDFEntryViewModel(IZDFEntry zdfEntry, IEventAggregator eventAggregator)
-        {
-            _zdfEntry = zdfEntry;
-            _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<EntryUpdateEvent>().Subscribe(setProperties);
-
-
-            try
-            {
-                setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified);
-            }
-            catch(NullReferenceException nre)
-            {
-                throw nre;
-            }
-            
-        }
-        #region Properties
-
-
-        public String TxtDocName
-        {
-            get { return _zdfEntry.Name; }
-            set
-            {
-
-
-                _zdfEntry.Name = value;
-
-                OnPropertyChanged("TxtDocName");
-                //System.Windows.Forms.MessageBox.Show(value.ToString());
-
-
-            }
-
-        }
-
-        public string TxtDocID
-        {
-            get { return _zdfEntry.ID.ToString(); }
-            private set
-            {
-                
-                OnPropertyChanged("TxtDocID");
-            }
-            
-        }
-
-        public String TxtDocPage
-        {
-            get { return _zdfEntry.Page; }
-            set
-            {
-                _zdfEntry.Page = value;
-                OnPropertyChanged("TxtDocPage");
-            }
-
-        }
-
-        public String TxtDocText
-        {
-            get { return _zdfEntry.Text; }
-            set
-            {
-                _zdfEntry.Text = value;
-                OnPropertyChanged("TxtDocText");
-            }
-        }
-
-        public String TxtDocLastModified
-        {
-            get
-            {
-                string date;
-                if (!_zdfEntry.DateModified.Equals(default(DateTime)))
-                    date = _zdfEntry.DateModified.ToShortDateString() + " " + _zdfEntry.DateModified.ToShortTimeString();
-                else
-                    date = "";
-                return date;
-
-            }
-            set
-            {
-                _zdfEntry.DateModified = DateTime.Parse(value);
-                OnPropertyChanged("TxtDocLastModified");
-            }
-        }
-
-        public String TxtDocColor
-        {
-            get
-            {
-                return _zdfEntry.HColor.Name;
-            }
-            set
-            {
-                _zdfEntry.HColor.ParseFromString(value);
-                OnPropertyChanged("TxtDocColor");
-            }
-        }
-
-        #endregion 
     }
 }

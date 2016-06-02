@@ -12,6 +12,7 @@ using System.Text;
 using System.IO;
 using System.ComponentModel;
 using ZaveModel.Colors;
+using ZaveGlobalSettings.Data_Structures;
 
 
 namespace ZaveModel.ZDFEntry {
@@ -57,7 +58,7 @@ namespace ZaveModel.ZDFEntry {
             set;
         }
 
-        ZaveGlobalSettings.Data_Structures.SrcType Format
+        SrcType Format
         {
             get;
             set;
@@ -67,10 +68,11 @@ namespace ZaveModel.ZDFEntry {
         {
             get;
         }
-        
 
-        
+        SelectionState toSelectionState();
 
-	}//end IZDFEntry
+
+
+    }//end IZDFEntry
 
 }//end namespace ZDFEntry

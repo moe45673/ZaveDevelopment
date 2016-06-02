@@ -6,9 +6,9 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using ZaveModel.ZDFEntry;
+using System.Collections.ObjectModel;
 using ZaveGlobalSettings.Data_Structures;
-using System.IO;
-using Newtonsoft.Json;
+using Prism.Mvvm;
 
 
 
@@ -16,7 +16,7 @@ namespace ZaveModel.ZDF
 {
 
 
-    public sealed class ZDFSingleton : ObservableObject, IZDF
+    public sealed class ZDFSingleton : BindableBase, IZDF
     {
 
         //Needs to be protected virtual with private set
@@ -38,14 +38,14 @@ namespace ZaveModel.ZDF
 
         private ZDFSingleton()
         {
-            isActive = true;
+            
 
            
             
-            EntryList = new List<ZDFEntry.IZDFEntry>();
+            _entryList = new ObservableCollection<IZDFEntry>();
             
             
-            if (EntryList.Count.Equals(0))
+            if (_entryList.Count.Equals(0))
                 _iDTracker = 0;
             else
             {
@@ -73,14 +73,31 @@ namespace ZaveModel.ZDF
 
         public static int IDTracker { get { return _iDTracker; } }
 
-        public bool isActive { get; set; }
-
-        private List<ZDFEntry.IZDFEntry> _entryList;
         
-        public List<ZDFEntry.IZDFEntry> EntryList
+
+        private ObservableCollection<ZDFEntry.IZDFEntry> _entryList;
+        
+        public ObservableCollection<ZDFEntry.IZDFEntry> EntryList
         {
             get { return _entryList; }
-            set { _entryList = value; OnPropertyChanged("EntryList"); }
+            set { SetProperty(ref _entryList, value); }
+        }
+
+
+        public SelectionStateList toSelectionStateList()
+        {
+            SelectionStateList selStateList = SelectionStateList.Instance;
+
+            selStateList.Clear();
+
+            foreach(var item in EntryList)
+            {
+                selStateList.Add(item.toSelectionState());
+            }
+
+            return selStateList;
+
+
         }
 
         public IEnumerable<IZDFEntry> ListEntries()
@@ -91,9 +108,9 @@ namespace ZaveModel.ZDF
         public void Add(IZDFEntry zEntry)
         {
             try {
-                EntryList.Add(zEntry);
-
+                _entryList.Add(zEntry);
                 OnPropertyChanged("EntryList");
+
             }
             catch(ArgumentException ae)
             {

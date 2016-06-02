@@ -18,6 +18,7 @@ using ZaveGlobalSettings.ZaveFile;
 using ZaveViewModel.ZaveControlsViewModel;
 using System.IO;
 using Newtonsoft.Json;
+using Prism.Events;
 //using ZaveMo
 
 namespace ZaveController.Global_Settings
@@ -25,7 +26,7 @@ namespace ZaveController.Global_Settings
 
     
     
-    public sealed class EventInitSingleton : IDisposable
+    public sealed class EventInitSingleton : PubSubEvent<SelectionState>, IDisposable
     {
 
         bool disposed = false;
