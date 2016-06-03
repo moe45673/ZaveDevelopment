@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Windows.Data;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace ZaveViewModel
+namespace ZaveViewModel.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
@@ -71,8 +71,7 @@ namespace ZaveViewModel
             get { return _zdfEntries; }
             private set
             {
-                _zdfEntries = value;
-                BindingOperations.EnableCollectionSynchronization(_zdfEntries, _zdfEntriesLock);
+                SetProperty(ref _zdfEntries, value);
             }
 
         }

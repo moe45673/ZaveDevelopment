@@ -15,7 +15,7 @@ using WordTools = Microsoft.Office.Tools.Word;
 using System.Runtime.InteropServices;
 
 using ZaveGlobalSettings.ZaveFile;
-using ZaveViewModel.ZaveControlsViewModel;
+using ZaveViewModel.ViewModels;
 using System.IO;
 using Newtonsoft.Json;
 using Prism.Events;

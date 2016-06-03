@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 
-namespace ZaveViewModel.ZaveControlsViewModel
+namespace ZaveViewModel.ViewModels
 {
     public sealed class ZaveControlsViewModel : ObservableObject
     {

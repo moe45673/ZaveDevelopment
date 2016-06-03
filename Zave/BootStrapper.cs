@@ -45,8 +45,8 @@ namespace Zave
                 var viewModelNameSuffix = viewName.EndsWith("View") ? "Model" : "ViewModel";
 
                 var viewModelName = viewName.Replace("Views", "ViewModels") + viewModelNameSuffix;
-                viewModelName = viewModelName.Replace(viewAssemblyName, viewAssemblyName + ".Process");
-                var viewModelAssemblyName = viewAssemblyName + ".Process";
+                viewModelName = viewModelName.Replace(viewAssemblyName, viewAssemblyName + "ViewModel");
+                var viewModelAssemblyName = viewAssemblyName + "ViewModel";
                 var viewModelTypeName = string.Format(
                     CultureInfo.InvariantCulture,
                     "{0}, {1}",
