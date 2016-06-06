@@ -14,7 +14,8 @@ using System.Windows;
 using ZaveViewModel.ZDFViewModel;
 using ZaveController.Global_Settings;
 using ZaveGlobalSettings.ZaveFile;
-using Prism.Mvvm;
+using Prism.Events;
+using Microsoft.Practices.Unity;
 
 namespace Zave
 {
@@ -46,7 +47,8 @@ namespace Zave
         ~ZaveApp()
         {
 
-            eventInit.Dispose();
+            if(eventInit != null)
+                eventInit.Dispose();
 
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             
@@ -76,9 +78,14 @@ namespace Zave
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var bs = new BootStrapper();
-            bs.Run();            
+            bs.Run();
+            IEventAggregator eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
+
             
-            eventInit = EventInitSingleton.Instance;
+
+            
+
+            eventInit = EventInitSingleton.GetInstance(eventAgg);
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
             {

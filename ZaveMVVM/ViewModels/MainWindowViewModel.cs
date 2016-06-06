@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Events;
 using ZaveViewModel.ZDFViewModel;
+using ZaveModel.ZDFEntry;
 using System.Collections.ObjectModel;
 using ZaveGlobalSettings.Events;
+using ZaveGlobalSettings.Data_Structures;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Data;
@@ -35,7 +39,7 @@ namespace ZaveViewModel.ViewModels
         //    _regionManager.RequestNavigate("ContentRegion", uri);
         //}
 
-        private ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+        private ZaveModel.ZDF.ZDFSingleton activeZDF;
         private IEventAggregator _eventAggregator;
 
         //private ZDFEntryViewModel _activeZdfEntry;
@@ -56,9 +60,10 @@ namespace ZaveViewModel.ViewModels
             {
                 foreach (var entry in zdf.EntryList)
                 {
-                    ZDFEntries.Add(new ZDFEntryViewModel(entry, _eventAggregator));
+                    ZDFEntries.Add(new ZDFEntryViewModel(entry));
                 }
             }
+            context = SynchronizationContext.Current;
             return ZDFEntries;
 
 
@@ -76,17 +81,23 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        private void ModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ModelPropertyChanged(SelectionStateList selStateList)
         {
-            if (e.PropertyName == "EntryList")
+            context.Send(x =>
             {
-                int index = activeZDF.EntryList.Count - 1;
-
+                ZDFEntries.Clear();
+                foreach (var item in selStateList)
+                {
+                    ZDFEntries.Add(new ZDFEntryViewModel(new ZDFEntry(item)));
+                }
+            }, null);
+      
+                
                 //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
                 //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
-                ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
+                //ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
                 //UpdateGui(zdfEntry.Source);
-            }
+            
         }
 
         //private void ViewPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -189,21 +200,24 @@ namespace ZaveViewModel.ViewModels
 
         }
 
+        private SynchronizationContext context;
+
         public MainWindowViewModel(IEventAggregator eventAggregator)
         {
 
             _eventAggregator = eventAggregator;
-            //_eventAggregator.GetEvent<ZDFUpdateEvent>().Subscribe(ModelPropertyChanged);
-            activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+            _eventAggregator.GetEvent<ZDFUpdateEvent>().Subscribe(ModelPropertyChanged);
+            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAggregator);
+           
 
             if (activeZDF.EntryList.Count != 0)
                 //_activeZdfEntry = new ZDFEntryViewModel(activeZDF.EntryList[0]);
                 _zdfEntriesLock = new Object();
             createEntryList();
+           
 
 
-
-            activeZDF.PropertyChanged += new PropertyChangedEventHandler(ModelPropertyChanged);
+            //activeZDF.PropertyChanged += new PropertyChangedEventHandler(ModelPropertyChanged);
             //_activeZdfEntry.PropertyChanged += new PropertyChangedEventHandler(ViewPropertyChanged);
 
             //zdfEntry.Source.SelectionDateModified = null;
@@ -217,7 +231,7 @@ namespace ZaveViewModel.ViewModels
 
         ~MainWindowViewModel()
         {
-            activeZDF.PropertyChanged -= new PropertyChangedEventHandler(this.ModelPropertyChanged);
+            //activeZDF.PropertyChanged -= new PropertyChangedEventHandler(this.ModelPropertyChanged);
             //#if DEBUG
             //            System.Windows.Forms.MessageBox.Show("ViewModel Closed!");
             //#endif

@@ -34,7 +34,9 @@ namespace ZaveController.Global_Settings
         private static DateTime lastRead;
 
         private static readonly EventInitSingleton instance = new EventInitSingleton();
+        //private static EventInitSingleton instance;
         private FileSystemWatcher watcher;
+        private IEventAggregator _eventAggregator;
         
         //public ZDFEntryHandler zdfEntryHandler { get; set; }
 
@@ -43,13 +45,20 @@ namespace ZaveController.Global_Settings
 
         private EventInitSingleton()
         {
-            
-            activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+
+            //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
             CreateFileWatcher(Path.GetTempPath());
             lastRead = DateTime.MinValue;
             ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
             //ThisAddIn.WordFired += new EventHandler<SrcEventArgs>(SrcHighlightEventHandler);
+        }
+
+        public static EventInitSingleton GetInstance(IEventAggregator eventAgg)
+        {
+            instance._eventAggregator = eventAgg;
+            
+            return instance;
         }
 
         private System.Windows.Media.Color setStartupColor()
@@ -83,7 +92,7 @@ namespace ZaveController.Global_Settings
             disposed = true;
         }
 
-        public static EventInitSingleton Instance
+        private static EventInitSingleton Instance
         {
             get
             {                
@@ -143,10 +152,10 @@ namespace ZaveController.Global_Settings
 
                         if (temp.Any<SelectionState>())
                         {
-                        ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
-                        entry.HColor.FromWPFColor(ZaveControlsViewModel.Instance.ActiveColor);
+                            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
+                            entry.HColor.FromWPFColor(ZaveControlsViewModel.Instance.ActiveColor);
 
-                        ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+                       activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(_eventAggregator);
 
                             activeZDF.Add(entry);
                         }

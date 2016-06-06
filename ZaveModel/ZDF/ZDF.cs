@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using ZaveModel.ZDFEntry;
 using System.Collections.ObjectModel;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Events;
 using Prism.Mvvm;
+using Prism.Events;
 
 
 
@@ -25,6 +27,7 @@ namespace ZaveModel.ZDF
         private static ZDFSingleton instance;
         private static readonly object syncRoot = new Object();
         private static int _iDTracker;
+        private IEventAggregator _eventAggregator;
         //private string _date = DateTime.Now.ToShortTimeString();
         //FileSystemWatcher watcher;
 
@@ -38,8 +41,8 @@ namespace ZaveModel.ZDF
 
         private ZDFSingleton()
         {
-            
 
+            
            
             
             _entryList = new ObservableCollection<IZDFEntry>();
@@ -56,24 +59,35 @@ namespace ZaveModel.ZDF
 
 
 
-        public static ZDFSingleton Instance
+        private static ZDFSingleton Instance
         {
             get
             {
                 lock (syncRoot)
                 {
+                    
                     if (instance == null)
                     {
-                        instance = new ZDFSingleton();
+                        instance = new ZDFSingleton();                        
                     }
                 }
                 return instance;
             }
         }
 
+        public static ZDFSingleton GetInstance(IEventAggregator eventAgg = null)
+        {
+            Instance._eventAggregator = eventAgg;
+            if (Instance._eventAggregator == null)
+                throw new NullReferenceException("ZDFSingleton Not Properly Instantiated!");
+
+            
+            return Instance;
+        }
+
         public static int IDTracker { get { return _iDTracker; } }
 
-        
+       
 
         private ObservableCollection<ZDFEntry.IZDFEntry> _entryList;
         
@@ -109,7 +123,7 @@ namespace ZaveModel.ZDF
         {
             try {
                 _entryList.Add(zEntry);
-                OnPropertyChanged("EntryList");
+                _eventAggregator.GetEvent<ZDFUpdateEvent>().Publish(toSelectionStateList());
 
             }
             catch(ArgumentException ae)
