@@ -76,21 +76,22 @@ namespace ZaveViewModel.ViewModels
             get { return _zdfEntries; }
             private set
             {
-                SetProperty(ref _zdfEntries, value);
+                lock (_zdfEntriesLock)
+                {
+                    SetProperty(ref _zdfEntries, value);
+                }
             }
 
         }
 
         private void ModelPropertyChanged(SelectionStateList selStateList)
         {
-            context.Send(x =>
-            {
+            
                 ZDFEntries.Clear();
                 foreach (var item in selStateList)
                 {
                     ZDFEntries.Add(new ZDFEntryViewModel(new ZDFEntry(item)));
                 }
-            }, null);
       
                 
                 //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
@@ -210,7 +211,7 @@ namespace ZaveViewModel.ViewModels
             activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAggregator);
            
 
-            if (activeZDF.EntryList.Count != 0)
+            //if (activeZDF.EntryList.Count != 0)
                 //_activeZdfEntry = new ZDFEntryViewModel(activeZDF.EntryList[0]);
                 _zdfEntriesLock = new Object();
             createEntryList();

@@ -1,13 +1,12 @@
 ﻿<Window x:Class="Zave.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"        
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Custom="clr-namespace:GalaSoft.MvvmLight;assembly=GalaSoft.MvvmLight"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:local="clr-namespace:Zave"        
-        xmlns:controlsns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
+        xmlns:local="clr-namespace:Zave"
+        xmlns:my="clr-namespace:Zave.Views"
         xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -17,7 +16,7 @@
     <Window.Resources>
 
         <!--<zdfviewmodelns:ZDFViewModel x:Key="ZdfObj"/>-->
-        <x:StaticExtension Member="controlsns:ZaveControlsViewModel.Instance" x:Key="ControlsObj" />
+        
         
         
         <DataTemplate x:Key="ChosenEntry">
@@ -49,21 +48,7 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="EntryList">               
-
-                <StackPanel >
-
-                
-
-
-                <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock x:Name="docNameTxtBx" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True"  />
-
-                    <TextBlock x:Name="docTextTxtBx1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" />
-
-                </StackPanel>
-            
-        </DataTemplate>
+        
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -77,17 +62,8 @@
             <RowDefinition Height="1*"/>
 
         </Grid.RowDefinitions>
-        <Border Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock   Text="[Zave Controls]" FontSize="72" FontFamily="Franklin Gothic Heavy" Opacity="0.8" VerticalAlignment="Center">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="#FFF3FF00"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-                
-                <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Source={StaticResource ControlsObj}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor, Source={StaticResource ControlsObj}}" />
-
-            </StackPanel>
+        <Border Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black" Name="bdrControl">
+            <my:ControlBar></my:ControlBar>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="2" BorderThickness="1" BorderBrush="Black">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="[List of ZDF Files]" FontSize="50" FontFamily="Franklin Gothic Heavy" Opacity="0.8" >
@@ -98,16 +74,8 @@
         </Border>
         <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch" />
 
+        <my:ZDFView Grid.Row="1" />
 
-        <ListView Grid.Row="1" ItemTemplate="{StaticResource EntryList}" ItemsSource="{Binding ZDFEntries}" Margin="7,0,0,2" Name="LV_EntryList" >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction
-        					    Command="{Binding SelectItemRelayCommand, PresentationTraceSources.TraceLevel=High}"
-        					    CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ListView>
 
 
         <Border Grid.Column="2" Grid.Row="1">

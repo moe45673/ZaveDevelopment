@@ -15,33 +15,47 @@ using Microsoft.Practices.Unity;
 
 namespace Zave
 {
+    /// <summary>
+    /// Sets up the Unity DI using the Prism 6 library
+    /// </summary>
     public class BootStrapper : UnityBootstrapper
     {
+
+        /// <summary>
+        /// Sets Prism Shell to MainWindow class
+        /// </summary>
+        /// <returns></returns>
         protected override DependencyObject CreateShell()
         {
             return Microsoft.Practices.Unity.UnityContainerExtensions.Resolve<MainWindow>(Container);
         }
-
+        
+        /// <summary>
+        /// Shows the MainWindow shell with custom settings
+        /// </summary>
         protected override void InitializeShell()
         {
             Application.Current.MainWindow.Show();
         }
 
+        /// <summary>
+        /// Resolves the classes that Unity recognizes
+        /// </summary>
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
 
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ControlBar), "ControlBar");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryDetails), "ZDFEntryDetails");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryList), "ZDFEntryList");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
-
-            var container = this.Container;
-
-            //ServiceLocator.SetLocatorProvider(() => container);
+            
 
         }
 
+        /// <summary>
+        /// Overrides the default VMLocator to wire to ViewModel assembly
+        /// </summary>
         protected override void ConfigureViewModelLocator()
         {
             base.ConfigureViewModelLocator();

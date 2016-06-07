@@ -49,7 +49,7 @@ namespace ZaveController.Global_Settings
             //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
             CreateFileWatcher(Path.GetTempPath());
             lastRead = DateTime.MinValue;
-            ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
+            //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
             //ThisAddIn.WordFired += new EventHandler<SrcEventArgs>(SrcHighlightEventHandler);
         }
@@ -153,7 +153,7 @@ namespace ZaveController.Global_Settings
                         if (temp.Any<SelectionState>())
                         {
                             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
-                            entry.HColor.FromWPFColor(ZaveControlsViewModel.Instance.ActiveColor);
+                            //entry.HColor.FromWPFColor(ZaveControlsViewModel.Instance.ActiveColor);
 
                        activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(_eventAggregator);
 

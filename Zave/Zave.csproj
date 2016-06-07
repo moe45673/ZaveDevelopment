@@ -142,11 +142,11 @@
     <Compile Include="Views\ControlBar.xaml.cs">
       <DependentUpon>ControlBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ZDFEntryDetails.xaml.cs">
-      <DependentUpon>ZDFEntryDetails.xaml</DependentUpon>
+    <Compile Include="Views\ZDFEntryView.xaml.cs">
+      <DependentUpon>ZDFEntryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ZDFEntryList.xaml.cs">
-      <DependentUpon>ZDFEntryList.xaml</DependentUpon>
+    <Compile Include="Views\ZDFView.xaml.cs">
+      <DependentUpon>ZDFView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZDFList.xaml.cs">
       <DependentUpon>ZDFList.xaml</DependentUpon>
@@ -159,11 +159,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ZDFEntryDetails.xaml">
+    <Page Include="Views\ZDFEntryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ZDFEntryList.xaml">
+    <Page Include="Views\ZDFView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

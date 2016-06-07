@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="Zave.Views.ZDFView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Zave.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ListView ItemsSource="{Binding ZDFEntries}" Margin="7,0,0,2" Name="LV_EntryList" >
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="SelectionChanged">
+                <i:InvokeCommandAction
+        					    Command="{Binding SelectItemRelayCommand, PresentationTraceSources.TraceLevel=High}"
+        					    CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+
+                <StackPanel >
+
+
+
+
+                    <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock x:Name="docNameTxtBx" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True"  />
+
+                    <TextBlock x:Name="docTextTxtBx1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" />
+
+                </StackPanel>
+
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    
+</UserControl>

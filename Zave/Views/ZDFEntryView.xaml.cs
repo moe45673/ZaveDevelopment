@@ -16,11 +16,14 @@ using System.Windows.Shapes;
 namespace Zave.Views
 {
     /// <summary>
-    /// Interaction logic for ZDFEntryList.xaml
+    /// Interaction logic for ZDFEntryDetails.xaml
     /// </summary>
-    public partial class ZDFEntryList : UserControl
+    public partial class ZDFEntryView : UserControl
     {
-        public ZDFEntryList()
+        /// <summary>
+        /// View for ZDFEntry Details
+        /// </summary>
+        public ZDFEntryView()
         {
             InitializeComponent();
         }
