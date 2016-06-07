@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows;
-using ZaveViewModel.ZDFViewModel;
+using ZaveViewModel.ViewModels;
 using ZaveController.Global_Settings;
 using ZaveGlobalSettings.ZaveFile;
 using Prism.Events;
@@ -79,13 +79,13 @@ namespace Zave
         {
             var bs = new BootStrapper();
             bs.Run();
-            IEventAggregator eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
+            //EventAggregator eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
 
             
 
             
 
-            eventInit = EventInitSingleton.GetInstance(eventAgg);
+            eventInit = EventInitSingleton.GetInstance();
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
             {

@@ -77,9 +77,15 @@ namespace ZaveModel.ZDF
 
         public static ZDFSingleton GetInstance(IEventAggregator eventAgg = null)
         {
-            Instance._eventAggregator = eventAgg;
+            if (eventAgg != null)
+            {
+                Instance._eventAggregator = eventAgg;
+            }
+
             if (Instance._eventAggregator == null)
+            {
                 throw new NullReferenceException("ZDFSingleton Not Properly Instantiated!");
+            }
 
             
             return Instance;
