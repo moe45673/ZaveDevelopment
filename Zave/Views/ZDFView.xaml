@@ -26,9 +26,9 @@
 
 
                     <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock x:Name="docNameTxtBx" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True"  />
+                    <TextBlock x:Name="docNameTxtBx" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" TextTrimming="CharacterEllipsis" MaxHeight="60"  />
 
-                    <TextBlock x:Name="docTextTxtBx1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" />
+                    <TextBlock x:Name="docTextTxtBx1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" TextTrimming="CharacterEllipsis" MaxHeight="60" />
 
                 </StackPanel>
 
