@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Data_Structures.Observable;
 using Xceed.Wpf.Toolkit;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
@@ -19,7 +20,7 @@ namespace ZaveViewModel.ViewModels
 
         public ControlBarViewModel(IEventAggregator eventAggregator)
         {
-            ColorItemList = new ObservableCollection<ColorItem>(setColors());
+            ColorItemList = new ObservableImmutableList<ColorItem>(setColors());
             _eventAggregator = eventAggregator;
 
         }
@@ -39,9 +40,9 @@ namespace ZaveViewModel.ViewModels
         }
 
 
-        private ObservableCollection<ColorItem> _colorItemList;
+        private ObservableImmutableList<ColorItem> _colorItemList;
 
-        public ObservableCollection<ColorItem> ColorItemList
+        public ObservableImmutableList<ColorItem> ColorItemList
         {
             get { return this._colorItemList; }
             private set { SetProperty(ref _colorItemList, value); }
@@ -58,6 +59,8 @@ namespace ZaveViewModel.ViewModels
                 items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(color), color));
 
             }
+
+            ActiveColor = Color.FromRgb(255, 255, 0);
 
             return items;
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Data_Structures.Observable;
 
 namespace ZaveModel.ZDF
 {
@@ -13,7 +14,7 @@ namespace ZaveModel.ZDF
         //static event EventHandler<ModelEventArgs> PropertyChanged;
         void Add(ZaveModel.ZDFEntry.IZDFEntry zEntry);
 
-        ObservableCollection<ZDFEntry.IZDFEntry> EntryList { get; set; }
+        ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList { get; set; }
 
         SelectionStateList toSelectionStateList();
         

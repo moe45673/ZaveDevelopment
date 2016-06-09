@@ -13,12 +13,13 @@ using System.IO;
 using System.ComponentModel;
 using ZaveModel.Colors;
 using ZaveGlobalSettings.Data_Structures;
+using Prism.Mvvm;
 
 
 namespace ZaveModel.ZDFEntry {
-	public interface IZDFEntry {
+	public interface IZDFEntry : INotifyPropertyChanged {
 
-        event EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs> PropertyChanged;
+        //event EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs> PropertyChanged;
 
 
 

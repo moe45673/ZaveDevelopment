@@ -60,7 +60,7 @@ namespace ZaveController.Global_Settings
             activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState2));
             activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState3));
 
-            //ThisAddIn.WordFired += new EventHandler<SrcEventArgs>(SrcHighlightEventHandler);
+            
         }
 
         public static EventInitSingleton GetInstance(IEventAggregator eventAgg = null)

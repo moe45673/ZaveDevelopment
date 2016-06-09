@@ -2,12 +2,15 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
+using System.Collections;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
 using ZaveModel;
@@ -18,12 +21,13 @@ using Prism.Mvvm;
 using Prism.Events;
 using ZaveGlobalSettings.Events;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Data_Structures.Observable;
 
 namespace ZaveViewModel.ViewModels
 {
     public class ZDFViewModel : BindableBase
     {
-        
+
 
         private ZaveModel.ZDF.ZDFSingleton activeZDF;
         private IEventAggregator _eventAggregator;
@@ -40,7 +44,7 @@ namespace ZaveViewModel.ViewModels
 
 
 
-        protected ObservableCollection<ZDFEntryViewModel> createEntryList(ZaveModel.ZDF.IZDF zdf)
+        protected ObservableImmutableList<ZDFEntryViewModel> createEntryList(ZaveModel.ZDF.IZDF zdf)
         {
             if (ZDFEntries.Count == 0)
             {
@@ -56,8 +60,8 @@ namespace ZaveViewModel.ViewModels
         }
 
         private readonly object _zdfEntriesLock;
-        private ObservableCollection<ZDFEntryViewModel> _zdfEntries;
-        public ObservableCollection<ZDFEntryViewModel> ZDFEntries
+        private ObservableImmutableList<ZDFEntryViewModel> _zdfEntries;
+        public ObservableImmutableList<ZDFEntryViewModel> ZDFEntries
         {
             get { return _zdfEntries; }
             private set
@@ -70,12 +74,37 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        private void ModelPropertyChanged(SelectionStateList selStateList)
+        private void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            try
+            {
+                switch (e.Action)
+                {
 
-            ZDFEntries.Clear();
-            foreach (var item in activeZDF.EntryList)
-                ZDFEntries.Add(new ZDFEntryViewModel(item));
+                    case NotifyCollectionChangedAction.Add:
+
+
+                        //foreach (var item in e.NewItems.SyncRoot as List<Object>)
+                        //{
+                        int index = (e.NewItems.SyncRoot as Array).Length - 1;
+                        var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index);
+                        //}
+                        //var tempEntry = ((ICollection<ZDFEntry>)e.NewItems.SyncRoot).ToList<ZDFEntry>().FirstOrDefault(x => x!=null);
+
+                        ZDFEntries.Add(new ZDFEntryViewModel(tempEntry as IZDFEntry));
+                        break;
+
+                    default:
+                        System.Windows.Forms.MessageBox.Show("Nothing Done!");
+                        break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
 
 
             //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
@@ -180,9 +209,13 @@ namespace ZaveViewModel.ViewModels
 
         private void createEntryList()
         {
-            ZDFEntries = new ObservableCollection<ZDFEntryViewModel>();
-            foreach (var item in activeZDF.EntryList)
-                ZDFEntries.Add(new ZDFEntryViewModel(item));
+            ZDFEntries = new ObservableImmutableList<ZDFEntryViewModel>();
+            if (activeZDF.EntryList.Any<IZDFEntry>())
+            {
+                foreach (var item in activeZDF.EntryList)
+                    ZDFEntries.Add(new ZDFEntryViewModel(item));
+            }
+
 
         }
 
@@ -192,8 +225,8 @@ namespace ZaveViewModel.ViewModels
         {
 
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<ZDFUpdateEvent>().Subscribe(ModelPropertyChanged);
-            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAggregator);
+
+            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(_eventAggregator);
 
 
             //if (activeZDF.EntryList.Count != 0)
@@ -203,7 +236,7 @@ namespace ZaveViewModel.ViewModels
 
 
 
-            //activeZDF.PropertyChanged += new PropertyChangedEventHandler(ModelPropertyChanged);
+            activeZDF.EntryList.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
             //_activeZdfEntry.PropertyChanged += new PropertyChangedEventHandler(ViewPropertyChanged);
 
             //zdfEntry.Source.SelectionDateModified = null;
@@ -218,6 +251,6 @@ namespace ZaveViewModel.ViewModels
 
 
 
-        
+
     }
 }
