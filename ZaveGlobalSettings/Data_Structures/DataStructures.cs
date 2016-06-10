@@ -8,6 +8,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Source = ZaveGlobalSettings.Data_Structures.SelectionState;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Windows.Threading;
 using System.Drawing;
 using Prism.Events;
 
@@ -293,6 +296,9 @@ namespace ZaveGlobalSettings.Data_Structures
 
     
 
+        
+
+
     public abstract class ObservableObject : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Members
@@ -367,6 +373,11 @@ namespace ZaveGlobalSettings.Events
     }
 
     public class ZDFUpdateEvent : PubSubEvent<Data_Structures.SelectionStateList>
+    {
+
+    }
+
+    public class MainControlsUpdateEvent : PubSubEvent<Color>
     {
 
     }

@@ -26,7 +26,7 @@ using ZaveGlobalSettings.Data_Structures;
 namespace ZaveViewModel.ViewModels
 {
     //using activeZDF = ZaveModel.ZDF.ZDFSingleton;
-    
+
 
 
 
@@ -36,12 +36,13 @@ namespace ZaveViewModel.ViewModels
     {
 
         private IZDFEntry _zdfEntry;
-        //private IEventAggregator _eventAggregator;
+        private IEventAggregator _eventAggregator;
         //private string _txtDocId;
 
-        private void setProperties(int id, string name, string page, string txt, DateTime dateModded)
+        private void setProperties(int id = default(int), string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color))
         {
-            if (_zdfEntry == null) { 
+            if (_zdfEntry == null)
+            {
                 throw new NullReferenceException("No ZDFEntryViewModel referenced!");
             }
 
@@ -50,7 +51,9 @@ namespace ZaveViewModel.ViewModels
             TxtDocPage = page;
             TxtDocText = txt;
             TxtDocLastModified = dateModded.ToShortDateString() + " " + dateModded.ToShortTimeString();
+            TxtDocColor = col;
             
+
         }
 
         public SelectionState toSelectionState()
@@ -64,28 +67,53 @@ namespace ZaveViewModel.ViewModels
             {
                 setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified);
             }
-            catch(NullReferenceException nre)
+            catch (NullReferenceException nre)
             {
                 throw nre;
             }
         }
-
-        public ZDFEntryViewModel(IZDFEntry zdfEntry)
+        public ZDFEntryViewModel(IEventAggregator eventAgg)
         {
-            _zdfEntry = zdfEntry;
-            
-
-
+            if(_zdfEntry == null)
+            {
+                _zdfEntry = new ZDFEntry();
+            }
+            if (_eventAggregator == null && eventAgg != null)
+            {
+                _eventAggregator = eventAgg;
+                _eventAggregator.GetEvent<EntryUpdateEvent>().Subscribe(setProperties);
+            }
             try
             {
-                setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified);
+                setProperties(_zdfEntry.ID, _zdfEntry.Name, _zdfEntry.Page, _zdfEntry.Text, _zdfEntry.DateModified);
             }
-            catch(NullReferenceException nre)
+            catch (NullReferenceException nre)
             {
                 throw nre;
             }
-            
         }
+
+        //public ZDFEntryViewModel(IEventAggregator eventAgg, ZDFEntry zdfEntry)
+        //{
+        //    _zdfEntry = zdfEntry;
+
+        //    if (_eventAggregator == null && eventAgg != null)
+        //    {
+        //        _eventAggregator = eventAgg;
+        //        _eventAggregator.GetEvent<EntryUpdateEvent>().Subscribe(setProperties);
+        //    }
+
+
+        //    try
+        //    {
+        //        setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified);
+        //    }
+        //    catch (NullReferenceException nre)
+        //    {
+        //        throw nre;
+        //    }
+
+        //}
         #region Properties
 
         private String _txtDocName;
@@ -106,7 +134,7 @@ namespace ZaveViewModel.ViewModels
         }
 
         private String _txtDocID;
-        public string TxtDocID
+        public String TxtDocID
         {
             get { return _zdfEntry.ID.ToString(); }
             private set
@@ -115,7 +143,7 @@ namespace ZaveViewModel.ViewModels
                 SetProperty(ref _txtDocID, value);
                 //_zdfEntry.ID = int.Parse(_txtDocID);
             }
-            
+
         }
 
         private String _txtDocPage;
@@ -124,9 +152,9 @@ namespace ZaveViewModel.ViewModels
             get { return _zdfEntry.Page; }
             set
             {
-                SetProperty(ref _txtDocPage, value);
-                _zdfEntry.Page = _txtDocPage;
-               
+                if (SetProperty(ref _txtDocPage, value))
+                    _zdfEntry.Page = _txtDocPage;
+
             }
 
         }
@@ -137,9 +165,9 @@ namespace ZaveViewModel.ViewModels
             get { return _zdfEntry.Text; }
             set
             {
-                SetProperty(ref _txtDocText, value);
-                _zdfEntry.Text = _txtDocText;
-                
+                if (SetProperty(ref _txtDocText, value))
+                    _zdfEntry.Text = _txtDocText;
+
             }
         }
 
@@ -160,22 +188,22 @@ namespace ZaveViewModel.ViewModels
             {
                 SetProperty(ref _txtDocLastModified, value);
                 _zdfEntry.DateModified = DateTime.Parse(_txtDocLastModified);
-                
+
             }
         }
 
-        private String _txtDocColor;
-        public String TxtDocColor
+        private Color _txtDocColor;
+        public Color TxtDocColor
         {
             get
             {
-                return _zdfEntry.HColor.Name;
+                return _zdfEntry.HColor.toWPFColor();
             }
             set
             {
                 SetProperty(ref _txtDocColor, value);
-                _zdfEntry.HColor.ParseFromString(_txtDocColor);
-                
+                _zdfEntry.HColor = ZaveModel.Colors.ColorCategory.FromWPFColor(value);
+
             }
         }
 

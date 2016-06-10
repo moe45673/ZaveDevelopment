@@ -15,24 +15,19 @@ using System.Linq;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveModel.Colors;
 using ZaveModel.ZDFSource;
+using Prism.Mvvm;
 
 
 
 namespace ZaveModel.ZDFEntry {
 
-    public class ZDFEntry : IZDFEntry
+    public class ZDFEntry : BindableBase, IZDFEntry
     {
 
 
-        public event EventHandler<ModelEventArgs> PropertyChanged;
+        
 
-        protected virtual void OnPropertyChanged(string description)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new ModelEventArgs(description));
-
-        }
+        
 
         private int _id;
         public int ID { get { return _id; } }

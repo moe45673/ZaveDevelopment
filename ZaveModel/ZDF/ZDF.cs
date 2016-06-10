@@ -7,7 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using ZaveModel.ZDFEntry;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Data_Structures.Observable;
+using System.Collections.Immutable;
 using ZaveGlobalSettings.Events;
 using Prism.Mvvm;
 using Prism.Events;
@@ -22,7 +25,7 @@ namespace ZaveModel.ZDF
     {
 
         //Needs to be protected virtual with private set
-       
+        
 
         private static ZDFSingleton instance;
         private static readonly object syncRoot = new Object();
@@ -45,10 +48,10 @@ namespace ZaveModel.ZDF
             
            
             
-            _entryList = new ObservableCollection<IZDFEntry>();
+            _entryList = new ObservableImmutableList<IZDFEntry>();
             
             
-            if (_entryList.Count.Equals(0))
+            if (EntryList.Count.Equals(0))
                 _iDTracker = 0;
             else
             {
@@ -95,13 +98,20 @@ namespace ZaveModel.ZDF
 
        
 
-        private ObservableCollection<ZDFEntry.IZDFEntry> _entryList;
-        
-        public ObservableCollection<ZDFEntry.IZDFEntry> EntryList
+        private ObservableImmutableList<IZDFEntry> _entryList;
+
+        //public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public ObservableImmutableList<IZDFEntry> EntryList
         {
             get { return _entryList; }
             set { SetProperty(ref _entryList, value); }
+
+               
         }
+
+        
+
 
 
         public SelectionStateList toSelectionStateList()
@@ -128,13 +138,18 @@ namespace ZaveModel.ZDF
         public void Add(IZDFEntry zEntry)
         {
             try {
-                _entryList.Add(zEntry);
-                _eventAggregator.GetEvent<ZDFUpdateEvent>().Publish(toSelectionStateList());
+                EntryList.Add(zEntry);
+                
+                
 
             }
             catch(ArgumentException ae)
             {
-                throw ae;
+                System.Windows.Forms.MessageBox.Show(ae.Message);
+            }
+            catch(Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message);
             }
         }
 
