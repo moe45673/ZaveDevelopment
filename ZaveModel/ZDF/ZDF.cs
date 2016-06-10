@@ -105,7 +105,7 @@ namespace ZaveModel.ZDF
         public ObservableImmutableList<IZDFEntry> EntryList
         {
             get { return _entryList; }
-            set { _entryList = value; }
+            set { SetProperty(ref _entryList, value); }
 
                
         }

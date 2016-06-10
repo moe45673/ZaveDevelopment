@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.Data_Structures.Observable;
+using ZaveGlobalSettings.Events;
+using ZaveModel.Colors;
 using Xceed.Wpf.Toolkit;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
@@ -20,8 +22,13 @@ namespace ZaveViewModel.ViewModels
 
         public ControlBarViewModel(IEventAggregator eventAggregator)
         {
+            _activeColor = new Color();
+            if (_eventAggregator == null && eventAggregator != null)
+                _eventAggregator = eventAggregator;
+
             ColorItemList = new ObservableImmutableList<ColorItem>(setColors());
-            _eventAggregator = eventAggregator;
+            
+            
 
         }
 
@@ -35,17 +42,21 @@ namespace ZaveViewModel.ViewModels
             set
             {
                 SetProperty(ref _activeColor, value);
+                ColorCategory colCat = ColorCategory.FromWPFColor(ActiveColor);
+                _eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(colCat.Color);
             }
 
         }
 
 
-        private ObservableImmutableList<ColorItem> _colorItemList;
+        //private ObservableImmutableList<ColorItem> _colorItemList;
 
         public ObservableImmutableList<ColorItem> ColorItemList
         {
-            get { return this._colorItemList; }
-            private set { SetProperty(ref _colorItemList, value); }
+            //get { return this._colorItemList; }
+            //private set { SetProperty(ref _colorItemList, value); }
+            get;
+            set;
         }
 
       
@@ -53,7 +64,7 @@ namespace ZaveViewModel.ViewModels
         private List<ColorItem> setColors()
         {
             var items = new List<ColorItem>();
-            var converter = new System.Windows.Media.ColorConverter();
+            //var converter = new System.Windows.Media.ColorConverter();
             foreach (string color in Enum.GetNames(typeof(AvailableColors)))
             {
                 items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(color), color));

@@ -79,13 +79,13 @@ namespace Zave
         {
             var bs = new BootStrapper();
             bs.Run();
-            //EventAggregator eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
+            EventAggregator eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
 
             
 
             
 
-            eventInit = EventInitSingleton.GetInstance();
+            eventInit = EventInitSingleton.GetInstance(eventAgg);
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
             {

@@ -3,17 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:local="clr-namespace:Zave.Views"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <ListView ItemsSource="{Binding ZDFEntries}" Margin="7,0,0,2" Name="LV_EntryList" >
+    <ListView ItemsSource="{Binding ZDFEntries, diag:PresentationTraceSources.TraceLevel=High}" Margin="7,0,0,2" Name="LV_EntryList" >
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">
                 <i:InvokeCommandAction
-        					    Command="{Binding SelectItemRelayCommand, PresentationTraceSources.TraceLevel=High}"
+        					    Command="{Binding SelectItemRelayCommand}"
         					    CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>

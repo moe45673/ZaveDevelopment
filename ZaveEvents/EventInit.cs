@@ -13,7 +13,8 @@ using Microsoft.Win32.SafeHandles;
 using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
 using System.Runtime.InteropServices;
-
+using WPFColor = System.Windows.Media.Color;
+using WPFColors = System.Windows.Media.Colors;
 using ZaveGlobalSettings.ZaveFile;
 using ZaveViewModel.ViewModels;
 using System.IO;
@@ -51,28 +52,57 @@ namespace ZaveController.Global_Settings
             lastRead = DateTime.MinValue;
             //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
-            DateTime date = DateTime.Now;
-            SelectionState selState1 = new SelectionState("ExampleDoc1.doc", "32", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dapibus dolor quis tincidunt. Curabitur leo dui, blandit in consequat eget, luctus ac magna. Quisque leo neque, tincidunt eu ultricies fringilla, convallis eu odio. Vestibulum fringilla mauris id ipsum lobortis, ac accumsan nisi tristique. Sed cursus varius neque eu bibendum. Nam fringilla diam eget turpis pharetra, ac congue urna auctor. Phasellus feugiat, purus ac venenatis varius, risus nisl porta lectus, nec pharetra ipsum velit congue massa. Pellentesque tempus vehicula elit, dictum venenatis mi hendrerit sed. Etiam et diam elementum, tristique est eget, aliquam massa. In id auctor augue. Integer accumsan ante ut ligula pellentesque dictum.\nSed augue dui, faucibus ac neque eget, euismod dignissim mi.Nullam nec varius nulla.In ut enim elit.Sed in leo non nisi ultrices lacinia.Mauris eleifend lectus purus, eget blandit ante suscipit vel.Nunc hendrerit nisl et nunc sodales volutpat.Proin quis metus quam.Proin eget felis tortor.Fusce eget imperdiet velit.\nDuis porta molestie dui, eget facilisis massa venenatis ac.Integer in condimentum est, at iaculis enim.Duis tempus efficitur est, eget sollicitudin turpis.Suspendisse leo velit, aliquet tristique quam id, vulputate tempus purus.Phasellus aliquam aliquet neque at tincidunt.Nam vulputate consequat nulla eu bibendum.Suspendisse auctor, sapien mollis laoreet lacinia, eros velit fermentum purus, non dictum odio tellus vitae diam.Sed enim risus, aliquam sit amet tristique in, interdum in augue.Nunc viverra pulvinar elit eget venenatis.Sed laoreet neque sed nibh fringilla scelerisque.Proin vestibulum rhoncus elit, vel convallis ligula pellen", date.AddMinutes(360), System.Drawing.Color.Yellow);
-            SelectionState selState2 = new SelectionState();
-            SelectionState selState3 = new SelectionState();
+            //DateTime date = DateTime.Now;
+            //SelectionState selState1 = new SelectionState("ExampleDoc1.doc", "32", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dapibus dolor quis tincidunt. Curabitur leo dui, blandit in consequat eget, luctus ac magna. Quisque leo neque, tincidunt eu ultricies fringilla, convallis eu odio. Vestibulum fringilla mauris id ipsum lobortis, ac accumsan nisi tristique. Sed cursus varius neque eu bibendum. Nam fringilla diam eget turpis pharetra, ac congue urna auctor. Phasellus feugiat, purus ac venenatis varius, risus nisl porta lectus, nec pharetra ipsum velit congue massa. Pellentesque tempus vehicula elit, dictum venenatis mi hendrerit sed. Etiam et diam elementum, tristique est eget, aliquam massa. In id auctor augue. Integer accumsan ante ut ligula pellentesque dictum.\nSed augue dui, faucibus ac neque eget, euismod dignissim mi.Nullam nec varius nulla.In ut enim elit.Sed in leo non nisi ultrices lacinia.Mauris eleifend lectus purus, eget blandit ante suscipit vel.Nunc hendrerit nisl et nunc sodales volutpat.Proin quis metus quam.Proin eget felis tortor.Fusce eget imperdiet velit.\nDuis porta molestie dui, eget facilisis massa venenatis ac.Integer in condimentum est, at iaculis enim.Duis tempus efficitur est, eget sollicitudin turpis.Suspendisse leo velit, aliquet tristique quam id, vulputate tempus purus.Phasellus aliquam aliquet neque at tincidunt.Nam vulputate consequat nulla eu bibendum.Suspendisse auctor, sapien mollis laoreet lacinia, eros velit fermentum purus, non dictum odio tellus vitae diam.Sed enim risus, aliquam sit amet tristique in, interdum in augue.Nunc viverra pulvinar elit eget venenatis.Sed laoreet neque sed nibh fringilla scelerisque.Proin vestibulum rhoncus elit, vel convallis ligula pellen", date.AddMinutes(360), System.Drawing.Color.Yellow);
+            //SelectionState selState2 = new SelectionState();
+            //SelectionState selState3 = new SelectionState();
 
-            activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState1));
-            activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState2));
-            activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState3));
+            //activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState1));
+            //activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState2));
+            //activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState3));
 
             
         }
 
         public static EventInitSingleton GetInstance(IEventAggregator eventAgg = null)
         {
-            instance._eventAggregator = eventAgg;
+            if (instance._eventAggregator == null && eventAgg != null)
+            {
+                instance._eventAggregator = eventAgg;
+                instance._eventAggregator.GetEvent<ZaveGlobalSettings.Events.MainControlsUpdateEvent>().Subscribe(instance.SetActiveColor);
+            }
             
             return Instance;
         }
 
-        private System.Windows.Media.Color setStartupColor()
+        private WPFColor setStartupColor()
         {
             return System.Windows.Media.Colors.Yellow;
+        }
+
+        private WPFColor activeColor;
+        public void SetActiveColor(System.Drawing.Color color)
+        {
+            string colorName = "Unknown Color";
+            foreach (var item in GetColors())
+            {
+                if (activeColor.ToString().Equals(item.Value.ToString())){
+                    colorName = item.Key;
+                }
+            }
+            activeColor = new ZaveModel.Colors.ColorCategory(color, colorName).toWPFColor();
+            
+            
+        }
+
+        private IEnumerable<KeyValuePair<String, System.Drawing.Color>> GetColors()
+        {
+            return typeof(System.Drawing.SystemColors)
+                .GetProperties()
+                .Where(prop =>
+                    typeof(System.Drawing.Color).IsAssignableFrom(prop.PropertyType))
+                .Select(prop =>
+                    new KeyValuePair<String, System.Drawing.Color>(prop.Name, (System.Drawing.Color)prop.GetValue(null)));
         }
 
         //private ~EventInitSingleton()
@@ -162,7 +192,7 @@ namespace ZaveController.Global_Settings
                         if (temp.Any<SelectionState>())
                         {
                             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
-                            //entry.HColor.FromWPFColor(ZaveControlsViewModel.Instance.ActiveColor);
+                            entry.HColor = ZaveModel.Colors.ColorCategory.FromWPFColor(activeColor);
                             
                             activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
 

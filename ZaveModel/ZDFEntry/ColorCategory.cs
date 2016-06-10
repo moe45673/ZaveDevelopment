@@ -53,19 +53,24 @@ namespace ZaveModel.Colors {
             return wCol;
         }
 
-        public void FromWPFColor(WPFColor wCol)
+        public static ColorCategory FromWPFColor(WPFColor wCol)
         {
+            ColorCategory colCat = null;
+            string colorName = "";
             try
             {
-                Color = Color.FromArgb(wCol.A, wCol.R, wCol.G, wCol.B);
-               
-                Name = GetWPFColorName(wCol);
+                colorName = GetWPFColorName(wCol);
             }
-            catch(System.Data.ObjectNotFoundException onf)
+            catch (System.Data.ObjectNotFoundException onf)
             {
                 System.Windows.Forms.MessageBox.Show("The Specified Color Could Not Be Found", "Color Not Found", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Warning);
             }
-
+            finally
+            {
+                colCat = new ColorCategory(Color.FromArgb(wCol.A, wCol.R, wCol.G, wCol.B), colorName);
+                
+            }
+            return colCat;
 
         }
 
@@ -78,7 +83,7 @@ namespace ZaveModel.Colors {
 
         }
 
-        private string GetWPFColorName(WPFColor color)
+        private static string GetWPFColorName(WPFColor color)
         {
             Type colors = typeof(System.Windows.Media.Colors);
             foreach (var prop in colors.GetProperties())

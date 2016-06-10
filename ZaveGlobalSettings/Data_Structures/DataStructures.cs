@@ -376,4 +376,9 @@ namespace ZaveGlobalSettings.Events
     {
 
     }
+
+    public class MainControlsUpdateEvent : PubSubEvent<Color>
+    {
+
+    }
 }
