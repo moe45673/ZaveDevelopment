@@ -20,6 +20,7 @@ using ZaveViewModel.ViewModels;
 using System.IO;
 using Newtonsoft.Json;
 using Prism.Events;
+using ZaveGlobalSettings.Events;
 //using ZaveMo
 
 namespace ZaveController.Global_Settings
@@ -50,6 +51,9 @@ namespace ZaveController.Global_Settings
             activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
             CreateFileWatcher(Path.GetTempPath());
             lastRead = DateTime.MinValue;
+            System.Drawing.Color startupColor = new System.Drawing.Color();
+            
+            
             //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
             //DateTime date = DateTime.Now;
@@ -70,6 +74,7 @@ namespace ZaveController.Global_Settings
             {
                 instance._eventAggregator = eventAgg;
                 instance._eventAggregator.GetEvent<ZaveGlobalSettings.Events.MainControlsUpdateEvent>().Subscribe(instance.SetActiveColor);
+                
             }
             
             return Instance;

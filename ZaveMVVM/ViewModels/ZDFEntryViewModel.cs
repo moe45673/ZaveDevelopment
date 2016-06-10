@@ -39,7 +39,7 @@ namespace ZaveViewModel.ViewModels
         private IEventAggregator _eventAggregator;
         //private string _txtDocId;
 
-        private void setProperties(int id = default(int), string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color))
+        private void setProperties(int id = default(int), string name = "", string page = "", string txt = "", DateTime dateModded = default(DateTime), Color col = default(Color))
         {
             if (_zdfEntry == null)
             {
@@ -85,7 +85,7 @@ namespace ZaveViewModel.ViewModels
             }
             try
             {
-                setProperties(_zdfEntry.ID, _zdfEntry.Name, _zdfEntry.Page, _zdfEntry.Text, _zdfEntry.DateModified);
+                setProperties(_zdfEntry.ID, _zdfEntry.Name, _zdfEntry.Page, _zdfEntry.Text, _zdfEntry.DateModified, _zdfEntry.HColor.toWPFColor());
             }
             catch (NullReferenceException nre)
             {

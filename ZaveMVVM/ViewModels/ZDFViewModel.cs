@@ -153,6 +153,7 @@ namespace ZaveViewModel.ViewModels
             var id = items.Cast<ZDFEntryItemViewModel>();
             //var selStateList = SelectionStateList.Instance;
             //selStateList.Add(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryItemViewModel>().TxtDocID).toSelectionState());
+            System.Windows.Forms.MessageBox.Show("Inside SelectItem \n" + id.First().TxtDocID + '\n' + ZDFEntries.First().TxtDocID + '\n' + ZDFEntries.ElementAtOrDefault(1).TxtDocID);
             _eventAggregator.GetEvent<EntryUpdateEvent>().Publish(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryItemViewModel>().TxtDocID).toSelectionState());
 
             //Do async work
