@@ -35,19 +35,19 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="docIdLbl" Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="docIdLbl" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center"  />
         <Label x:Name="docNameLbl" Grid.Row="1" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docPageLbl" Grid.Row="2" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docLastModdedLbl" Grid.Row="3" Grid.Column="0" Content="Date Modified" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docColor" Grid.Row="4" Grid.Column="0" Content="HighlightColor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label x:Name="docTextLbl" Grid.Row="5" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <TextBlock x:Name="docIdTxtBx" Visibility="Collapsed" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}"  />
-        <TextBlock x:Name="docNameTxtBx" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, diag:PresentationTraceSources.TraceLevel=High, UpdateSourceTrigger=PropertyChanged}"  />
-        <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
-        <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docIdTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docNameTxtBx" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, diag:PresentationTraceSources.TraceLevel=High, UpdateSourceTrigger=PropertyChanged}"  />
+        <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
+        <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
 
 
     </Grid>

@@ -27,7 +27,8 @@ namespace Zave
         /// <returns></returns>
         protected override DependencyObject CreateShell()
         {
-            return Microsoft.Practices.Unity.UnityContainerExtensions.Resolve<MainWindow>(Container);
+            
+            return UnityContainerExtensions.Resolve<MainWindow>(Container);
         }
         
         /// <summary>

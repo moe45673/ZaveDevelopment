@@ -84,8 +84,9 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
         
-        public SelectionState(string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD)
+        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD)
         {
+            ID = id;
             SelectionDocName = name;
             SelectionPage = page;
             SelectionText = text;

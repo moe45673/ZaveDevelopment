@@ -45,7 +45,7 @@ namespace ZaveModel.ZDFEntry {
         public ZDFEntry(SelectionState src) : this()
         {
             m_IEntryComment = new List<Comment.IEntryComment>();
-            _id = ZDF.ZDFSingleton.setID();
+            _id = src.ID;
             _page = src.SelectionPage;
             _name = src.SelectionDocName;
             _text = src.SelectionText;
@@ -62,7 +62,7 @@ namespace ZaveModel.ZDFEntry {
 
         public SelectionState toSelectionState()
         {
-            return new SelectionState(this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format);
+            return new SelectionState( this.ID, this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format);
         }
 
 

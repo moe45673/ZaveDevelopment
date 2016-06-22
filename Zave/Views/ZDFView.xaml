@@ -23,7 +23,7 @@
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">
                 <i:InvokeCommandAction
-        					    Command="{Binding SelectItemRelayCommand, PresentationTraceSources.TraceLevel=High}"
+        					    Command="{Binding SelectItemDelegateCommand, PresentationTraceSources.TraceLevel=High}"
         					    CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>

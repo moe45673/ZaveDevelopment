@@ -17,7 +17,7 @@ using ZaveGlobalSettings.Data_Structures;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Data;
-using GalaSoft.MvvmLight.CommandWpf;
+//using GalaSoft.MvvmLight.CommandWpf;
 
 namespace ZaveViewModel.ViewModels
 {

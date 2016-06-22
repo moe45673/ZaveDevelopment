@@ -1,6 +1,6 @@
 ﻿using System;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
+//using GalaSoft.MvvmLight;
+//using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -19,9 +19,11 @@ using System.Windows.Media;
 using ZaveViewModel.Commands;
 using Prism.Mvvm;
 using Prism.Events;
+using Prism;
 using ZaveGlobalSettings.Events;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.Data_Structures.Observable;
+using Prism.Commands;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -32,13 +34,13 @@ namespace ZaveViewModel.ViewModels
         private ZaveModel.ZDF.ZDFSingleton activeZDF;
         private IEventAggregator _eventAggregator;
 
-        //private ZDFEntryItemViewModel _activeZdfEntry;
-        //public ZDFEntryItemViewModel ActiveZDFEntry
+        //private ZDFEntryViewModel _activeZdfEntry;
+        //public ZDFEntryViewModel ActiveZDFEntry
         //{
         //    get { return _activeZdfEntry; }
         //    set
         //    {
-        //        SetProperty<ZDFEntryItemViewModel>(ref _activeZdfEntry, value);
+        //        SetProperty<ZDFEntryViewModel>(ref _activeZdfEntry, value);
         //    }
         //}
 
@@ -50,7 +52,9 @@ namespace ZaveViewModel.ViewModels
             {
                 foreach (var entry in zdf.EntryList)
                 {
-                    ZDFEntries.Add(new ZDFEntryItemViewModel(entry as ZDFEntry));
+                    var item = new ZDFEntryItemViewModel(entry as ZDFEntry);
+                    
+                    ZDFEntries.Add(item);
                 }
             }
             //context = SynchronizationContext.Current;
@@ -88,8 +92,7 @@ namespace ZaveViewModel.ViewModels
                         //{
                         int index = (e.NewItems.SyncRoot as Array).Length - 1;
                         var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index);
-                        //}
-                        //var tempEntry = ((ICollection<ZDFEntry>)e.NewItems.SyncRoot).ToList<ZDFEntry>().FirstOrDefault(x => x!=null);
+                        
 
                         ZDFEntries.Add(new ZDFEntryItemViewModel(tempEntry as ZDFEntry));
                         break;
@@ -107,9 +110,9 @@ namespace ZaveViewModel.ViewModels
 
 
 
-            //ActiveZDFEntry = new ZDFEntryItemViewModel(activeZDF.EntryList[index]);
+            //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
             //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
-            //ZDFEntries.Add(new ZDFEntryItemViewModel(activeZDF.EntryList[index], _eventAggregator));
+            //ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
             //UpdateGui(zdfEntry.Source);
 
         }
@@ -118,31 +121,33 @@ namespace ZaveViewModel.ViewModels
         //{
         //    if (e.PropertyName == "TxtDocID")
         //    {
-        //        _activeZdfEntry = ZDFEntries.SingleOrDefault(x => x.TxtDocID == sender.ID as ZDFEntryItemViewModel);
+        //        _activeZdfEntry = ZDFEntries.SingleOrDefault(x => x.TxtDocID == sender.ID as ZDFEntryViewModel);
         //    }
         //}
 
-        private RelayCommand<System.Collections.IList> _selectItemRelayCommand;
+        private DelegateCommand<System.Collections.IList> _selectItemDelegateCommand;
 
         /// <summary>
         /// Relay command associated with the selection of an item in the observablecollection
         /// </summary>
-        public RelayCommand<System.Collections.IList> SelectItemRelayCommand
+        public DelegateCommand<System.Collections.IList> SelectItemDelegateCommand
         {
             get
             {
-                if (_selectItemRelayCommand == null)
-                {
-                    _selectItemRelayCommand = new RelayCommand<System.Collections.IList>(async (id) =>
-                    {
-                        await selectItem(id);
-                    });
-                }
+                //if (_selectItemDelegateCommand == null)
+                //{
+                //    _selectItemDelegateCommand = new DelegateCommand<System.Collections.IList>(async (id) =>
+                //    {
+                //        await selectItem(id);
+                //    });
+                //}
 
-                return _selectItemRelayCommand;
+                return _selectItemDelegateCommand;
             }
-            set { _selectItemRelayCommand = value; }
+            private set { _selectItemDelegateCommand = value; }
         }
+
+        
 
         /// <summary>
         /// I went with async in case you sub is a long task, and you don't want to lock you UI
@@ -151,12 +156,12 @@ namespace ZaveViewModel.ViewModels
         private async Task<int> selectItem(System.Collections.IList items)
         {
             var id = items.Cast<ZDFEntryItemViewModel>();
-            //var selStateList = SelectionStateList.Instance;
-            //selStateList.Add(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryItemViewModel>().TxtDocID).toSelectionState());
-            System.Windows.Forms.MessageBox.Show("Inside SelectItem \n" + id.First().TxtDocID + '\n' + ZDFEntries.First().TxtDocID + '\n' + ZDFEntries.ElementAtOrDefault(1).TxtDocID);
-            _eventAggregator.GetEvent<EntryUpdateEvent>().Publish(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryItemViewModel>().TxtDocID).toSelectionState());
 
-            //Do async work
+            _eventAggregator.GetEvent<EntryUpdateEvent>().Publish(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryItemViewModel>().TxtDocID).toSelectionState());
+            //SelectionState selstate = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState();
+
+
+           
 
             return await Task.FromResult(1);
         }
@@ -190,7 +195,7 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        //public ZDFEntryItemViewModel(ZaveModel.ZDF.IZDF zdf, IZDFEntry zdfEntry = null) : base()
+        //public ZDFEntryViewModel(ZaveModel.ZDF.IZDF zdf, IZDFEntry zdfEntry = null) : base()
         //{
 
 
@@ -227,11 +232,13 @@ namespace ZaveViewModel.ViewModels
 
             _eventAggregator = eventAggregator;
 
+            _selectItemDelegateCommand = DelegateCommand<IList>.FromAsyncHandler(selectItem);
+
             activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(_eventAggregator);
 
 
             //if (activeZDF.EntryList.Count != 0)
-            //_activeZdfEntry = new ZDFEntryItemViewModel(activeZDF.EntryList[0]);
+            //_activeZdfEntry = new ZDFEntryViewModel(activeZDF.EntryList[0]);
             _zdfEntriesLock = new Object();
             createEntryList();
 
@@ -255,159 +262,18 @@ namespace ZaveViewModel.ViewModels
 
     }
 
-    public class ZDFEntryItemViewModel : BindableBase
+    public class ZDFEntryItemViewModel : ZaveViewModel.Data_Structures.ZDFEntryItem
     {
 
-        private IZDFEntry _zdfEntry;
-        
-        //private string _txtDocId;
-
-        private void setProperties(int id = default(int), string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color))
-        {
-            if (_zdfEntry == null)
-            {
-                throw new NullReferenceException("No ZDFEntryItemViewModel referenced!");
-            }
-
-            TxtDocID = id.ToString();
-            TxtDocName = name;
-            TxtDocPage = page;
-            TxtDocText = txt;
-            TxtDocLastModified = dateModded.ToShortDateString() + " " + dateModded.ToShortTimeString();
-            TxtDocColor = col;
-
-
-        }
-
-        public SelectionState toSelectionState()
-        {
-            return _zdfEntry.toSelectionState();
-        }
-
-        private void setProperties(SelectionState selState)
-        {
-            try
-            {
-                setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified);
-            }
-            catch (NullReferenceException nre)
-            {
-                throw nre;
-            }
-        }
+       
        
         
 
-        public ZDFEntryItemViewModel(ZDFEntry zdfEntry)
+        public ZDFEntryItemViewModel(ZDFEntry zdfEntry) : base(zdfEntry)
         {
-            _zdfEntry = zdfEntry;
-
-            try
-            {
-                setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified);
-            }
-            catch (NullReferenceException nre)
-            {
-                throw nre;
-            }
+            
 
         }
-        #region Properties
-
-        private String _txtDocName;
-        public String TxtDocName
-        {
-            get { return _zdfEntry.Name; }
-            set
-            {
-                SetProperty(ref _txtDocName, value);
-                _zdfEntry.Name = _txtDocName;
-                //System.Windows.Forms.MessageBox.Show(value.ToString());
-
-
-            }
-
-        }
-
-        private String _txtDocID;
-        public string TxtDocID
-        {
-            get { return _zdfEntry.ID.ToString(); }
-            private set
-            {
-
-                SetProperty(ref _txtDocID, value);
-                //_zdfEntry.ID = int.Parse(_txtDocID);
-            }
-
-        }
-
-        private String _txtDocPage;
-        public String TxtDocPage
-        {
-            get { return _zdfEntry.Page; }
-            set
-            {
-                if (SetProperty(ref _txtDocPage, value))
-                    _zdfEntry.Page = _txtDocPage;
-
-            }
-
-        }
-
-        private String _txtDocText;
-        public String TxtDocText
-        {
-            get { return _zdfEntry.Text; }
-            set
-            {
-                if (SetProperty(ref _txtDocText, value))
-                    _zdfEntry.Text = _txtDocText;
-
-            }
-        }
-
-        private String _txtDocLastModified;
-        public String TxtDocLastModified
-        {
-            get
-            {
-                string date;
-                if (!_zdfEntry.DateModified.Equals(default(DateTime)))
-                    date = _zdfEntry.DateModified.ToShortDateString() + " " + _zdfEntry.DateModified.ToShortTimeString();
-                else
-                    date = "";
-                return date;
-
-            }
-            set
-            {
-                SetProperty(ref _txtDocLastModified, value);
-                _zdfEntry.DateModified = DateTime.Parse(_txtDocLastModified);
-
-            }
-        }
-
-        private Color _txtDocColor;
-        public Color TxtDocColor
-        {
-            get
-            {
-                return _zdfEntry.HColor.toWPFColor();
-            }
-            set
-            {
-                SetProperty(ref _txtDocColor, value);
-                _zdfEntry.HColor = ZaveModel.Colors.ColorCategory.FromWPFColor(value);
-
-            }
-        }
-
-        public ZDFEntry ZDFEntry
-        {
-            get;
-        }
-
-        #endregion 
+        
     }
 }
