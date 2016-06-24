@@ -68,7 +68,23 @@ namespace ZaveViewModel.ViewModels
             return entryVM;
         }
 
-       
+        public virtual string TxtDocID
+        {
+            get
+            {
+                return _txtDocID;
+            }
+            protected set
+            {
+
+                _txtDocID = value;
+                OnPropertyChanged("TxtDocID");
+                //_zdfEntry.ID = int.Parse(_txtDocID);
+            }
+
+        }
+
+
 
         //private string _txtDocId;
 

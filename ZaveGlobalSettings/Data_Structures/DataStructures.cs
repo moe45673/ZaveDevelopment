@@ -15,8 +15,11 @@ using System.Drawing;
 using Prism.Events;
 
 
+
 namespace ZaveGlobalSettings.Data_Structures
 {
+
+    using CommentList = List<Object<string, string>>;
 
     /// <summary>
     /// holds all allowable platforms for Zave to integrate with
@@ -84,7 +87,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
         
-        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD)
+        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, CommentList comments = default(CommentList))
         {
             ID = id;
             SelectionDocName = name;
@@ -96,6 +99,9 @@ namespace ZaveGlobalSettings.Data_Structures
                 SelectionDateModified = date;
             this.Color = col;
             srcType = src;
+
+            Comments = comments;
+
             IsValid = true;
         }
 
@@ -109,6 +115,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public DateTime SelectionDateModified { get; set; }
         // String SelectionType { get; set; }
         public SrcType srcType { get; set; }
+        public CommentList Comments { get; set; }
 
 
         public bool IsValid { get; set; }
@@ -128,44 +135,58 @@ namespace ZaveGlobalSettings.Data_Structures
             ErrorCollection.Add(error);
         }
 
+        
     }
 
-//    public static class FileChecker
-//    {
+    public class Object<T1, T2>
+    {
 
-//        private const int NumberOfRetries = 20;
-//        private const int DelayOnRetry = 50;
+        public Object(T1 first = default(T1), T2 second = default(T2))
+        {
+            FirstProp = first;
+            SecondProp = second;
+        }
 
-//        public delegate void StreamChecker(string filepath);
-//        private Object obj;
+        public T1 FirstProp { get; set; }
+        public T2 SecondProp { get; set; }
+    }
+
+    //    public static class FileChecker
+    //    {
+
+    //        private const int NumberOfRetries = 20;
+    //        private const int DelayOnRetry = 50;
+
+    //        public delegate void StreamChecker(string filepath);
+    //        private Object obj;
 
 
-        
 
-//        public static void checkFile(Object stream, string filepath){
-        
 
-//        for (int i=1; i <= NumberOfRetries; ++i) {
-//            try {
-//                // Do stuff with file
-//                if (stream is StreamWriter)
-//                    stream = new StreamWriter(filepath);
-//                else if (stream is StreamReader)
-//                {
-//                    stream = new StreamReader(filepath);
-//                }
-//                break; // When done we can break loop
-//            }
-//            catch (IOException e) {
-//                // You may check error code to filter some exceptions, not every error
-//                // can be recovered.
-//                if (i == NumberOfRetries) // Last one, (re)throw exception and exit
-//                    throw;
+    //        public static void checkFile(Object stream, string filepath){
 
-//                Thread.Sleep(DelayOnRetry);
-//            }
-//        }
-//    }
+
+    //        for (int i=1; i <= NumberOfRetries; ++i) {
+    //            try {
+    //                // Do stuff with file
+    //                if (stream is StreamWriter)
+    //                    stream = new StreamWriter(filepath);
+    //                else if (stream is StreamReader)
+    //                {
+    //                    stream = new StreamReader(filepath);
+    //                }
+    //                break; // When done we can break loop
+    //            }
+    //            catch (IOException e) {
+    //                // You may check error code to filter some exceptions, not every error
+    //                // can be recovered.
+    //                if (i == NumberOfRetries) // Last one, (re)throw exception and exit
+    //                    throw;
+
+    //                Thread.Sleep(DelayOnRetry);
+    //            }
+    //        }
+    //    }
 
 
     public class ModelEventArgs : EventArgs

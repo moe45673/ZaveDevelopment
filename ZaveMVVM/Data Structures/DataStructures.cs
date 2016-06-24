@@ -7,12 +7,17 @@ using System.Windows.Input;
 using ZaveModel.ZDFEntry;
 using Prism.Mvvm;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Data_Structures.Observable;
 using WPFColor = System.Windows.Media.Color;
 using Color = System.Drawing.Color;
 
 
 namespace ZaveViewModel.Data_Structures
 {
+
+    using CommentList = ObservableImmutableList<ZDFCommentItem>;
+    using selStateCommentList = List<Object<string, string>>;
+
     public abstract class ZDFEntryItem : BindableBase
     {
 
@@ -20,7 +25,7 @@ namespace ZaveViewModel.Data_Structures
 
         //private string _txtDocId;
 
-        protected void setProperties(int id = default(int), string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color))
+        protected void setProperties(int id = default(int), string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = default(CommentList))
         {
             if (_zdfEntry == null)
             {
@@ -37,21 +42,21 @@ namespace ZaveViewModel.Data_Structures
             _txtDocColor.R = col.R;
             _txtDocColor.B = col.B;
             _txtDocColor.G = col.G;
+            OnPropertyChanged("TxtDocColor");
+            _txtDocComments = comments;            
+            OnPropertyChanged("TxtDocComments");
 
 
 
         }
 
-        public SelectionState toSelectionState()
-        {
-            return _zdfEntry.toSelectionState();
-        }
+      
 
         protected void setProperties(SelectionState selState)
         {
             try
-            {
-                setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified, selState.Color);
+            {                
+                setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified, selState.Color, fromObjectList(selState.Comments));
             }
             catch (NullReferenceException nre)
             {
@@ -67,7 +72,7 @@ namespace ZaveViewModel.Data_Structures
 
             try
             {
-                setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified, zdfEntry.HColor.Color);
+                setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified, zdfEntry.HColor.Color, fromZDFCommentList(zdfEntry.Comments));
             }
             catch (NullReferenceException nre)
             {
@@ -75,6 +80,40 @@ namespace ZaveViewModel.Data_Structures
             }
 
         }
+
+        #region Converters
+        public SelectionState toSelectionState()
+        {
+            return _zdfEntry.toSelectionState();
+        }
+
+        public static CommentList fromObjectList(selStateCommentList list)
+        {
+            var tempList = new CommentList();
+
+            foreach (var comment in list)
+            {
+                var tempComment = ZDFCommentItem.fromObject(comment);
+                tempList.Add(tempComment);
+            }
+            return tempList;
+        }
+
+        public static CommentList fromZDFCommentList(IList<ZaveModel.ZDFEntry.Comment.IEntryComment> zComments)
+        {
+
+            var tempList = new CommentList();
+            foreach (var comment in zComments)
+            {
+                var tempComment = new ZDFCommentItem(comment.CommentText, comment.Author);
+                tempList.Add(tempComment);
+            }
+
+            return tempList;
+        }
+
+        #endregion
+
         #region Properties
 
         protected String _txtDocName;
@@ -83,8 +122,9 @@ namespace ZaveViewModel.Data_Structures
             get { return _zdfEntry.Name; }
             set
             {
-                SetProperty(ref _txtDocName, value);
+                _txtDocName = value;
                 _zdfEntry.Name = _txtDocName;
+                OnPropertyChanged("TxtDocName");
                 //System.Windows.Forms.MessageBox.Show(value.ToString());
 
 
@@ -93,7 +133,7 @@ namespace ZaveViewModel.Data_Structures
         }
 
         protected String _txtDocID;
-        public string TxtDocID
+        public virtual string TxtDocID
         {
             get
             {
@@ -111,7 +151,8 @@ namespace ZaveViewModel.Data_Structures
             protected set
             {
 
-                SetProperty(ref _txtDocID, value);
+                _txtDocID = value;
+                OnPropertyChanged("TxtDocID");
                 //_zdfEntry.ID = int.Parse(_txtDocID);
             }
 
@@ -123,8 +164,9 @@ namespace ZaveViewModel.Data_Structures
             get { return _zdfEntry.Page; }
             set
             {
-                if (SetProperty(ref _txtDocPage, value))
-                    _zdfEntry.Page = _txtDocPage;
+                _txtDocPage = value;
+                _zdfEntry.Page = _txtDocPage;
+                OnPropertyChanged("TxtDocPage");
 
             }
 
@@ -136,8 +178,11 @@ namespace ZaveViewModel.Data_Structures
             get { return _zdfEntry.Text; }
             set
             {
-                if (SetProperty(ref _txtDocText, value))
-                    _zdfEntry.Text = _txtDocText;
+                //if (SetProperty(ref _txtDocText, value))
+                //    _zdfEntry.Text = _txtDocText;
+                _txtDocText = value;
+                _zdfEntry.Text = value;
+                OnPropertyChanged("TxtDocText");
 
             }
         }
@@ -157,8 +202,9 @@ namespace ZaveViewModel.Data_Structures
             }
             set
             {
-                SetProperty(ref _txtDocLastModified, value);
+                _txtDocLastModified = value;
                 _zdfEntry.DateModified = DateTime.Parse(_txtDocLastModified);
+                OnPropertyChanged("TxtDocLastModified");
 
             }
         }
@@ -172,8 +218,9 @@ namespace ZaveViewModel.Data_Structures
             }
             set
             {
-                SetProperty(ref _txtDocColor, value);
+                _txtDocColor = value;
                 _zdfEntry.HColor = ZaveModel.Colors.ColorCategory.FromWPFColor(value);
+                OnPropertyChanged("TxtDocColor");
 
             }
         }
@@ -181,12 +228,71 @@ namespace ZaveViewModel.Data_Structures
         public ZDFEntry ZDFEntry
         {
             get;
+            protected set;
         }
+
+
+        protected CommentList _txtDocComments;
+
+        public CommentList TxtDocComments
+        {
+            get { return this._txtDocComments; }
+            set
+            {
+                SetProperty(ref _txtDocComments, value);
+            }
+        }
+
 
         #endregion 
     }
 
-    public class HighlightCommand : ICommand
+    public class ZDFCommentItem : BindableBase
+    {
+        public ZDFCommentItem(string text = default(string), string author = default(string))
+        {
+            _comment = new ZaveModel.ZDFEntry.Comment.EntryComment();
+            _commentText = text;
+            _commentAuthor = author;
+        }
+
+        public static ZDFCommentItem fromObject(Object<string, string> obj)
+        {
+            return new ZDFCommentItem(obj.FirstProp, obj.SecondProp);
+        }
+
+
+
+        protected ZaveModel.ZDFEntry.Comment.IEntryComment _comment;
+
+
+
+        private String _commentText;
+
+        public String CommentText
+        {
+            get { return _comment.CommentText; }
+            set
+            {
+                _comment.CommentText = value;
+                OnPropertyChanged("CommentText");
+            }
+        }
+
+        private String _commentAuthor;
+
+        public String CommentAuthor
+        {
+            get { return _comment.Author; }
+            set
+            {
+                _comment.Author = value;
+                OnPropertyChanged("CommentAuthor");
+            }
+        }
+    }
+
+        public class HighlightCommand : ICommand
     {
         private Action<object> execute;
 

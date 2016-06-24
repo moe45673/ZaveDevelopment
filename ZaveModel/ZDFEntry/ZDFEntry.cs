@@ -13,13 +13,15 @@ using System.IO;
 using System.ComponentModel;
 using System.Linq;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Data_Structures.Observable;
 using ZaveModel.Colors;
 using ZaveModel.ZDFSource;
 using Prism.Mvvm;
-
-
+using ZaveModel.ZDFEntry.Comment;
 
 namespace ZaveModel.ZDFEntry {
+
+    using CommentList = ObservableImmutableList<Comment.IEntryComment>;
 
     public class ZDFEntry : BindableBase, IZDFEntry
     {
@@ -32,11 +34,11 @@ namespace ZaveModel.ZDFEntry {
         private int _id;
         public int ID { get { return _id; } }
 
-        public List<Comment.IEntryComment> m_IEntryComment;
+        
 
         public ZDFEntry()
         {
-            m_IEntryComment = new List<Comment.IEntryComment>();
+            m_IEntryComment = new CommentList();
             //Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
             _id = ZDF.ZDFSingleton.setID();
             HColor = new ColorCategory(default(System.Drawing.Color), "");
@@ -44,7 +46,7 @@ namespace ZaveModel.ZDFEntry {
 
         public ZDFEntry(SelectionState src) : this()
         {
-            m_IEntryComment = new List<Comment.IEntryComment>();
+            m_IEntryComment = new CommentList();
             _id = src.ID;
             _page = src.SelectionPage;
             _name = src.SelectionDocName;
@@ -52,6 +54,7 @@ namespace ZaveModel.ZDFEntry {
             _dateModified = src.SelectionDateModified;
             _format = src.srcType;
             _hColor = new ColorCategory(src.Color, src.Color.Name);
+            
             
         }
 
@@ -143,6 +146,15 @@ namespace ZaveModel.ZDFEntry {
                 _name = value;
                 OnPropertyChanged("Name");
             }
+        }
+
+
+        private CommentList m_IEntryComment;
+
+        public CommentList Comments
+        {
+            get { return m_IEntryComment; }
+            set { SetProperty(ref m_IEntryComment, value); }
         }
 
         #endregion

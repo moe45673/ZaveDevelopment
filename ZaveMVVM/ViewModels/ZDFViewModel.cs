@@ -125,26 +125,14 @@ namespace ZaveViewModel.ViewModels
         //    }
         //}
 
-        private DelegateCommand<System.Collections.IList> _selectItemDelegateCommand;
+        //private DelegateCommand<System.Collections.IList> _selectItemDelegateCommand;
 
         /// <summary>
         /// Relay command associated with the selection of an item in the observablecollection
         /// </summary>
         public DelegateCommand<System.Collections.IList> SelectItemDelegateCommand
         {
-            get
-            {
-                //if (_selectItemDelegateCommand == null)
-                //{
-                //    _selectItemDelegateCommand = new DelegateCommand<System.Collections.IList>(async (id) =>
-                //    {
-                //        await selectItem(id);
-                //    });
-                //}
-
-                return _selectItemDelegateCommand;
-            }
-            private set { _selectItemDelegateCommand = value; }
+            get; private set;
         }
 
         
@@ -153,7 +141,7 @@ namespace ZaveViewModel.ViewModels
         /// I went with async in case you sub is a long task, and you don't want to lock you UI
         /// </summary>
         /// <returns></returns>
-        private async Task<int> selectItem(System.Collections.IList items)
+        private void selectItem(System.Collections.IList items)
         {
             var id = items.Cast<ZDFEntryItemViewModel>();
 
@@ -163,7 +151,7 @@ namespace ZaveViewModel.ViewModels
 
            
 
-            return await Task.FromResult(1);
+            //return await Task.FromResult(1);
         }
 
         //public void UpdateGui(SelectionState selState)
@@ -231,8 +219,8 @@ namespace ZaveViewModel.ViewModels
         {
 
             _eventAggregator = eventAggregator;
-
-            _selectItemDelegateCommand = DelegateCommand<IList>.FromAsyncHandler(selectItem);
+            SelectedItem = true;
+            SelectItemDelegateCommand = new DelegateCommand<IList>(selectItem, canSelectItem);
 
             activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(_eventAggregator);
 
@@ -256,10 +244,11 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-
-
-
-
+        public bool SelectedItem { get; set; }
+        private bool canSelectItem(IList arg)
+        {
+            return SelectedItem;
+        }
     }
 
     public class ZDFEntryItemViewModel : ZaveViewModel.Data_Structures.ZDFEntryItem

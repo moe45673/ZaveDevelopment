@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+//using System.Security.Principal;
 
 
 
@@ -21,9 +22,13 @@ namespace ZaveModel.ZDFEntry.Comment {
 			set;
 		}
 
-		/// 
-		/// <param name="newComm"></param>
-		int Edit(string newComm);
+        string Author
+        {
+            get;
+            set;
+        }
+
+		
 	}//end IEntryComment
 
     public class EntryComment : IEntryComment
@@ -33,17 +38,20 @@ namespace ZaveModel.ZDFEntry.Comment {
         {
             CommentText = commText;
         }
+
         public string CommentText
         {
             get;
             set;                    
         }
 
-        public int Edit(string newComm)
+        public string Author
         {
-            CommentText = newComm;
-            return 1;
+            get;
+            set;
         }
+
+
     }
 
 }//end namespace ZDFEntry
