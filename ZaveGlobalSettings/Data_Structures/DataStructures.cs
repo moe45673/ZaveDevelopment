@@ -146,6 +146,11 @@ namespace ZaveGlobalSettings.Data_Structures
             FirstProp = first;
             SecondProp = second;
         }
+        public Object()
+        {
+            FirstProp = default(T1);
+            SecondProp = default(T2);
+        }
 
         public T1 FirstProp { get; set; }
         public T2 SecondProp { get; set; }
@@ -403,4 +408,6 @@ namespace ZaveGlobalSettings.Events
     {
 
     }
+
+    
 }

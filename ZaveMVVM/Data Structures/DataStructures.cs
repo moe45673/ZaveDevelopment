@@ -8,6 +8,7 @@ using ZaveModel.ZDFEntry;
 using Prism.Mvvm;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.Data_Structures.Observable;
+using ModelComment = ZaveModel.ZDFEntry.Comment;
 using WPFColor = System.Windows.Media.Color;
 using Color = System.Drawing.Color;
 
@@ -16,7 +17,7 @@ namespace ZaveViewModel.Data_Structures
 {
 
     using CommentList = ObservableImmutableList<ZDFCommentItem>;
-    using selStateCommentList = List<Object<string, string>>;
+    using selStateCommentList = List<Object<String, String>>;
 
     public abstract class ZDFEntryItem : BindableBase
     {
@@ -89,6 +90,10 @@ namespace ZaveViewModel.Data_Structures
 
         public static CommentList fromObjectList(selStateCommentList list)
         {
+            if (list == null)
+            {
+                list = new selStateCommentList();
+            }
             var tempList = new CommentList();
 
             foreach (var comment in list)
@@ -99,13 +104,13 @@ namespace ZaveViewModel.Data_Structures
             return tempList;
         }
 
-        public static CommentList fromZDFCommentList(IList<ZaveModel.ZDFEntry.Comment.IEntryComment> zComments)
+        public static CommentList fromZDFCommentList(IList<ModelComment.IEntryComment> zComments)
         {
 
             var tempList = new CommentList();
             foreach (var comment in zComments)
             {
-                var tempComment = new ZDFCommentItem(comment.CommentText, comment.Author);
+                var tempComment = new ZDFCommentItem(comment.CommentText, (string)comment.Author);
                 tempList.Add(tempComment);
             }
 
@@ -122,9 +127,8 @@ namespace ZaveViewModel.Data_Structures
             get { return _zdfEntry.Name; }
             set
             {
-                _txtDocName = value;
-                _zdfEntry.Name = _txtDocName;
-                OnPropertyChanged("TxtDocName");
+                _zdfEntry.Name = value;
+                SetProperty(ref _txtDocName, value);
                 //System.Windows.Forms.MessageBox.Show(value.ToString());
 
 
@@ -151,8 +155,7 @@ namespace ZaveViewModel.Data_Structures
             protected set
             {
 
-                _txtDocID = value;
-                OnPropertyChanged("TxtDocID");
+                SetProperty(ref _txtDocID, value);
                 //_zdfEntry.ID = int.Parse(_txtDocID);
             }
 
@@ -164,9 +167,9 @@ namespace ZaveViewModel.Data_Structures
             get { return _zdfEntry.Page; }
             set
             {
-                _txtDocPage = value;
-                _zdfEntry.Page = _txtDocPage;
-                OnPropertyChanged("TxtDocPage");
+                
+                _zdfEntry.Page = value;
+                SetProperty(ref _txtDocPage, value);
 
             }
 
@@ -180,9 +183,9 @@ namespace ZaveViewModel.Data_Structures
             {
                 //if (SetProperty(ref _txtDocText, value))
                 //    _zdfEntry.Text = _txtDocText;
-                _txtDocText = value;
+                
                 _zdfEntry.Text = value;
-                OnPropertyChanged("TxtDocText");
+                SetProperty(ref _txtDocText, value);
 
             }
         }
@@ -202,9 +205,9 @@ namespace ZaveViewModel.Data_Structures
             }
             set
             {
-                _txtDocLastModified = value;
-                _zdfEntry.DateModified = DateTime.Parse(_txtDocLastModified);
-                OnPropertyChanged("TxtDocLastModified");
+                
+                _zdfEntry.DateModified = DateTime.Parse(value);
+                SetProperty(ref _txtDocLastModified, value);
 
             }
         }
@@ -218,9 +221,9 @@ namespace ZaveViewModel.Data_Structures
             }
             set
             {
-                _txtDocColor = value;
+                
                 _zdfEntry.HColor = ZaveModel.Colors.ColorCategory.FromWPFColor(value);
-                OnPropertyChanged("TxtDocColor");
+                SetProperty(ref _txtDocColor, value);
 
             }
         }
@@ -236,9 +239,10 @@ namespace ZaveViewModel.Data_Structures
 
         public CommentList TxtDocComments
         {
-            get { return this._txtDocComments; }
+            get { return fromZDFCommentList(_zdfEntry.Comments); }
             set
             {
+                _zdfEntry.Comments = new ObservableImmutableList<ModelComment.IEntryComment>(value.ToList<ZDFCommentItem>().ConvertAll(x => new ModelComment.EntryComment(x.CommentText)));
                 SetProperty(ref _txtDocComments, value);
             }
         }
@@ -251,19 +255,28 @@ namespace ZaveViewModel.Data_Structures
     {
         public ZDFCommentItem(string text = default(string), string author = default(string))
         {
-            _comment = new ZaveModel.ZDFEntry.Comment.EntryComment();
+            _comment = new ModelComment.EntryComment();
             _commentText = text;
             _commentAuthor = author;
         }
 
-        public static ZDFCommentItem fromObject(Object<string, string> obj)
+        public ZDFCommentItem(ModelComment.IEntryComment comment = default(ModelComment.IEntryComment)) : this(comment.CommentText, (string)comment.Author)
+        {
+            
+        }
+
+        public static ZDFCommentItem fromObject(Object<String, String> obj = default(Object<String, String>))
         {
             return new ZDFCommentItem(obj.FirstProp, obj.SecondProp);
         }
 
+        public static explicit operator ZDFCommentItem(ModelComment.EntryComment comment)
+        {
+            return new ZDFCommentItem(comment);
+        }
 
 
-        protected ZaveModel.ZDFEntry.Comment.IEntryComment _comment;
+        protected ModelComment.IEntryComment _comment;
 
 
 
@@ -283,10 +296,10 @@ namespace ZaveViewModel.Data_Structures
 
         public String CommentAuthor
         {
-            get { return _comment.Author; }
+            get { return (string)_comment.Author; }
             set
             {
-                _comment.Author = value;
+                _comment.Author.Name = value;
                 OnPropertyChanged("CommentAuthor");
             }
         }
