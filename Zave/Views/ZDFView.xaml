@@ -11,12 +11,77 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
+        <!--ListView Styles-->
         <Style TargetType="ListView">
             <Setter Property="Margin" Value="0"></Setter>
             <Setter Property="Background" Value="#141321"></Setter>
             <Setter Property="BorderThickness" Value="0"></Setter>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"></Setter>
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"></Setter>
+        </Style>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Margin" Value="0,2,0,2"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="White"/>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="ListView_Border" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Red"></Setter>
+            <Setter Property="BorderThickness" Value="8,0,0,0"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+            <Setter Property="Width" Value="{Binding Path=ActualWidth,ElementName=LV_EntryList, ConverterParameter=0.1}"></Setter>
+        </Style>
+        <!--Item Styles-->
+        <Style x:Key="ListView_Item" TargetType="StackPanel">
+            <Setter Property="Height" Value="130"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Text Styles-->
+        <Style x:Key="ListView_Item_Text" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="ClipToBounds" Value="True"></Setter>
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
+            <Setter Property="Foreground" Value="#616099"></Setter>
+        </Style>
+        <Style x:Key="ListView_Item_Title" BasedOn="{StaticResource ListView_Item_Text}" TargetType="TextBlock">
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        </Style>
+        <Style x:Key="ListView_Item_Snippet" BasedOn="{StaticResource ListView_Item_Text}" TargetType="TextBlock">
+            <Setter Property="Height" Value="60"></Setter>
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        </Style>
+        <Style x:Key="ListView_Item_Comments" BasedOn="{StaticResource ListView_Item_Text}" TargetType="TextBlock">
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Margin" Value="5,0,5,10"></Setter>
+            <Setter Property="Foreground" Value="white"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=IsMouseOver}" Value="True">
+                    <Setter Property="Foreground" Value="#3C5762"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=Focused}" Value="True">
+                    <Setter Property="Foreground" Value="#3C5762"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ListView_Item_Time" BasedOn="{StaticResource ListView_Item_Text}" TargetType="TextBlock">
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="FontSize" Value="9"></Setter>
+            <Setter Property="TextAlignment" Value="Right"></Setter>
         </Style>
     </UserControl.Resources>
     <ListView ItemsSource="{Binding ZDFEntries}" Name="LV_EntryList">
@@ -27,72 +92,11 @@
         					    CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        <ListView.Resources>
-            <Style TargetType="ListViewItem">
-                <Setter Property="Padding" Value="0"></Setter>
-                <Setter Property="Margin" Value="0,2,0,2"></Setter>
-                <Setter Property="BorderThickness" Value="0"></Setter>
-            </Style>
-            <Style x:Key="ListView_Border" TargetType="Border">
-                <Setter Property="BorderBrush" Value="Red"></Setter>
-                <Setter Property="BorderThickness" Value="8,0,0,0"></Setter>
-                <Setter Property="Margin" Value="0"></Setter>
-                <Setter Property="Width" Value="{Binding Path=ActualWidth,ElementName=LV_EntryList, ConverterParameter=0.1}"></Setter>
-            </Style>
-            <Style x:Key="ListView_Item" TargetType="StackPanel">
-                <Setter Property="Height" Value="130"></Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="White" />
-                    </Trigger>
-                    <Trigger Property="IsMouseOver" Value="False">
-                        <Setter Property="Background" Value="#141321" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </ListView.Resources>
         <ListView.ItemTemplate>
             <DataTemplate>
                 <Border Style="{StaticResource ListView_Border}">
                     <StackPanel Style="{StaticResource ListView_Item}">
-                            <StackPanel.Resources>
-                                <Style x:Key="ListView_Item_Text" TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                                    <Setter Property="Margin" Value="5"></Setter>
-                                    <Setter Property="TextWrapping" Value="Wrap"></Setter>
-                                    <Setter Property="ClipToBounds" Value="True"></Setter>
-                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
-                                    <Setter Property="Foreground" Value="#616099"></Setter>
-                                </Style>
-                                <Style x:Key="ListView_Item_Title" BasedOn="{StaticResource ListView_Item_Text}" TargetType="TextBlock">
-                                    <Setter Property="Height" Value="30"></Setter>
-                                    <Setter Property="FontSize" Value="18"></Setter>
-                                    <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-                                </Style>
-                                <Style x:Key="ListView_Item_Snippet" BasedOn="{StaticResource ListView_Item_Text}" TargetType="TextBlock">
-                                    <Setter Property="Height" Value="60"></Setter>
-                                    <Setter Property="FontSize" Value="12"></Setter>
-                                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-                                </Style>
-                                <Style x:Key="ListView_Item_Comments" BasedOn="{StaticResource ListView_Item_Text}" TargetType="TextBlock">
-                                    <Setter Property="Height" Value="30"></Setter>
-                                    <Setter Property="FontSize" Value="12"></Setter>
-                                    <Setter Property="Margin" Value="5,0,5,0"></Setter>
-                                    <Setter Property="Foreground" Value="white"></Setter>
-                                    <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=IsMouseOver}" Value="True">
-                                            <Setter Property="Foreground" Value="#3C5762"/>
-                                            </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                                <Style x:Key="ListView_Item_Time" BasedOn="{StaticResource ListView_Item_Text}" TargetType="TextBlock">
-                                    <Setter Property="Height" Value="30"></Setter>
-                                    <Setter Property="FontSize" Value="9"></Setter>
-                                    <Setter Property="TextAlignment" Value="Right"></Setter>
-                                </Style>
-                        </StackPanel.Resources>
-
-                            <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock x:Name="docNameTxtBx" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListView_Item_Title}"/>
 
                             <TextBlock x:Name="docTextTxtBx1" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListView_Item_Snippet}"/>
