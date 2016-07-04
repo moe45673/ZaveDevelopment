@@ -11,44 +11,69 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <converters:ColorConverters x:Key="ColorConverter"/> 
+        <converters:ColorConverters x:Key="ColorConverter"/>
+        <!--Grid Styles-->
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#1D1A2F"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush" Value="#F6BE43"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+        <!--Text Styles-->
+        <Style x:Key="EntryView_Text" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#616099"></Setter>
+        </Style>
+        <Style x:Key="EntryView_Text_Title" TargetType="TextBlock" BasedOn="{StaticResource EntryView_Text}">
+            <Setter Property="FontSize" Value="24"></Setter>
+        </Style>
     </UserControl.Resources>
-    <Grid x:Name="gridEntry" Margin="10,-2,-2,10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+    <Border>
+        <Grid x:Name="gridEntry">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
 
-            <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
-            <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
-            <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
-            <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
-            <RowDefinition Height="*" />
-
-
-
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-
-        <Label x:Name="docIdLbl" Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docNameLbl" Grid.Row="1" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docPageLbl" Grid.Row="2" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docLastModdedLbl" Grid.Row="3" Grid.Column="0" Content="Date Modified" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docColor" Grid.Row="4" Grid.Column="0" Content="HighlightColor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docTextLbl" Grid.Row="5" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <TextBlock x:Name="docIdTxtBx" Visibility="Collapsed" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}"  />
-        <TextBlock x:Name="docNameTxtBx" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, diag:PresentationTraceSources.TraceLevel=High, UpdateSourceTrigger=PropertyChanged}"  />
-        <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
-        <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
+                <RowDefinition Height="*" />
 
 
-    </Grid>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="docIdLbl" Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label x:Name="docNameLbl" Grid.Row="1" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label x:Name="docPageLbl" Grid.Row="2" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label x:Name="docLastModdedLbl" Grid.Row="3" Grid.Column="0" Content="Date Modified" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label x:Name="docColor" Grid.Row="4" Grid.Column="0" Content="HighlightColor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label x:Name="docTextLbl" Grid.Row="5" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <TextBlock x:Name="docIdTxtBx" Visibility="Collapsed" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}"  />
+            <TextBlock x:Name="docNameTxtBx" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="Ready Steady Go" Style="{StaticResource EntryView_Text_Title}"/>
+            <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="32" Style="{StaticResource EntryView_Text}"/>
+            <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
+            <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />
+
+            <!--<TextBlock x:Name="docIdTxtBx" Visibility="Collapsed" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}"  />
+            <TextBlock x:Name="docNameTxtBx" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, diag:PresentationTraceSources.TraceLevel=High, UpdateSourceTrigger=PropertyChanged}"  />
+            <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
+            <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" />-->
+
+        </Grid>
+    </Border>
 </UserControl>

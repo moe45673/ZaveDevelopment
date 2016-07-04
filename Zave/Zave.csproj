@@ -136,6 +136,9 @@
     </ApplicationDefinition>
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ColorConverters.cs" />
+    <Compile Include="Views\MainContainer.xaml.cs">
+      <DependentUpon>MainContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ZaveControl.cs" />
     <Compile Include="ZaveControl.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -143,6 +146,10 @@
       <DependentUpon>ZaveControl.settings</DependentUpon>
     </Compile>
     <Page Include="Views\ControlBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
