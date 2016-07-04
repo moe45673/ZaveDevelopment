@@ -91,7 +91,7 @@ namespace ZaveController.Global_Settings
             string colorName = "Unknown Color";
             foreach (var item in GetColors())
             {
-                if (activeColor.ToString().Equals(item.Value.ToString())){
+                if (color.ToString().Equals(item.Value.ToString())){
                     colorName = item.Key;
                 }
             }
@@ -196,6 +196,7 @@ namespace ZaveController.Global_Settings
 
                         if (temp.Any<SelectionState>())
                         {
+                            temp[0].ID = ZaveModel.ZDF.ZDFSingleton.setID();
                             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
                             entry.HColor = ZaveModel.Colors.ColorCategory.FromWPFColor(activeColor);
                             

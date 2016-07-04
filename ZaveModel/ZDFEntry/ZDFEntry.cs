@@ -13,13 +13,15 @@ using System.IO;
 using System.ComponentModel;
 using System.Linq;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Data_Structures.Observable;
 using ZaveModel.Colors;
 using ZaveModel.ZDFSource;
 using Prism.Mvvm;
-
-
+using ZaveModel.ZDFEntry.Comment;
 
 namespace ZaveModel.ZDFEntry {
+
+    using CommentList = ObservableImmutableList<Comment.IEntryComment>;
 
     public class ZDFEntry : BindableBase, IZDFEntry
     {
@@ -32,26 +34,32 @@ namespace ZaveModel.ZDFEntry {
         private int _id;
         public int ID { get { return _id; } }
 
-        public List<Comment.IEntryComment> m_IEntryComment;
+        
 
         public ZDFEntry()
         {
-            m_IEntryComment = new List<Comment.IEntryComment>();
+            m_IEntryComment = new CommentList();
             //Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
             _id = ZDF.ZDFSingleton.setID();
             HColor = new ColorCategory(default(System.Drawing.Color), "");
+            _page = "";
+            _name = "";
+            _text = "";
+            _dateModified = default(DateTime);
+            _format = default(SrcType);
         }
 
         public ZDFEntry(SelectionState src) : this()
         {
-            m_IEntryComment = new List<Comment.IEntryComment>();
-            _id = ZDF.ZDFSingleton.setID();
+            m_IEntryComment = new CommentList();
+            _id = src.ID;
             _page = src.SelectionPage;
             _name = src.SelectionDocName;
             _text = src.SelectionText;
             _dateModified = src.SelectionDateModified;
             _format = src.srcType;
             _hColor = new ColorCategory(src.Color, src.Color.Name);
+            
             
         }
 
@@ -62,7 +70,7 @@ namespace ZaveModel.ZDFEntry {
 
         public SelectionState toSelectionState()
         {
-            return new SelectionState(this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format);
+            return new SelectionState( this.ID, this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format);
         }
 
 
@@ -73,8 +81,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _hColor; }
             set
             {
-                _hColor = value;
-                OnPropertyChanged("HColor");
+                SetProperty(ref _hColor, value);
             }
 
         }
@@ -96,8 +103,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _page; }
             set
             {
-                _page = value;
-                OnPropertyChanged("Page");
+                SetProperty(ref _page, value);
             }
         }
 
@@ -107,8 +113,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _text; }
             set
             {
-                _text = value;
-                OnPropertyChanged("Text");
+                SetProperty(ref _text, value);
             }
         }
 
@@ -118,8 +123,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _dateModified; }
             set
             {
-                _dateModified = value;
-                OnPropertyChanged("DateModified");
+                SetProperty(ref _dateModified, value);
             }
         }
 
@@ -129,8 +133,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _format; }
             set
             {
-                _format = value;
-                OnPropertyChanged("DateModified");
+                SetProperty(ref _format, value);
             }
         }
 
@@ -140,9 +143,17 @@ namespace ZaveModel.ZDFEntry {
             get { return _name; }
             set
             {
-                _name = value;
-                OnPropertyChanged("Name");
+                SetProperty(ref _name, value);
             }
+        }
+
+
+        private CommentList m_IEntryComment;
+
+        public CommentList Comments
+        {
+            get { return m_IEntryComment; }
+            set { SetProperty(ref m_IEntryComment, value); }
         }
 
         #endregion

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows;
-using ZaveViewModel.ViewModels;
+//using ZaveViewModel.ViewModels;
 using ZaveController.Global_Settings;
 using ZaveGlobalSettings.ZaveFile;
 using Prism.Events;

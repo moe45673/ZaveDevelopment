@@ -27,7 +27,8 @@ namespace Zave
         /// <returns></returns>
         protected override DependencyObject CreateShell()
         {
-            return Microsoft.Practices.Unity.UnityContainerExtensions.Resolve<MainWindow>(Container);
+            
+            return UnityContainerExtensions.Resolve<MainWindow>(Container);
         }
         
         /// <summary>
@@ -36,6 +37,14 @@ namespace Zave
         protected override void InitializeShell()
         {
             Application.Current.MainWindow.Show();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void ConfigureModuleCatalog()
+        {
+            base.ConfigureModuleCatalog();
         }
 
         /// <summary>
