@@ -396,12 +396,42 @@ namespace ZaveGlobalSettings.Data_Structures
 
 namespace ZaveGlobalSettings.Events
 {
-    public class EntryUpdateEvent : PubSubEvent<Data_Structures.SelectionState>
+    public class EntryUpdateEvent : PubSubEvent<Object>
     {
 
     }
 
-    public class ZDFUpdateEvent : PubSubEvent<Data_Structures.SelectionStateList>
+    public class EntryReadEvent : PubSubEvent<Object>
+    {
+
+    }
+
+    public class EntryCreatedEvent : PubSubEvent<Object>
+    {
+
+    }
+
+    public class EntryDeletedEvent : PubSubEvent<Object>
+    {
+
+    }
+
+    public class CommentUpdateEvent : PubSubEvent<Object>
+    {
+
+    }
+
+    public class CommentReadEvent : PubSubEvent<Object>
+    {
+
+    }
+
+    public class CommentCreatedEvent : PubSubEvent<Object>
+    {
+
+    }
+
+    public class CommentDeletedEvent : PubSubEvent<Object>
     {
 
     }
@@ -411,5 +441,5 @@ namespace ZaveGlobalSettings.Events
 
     }
 
-    
+
 }

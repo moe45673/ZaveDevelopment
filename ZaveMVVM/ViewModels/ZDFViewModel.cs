@@ -138,14 +138,14 @@ namespace ZaveViewModel.ViewModels
         
 
         /// <summary>
-        /// I went with async in case you sub is a long task, and you don't want to lock you UI
+        ///
         /// </summary>
         /// <returns></returns>
         private void selectItem(System.Collections.IList items)
         {
             var id = items.Cast<ZDFEntryItemViewModel>();
 
-            _eventAggregator.GetEvent<EntryUpdateEvent>().Publish(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryItemViewModel>().TxtDocID).toSelectionState());
+            _eventAggregator.GetEvent<EntryReadEvent>().Publish(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryItemViewModel>().TxtDocID));
             //SelectionState selstate = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState();
 
 

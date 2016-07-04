@@ -40,14 +40,8 @@ namespace ZaveViewModel.ViewModels
             if (_eventAggregator == null && eventAgg != null)
             {
                 _eventAggregator = eventAgg;
-                _eventAggregator.GetEvent<EntryUpdateEvent>().Subscribe(setProperties);                
-            }
-
-            
-            
-
-            
-            
+                _eventAggregator.GetEvent<EntryReadEvent>().Subscribe(eventSetProperties);                
+            }                
 
             try
             {
@@ -63,8 +57,14 @@ namespace ZaveViewModel.ViewModels
             
         }
 
-       
 
+        protected void eventSetProperties(object obj)
+        {
+            ZDFEntryItem item = obj as ZDFEntryItem;
+
+            _zdfEntry = item.ZDFEntry;
+            setProperties(_zdfEntry.toSelectionState());
+        }
         
 
 

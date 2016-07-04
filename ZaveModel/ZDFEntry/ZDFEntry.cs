@@ -42,6 +42,11 @@ namespace ZaveModel.ZDFEntry {
             //Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
             _id = ZDF.ZDFSingleton.setID();
             HColor = new ColorCategory(default(System.Drawing.Color), "");
+            _page = "";
+            _name = "";
+            _text = "";
+            _dateModified = default(DateTime);
+            _format = default(SrcType);
         }
 
         public ZDFEntry(SelectionState src) : this()

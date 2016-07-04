@@ -40,5 +40,7 @@ namespace ZaveViewModel.ViewModels
 
         private ObservableCollection<IDialogViewModel> _Dialogs = new ObservableCollection<IDialogViewModel>();
         public ObservableCollection<IDialogViewModel> Dialogs { get { return _Dialogs; } }
+    }
+}
 
         

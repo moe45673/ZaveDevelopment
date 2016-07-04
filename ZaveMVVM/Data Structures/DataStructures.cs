@@ -61,13 +61,27 @@ namespace ZaveViewModel.Data_Structures
 
             SelectedItems = new ObservableImmutableList<ZDFCommentItem>();
 
-            if(_txtDocText != null)
+            if(_txtDocText != "")
             {
                 CanAdd = true;
             }
 
 
         }
+
+        protected virtual void setProperties(SelectionState selState)
+        {
+            try
+            {
+                setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified, selState.Color, fromObjectList(selState.Comments));
+            }
+            catch (NullReferenceException nre)
+            {
+                throw nre;
+            }
+        }
+
+
 
         #region Commands
         public DelegateCommand<System.Collections.IList> SelectCommentDelegateCommand
@@ -78,7 +92,7 @@ namespace ZaveViewModel.Data_Structures
 
 
 
-        private void selectEntry(System.Collections.IList items)
+        protected void selectEntry(System.Collections.IList items)
         {
             if (items != null)
             {
@@ -118,10 +132,14 @@ namespace ZaveViewModel.Data_Structures
             if (SelectedItems != null)
                 SelectedItems.Clear();
 
+            IsEditing = true;
+
             EditedComment = new ZDFCommentItem(null);
             TxtDocComments.Add(EditedComment);
+            commentList.Add(EditedComment);
 
-            IsEditing = true;
+
+            
 
 
         }
@@ -145,17 +163,7 @@ namespace ZaveViewModel.Data_Structures
 
         #endregion
 
-        protected virtual void setProperties(SelectionState selState)
-        {
-            try
-            {                
-                setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified, selState.Color, fromObjectList(selState.Comments));
-            }
-            catch (NullReferenceException nre)
-            {
-                throw nre;
-            }
-        }
+        
 
 
 
@@ -320,12 +328,14 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        public ZDFEntry ZDFEntry
+        public IZDFEntry ZDFEntry
         {
-            get;
-            protected set;
+            get { return _zdfEntry; }
+            protected set
+            {
+                SetProperty(ref _zdfEntry, value);
+            }
         }
-
 
         protected CommentList _txtDocComments;
 
@@ -398,10 +408,15 @@ namespace ZaveViewModel.Data_Structures
 
         public ZDFCommentItem(ModelComment.IEntryComment comment = default(ModelComment.EntryComment)) 
         {
-            _modelComment = comment;
             _commentAuthor = "";
             _commentText = "Testing";
-            _commentID = comment.CommentID;
+            if (comment != null)
+                _commentID = comment.CommentID;
+            else
+                _commentID = -1;
+            _modelComment = comment;
+            
+                
 
         }
 
@@ -458,69 +473,6 @@ namespace ZaveViewModel.Data_Structures
         }
     }
 
-    //    public class HighlightCommand : ICommand
-    //{
-    //    private Action<object> execute;
-
-    //    private Predicate<object> canExecute;
-    //    private event EventHandler CanExecuteChangedInternal;
-    //    public HighlightCommand(Action<object> execute) : this(execute, DefaultCanExecute) { }
-
-    //    public HighlightCommand(Action<object> execute, Predicate<object> canExecute)
-    //    {
-    //        if (execute == null)
-    //            throw new ArgumentNullException("execute");
-    //        if (canExecute == null)
-    //            throw new ArgumentNullException("canExecute");
-
-    //        this.execute = execute;
-    //        this.canExecute = canExecute;
-    //    }
-
-    //    public event EventHandler CanExecuteChanged
-    //    {
-    //        add
-    //        {
-    //            CommandManager.RequerySuggested += value;
-    //            this.CanExecuteChangedInternal += value;
-    //        }
-    //        remove
-    //        {
-    //            CommandManager.RequerySuggested -= value;
-    //            this.CanExecuteChangedInternal -= value;
-    //        }
-    //    }
-
-    //    public bool CanExecute(object parameter)
-    //    {
-    //        return this.canExecute != null && this.canExecute(parameter);
-    //    }
-
-    //    public void Execute(object parameter)
-    //    {
-    //        this.execute(parameter);
-    //    }
-
-    //    public void OnCanExecuteChanged()
-    //    {
-    //        EventHandler handler = this.CanExecuteChangedInternal;
-    //        if (handler != null)
-    //        {
-    //            handler.Invoke(this, EventArgs.Empty);
-    //        }
-    //    }
-
-    //    public void Destroy()
-    //    {
-    //        this.canExecute = _ => false;
-    //        this.execute = _ => { return; };
-    //    }
-
-    //    private static bool DefaultCanExecute(object parameter)
-    //    {
-    //        return true;
-    //    }
-
-    //}
+   
 
 }
