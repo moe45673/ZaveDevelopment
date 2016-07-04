@@ -76,8 +76,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _hColor; }
             set
             {
-                _hColor = value;
-                OnPropertyChanged("HColor");
+                SetProperty(ref _hColor, value);
             }
 
         }
@@ -99,8 +98,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _page; }
             set
             {
-                _page = value;
-                OnPropertyChanged("Page");
+                SetProperty(ref _page, value);
             }
         }
 
@@ -110,8 +108,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _text; }
             set
             {
-                _text = value;
-                OnPropertyChanged("Text");
+                SetProperty(ref _text, value);
             }
         }
 
@@ -121,8 +118,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _dateModified; }
             set
             {
-                _dateModified = value;
-                OnPropertyChanged("DateModified");
+                SetProperty(ref _dateModified, value);
             }
         }
 
@@ -132,8 +128,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _format; }
             set
             {
-                _format = value;
-                OnPropertyChanged("DateModified");
+                SetProperty(ref _format, value);
             }
         }
 
@@ -143,8 +138,7 @@ namespace ZaveModel.ZDFEntry {
             get { return _name; }
             set
             {
-                _name = value;
-                OnPropertyChanged("Name");
+                SetProperty(ref _name, value);
             }
         }
 

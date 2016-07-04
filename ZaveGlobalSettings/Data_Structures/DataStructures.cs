@@ -19,7 +19,7 @@ using Prism.Events;
 namespace ZaveGlobalSettings.Data_Structures
 {
 
-    using CommentList = List<Object<string, string>>;
+    using CommentList = List<Object>;
 
     /// <summary>
     /// holds all allowable platforms for Zave to integrate with
@@ -138,10 +138,10 @@ namespace ZaveGlobalSettings.Data_Structures
         
     }
 
-    public class Object<T1, T2>
+    public class Object<T1, T2, T3>
     {
 
-        public Object(T1 first = default(T1), T2 second = default(T2))
+        public Object(T1 first = default(T1), T2 second = default(T2), T3 third = default(T3))
         {
             FirstProp = first;
             SecondProp = second;
@@ -150,10 +150,12 @@ namespace ZaveGlobalSettings.Data_Structures
         {
             FirstProp = default(T1);
             SecondProp = default(T2);
+            ThirdProp = default(T3);
         }
 
         public T1 FirstProp { get; set; }
         public T2 SecondProp { get; set; }
+        public T3 ThirdProp { get; set; }
     }
 
     //    public static class FileChecker

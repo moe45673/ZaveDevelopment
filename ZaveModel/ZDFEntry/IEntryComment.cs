@@ -91,7 +91,11 @@ namespace ZaveModel.ZDFEntry.Comment {
             _author = (User)author;
             IDTracker.setCommentID(this, out _commentID);
 
+            
+
         }
+
+        
 
 
         private int _commentID;

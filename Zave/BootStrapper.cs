@@ -40,6 +40,14 @@ namespace Zave
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected override void ConfigureModuleCatalog()
+        {
+            base.ConfigureModuleCatalog();
+        }
+
+        /// <summary>
         /// Resolves the classes that Unity recognizes
         /// </summary>
         protected override void ConfigureContainer()

@@ -20,6 +20,7 @@ using Prism.Commands;
 using ZaveGlobalSettings.Events;
 using ZaveGlobalSettings.Data_Structures.Observable;
 using ZaveViewModel.Data_Structures;
+using ModelComment = ZaveModel.ZDFEntry.Comment;
 //using Zave
 
 
@@ -32,9 +33,7 @@ namespace ZaveViewModel.ViewModels
        
         private IEventAggregator _eventAggregator;
 
-        private ObservableImmutableList<ZDFCommentItem> SelectedItems { get; set; }
-
-
+        
         public ZDFEntryViewModel(IEventAggregator eventAgg) : base(new ZDFEntry())
         {
             
@@ -44,12 +43,18 @@ namespace ZaveViewModel.ViewModels
                 _eventAggregator.GetEvent<EntryUpdateEvent>().Subscribe(setProperties);                
             }
 
-            SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(selectEntry);
+            
+            
 
+            
+            
 
             try
             {
                 setProperties(_zdfEntry.ID, _zdfEntry.Name, _zdfEntry.Page, _zdfEntry.Text, _zdfEntry.DateModified, _zdfEntry.HColor.Color, fromZDFCommentList(_zdfEntry.Comments));
+
+                
+
             }
             catch (NullReferenceException nre)
             {
@@ -58,73 +63,9 @@ namespace ZaveViewModel.ViewModels
             
         }
 
-        #region Commands
-        public DelegateCommand<System.Collections.IList> SelectCommentDelegateCommand
-        {
-            get; private set;
-        }
+       
 
-
-        private bool _canEdit;
-
-        public bool CanEdit
-        {
-            get { return this._canEdit; }
-            set { SetProperty(ref _canEdit, value); }
-        }
-
-
-        private bool _canDelete;
-
-        public bool CanDelete
-        {
-            get { return this._canDelete; }
-            set { SetProperty(ref _canDelete, value); }
-        }
-
-
-        private bool _isEditing;
-
-        public bool IsEditing
-        {
-            get { return this._isEditing; }
-            set { SetProperty(ref _isEditing, value); }
-        }
-
-        private void selectEntry(System.Collections.IList items)
-        {
-            if (items != null)
-            {
-                SelectedItems = new ObservableImmutableList<ZDFCommentItem>(items.Cast<ZDFCommentItem>());
-                CanDelete = true;
-                CanEdit = true;    
-            }
-            else
-            {
-                CanDelete = false;
-                CanEdit = false;
-            }
-             
-           
-        }
-
-
-
-        public DelegateCommand AddCommentDelegatCommand
-        {
-            get;
-            private set;
-        }
-
-        public void AddComment()
-        {
-            SelectedItems.Clear();
-            SelectedItems.Add(new ZDFCommentItem("Enter Comment Here"));
-            IsEditing = true;
-            
-        }
-
-        #endregion
+        
 
 
         public static ZDFEntryViewModel entryVMFactory(IEventAggregator eventAgg, IZDFEntry entry)
@@ -151,7 +92,7 @@ namespace ZaveViewModel.ViewModels
             }
             protected set
             {
-
+                
                 SetProperty(ref _txtDocID, value);
                 //_zdfEntry.ID = int.Parse(_txtDocID);
             }

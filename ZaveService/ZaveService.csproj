@@ -71,11 +71,6 @@
     <Reference Include="XamlBuildTask" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DialogService\IUIWindowDialogService.cs" />
-    <Compile Include="DialogService\WindowDialog.xaml.cs">
-      <DependentUpon>WindowDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DialogService\ZaveUIWindowDialogService.cs" />
     <Compile Include="ZDFEntry\DefaultZDFEntryHandler.cs" />
     <Compile Include="ZDFEntry\ZDFEntryHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,12 +87,6 @@
       <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
       <Name>ZaveModel</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="DialogService\WindowDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

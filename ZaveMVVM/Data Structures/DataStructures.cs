@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ZaveModel.ZDFEntry;
 using Prism.Mvvm;
+using Prism.Commands;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.Data_Structures.Observable;
 using ModelComment = ZaveModel.ZDFEntry.Comment;
@@ -17,12 +18,17 @@ namespace ZaveViewModel.Data_Structures
 {
 
     using CommentList = ObservableImmutableList<ZDFCommentItem>;
-    using selStateCommentList = List<Object<String, String>>;
+
+    using selStateCommentList = List<Object>;
 
     public abstract class ZDFEntryItem : BindableBase
     {
 
         protected IZDFEntry _zdfEntry;
+
+        private ObservableImmutableList<ZDFCommentItem> SelectedItems { get; set; }
+
+        
 
         //private string _txtDocId;
 
@@ -47,13 +53,99 @@ namespace ZaveViewModel.Data_Structures
             _txtDocComments = comments;            
             OnPropertyChanged("TxtDocComments");
 
+            _editedComment = new ZDFCommentItem(null);
+
+            SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(selectEntry);
+            AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesCanExecute(p => CanAdd);
+            SaveCommentDelegateCommand = new DelegateCommand<ZDFCommentItem>(SaveComment).ObservesCanExecute((p) => IsEditing);
+
+            SelectedItems = new ObservableImmutableList<ZDFCommentItem>();
+
+            if(_txtDocText != null)
+            {
+                CanAdd = true;
+            }
 
 
         }
 
-      
+        #region Commands
+        public DelegateCommand<System.Collections.IList> SelectCommentDelegateCommand
+        {
+            get; private set;
+        }
 
-        protected void setProperties(SelectionState selState)
+
+
+
+        private void selectEntry(System.Collections.IList items)
+        {
+            if (items != null)
+            {
+                EditedComment = items.Cast<ZDFCommentItem>().ToList<ZDFCommentItem>().FirstOrDefault();
+
+                CanDelete = true;
+                CanEdit = true;
+            }
+            else
+            {
+                CanDelete = false;
+                CanEdit = false;
+            }
+
+
+        }
+
+
+
+        public DelegateCommand<System.Collections.IList> AddCommentDelegateCommand
+        {
+            get;
+            private set;
+        }
+
+
+        private ZDFCommentItem _editedComment;
+
+        public ZDFCommentItem EditedComment
+        {
+            get { return this._editedComment; }
+            set { SetProperty(ref _editedComment, value); }
+        }
+
+        private void AddComment(System.Collections.IList commentList)
+        {
+            if (SelectedItems != null)
+                SelectedItems.Clear();
+
+            EditedComment = new ZDFCommentItem(null);
+            TxtDocComments.Add(EditedComment);
+
+            IsEditing = true;
+
+
+        }
+
+        public DelegateCommand<ZDFCommentItem> SaveCommentDelegateCommand
+        {
+            get;
+            set;
+        }
+
+        private void SaveComment(ZDFCommentItem commItem)
+        {
+            var modelComm = new ModelComment.EntryComment(EditedComment.CommentText, EditedComment.CommentAuthor);
+
+            _zdfEntry.Comments.Add(modelComm);
+            
+
+
+            IsEditing = false;
+        }
+
+        #endregion
+
+        protected virtual void setProperties(SelectionState selState)
         {
             try
             {                
@@ -98,7 +190,7 @@ namespace ZaveViewModel.Data_Structures
 
             foreach (var comment in list)
             {
-                var tempComment = ZDFCommentItem.fromObject(comment);
+                var tempComment = new ZDFCommentItem(comment as ModelComment.IEntryComment);
                 tempList.Add(tempComment);
             }
             return tempList;
@@ -110,7 +202,7 @@ namespace ZaveViewModel.Data_Structures
             var tempList = new CommentList();
             foreach (var comment in zComments)
             {
-                var tempComment = new ZDFCommentItem(comment.CommentText, (string)comment.Author);
+                var tempComment = new ZDFCommentItem(comment);
                 tempList.Add(tempComment);
             }
 
@@ -247,27 +339,76 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
+        private bool _canEdit;
+
+        public bool CanEdit
+        {
+            get { return this._canEdit; }
+            set { SetProperty(ref _canEdit, value); }
+        }
+
+
+        private bool _canDelete;
+
+        public bool CanDelete
+        {
+            get { return this._canDelete; }
+            set { SetProperty(ref _canDelete, value); }
+        }
+
+
+        private bool _isEditing;
+
+        public bool IsEditing
+        {
+            get { return this._isEditing; }
+            set { SetProperty(ref _isEditing, value); }
+        }
+
+        private bool _canAdd;
+
+        public bool CanAdd
+        {
+            get { return this._canAdd; }
+            set { SetProperty(ref _canAdd, value); }
+        }
+
 
         #endregion 
     }
 
     public class ZDFCommentItem : BindableBase
     {
-        public ZDFCommentItem(string text = default(string), string author = default(string))
+        
+        private ZDFCommentItem(ModelComment.IEntryComment modelComment = default(ModelComment.EntryComment), string text = default(string), string author = default(string), int id = default(int))
         {
-            _comment = new ModelComment.EntryComment();
+            _modelComment = modelComment;
             _commentText = text;
             _commentAuthor = author;
         }
 
-        public ZDFCommentItem(ModelComment.IEntryComment comment = default(ModelComment.IEntryComment)) : this(comment.CommentText, (string)comment.Author)
+        public static ZDFCommentItem ItemFactory(ref ModelComment.IEntryComment modelComment, string text = default(string), string author = default(string))
         {
             
+            
+            var item = new ZDFCommentItem(modelComment, text, author, modelComment.CommentID);
+            
+            return item;
         }
 
-        public static ZDFCommentItem fromObject(Object<String, String> obj = default(Object<String, String>))
+        public ZDFCommentItem(ModelComment.IEntryComment comment = default(ModelComment.EntryComment)) 
         {
-            return new ZDFCommentItem(obj.FirstProp, obj.SecondProp);
+            _modelComment = comment;
+            _commentAuthor = "";
+            _commentText = "Testing";
+            _commentID = comment.CommentID;
+
+        }
+
+        public static ZDFCommentItem fromObject(Object<Object, String, String> obj = default(Object<Object, String, String>))
+        {
+            
+            return new ZDFCommentItem(obj.FirstProp as ModelComment.EntryComment, obj.SecondProp, obj.ThirdProp);
         }
 
         public static explicit operator ZDFCommentItem(ModelComment.EntryComment comment)
@@ -276,98 +417,110 @@ namespace ZaveViewModel.Data_Structures
         }
 
 
-        protected ModelComment.IEntryComment _comment;
+        protected ModelComment.IEntryComment _modelComment;
 
 
+        private int _commentID;
+
+        public int CommentID
+        {
+            get { return _modelComment.CommentID; }
+            private set { SetProperty(ref _commentID, value); }
+        }
 
         private String _commentText;
 
         public String CommentText
         {
-            get { return _comment.CommentText; }
+            get { return _modelComment.CommentText; }
             set
             {
-                _comment.CommentText = value;
-                OnPropertyChanged("CommentText");
+                _modelComment.CommentText = value;
+                SetProperty(ref _commentText, value);
             }
+        }
+
+        public ModelComment.IEntryComment ModelComment {
+            get { return _modelComment; }
+            private set { SetProperty(ref _modelComment, value); }
         }
 
         private String _commentAuthor;
 
         public String CommentAuthor
         {
-            get { return (string)_comment.Author; }
+            get { return (string)_modelComment.Author; }
             set
             {
-                _comment.Author.Name = value;
-                OnPropertyChanged("CommentAuthor");
+                _modelComment.Author.Name = value;
+                SetProperty(ref _commentAuthor, value);
             }
         }
     }
 
-        public class HighlightCommand : ICommand
-    {
-        private Action<object> execute;
+    //    public class HighlightCommand : ICommand
+    //{
+    //    private Action<object> execute;
 
-        private Predicate<object> canExecute;
-        private event EventHandler CanExecuteChangedInternal;
-        public HighlightCommand(Action<object> execute) : this(execute, DefaultCanExecute) { }
+    //    private Predicate<object> canExecute;
+    //    private event EventHandler CanExecuteChangedInternal;
+    //    public HighlightCommand(Action<object> execute) : this(execute, DefaultCanExecute) { }
 
-        public HighlightCommand(Action<object> execute, Predicate<object> canExecute)
-        {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-            if (canExecute == null)
-                throw new ArgumentNullException("canExecute");
+    //    public HighlightCommand(Action<object> execute, Predicate<object> canExecute)
+    //    {
+    //        if (execute == null)
+    //            throw new ArgumentNullException("execute");
+    //        if (canExecute == null)
+    //            throw new ArgumentNullException("canExecute");
 
-            this.execute = execute;
-            this.canExecute = canExecute;
-        }
+    //        this.execute = execute;
+    //        this.canExecute = canExecute;
+    //    }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add
-            {
-                CommandManager.RequerySuggested += value;
-                this.CanExecuteChangedInternal += value;
-            }
-            remove
-            {
-                CommandManager.RequerySuggested -= value;
-                this.CanExecuteChangedInternal -= value;
-            }
-        }
+    //    public event EventHandler CanExecuteChanged
+    //    {
+    //        add
+    //        {
+    //            CommandManager.RequerySuggested += value;
+    //            this.CanExecuteChangedInternal += value;
+    //        }
+    //        remove
+    //        {
+    //            CommandManager.RequerySuggested -= value;
+    //            this.CanExecuteChangedInternal -= value;
+    //        }
+    //    }
 
-        public bool CanExecute(object parameter)
-        {
-            return this.canExecute != null && this.canExecute(parameter);
-        }
+    //    public bool CanExecute(object parameter)
+    //    {
+    //        return this.canExecute != null && this.canExecute(parameter);
+    //    }
 
-        public void Execute(object parameter)
-        {
-            this.execute(parameter);
-        }
+    //    public void Execute(object parameter)
+    //    {
+    //        this.execute(parameter);
+    //    }
 
-        public void OnCanExecuteChanged()
-        {
-            EventHandler handler = this.CanExecuteChangedInternal;
-            if (handler != null)
-            {
-                handler.Invoke(this, EventArgs.Empty);
-            }
-        }
+    //    public void OnCanExecuteChanged()
+    //    {
+    //        EventHandler handler = this.CanExecuteChangedInternal;
+    //        if (handler != null)
+    //        {
+    //            handler.Invoke(this, EventArgs.Empty);
+    //        }
+    //    }
 
-        public void Destroy()
-        {
-            this.canExecute = _ => false;
-            this.execute = _ => { return; };
-        }
+    //    public void Destroy()
+    //    {
+    //        this.canExecute = _ => false;
+    //        this.execute = _ => { return; };
+    //    }
 
-        private static bool DefaultCanExecute(object parameter)
-        {
-            return true;
-        }
+    //    private static bool DefaultCanExecute(object parameter)
+    //    {
+    //        return true;
+    //    }
 
-    }
+    //}
 
 }
