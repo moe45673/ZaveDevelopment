@@ -103,13 +103,7 @@ namespace ZaveViewModel.Data_Structures
             SaveCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SaveComment).ObservesCanExecute( x => IsEditing );
 
             SelectedItems = new ObservableImmutableList<ZDFCommentItem>();
-            CanAdd = false;
-            if (!IsEditing)
-            {
-                IsEditing = true;
-                IsEditing = false;
-                
-            }
+            
 
            
 
@@ -448,6 +442,7 @@ namespace ZaveViewModel.Data_Structures
             set { SetProperty(ref _canAdd, value);
                 if (_txtDocText == "")
                 {
+
                     SetProperty(ref _canAdd, false);
                 }
                 }

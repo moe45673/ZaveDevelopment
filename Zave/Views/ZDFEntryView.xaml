@@ -9,6 +9,7 @@
              xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:converters="clr-namespace:Zave.Converters"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -54,13 +55,13 @@
         <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged, diag:PresentationTraceSources.TraceLevel=High}" />
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" >
             <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList" Width="Auto">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction
+                <interactivity:Interaction.Triggers>
+                    <interactivity:EventTrigger EventName="SelectionChanged">
+                        <prism:InvokeCommandAction
         					    Command="{Binding SelectCommentDelegateCommand}"
         					    CommandParameter="{Binding ElementName=LB_CommentList, Path=SelectedItems}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                    </interactivity:EventTrigger>
+                </interactivity:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel >
@@ -76,22 +77,22 @@
                         
                     </Button>
                     <Button Name="AddButton" Content="Add Comment">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
+                        <interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="Click">
                                 <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" CommandParameter="{Binding SelectedItems, ElementName=LB_CommentList}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>
                         
                     </Button>
                     <Button Name="DeleteButton" Content="Delete Comment" IsEnabled="False"/>
                 </StackPanel>
                 <StackPanel>
                     <Button Name="CommentSaveButton" Content="Save" IsEnabled="{Binding IsEditing}" >
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
+                        <interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="Click">
                                 <prism:InvokeCommandAction Command="{Binding SaveCommentDelegateCommand}" CommandParameter="{Binding SelectedItems, ElementName=LB_CommentList}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>
                     </Button>
                     <Button Name="CommentCancelButton" Content="Cancel" IsEnabled="False" />
                 </StackPanel>

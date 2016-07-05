@@ -7,6 +7,7 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -85,13 +86,11 @@
         </Style>
     </UserControl.Resources>
     <ListView ItemsSource="{Binding ZDFEntries}" Name="LV_EntryList">
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="SelectionChanged">
-                <i:InvokeCommandAction
-        					    Command="{Binding SelectItemDelegateCommand}"
-        					    CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
+        <interactivity:Interaction.Triggers>
+            <interactivity:EventTrigger EventName="SelectionChanged">
+                <prism:InvokeCommandAction Command="{Binding SelectItemDelegateCommand}" CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
+            </interactivity:EventTrigger>
+        </interactivity:Interaction.Triggers>
         <ListView.ItemTemplate>
             <DataTemplate>
                 <Border Style="{StaticResource ListView_Border}">
