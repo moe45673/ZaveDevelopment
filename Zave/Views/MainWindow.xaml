@@ -17,9 +17,16 @@
         mc:Ignorable="d"
         Title="Zave" Height="600" Width="800" WindowStyle="ThreeDBorderWindow" Cursor="Pen">
     <Window.Resources>
-       
+
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#1D1A2F"></Setter>
+        </Style>
+
     </Window.Resources>
     <Grid>
+        <my:MainContainer Grid.Row="1"></my:MainContainer>
+    </Grid>
+   <!-- <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="5" />
@@ -47,7 +54,7 @@
             <my:ZDFEntryView></my:ZDFEntryView>
         </Border>
 
-    </Grid>
+    </Grid>-->
 
 
 </Window>
