@@ -52,8 +52,8 @@
         <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
         <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged, diag:PresentationTraceSources.TraceLevel=High}" />
-        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-            <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList">
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" >
+            <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList" Width="Auto">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction
@@ -63,21 +63,36 @@
                 </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBox x:Name="txtBoxCommentTxt" Text="{Binding CommentText}" IsEnabled="{Binding IsEditing}" />
-                            <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor}" />
+                        <StackPanel >
+                            <TextBox x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditing, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
+                            <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <Button Name="EditButton" Content="Edit Comment" IsEnabled="False" />
-                    <Button Name="AddButton" Content="Add Comment" Command="{Binding Path=AddCommentDelegateCommand}" CommandParameter="{Binding ElementName=LB_CommentList, Path=SelectedItem}"/>
+                    <Button Name="EditButton" Content="Edit Comment" IsEnabled="False" >
+                        
+                    </Button>
+                    <Button Name="AddButton" Content="Add Comment">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" CommandParameter="{Binding SelectedItems, ElementName=LB_CommentList}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        
+                    </Button>
                     <Button Name="DeleteButton" Content="Delete Comment" IsEnabled="False"/>
                 </StackPanel>
                 <StackPanel>
-                    <Button Name="CommentSaveButton" Content="Save" IsEnabled="False" />
+                    <Button Name="CommentSaveButton" Content="Save" IsEnabled="{Binding IsEditing}" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding SaveCommentDelegateCommand}" CommandParameter="{Binding SelectedItems, ElementName=LB_CommentList}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                     <Button Name="CommentCancelButton" Content="Cancel" IsEnabled="False" />
                 </StackPanel>
             </StackPanel>

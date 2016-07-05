@@ -42,7 +42,7 @@
             </TextBlock>
         </Border>
         <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch" />
-        <my:ZDFView Grid.Row="1" />
+        <my:ZDFView Grid.Row="1" Loaded="ZDFView_Loaded" />
         <Border Grid.Column="2" Grid.Row="1">
             <my:ZDFEntryView></my:ZDFEntryView>
         </Border>

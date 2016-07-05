@@ -7,6 +7,7 @@ using System.Windows.Input;
 using ZaveModel.ZDFEntry;
 using Prism.Mvvm;
 using Prism.Commands;
+using System.Collections.Specialized;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.Data_Structures.Observable;
 using ModelComment = ZaveModel.ZDFEntry.Comment;
@@ -28,7 +29,45 @@ namespace ZaveViewModel.Data_Structures
 
         private ObservableImmutableList<ZDFCommentItem> SelectedItems { get; set; }
 
-        
+        private void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            try
+            {
+                switch (e.Action)
+                {
+                    
+
+                    case NotifyCollectionChangedAction.Add:
+
+
+                        //foreach (var item in e.NewItems.SyncRoot as List<Object>)
+                        //{
+                        int index = (e.NewItems.SyncRoot as Array).Length - 1;
+                        var tempComment = (e.NewItems.SyncRoot as Array).GetValue(index);
+
+
+                        TxtDocComments.Add(new ZDFCommentItem(tempComment as ZaveModel.ZDFEntry.Comment.IEntryComment));
+                        break;
+
+                    default:
+                        System.Windows.Forms.MessageBox.Show("Nothing Done!");
+                        break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+
+
+            //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
+            //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
+            //ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
+            //UpdateGui(zdfEntry.Source);
+
+        }
 
         //private string _txtDocId;
 
@@ -50,24 +89,36 @@ namespace ZaveViewModel.Data_Structures
             _txtDocColor.B = col.B;
             _txtDocColor.G = col.G;
             OnPropertyChanged("TxtDocColor");
-            _txtDocComments = comments;            
+            _txtDocComments = comments;
+            if (comments != null)
+            {
+                _txtDocComments.Add(new ZDFCommentItem(new ModelComment.EntryComment("Test 1", "Moe")));
+            }
             OnPropertyChanged("TxtDocComments");
 
             _editedComment = new ZDFCommentItem(null);
 
-            SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(selectEntry);
-            AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesCanExecute(p => CanAdd);
-            SaveCommentDelegateCommand = new DelegateCommand<ZDFCommentItem>(SaveComment).ObservesCanExecute((p) => IsEditing);
+            SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(selectEntry).ObservesProperty(() => IsNotEditing);
+            AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesProperty(() => IsNotEditing).ObservesCanExecute(p => CanAdd);
+            SaveCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SaveComment).ObservesCanExecute( x => IsEditing );
 
             SelectedItems = new ObservableImmutableList<ZDFCommentItem>();
-
-            if(_txtDocText != "")
+            CanAdd = false;
+            if (!IsEditing)
             {
-                CanAdd = true;
+                IsEditing = true;
+                IsEditing = false;
+                
             }
+
+           
+
+            _zdfEntry.Comments.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
 
 
         }
+
+        
 
         protected virtual void setProperties(SelectionState selState)
         {
@@ -110,7 +161,11 @@ namespace ZaveViewModel.Data_Structures
 
         }
 
-
+        private bool _isNotEditing;
+        protected bool IsNotEditing {
+            get { return _isNotEditing; }
+            private set { SetProperty(ref _isNotEditing, value); }
+        }
 
         public DelegateCommand<System.Collections.IList> AddCommentDelegateCommand
         {
@@ -134,30 +189,35 @@ namespace ZaveViewModel.Data_Structures
 
             IsEditing = true;
 
-            EditedComment = new ZDFCommentItem(null);
-            TxtDocComments.Add(EditedComment);
-            commentList.Add(EditedComment);
+            
+            _zdfEntry.Comments.Add((ModelComment.EntryComment)EditedComment);
 
+            EditedComment = new ZDFCommentItem(_zdfEntry.Comments.LastOrDefault());
 
             
 
 
         }
 
-        public DelegateCommand<ZDFCommentItem> SaveCommentDelegateCommand
+        public DelegateCommand<System.Collections.IList> SaveCommentDelegateCommand
         {
             get;
             set;
         }
 
-        private void SaveComment(ZDFCommentItem commItem)
+        private void SaveComment(System.Collections.IList items)
         {
-            var modelComm = new ModelComment.EntryComment(EditedComment.CommentText, EditedComment.CommentAuthor);
+            var comments = items.Cast<ZDFCommentItem>().ToList<ZDFCommentItem>();
 
-            _zdfEntry.Comments.Add(modelComm);
+            var comment = comments.ElementAt(0);
+
+            var modelComment = _zdfEntry.Comments.LastOrDefault();
+
+            modelComment.CommentText = comment.CommentText;
+            modelComment.Author = (ModelComment.User)comment.CommentAuthor;
+
+            _zdfEntry.Comments.Insert((ZDFEntry.Comments.Count - 1), modelComment);
             
-
-
             IsEditing = false;
         }
 
@@ -372,7 +432,12 @@ namespace ZaveViewModel.Data_Structures
         public bool IsEditing
         {
             get { return this._isEditing; }
-            set { SetProperty(ref _isEditing, value); }
+            set
+            {
+                SetProperty(ref _isEditing, value);
+                IsNotEditing = !_isEditing;
+                CanAdd = !_isEditing;
+            }
         }
 
         private bool _canAdd;
@@ -380,7 +445,12 @@ namespace ZaveViewModel.Data_Structures
         public bool CanAdd
         {
             get { return this._canAdd; }
-            set { SetProperty(ref _canAdd, value); }
+            set { SetProperty(ref _canAdd, value);
+                if (_txtDocText == "")
+                {
+                    SetProperty(ref _canAdd, false);
+                }
+                }
         }
 
 
@@ -389,6 +459,8 @@ namespace ZaveViewModel.Data_Structures
 
     public class ZDFCommentItem : BindableBase
     {
+
+        
         
         private ZDFCommentItem(ModelComment.IEntryComment modelComment = default(ModelComment.EntryComment), string text = default(string), string author = default(string), int id = default(int))
         {
@@ -410,25 +482,36 @@ namespace ZaveViewModel.Data_Structures
         {
             _commentAuthor = "";
             _commentText = "Testing";
-            if (comment != null)
-                _commentID = comment.CommentID;
-            else
-                _commentID = -1;
             _modelComment = comment;
-            
+            if (comment != null)
+            {
+                _commentID = comment.CommentID;
+                _modelComment = comment;
+            }
+            else
+            {
+                
+                _modelComment = new ModelComment.EntryComment();
+                _commentID = -1;
+            }
                 
 
         }
 
-        public static ZDFCommentItem fromObject(Object<Object, String, String> obj = default(Object<Object, String, String>))
-        {
+        //public static ZDFCommentItem fromObject(Object<Object, String, String> obj = default(Object<Object, String, String>))
+        //{
             
-            return new ZDFCommentItem(obj.FirstProp as ModelComment.EntryComment, obj.SecondProp, obj.ThirdProp);
-        }
+        //    return new ZDFCommentItem(obj.FirstProp as ModelComment.EntryComment, obj.SecondProp, obj.ThirdProp);
+        //}
 
         public static explicit operator ZDFCommentItem(ModelComment.EntryComment comment)
         {
             return new ZDFCommentItem(comment);
+        }
+
+        public static explicit operator ModelComment.EntryComment(ZDFCommentItem commItem)
+        {
+            return new ModelComment.EntryComment(commItem.CommentText, commItem.CommentAuthor);
         }
 
 

@@ -34,7 +34,10 @@ namespace Zave.Views
             
         }
 
-        
+        private void ZDFView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     
