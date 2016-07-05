@@ -13,14 +13,16 @@ using System.IO;
 using System.ComponentModel;
 using ZaveModel.Colors;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.Data_Structures.Observable;
 using Prism.Mvvm;
 
 
 namespace ZaveModel.ZDFEntry {
-	public interface IZDFEntry : INotifyPropertyChanged {
+	public interface IZDFEntry{
 
         //event EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs> PropertyChanged;
 
+        ObservableImmutableList<Comment.IEntryComment> Comments { get; set; }
 
 
         ColorCategory HColor
