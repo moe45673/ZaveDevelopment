@@ -12,6 +12,9 @@ using Prism.Mvvm;
 using Prism.Events;
 using System.Globalization;
 using Microsoft.Practices.Unity;
+using Prism.Modularity;
+using Zave.Module;
+using ZaveViewModel.ViewModels;
 
 namespace Zave
 {
@@ -45,6 +48,12 @@ namespace Zave
         protected override void ConfigureModuleCatalog()
         {
             base.ConfigureModuleCatalog();
+
+            ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
+            moduleCatalog.AddModule(typeof(ZDFEntryModule));
+            moduleCatalog.AddModule(typeof(MainContainerModule));
+            moduleCatalog.AddModule(typeof(MainWindowModule));
+
         }
 
         /// <summary>
@@ -55,10 +64,14 @@ namespace Zave
             base.ConfigureContainer();
 
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ControlBar), "ControlBar");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
             
+            
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialog), "ModalInputDialog");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialogViewModel), "ModalInputDialogViewModel");
+
 
         }
 

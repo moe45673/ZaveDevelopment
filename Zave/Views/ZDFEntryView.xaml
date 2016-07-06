@@ -65,7 +65,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel >
-                            <TextBox x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditing, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
+                            <TextBox x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditing, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
                             <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
                         </StackPanel>
                     </DataTemplate>

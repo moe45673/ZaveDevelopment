@@ -13,10 +13,15 @@ using System.ComponentModel;
 using ZaveModel;
 using ZaveModel.ZDFEntry;
 using System.Windows.Media;
+using JetBrains.Util;
+using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
 using ZaveViewModel.Commands;
 using Prism.Mvvm;
 using Prism.Events;
 using Prism.Commands;
+using Prism.Regions;
+using Prism.Unity;
 using ZaveGlobalSettings.Events;
 using ZaveGlobalSettings.Data_Structures.Observable;
 using ZaveViewModel.Data_Structures;
@@ -33,16 +38,21 @@ namespace ZaveViewModel.ViewModels
        
         private IEventAggregator _eventAggregator;
 
-        
-        public ZDFEntryViewModel(IEventAggregator eventAgg) : base(new ZDFEntry())
+        private IRegionManager _regionManager;
+
+        private IUnityContainer _container;
+
+        public ZDFEntryViewModel(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container) : base(new ZDFEntry())
         {
             
             if (_eventAggregator == null && eventAgg != null)
             {
                 _eventAggregator = eventAgg;
-                _eventAggregator.GetEvent<EntryReadEvent>().Subscribe(eventSetProperties);                
-            }                
-
+                _eventAggregator.GetEvent<EntryReadEvent>().Subscribe(eventSetProperties);
+                _regionManager = regionManager;
+                _container = container;
+            }
+            AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesCanExecute(p => CanAdd);
             try
             {
                 setProperties(_zdfEntry.ID, _zdfEntry.Name, _zdfEntry.Page, _zdfEntry.Text, _zdfEntry.DateModified, _zdfEntry.HColor.Color, fromZDFCommentList(_zdfEntry.Comments));
@@ -68,9 +78,9 @@ namespace ZaveViewModel.ViewModels
         
 
 
-        public static ZDFEntryViewModel entryVMFactory(IEventAggregator eventAgg, IZDFEntry entry)
+        public static ZDFEntryViewModel entryVMFactory(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, IZDFEntry entry)
         {
-            var entryVM = new ZDFEntryViewModel(eventAgg);
+            var entryVM = new ZDFEntryViewModel(eventAgg, regionManager, container);
             entryVM._zdfEntry = entry;            
 
             try
@@ -96,6 +106,18 @@ namespace ZaveViewModel.ViewModels
                 SetProperty(ref _txtDocID, value);
                 //_zdfEntry.ID = int.Parse(_txtDocID);
             }
+
+        }
+
+        protected void AddComment(System.Collections.IList items)
+        {
+
+            ObservableCollection<IDialogViewModel> vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
+
+            new ModalInputDialogViewModel { CommentText = "Testing!"}.Show(vm);
+
+            //System.Windows.MessageBox.Show(("From addComment: " +  vm.GetHashCode()));
+
 
         }
 

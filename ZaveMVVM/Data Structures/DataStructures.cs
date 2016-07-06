@@ -8,8 +8,10 @@ using ZaveModel.ZDFEntry;
 using Prism.Mvvm;
 using Prism.Commands;
 using System.Collections.Specialized;
+using Microsoft.Practices.Unity;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.Data_Structures.Observable;
+using ZaveViewModel.ViewModels;
 using ModelComment = ZaveModel.ZDFEntry.Comment;
 using WPFColor = System.Windows.Media.Color;
 using Color = System.Drawing.Color;
@@ -90,20 +92,30 @@ namespace ZaveViewModel.Data_Structures
             _txtDocColor.G = col.G;
             OnPropertyChanged("TxtDocColor");
             _txtDocComments = comments;
-            if (comments != null)
-            {
-                _txtDocComments.Add(new ZDFCommentItem(new ModelComment.EntryComment("Test 1", "Moe")));
-            }
+            //if (comments != null)
+            //{
+            //    _txtDocComments.Add(new ZDFCommentItem(new ModelComment.EntryComment("Test 1", "Moe")));
+            //}
             OnPropertyChanged("TxtDocComments");
 
             _editedComment = new ZDFCommentItem(null);
 
-            SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(selectEntry).ObservesProperty(() => IsNotEditing);
-            AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesProperty(() => IsNotEditing).ObservesCanExecute(p => CanAdd);
-            SaveCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SaveComment).ObservesCanExecute( x => IsEditing );
+            SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SelectComment);
+            //AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesCanExecute(p => CanAdd);
+            
+            
 
             SelectedItems = new ObservableImmutableList<ZDFCommentItem>();
             
+            if (!IsEditing)
+            {
+                IsEditing = true;
+                IsEditing = false;
+            }
+            if(IsNotEditing)
+            {
+                CanAdd = true;
+            }
 
            
 
@@ -129,6 +141,14 @@ namespace ZaveViewModel.Data_Structures
 
 
         #region Commands
+
+        public DelegateCommand CancelCommentDelegateCommand { get; private set; }
+
+        protected void CancelComment()
+        {
+            
+        }
+
         public DelegateCommand<System.Collections.IList> SelectCommentDelegateCommand
         {
             get; private set;
@@ -137,7 +157,7 @@ namespace ZaveViewModel.Data_Structures
 
 
 
-        protected void selectEntry(System.Collections.IList items)
+        protected void SelectComment(System.Collections.IList items)
         {
             if (items != null)
             {
@@ -161,10 +181,10 @@ namespace ZaveViewModel.Data_Structures
             private set { SetProperty(ref _isNotEditing, value); }
         }
 
-        public DelegateCommand<System.Collections.IList> AddCommentDelegateCommand
+        public virtual DelegateCommand<System.Collections.IList> AddCommentDelegateCommand
         {
             get;
-            private set;
+            protected set;
         }
 
 
@@ -176,44 +196,14 @@ namespace ZaveViewModel.Data_Structures
             set { SetProperty(ref _editedComment, value); }
         }
 
-        private void AddComment(System.Collections.IList commentList)
+        protected virtual void AddComment(System.Collections.IList commentList)
         {
-            if (SelectedItems != null)
-                SelectedItems.Clear();
-
-            IsEditing = true;
-
             
-            _zdfEntry.Comments.Add((ModelComment.EntryComment)EditedComment);
-
-            EditedComment = new ZDFCommentItem(_zdfEntry.Comments.LastOrDefault());
-
             
-
 
         }
 
-        public DelegateCommand<System.Collections.IList> SaveCommentDelegateCommand
-        {
-            get;
-            set;
-        }
-
-        private void SaveComment(System.Collections.IList items)
-        {
-            var comments = items.Cast<ZDFCommentItem>().ToList<ZDFCommentItem>();
-
-            var comment = comments.ElementAt(0);
-
-            var modelComment = _zdfEntry.Comments.LastOrDefault();
-
-            modelComment.CommentText = comment.CommentText;
-            modelComment.Author = (ModelComment.User)comment.CommentAuthor;
-
-            _zdfEntry.Comments.Insert((ZDFEntry.Comments.Count - 1), modelComment);
-            
-            IsEditing = false;
-        }
+       
 
         #endregion
 

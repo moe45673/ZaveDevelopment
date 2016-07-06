@@ -27,6 +27,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Zave.XML</DocumentationFile>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -247,8 +248,15 @@
     </ApplicationDefinition>
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ColorConverters.cs" />
+    <Compile Include="Module\MainContainerModule.cs" />
+    <Compile Include="Module\MainWindowModule.cs" />
+    <Compile Include="Module\ModuleBaseClass.cs" />
+    <Compile Include="Module\ZDFEntryModule.cs" />
     <Compile Include="Views\MainContainer.xaml.cs">
       <DependentUpon>MainContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModalInputDialog.xaml.cs">
+      <DependentUpon>ModalInputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestDialog.xaml.cs">
       <DependentUpon>TestDialog.xaml</DependentUpon>
@@ -292,6 +300,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ModalInputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TestDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
