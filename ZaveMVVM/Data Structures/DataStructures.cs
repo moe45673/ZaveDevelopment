@@ -10,9 +10,9 @@ using Prism.Commands;
 using System.Collections.Specialized;
 using Microsoft.Practices.Unity;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveGlobalSettings.Data_Structures.Observable;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
+using ZaveModel.ZDFColors;
 using ZaveViewModel.ViewModels;
-using ModelComment = ZaveModel.ZDFEntry.Comment;
 using WPFColor = System.Windows.Media.Color;
 using Color = System.Drawing.Color;
 
@@ -48,7 +48,7 @@ namespace ZaveViewModel.Data_Structures
                         var tempComment = (e.NewItems.SyncRoot as Array).GetValue(index);
 
 
-                        TxtDocComments.Add(new ZDFCommentItem(tempComment as ZaveModel.ZDFEntry.Comment.IEntryComment));
+                        TxtDocComments.Add(new ZDFCommentItem(tempComment as IEntryComment));
                         break;
 
                     default:
@@ -142,12 +142,7 @@ namespace ZaveViewModel.Data_Structures
 
         #region Commands
 
-        public DelegateCommand CancelCommentDelegateCommand { get; private set; }
-
-        protected void CancelComment()
-        {
-            
-        }
+       
 
         public DelegateCommand<System.Collections.IList> SelectCommentDelegateCommand
         {
@@ -175,6 +170,14 @@ namespace ZaveViewModel.Data_Structures
 
         }
 
+        private ZDFCommentItem _editedComment;
+
+        public ZDFCommentItem EditedComment
+        {
+            get { return this._editedComment; }
+            set { SetProperty(ref _editedComment, value); }
+        }
+
         private bool _isNotEditing;
         protected bool IsNotEditing {
             get { return _isNotEditing; }
@@ -187,21 +190,10 @@ namespace ZaveViewModel.Data_Structures
             protected set;
         }
 
-
-        private ZDFCommentItem _editedComment;
-
-        public ZDFCommentItem EditedComment
-        {
-            get { return this._editedComment; }
-            set { SetProperty(ref _editedComment, value); }
-        }
-
-        protected virtual void AddComment(System.Collections.IList commentList)
-        {
-            
+        protected abstract void AddComment(System.Collections.IList commentList);  
             
 
-        }
+        
 
        
 
@@ -242,13 +234,13 @@ namespace ZaveViewModel.Data_Structures
 
             foreach (var comment in list)
             {
-                var tempComment = new ZDFCommentItem(comment as ModelComment.IEntryComment);
+                var tempComment = new ZDFCommentItem(comment as IEntryComment);
                 tempList.Add(tempComment);
             }
             return tempList;
         }
 
-        public static CommentList fromZDFCommentList(IList<ModelComment.IEntryComment> zComments)
+        public static CommentList fromZDFCommentList(IList<IEntryComment> zComments)
         {
 
             var tempList = new CommentList();
@@ -366,7 +358,7 @@ namespace ZaveViewModel.Data_Structures
             set
             {
                 
-                _zdfEntry.HColor = ZaveModel.Colors.ColorCategory.FromWPFColor(value);
+                _zdfEntry.HColor = ColorCategory.FromWPFColor(value);
                 SetProperty(ref _txtDocColor, value);
 
             }
@@ -381,15 +373,19 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
+        private readonly object _docCommentsLock;
         protected CommentList _txtDocComments;
-
         public CommentList TxtDocComments
         {
-            get { return fromZDFCommentList(_zdfEntry.Comments); }
-            set
+            get { return _txtDocComments; }
+            
+            protected set
             {
-                _zdfEntry.Comments = new ObservableImmutableList<ModelComment.IEntryComment>(value.ToList<ZDFCommentItem>().ConvertAll(x => new ModelComment.EntryComment(x.CommentText)));
-                SetProperty(ref _txtDocComments, value);
+                lock (_docCommentsLock)
+                {
+                    _zdfEntry.Comments = new ObservableImmutableList<IEntryComment>(value.ToList<ZDFCommentItem>().ConvertAll(x => new EntryComment(x.CommentText)));
+                    SetProperty(ref _txtDocComments, value);
+                }
             }
         }
 
@@ -447,14 +443,14 @@ namespace ZaveViewModel.Data_Structures
 
         
         
-        private ZDFCommentItem(ModelComment.IEntryComment modelComment = default(ModelComment.EntryComment), string text = default(string), string author = default(string), int id = default(int))
+        private ZDFCommentItem(IEntryComment modelComment = default(EntryComment), string text = default(string), string author = default(string), int id = default(int))
         {
             _modelComment = modelComment;
             _commentText = text;
             _commentAuthor = author;
         }
 
-        public static ZDFCommentItem ItemFactory(ref ModelComment.IEntryComment modelComment, string text = default(string), string author = default(string))
+        public static ZDFCommentItem ItemFactory(ref IEntryComment modelComment, string text = default(string), string author = default(string))
         {
             
             
@@ -463,7 +459,7 @@ namespace ZaveViewModel.Data_Structures
             return item;
         }
 
-        public ZDFCommentItem(ModelComment.IEntryComment comment = default(ModelComment.EntryComment)) 
+        public ZDFCommentItem(IEntryComment comment = default(EntryComment)) 
         {
             _commentAuthor = "";
             _commentText = "Testing";
@@ -476,7 +472,7 @@ namespace ZaveViewModel.Data_Structures
             else
             {
                 
-                _modelComment = new ModelComment.EntryComment();
+                _modelComment = new EntryComment();
                 _commentID = -1;
             }
                 
@@ -489,18 +485,18 @@ namespace ZaveViewModel.Data_Structures
         //    return new ZDFCommentItem(obj.FirstProp as ModelComment.EntryComment, obj.SecondProp, obj.ThirdProp);
         //}
 
-        public static explicit operator ZDFCommentItem(ModelComment.EntryComment comment)
+        public static explicit operator ZDFCommentItem(EntryComment comment)
         {
             return new ZDFCommentItem(comment);
         }
 
-        public static explicit operator ModelComment.EntryComment(ZDFCommentItem commItem)
+        public static explicit operator EntryComment(ZDFCommentItem commItem)
         {
-            return new ModelComment.EntryComment(commItem.CommentText, commItem.CommentAuthor);
+            return new EntryComment(commItem.CommentText, commItem.CommentAuthor);
         }
 
 
-        protected ModelComment.IEntryComment _modelComment;
+        protected IEntryComment _modelComment;
 
 
         private int _commentID;
@@ -523,7 +519,7 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        public ModelComment.IEntryComment ModelComment {
+        public IEntryComment ModelComment {
             get { return _modelComment; }
             private set { SetProperty(ref _modelComment, value); }
         }

@@ -5,15 +5,14 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveGlobalSettings.Data_Structures.Observable;
-using ZaveGlobalSettings.Events;
-using ZaveModel.Colors;
 using Xceed.Wpf.Toolkit;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using Prism.Mvvm;
 using Prism.Events;
 using System.Threading;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
+using ZaveModel.ZDFColors;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -22,7 +21,7 @@ namespace ZaveViewModel.ViewModels
 
         private IEventAggregator _eventAggregator;
 
-        private delegate Task<ObservableImmutableList<ColorItem>> returnListDel();
+        private delegate Task<ObservableImmutableList<ColorItem>> ReturnListDel();
         
 
         public ControlBarViewModel(IEventAggregator eventAggregator)
@@ -33,7 +32,7 @@ namespace ZaveViewModel.ViewModels
 
             ColorItemList = new ObservableImmutableList<ColorItem>();
             
-            returnListDel beginColorSet = async () => await setColorsAsync();
+            ReturnListDel beginColorSet = async () => await SetColorsAsync();
             beginColorSet.Invoke();
             ActiveColor = Color.FromArgb(255, 255, 255, 0);
 
@@ -71,7 +70,7 @@ namespace ZaveViewModel.ViewModels
 
        
 
-        async private Task<ObservableImmutableList<ColorItem>> setColorsAsync()
+        async private Task<ObservableImmutableList<ColorItem>> SetColorsAsync()
         {
             var items = new ObservableImmutableList<ColorItem>();
             //var converter = new System.Windows.Media.ColorConverter();

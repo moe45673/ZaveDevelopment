@@ -11,10 +11,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.ComponentModel;
-using ZaveModel.Colors;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveGlobalSettings.Data_Structures.Observable;
 using Prism.Mvvm;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
+using ZaveModel.ZDFColors;
 
 
 namespace ZaveModel.ZDFEntry {
@@ -22,7 +22,7 @@ namespace ZaveModel.ZDFEntry {
 
         //event EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs> PropertyChanged;
 
-        ObservableImmutableList<Comment.IEntryComment> Comments { get; set; }
+        ObservableImmutableList<IEntryComment> Comments { get; set; }
 
 
         ColorCategory HColor

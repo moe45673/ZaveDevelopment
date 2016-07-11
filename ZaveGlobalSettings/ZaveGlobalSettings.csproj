@@ -87,6 +87,10 @@
       <HintPath>..\packages\JetBrains.Platform.Lib.Microsoft.Deployment.WindowsInstaller.2.0.20140821.0\lib\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=59d6d24383174ac4, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocation.1.0.0\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\JetBrains.Platform.Lib.VisualStudio.AnyVs.ShellInterop.PrivateBuild.2.0.20140304.0\lib\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
       <Private>True</Private>
@@ -127,15 +131,20 @@
       <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServiceLocation, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceLocation.1.3.1\lib\net45\ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sprache, Version=2.0.0.0, Culture=neutral, PublicKeyToken=23dafc55df9bd3a3, processorArchitecture=MSIL">
       <HintPath>..\packages\Sprache.JetBrains.2.0.0.44\lib\portable-net4+netcore45+win8+wp8+sl5+MonoAndroid1+MonoTouch1\Sprache.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\dotnet\System.Collections.Immutable.dll</HintPath>
+    <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -182,6 +191,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +221,6 @@
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets'))" />
-    <Error Condition="!Exists('..\packages\JetBrains.ReSharper.SDK.Internal.105.0.20160523.144409\build\JetBrains.ReSharper.SDK.Internal.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.ReSharper.SDK.Internal.105.0.20160523.144409\build\JetBrains.ReSharper.SDK.Internal.Targets'))" />
   </Target>
   <Import Project="..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20151217.1\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets" Condition="Exists('..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20151217.1\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets')" />
   <Import Project="..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets" Condition="Exists('..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets')" />
@@ -230,7 +239,6 @@
   <Import Project="..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets" Condition="Exists('..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets')" />
   <Import Project="..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets" Condition="Exists('..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets')" />
   <Import Project="..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets" Condition="Exists('..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets')" />
-  <Import Project="..\packages\JetBrains.ReSharper.SDK.Internal.105.0.20160523.144409\build\JetBrains.ReSharper.SDK.Internal.Targets" Condition="Exists('..\packages\JetBrains.ReSharper.SDK.Internal.105.0.20160523.144409\build\JetBrains.ReSharper.SDK.Internal.Targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

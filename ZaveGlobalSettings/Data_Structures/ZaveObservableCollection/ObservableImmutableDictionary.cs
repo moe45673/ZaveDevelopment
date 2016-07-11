@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Collections.Immutable;
 
-namespace ZaveGlobalSettings.Data_Structures.Observable
+namespace ZaveGlobalSettings.Data_Structures.ZaveObservableCollection
 {
 	public class ObservableImmutableDictionary<T, V> : ObservableCollectionObject, IImmutableDictionary<T, V>, IReadOnlyDictionary<T, V>, IReadOnlyCollection<KeyValuePair<T, V>>, IDictionary<T, V>, ICollection<KeyValuePair<T, V>>, IEnumerable<KeyValuePair<T, V>>, IDictionary, INotifyCollectionChanged, INotifyPropertyChanged
 		{

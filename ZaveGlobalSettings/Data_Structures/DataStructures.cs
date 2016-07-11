@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using Source = ZaveGlobalSettings.Data_Structures.SelectionState;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Windows.Threading;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+using System.Windows.Threading;
 using Prism.Events;
-
-
 
 namespace ZaveGlobalSettings.Data_Structures
 {
-
-    using CommentList = List<Object>;
-
     /// <summary>
     /// holds all allowable platforms for Zave to integrate with
     /// </summary>
@@ -70,15 +64,15 @@ namespace ZaveGlobalSettings.Data_Structures
         YELLOW, LIGHTBLUE, LIGHTGREEN, FUCHSIA, BLACK, AQUA, LIME,  WHITE, NAVY, TEAL, PURPLE, MAROON, OLIVE, GRAY, SILVER, RED
     }
 
-    //public struct AvailableColors
-    //{
-    //    public static Dictionary<string, string> getColors()
-    //    {
-    //        Dictionary<string, string> temp = new Dictionary<string, string>();
+//public struct AvailableColors
+//{
+//    public static Dictionary<string, string> getColors()
+//    {
+//        Dictionary<string, string> temp = new Dictionary<string, string>();
 
-    //    }
+//    }
 
-    //}
+//}
 
 
     /// <summary>
@@ -87,7 +81,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
         
-        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, CommentList comments = default(CommentList))
+        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<object> comments = default(List<object>))
         {
             ID = id;
             SelectionDocName = name;
@@ -115,7 +109,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public DateTime SelectionDateModified { get; set; }
         // String SelectionType { get; set; }
         public SrcType srcType { get; set; }
-        public CommentList Comments { get; set; }
+        public List<object> Comments { get; set; }
 
 
         public bool IsValid { get; set; }
@@ -158,42 +152,42 @@ namespace ZaveGlobalSettings.Data_Structures
         public T3 ThirdProp { get; set; }
     }
 
-    //    public static class FileChecker
-    //    {
+//    public static class FileChecker
+//    {
 
-    //        private const int NumberOfRetries = 20;
-    //        private const int DelayOnRetry = 50;
+//        private const int NumberOfRetries = 20;
+//        private const int DelayOnRetry = 50;
 
-    //        public delegate void StreamChecker(string filepath);
-    //        private Object obj;
-
-
+//        public delegate void StreamChecker(string filepath);
+//        private Object obj;
 
 
-    //        public static void checkFile(Object stream, string filepath){
 
 
-    //        for (int i=1; i <= NumberOfRetries; ++i) {
-    //            try {
-    //                // Do stuff with file
-    //                if (stream is StreamWriter)
-    //                    stream = new StreamWriter(filepath);
-    //                else if (stream is StreamReader)
-    //                {
-    //                    stream = new StreamReader(filepath);
-    //                }
-    //                break; // When done we can break loop
-    //            }
-    //            catch (IOException e) {
-    //                // You may check error code to filter some exceptions, not every error
-    //                // can be recovered.
-    //                if (i == NumberOfRetries) // Last one, (re)throw exception and exit
-    //                    throw;
+//        public static void checkFile(Object stream, string filepath){
 
-    //                Thread.Sleep(DelayOnRetry);
-    //            }
-    //        }
-    //    }
+
+//        for (int i=1; i <= NumberOfRetries; ++i) {
+//            try {
+//                // Do stuff with file
+//                if (stream is StreamWriter)
+//                    stream = new StreamWriter(filepath);
+//                else if (stream is StreamReader)
+//                {
+//                    stream = new StreamReader(filepath);
+//                }
+//                break; // When done we can break loop
+//            }
+//            catch (IOException e) {
+//                // You may check error code to filter some exceptions, not every error
+//                // can be recovered.
+//                if (i == NumberOfRetries) // Last one, (re)throw exception and exit
+//                    throw;
+
+//                Thread.Sleep(DelayOnRetry);
+//            }
+//        }
+//    }
 
 
     public class ModelEventArgs : EventArgs
@@ -238,14 +232,14 @@ namespace ZaveGlobalSettings.Data_Structures
         private bool disposed = false;
 
 
-        public Source produceSource(ZaveGlobalSettings.Data_Structures.SelectionState selDat)
+        public SelectionState produceSource(ZaveGlobalSettings.Data_Structures.SelectionState selDat)
         {
-            Source Src = createSrc(selDat.SelectionDocName, selDat.SelectionPage, selDat.SelectionText);
+            SelectionState Src = createSrc(selDat.SelectionDocName, selDat.SelectionPage, selDat.SelectionText);
 
             return Src;
         }
 
-        protected abstract Source createSrc(string name, string page, string text);
+        protected abstract SelectionState createSrc(string name, string page, string text);
 
 
 
@@ -392,10 +386,6 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
-}
-
-namespace ZaveGlobalSettings.Events
-{
     public class EntryUpdateEvent : PubSubEvent<Object>
     {
 
@@ -441,5 +431,6 @@ namespace ZaveGlobalSettings.Events
 
     }
 
-
+    public class ZDFOpenedEvent : PubSubEvent<object> { }
+    
 }

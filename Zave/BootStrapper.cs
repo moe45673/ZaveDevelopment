@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition;
 using System.Windows;
 using Prism.Unity;
 using Zave.Views;
 using Prism.Mvvm;
-using Prism.Events;
 using System.Globalization;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -50,9 +43,12 @@ namespace Zave
             base.ConfigureModuleCatalog();
 
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(ZDFEntryModule));
-            moduleCatalog.AddModule(typeof(MainContainerModule));
             moduleCatalog.AddModule(typeof(MainWindowModule));
+            // moduleCatalog.AddModule(typeof(MainContainerModule));
+            //moduleCatalog.AddModule(typeof(ZDFModule));
+            //moduleCatalog.AddModule(typeof(ZDFEntryModule));
+
+
 
         }
 
@@ -62,11 +58,13 @@ namespace Zave
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(MainWindow), "MainWindow");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(MainContainer), "MainContainer");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ControlBar), "ControlBar");
-            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");       
+            
             
             
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialog), "ModalInputDialog");

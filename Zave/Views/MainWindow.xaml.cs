@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZaveViewModel.ViewModels;
 
 
 namespace Zave.Views
@@ -29,15 +30,13 @@ namespace Zave.Views
         public MainWindow()
         {
             InitializeComponent();
-           
             
             
-        }
 
-        private void ZDFView_Loaded(object sender, RoutedEventArgs e)
-        {
 
         }
+
+        
     }
 
     

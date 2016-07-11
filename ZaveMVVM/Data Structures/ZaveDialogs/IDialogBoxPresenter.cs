@@ -1,11 +1,6 @@
 ﻿using ZaveViewModel.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ZaveDialogs.Presenters
+namespace ZaveViewModel.Data_Structures.ZaveDialogs
 {
 	public interface IDialogBoxPresenter<T> where T : IDialogViewModel
 	{

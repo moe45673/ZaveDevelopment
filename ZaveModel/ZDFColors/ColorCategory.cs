@@ -7,9 +7,6 @@
 ///////////////////////////////////////////////////////////
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
 using System.Drawing;
 using WPFColor = System.Windows.Media.Color;
 
@@ -18,7 +15,7 @@ using WPFColor = System.Windows.Media.Color;
 
 
 
-namespace ZaveModel.Colors {
+namespace ZaveModel.ZDFColors {
     public class ColorCategory{
 
         private ColorCategory(Color col) {

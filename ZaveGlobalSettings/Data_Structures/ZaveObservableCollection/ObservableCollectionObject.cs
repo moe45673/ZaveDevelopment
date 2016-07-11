@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Threading;
 
-namespace ZaveGlobalSettings.Data_Structures.Observable
+namespace ZaveGlobalSettings.Data_Structures.ZaveObservableCollection
 {
     public abstract class ObservableCollectionObject : INotifyCollectionChanged, INotifyPropertyChanged
 	{

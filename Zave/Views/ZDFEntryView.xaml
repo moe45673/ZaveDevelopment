@@ -9,9 +9,11 @@
              xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:converters="clr-namespace:Zave.Converters"
+             xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance vm:ZDFEntryViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <converters:ColorConverters x:Key="ColorConverter"/> 
     </UserControl.Resources>
@@ -65,8 +67,8 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel >
-                            <TextBox x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditing, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
-                            <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
+                            <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Background="#FF8B8B8B" />
+                            <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="Gainsboro" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -86,16 +88,7 @@
                     </Button>
                     <Button Name="DeleteButton" Content="Delete Comment" IsEnabled="False"/>
                 </StackPanel>
-                <StackPanel>
-                    <Button Name="CommentSaveButton" Content="Save" IsEnabled="{Binding IsEditing}" >
-                        <interactivity:Interaction.Triggers>
-                            <interactivity:EventTrigger EventName="Click">
-                                <prism:InvokeCommandAction Command="{Binding SaveCommentDelegateCommand}" CommandParameter="{Binding SelectedItems, ElementName=LB_CommentList}"/>
-                            </interactivity:EventTrigger>
-                        </interactivity:Interaction.Triggers>
-                    </Button>
-                    <Button Name="CommentCancelButton" Content="Cancel" IsEnabled="False" />
-                </StackPanel>
+                
             </StackPanel>
 
 

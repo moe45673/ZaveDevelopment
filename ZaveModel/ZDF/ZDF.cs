@@ -9,12 +9,13 @@ using ZaveModel.ZDFEntry;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveGlobalSettings.Data_Structures.Observable;
 using System.Collections.Immutable;
-using ZaveGlobalSettings.Events;
+using System.Threading;
+using System.Windows.Forms;
+using JetBrains.ReSharper.Psi.Resx.Utils;
 using Prism.Mvvm;
 using Prism.Events;
-
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 
 
 namespace ZaveModel.ZDF
@@ -45,8 +46,8 @@ namespace ZaveModel.ZDF
         private ZDFSingleton()
         {
 
+
             
-           
             
             _entryList = new ObservableImmutableList<IZDFEntry>();
             
@@ -80,17 +81,25 @@ namespace ZaveModel.ZDF
 
         public static ZDFSingleton GetInstance(IEventAggregator eventAgg = null)
         {
-            if (eventAgg != null)
+            lock (syncRoot)
             {
-                Instance._eventAggregator = eventAgg;
-            }
+                if (eventAgg != null && instance == null)
+                {
+                    instance = new ZDFSingleton();
+                    instance._eventAggregator = eventAgg;
+                    instance._eventAggregator.GetEvent<EntryCreatedEvent>().Subscribe(Add);
+                }          
 
-            if (Instance._eventAggregator == null)
-            {
-                throw new NullReferenceException("ZDFSingleton Not Properly Instantiated!");
-            }
 
-            
+            }
+            return Instance;
+
+
+
+
+
+
+
             return Instance;
         }
 
@@ -151,6 +160,11 @@ namespace ZaveModel.ZDF
             {
                 System.Windows.Forms.MessageBox.Show(e.Message);
             }
+        }
+
+        public static void Add(Object obj)
+        {
+            Instance.Add(obj as IZDFEntry);
         }
 
         

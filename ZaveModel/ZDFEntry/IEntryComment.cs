@@ -7,16 +7,13 @@
 ///////////////////////////////////////////////////////////
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using Prism.Events;
 using Prism.Mvvm;
+
 //using System.Security.Principal;
 
 
 
-namespace ZaveModel.ZDFEntry.Comment {
+namespace ZaveModel.ZDFEntry {
 
     public class User
     {

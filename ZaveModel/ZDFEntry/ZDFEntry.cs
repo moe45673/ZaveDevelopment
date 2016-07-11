@@ -13,15 +13,13 @@ using System.IO;
 using System.ComponentModel;
 using System.Linq;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveGlobalSettings.Data_Structures.Observable;
-using ZaveModel.Colors;
-using ZaveModel.ZDFSource;
 using Prism.Mvvm;
-using ZaveModel.ZDFEntry.Comment;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
+using ZaveModel.ZDFColors;
 
 namespace ZaveModel.ZDFEntry {
 
-    using CommentList = ObservableImmutableList<Comment.IEntryComment>;
+    using CommentList = ObservableImmutableList<IEntryComment>;
 
     public class ZDFEntry : BindableBase, IZDFEntry
     {
@@ -52,6 +50,9 @@ namespace ZaveModel.ZDFEntry {
         public ZDFEntry(SelectionState src) : this()
         {
             m_IEntryComment = new CommentList();
+
+            src.Comments.ForEach(item => Comments.Add(item as IEntryComment));
+
             _id = src.ID;
             _page = src.SelectionPage;
             _name = src.SelectionDocName;
@@ -70,7 +71,7 @@ namespace ZaveModel.ZDFEntry {
 
         public SelectionState toSelectionState()
         {
-            return new SelectionState( this.ID, this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format);
+            return new SelectionState( this.ID, this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format, this.Comments.ToList<object>());
         }
 
 

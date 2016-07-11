@@ -16,16 +16,14 @@ using System.Windows.Media;
 using JetBrains.Util;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
-using ZaveViewModel.Commands;
 using Prism.Mvvm;
 using Prism.Events;
 using Prism.Commands;
 using Prism.Regions;
 using Prism.Unity;
-using ZaveGlobalSettings.Events;
-using ZaveGlobalSettings.Data_Structures.Observable;
+using ZaveGlobalSettings.Data_Structures;
 using ZaveViewModel.Data_Structures;
-using ModelComment = ZaveModel.ZDFEntry.Comment;
+
 //using Zave
 
 
@@ -33,6 +31,7 @@ namespace ZaveViewModel.ViewModels
 {
     //using activeZDF = ZaveModel.ZDF.ZDFSingleton;
 
+    // ReSharper disable once InconsistentNaming
     public class ZDFEntryViewModel : ZDFEntryItem
     {
        
@@ -48,10 +47,11 @@ namespace ZaveViewModel.ViewModels
             if (_eventAggregator == null && eventAgg != null)
             {
                 _eventAggregator = eventAgg;
-                _eventAggregator.GetEvent<EntryReadEvent>().Subscribe(eventSetProperties);
+                _eventAggregator.GetEvent<EntryReadEvent>().Subscribe(EventSetProperties);
                 _regionManager = regionManager;
                 _container = container;
             }
+            // ReSharper disable once VirtualMemberCallInConstructor
             AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesCanExecute(p => CanAdd);
             try
             {
@@ -68,30 +68,30 @@ namespace ZaveViewModel.ViewModels
         }
 
 
-        protected void eventSetProperties(object obj)
+        protected virtual void EventSetProperties(object obj)
         {
             ZDFEntryItem item = obj as ZDFEntryItem;
 
-            _zdfEntry = item.ZDFEntry;
+            if (item != null) _zdfEntry = item.ZDFEntry;
             setProperties(_zdfEntry.toSelectionState());
         }
         
 
 
-        public static ZDFEntryViewModel entryVMFactory(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, IZDFEntry entry)
+        public static ZDFEntryViewModel EntryVmFactory(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, IZDFEntry entry)
         {
-            var entryVM = new ZDFEntryViewModel(eventAgg, regionManager, container);
-            entryVM._zdfEntry = entry;            
+            var entryVm = new ZDFEntryViewModel(eventAgg, regionManager, container);
+            entryVm._zdfEntry = entry;            
 
             try
             {
-                entryVM.setProperties(entry.ID, entry.Name, entry.Page, entry.Text, entry.DateModified, entry.HColor.Color, fromZDFCommentList(entry.Comments));
+                entryVm.setProperties(entry.ID, entry.Name, entry.Page, entry.Text, entry.DateModified, entry.HColor.Color, fromZDFCommentList(entry.Comments));
             }
             catch (NullReferenceException nre)
             {
-                throw nre;
+                throw;
             }
-            return entryVM;
+            return entryVm;
         }
 
         public override string TxtDocID
@@ -109,24 +109,37 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        protected void AddComment(System.Collections.IList items)
+        private void AddDlgBoxReturn(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == "CommentText")
+            {
+                var ec = new ZDFCommentItem();
+                ec.CommentText = ((ModalInputDialogViewModel)sender).CommentText;
+
+                _zdfEntry.Comments.Add(new EntryComment(ec.CommentText, "User"));
+            }
+        }
+
+        protected override void AddComment(System.Collections.IList items)
         {
 
             ObservableCollection<IDialogViewModel> vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
+            
+            
+            var dlg = new ModalInputDialogViewModel();
+            dlg.PropertyChanged += new PropertyChangedEventHandler(AddDlgBoxReturn);
+            
+            dlg.Show(vm);
 
-            new ModalInputDialogViewModel { CommentText = "Testing!"}.Show(vm);
 
             //System.Windows.MessageBox.Show(("From addComment: " +  vm.GetHashCode()));
 
-
+            dlg.PropertyChanged -= new PropertyChangedEventHandler(AddDlgBoxReturn);
         }
 
-        
-
-
-
-
-
-
+        private void Dlg_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

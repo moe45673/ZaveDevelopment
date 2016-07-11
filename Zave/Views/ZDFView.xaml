@@ -4,14 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Zave.Views"
+             xmlns:vm ="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" 
+             d:DataContext="{d:DesignInstance vm:ZDFViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
+        
         <!--ListView Styles-->
         <Style TargetType="ListView">
             <Setter Property="Margin" Value="0"></Setter>
@@ -85,12 +88,12 @@
             <Setter Property="TextAlignment" Value="Right"></Setter>
         </Style>
     </UserControl.Resources>
-    <ListView ItemsSource="{Binding ZDFEntries}" Name="LV_EntryList">
-        <interactivity:Interaction.Triggers>
-            <interactivity:EventTrigger EventName="SelectionChanged">
+    <ListView ItemsSource="{Binding ZdfEntries}" Name="LV_EntryList">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="SelectionChanged">
                 <prism:InvokeCommandAction Command="{Binding SelectItemDelegateCommand}" CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
-            </interactivity:EventTrigger>
-        </interactivity:Interaction.Triggers>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <ListView.ItemTemplate>
             <DataTemplate>
                 <Border Style="{StaticResource ListView_Border}">

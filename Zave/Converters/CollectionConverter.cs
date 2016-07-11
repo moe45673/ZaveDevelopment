@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Data;
 using System.Windows.Media;
 using Xceed.Wpf.Toolkit;
-using ZaveGlobalSettings.Data_Structures.Observable;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 
 namespace Zave.Converters
 {

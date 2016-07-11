@@ -9,18 +9,17 @@ using Prism.Mvvm;
 using Prism.Properties;
 using Prism.Common;
 
-using ModelComment = ZaveModel.ZDFEntry.Comment;
-
 
 namespace ZaveViewModel.ViewModels
 {
     public class ModalInputDialogViewModel : BindableBase, IUserDialogViewModel
     {
-
+        //string toReturn;
         //private Object _sender;
 
         public ModalInputDialogViewModel()
         {
+            //toReturn = fromSender;
             SaveCommentDelegateCommand = new DelegateCommand(SaveComment);
             CancelCommentDelegateCommand = new DelegateCommand(CancelComment);
             
@@ -43,7 +42,8 @@ namespace ZaveViewModel.ViewModels
             
             try
             {
-                System.Windows.MessageBox.Show(("Save Command Executed!"));
+                OnPropertyChanged("CommentText");
+                RequestClose();
             }
             catch (NullReferenceException nre)
             {
@@ -60,28 +60,38 @@ namespace ZaveViewModel.ViewModels
         public string CommentText
         {
             get { return _commentText;}
-            set { SetProperty(ref _commentText, value); }
+            set { _commentText = value; }
+        }
+
+        private string _caption;
+        public string Caption
+        {
+            get { return _caption; }
+            set { SetProperty(ref _caption, value); }
         }
 
         public DelegateCommand CancelCommentDelegateCommand { get; private set; }
         protected void CancelComment()
         {
-
+            RequestClose();
         }
 
         public event EventHandler DialogClosing;
 
-        public void RequestClose()
+        public virtual void RequestClose()
         {
-            try
-            {
-                DialogClosing(this, null);
-            }
-            catch (NullReferenceException nre)
-            {
-                System.Windows.MessageBox.Show("I can't do that, Tim");
-            }
-            
+            if (this.OnCloseRequest != null)
+                this.OnCloseRequest(this);
+            else
+                Close();
+        }
+
+        public Action<ModalInputDialogViewModel> OnCloseRequest { get; set; }
+
+        public void Close()
+        {
+            if (this.DialogClosing != null)
+                this.DialogClosing(this, new EventArgs());
         }
 
         public void Show(IList<IDialogViewModel> collection)

@@ -1,29 +1,23 @@
 ﻿using System;
-using System.Windows;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using ZaveController.ZDFSource;
-using ZaveGlobalSettings.Data_Structures;
-//using ZaveService.ZDFEntry;
-using WordInterop = Microsoft.Office.Interop.Word;
-using Microsoft.Win32.SafeHandles;
-using Office = Microsoft.Office.Core;
-using WordTools = Microsoft.Office.Tools.Word;
-using System.Runtime.InteropServices;
-using WPFColor = System.Windows.Media.Color;
-using WPFColors = System.Windows.Media.Colors;
-using ZaveGlobalSettings.ZaveFile;
-using ZaveViewModel.ViewModels;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Media;
+using JetBrains.ReSharper.Psi.Resx.Utils;
 using Newtonsoft.Json;
 using Prism.Events;
-using ZaveGlobalSettings.Events;
+using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.ZaveFile;
+using ZaveModel.ZDFColors;
+//using ZaveService.ZDFEntry;
+using WPFColor = System.Windows.Media.Color;
+
 //using ZaveMo
 
-namespace ZaveController.Global_Settings
+namespace ZaveController
 {
 
     
@@ -48,11 +42,11 @@ namespace ZaveController.Global_Settings
         private EventInitSingleton()
         {
 
-            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+            
             CreateFileWatcher(Path.GetTempPath());
             lastRead = DateTime.MinValue;
             System.Drawing.Color startupColor = new System.Drawing.Color();
-            
+            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
             
             //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
@@ -73,7 +67,7 @@ namespace ZaveController.Global_Settings
             if (instance._eventAggregator == null && eventAgg != null)
             {
                 instance._eventAggregator = eventAgg;
-                instance._eventAggregator.GetEvent<ZaveGlobalSettings.Events.MainControlsUpdateEvent>().Subscribe(instance.SetActiveColor);
+                instance._eventAggregator.GetEvent<MainControlsUpdateEvent>().Subscribe(instance.SetActiveColor);
                 
             }
             
@@ -95,7 +89,7 @@ namespace ZaveController.Global_Settings
                     colorName = item.Key;
                 }
             }
-            activeColor = new ZaveModel.Colors.ColorCategory(color, colorName).toWPFColor();
+            activeColor = new ColorCategory(color, colorName).toWPFColor();
             
             
         }
@@ -175,18 +169,18 @@ namespace ZaveController.Global_Settings
             watcher.EnableRaisingEvents = false;
             System.Threading.Thread.Sleep(250);
             watcher.EnableRaisingEvents = true;
-           
-           
-                // Specify what is done when a file is changed, created, or deleted.
-            
+            //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+
+            // Specify what is done when a file is changed, created, or deleted.
+
 
             //List<SelectionState> _selState = new List<SelectionState>();
             //SelectionState selState = new SelectionState();
 
             //_selState.Add(JsonConvert.DeserializeObject<SelectionState>(File.ReadAllText(e.FullPath)));
             //SelectionState temp = new SelectionState>();
-               
-                using (StreamReader sr = StreamReaderFactory.createStreamReader(e.FullPath))
+
+            using (StreamReader sr = StreamReaderFactory.createStreamReader(e.FullPath))
                 {
                     try
                     {
@@ -197,11 +191,16 @@ namespace ZaveController.Global_Settings
                         if (temp.Any<SelectionState>())
                         {
                             temp[0].ID = ZaveModel.ZDF.ZDFSingleton.setID();
+                            temp[0].Comments = new List<object>();
                             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
-                            entry.HColor = ZaveModel.Colors.ColorCategory.FromWPFColor(activeColor);
                             
-                            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+                            entry.HColor = ColorCategory.FromWPFColor(activeColor);
 
+                            //_eventAggregator.GetEvent<EntryCreatedEvent>().Publish(entry)
+                            
+
+                            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+                            //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ConvertToString());
                             activeZDF.Add(entry);
                         }
                         sr.Close();

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Windows.Input;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
-namespace ZaveViewModel.Commands
+namespace ZaveViewModel
 {
     /// <summary>
     /// A command whose sole purpose is to relay its functionality to other

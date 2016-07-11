@@ -13,17 +13,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Threading;
 using ZaveModel;
 using ZaveModel.ZDFEntry;
 using System.Windows.Media;
-using ZaveViewModel.Commands;
 using Prism.Mvvm;
 using Prism.Events;
 using Prism;
-using ZaveGlobalSettings.Events;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveGlobalSettings.Data_Structures.Observable;
 using Prism.Commands;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
+using Microsoft.Practices.Unity;
+using ZaveModel.ZDF;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -31,8 +32,9 @@ namespace ZaveViewModel.ViewModels
     {
 
 
-        private ZaveModel.ZDF.ZDFSingleton activeZDF;
+        private ZaveModel.ZDF.ZDFSingleton _activeZdf;
         private IEventAggregator _eventAggregator;
+        private IUnityContainer _container;
 
         //private ZDFEntryViewModel _activeZdfEntry;
         //public ZDFEntryViewModel ActiveZDFEntry
@@ -46,26 +48,26 @@ namespace ZaveViewModel.ViewModels
 
 
 
-        protected ObservableImmutableList<ZDFEntryItemViewModel> createEntryList(ZaveModel.ZDF.IZDF zdf)
+        protected ObservableImmutableList<ZdfEntryItemViewModel> CreateEntryList(ZaveModel.ZDF.IZDF zdf)
         {
-            if (ZDFEntries.Count == 0)
+            if (ZdfEntries.Count == 0)
             {
                 foreach (var entry in zdf.EntryList)
                 {
-                    var item = new ZDFEntryItemViewModel(entry as ZDFEntry);
+                    var item = new ZdfEntryItemViewModel(entry as ZDFEntry);
                     
-                    ZDFEntries.Add(item);
+                    ZdfEntries.Add(item);
                 }
             }
             //context = SynchronizationContext.Current;
-            return ZDFEntries;
+            return ZdfEntries;
 
 
         }
 
         private readonly object _zdfEntriesLock;
-        private ObservableImmutableList<ZDFEntryItemViewModel> _zdfEntries;
-        public ObservableImmutableList<ZDFEntryItemViewModel> ZDFEntries
+        private ObservableImmutableList<ZdfEntryItemViewModel> _zdfEntries;
+        public ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries
         {
             get { return _zdfEntries; }
             private set
@@ -94,7 +96,8 @@ namespace ZaveViewModel.ViewModels
                         var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index);
                         
 
-                        ZDFEntries.Add(new ZDFEntryItemViewModel(tempEntry as ZDFEntry));
+                        ZdfEntries.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
+                        //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
                         break;
 
                     default:
@@ -141,11 +144,11 @@ namespace ZaveViewModel.ViewModels
         ///
         /// </summary>
         /// <returns></returns>
-        private void selectItem(System.Collections.IList items)
+        private void SelectItem(System.Collections.IList items)
         {
-            var id = items.Cast<ZDFEntryItemViewModel>();
+            var id = items.Cast<ZdfEntryItemViewModel>();
 
-            _eventAggregator.GetEvent<EntryReadEvent>().Publish(ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryItemViewModel>().TxtDocID));
+            _eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZdfEntryItemViewModel>().TxtDocID));
             //SelectionState selstate = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState();
 
 
@@ -178,7 +181,7 @@ namespace ZaveViewModel.ViewModels
         //    }
         //}
 
-        private void SaveZDFEntry()
+        private void SaveZdfEntry()
         {
 
         }
@@ -201,13 +204,13 @@ namespace ZaveViewModel.ViewModels
 
         //}
 
-        private void createEntryList()
+        private void CreateEntryList()
         {
-            ZDFEntries = new ObservableImmutableList<ZDFEntryItemViewModel>();
-            if (activeZDF.EntryList.Any<IZDFEntry>())
+            ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+            if (_activeZdf.EntryList.Any<IZDFEntry>())
             {
-                foreach (var item in activeZDF.EntryList)
-                    ZDFEntries.Add(new ZDFEntryItemViewModel(item as ZDFEntry));
+                foreach (var item in _activeZdf.EntryList)
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
             }
 
 
@@ -215,24 +218,26 @@ namespace ZaveViewModel.ViewModels
 
         //private SynchronizationContext context;
 
-        public ZDFViewModel(IEventAggregator eventAggregator)
+        public ZDFViewModel(IEventAggregator eventAggregator, IUnityContainer container)
         {
 
             _eventAggregator = eventAggregator;
             SelectedItem = true;
-            SelectItemDelegateCommand = new DelegateCommand<IList>(selectItem, canSelectItem);
+            SelectItemDelegateCommand = new DelegateCommand<IList>(SelectItem, CanSelectItem);
 
-            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(_eventAggregator);
+            _container = container;
 
+            _activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
 
+            //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
             //if (activeZDF.EntryList.Count != 0)
             //_activeZdfEntry = new ZDFEntryViewModel(activeZDF.EntryList[0]);
             _zdfEntriesLock = new Object();
-            createEntryList();
+            CreateEntryList();
 
 
 
-            activeZDF.EntryList.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
+            _activeZdf.EntryList.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
             //_activeZdfEntry.PropertyChanged += new PropertyChangedEventHandler(ViewPropertyChanged);
 
             //zdfEntry.Source.SelectionDateModified = null;
@@ -244,25 +249,34 @@ namespace ZaveViewModel.ViewModels
 
         }
 
+        private void SetModel(Object obj)
+        {
+            _activeZdf = obj as ZaveModel.ZDF.ZDFSingleton;
+        }
+
         public bool SelectedItem { get; set; }
-        private bool canSelectItem(IList arg)
+        private bool CanSelectItem(IList arg)
         {
             return SelectedItem;
         }
     }
 
-    public class ZDFEntryItemViewModel : ZaveViewModel.Data_Structures.ZDFEntryItem
+    public class ZdfEntryItemViewModel : ZaveViewModel.Data_Structures.ZDFEntryItem
     {
 
        
        
         
 
-        public ZDFEntryItemViewModel(ZDFEntry zdfEntry) : base(zdfEntry)
+        public ZdfEntryItemViewModel(ZDFEntry zdfEntry) : base(zdfEntry)
         {
             
 
         }
-        
+
+        protected override void AddComment(IList commentList)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

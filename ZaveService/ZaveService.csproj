@@ -83,10 +83,6 @@
       <HintPath>..\packages\DotNetZip.Reduced.1.9.1.8\lib\net20\Ionic.Zip.Reduced.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="JetBrains.Annotations, Version=10.1.4.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.10.1.4\lib\net20\JetBrains.Annotations.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Deployment.Compression, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Platform.Lib.Microsoft.Deployment.Compression.Cab.2.0.20140304.0\lib\Microsoft.Deployment.Compression.dll</HintPath>
       <Private>True</Private>
@@ -99,8 +95,8 @@
       <HintPath>..\packages\JetBrains.Platform.Lib.Microsoft.Deployment.WindowsInstaller.2.0.20140821.0\lib\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=59d6d24383174ac4, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocation.1.0.0\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -227,7 +223,6 @@
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets'))" />
-    <Error Condition="!Exists('..\packages\JetBrains.ReSharper.SDK.Internal.105.0.20160523.144409\build\JetBrains.ReSharper.SDK.Internal.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.ReSharper.SDK.Internal.105.0.20160523.144409\build\JetBrains.ReSharper.SDK.Internal.Targets'))" />
   </Target>
   <Import Project="..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20151217.1\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets" Condition="Exists('..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20151217.1\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets')" />
   <Import Project="..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets" Condition="Exists('..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets')" />
@@ -246,7 +241,6 @@
   <Import Project="..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets" Condition="Exists('..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets')" />
   <Import Project="..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets" Condition="Exists('..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets')" />
   <Import Project="..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets" Condition="Exists('..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets')" />
-  <Import Project="..\packages\JetBrains.ReSharper.SDK.Internal.105.0.20160523.144409\build\JetBrains.ReSharper.SDK.Internal.Targets" Condition="Exists('..\packages\JetBrains.ReSharper.SDK.Internal.105.0.20160523.144409\build\JetBrains.ReSharper.SDK.Internal.Targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -12,10 +12,10 @@ using System.Text;
 using System.IO;
 using System.Windows;
 //using ZaveViewModel.ViewModels;
-using ZaveController.Global_Settings;
 using ZaveGlobalSettings.ZaveFile;
 using Prism.Events;
 using Microsoft.Practices.Unity;
+using ZaveController;
 
 namespace Zave
 {
@@ -27,7 +27,7 @@ namespace Zave
 
 
 
-        EventInitSingleton eventInit;
+        public EventInitSingleton eventInit;
        
 
         /// <summary>
@@ -79,12 +79,7 @@ namespace Zave
         {
             var bs = new BootStrapper();
             bs.Run();
-            EventAggregator eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
-
-            
-
-            
-
+            var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
             eventInit = EventInitSingleton.GetInstance(eventAgg);
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))

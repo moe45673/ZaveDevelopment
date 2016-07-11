@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZaveGlobalSettings.Data_Structures;
-using ZaveGlobalSettings.Data_Structures.Observable;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 
 namespace ZaveModel.ZDF
 {

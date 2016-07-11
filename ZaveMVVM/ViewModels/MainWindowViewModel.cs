@@ -12,7 +12,6 @@ using Prism.Events;
 using ZaveViewModel.ViewModels;
 using ZaveModel.ZDFEntry;
 using System.Collections.ObjectModel;
-using ZaveGlobalSettings.Events;
 using ZaveGlobalSettings.Data_Structures;
 using System.ComponentModel;
 using System.Windows.Data;
@@ -34,8 +33,7 @@ namespace ZaveViewModel.ViewModels
             _container = cont;
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<string>(Navigate);
-            //this.Dialogs.Add(new ModalInputDialogViewModel());
-            //MessageBox.Show(("From InConstructor " + this.GetHashCode()));
+            //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
         }
 
@@ -46,10 +44,10 @@ namespace ZaveViewModel.ViewModels
             _regionManager.RequestNavigate("ContentRegion", uri);
         }
 
-#region Properties
-        private ObservableCollection<IDialogViewModel> _Dialogs = new ObservableCollection<IDialogViewModel>();
-        public ObservableCollection<IDialogViewModel> Dialogs { get { return _Dialogs; } }
-#endregion
+        #region Properties
+        private ObservableCollection<IDialogViewModel> _dialogs = new ObservableCollection<IDialogViewModel>();
+        public ObservableCollection<IDialogViewModel> Dialogs { get { return _dialogs; } }
+        #endregion
 
     }
 }

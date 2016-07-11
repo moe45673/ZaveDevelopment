@@ -7,17 +7,15 @@
         xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
-        
-        
-        Title="{Binding Caption}" Height="170" Width="300" ResizeMode="NoResize" >
+        Title="Test" Height="170" Width="300" ResizeMode="NoResize" >
     <Window.Resources>
-        <local:ModalInputDialog x:Key="{x:Type zdfviewmodelns:ModalInputDialogViewModel}" x:Shared="False" />
+        <local:ModalInputDialog x:Key="{x:Type zdfviewmodelns:ModalInputDialogViewModel}" x:Shared="False"/>
     </Window.Resources>
     <Grid>
         <Grid>
             <TextBox Text="{Binding CommentText}" AcceptsReturn="True" HorizontalAlignment="Left" Margin="49,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197"/>
-            <Button Content="Save" Command="{Binding OkCommand}" HorizontalAlignment="Left" Margin="171,98,0,0" VerticalAlignment="Top" Width="75" IsDefault="True" />
-            <Button Content="Cancel" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="49,98,0,0" VerticalAlignment="Top" Width="75" />
+            <Button Content="Save" Command="{Binding SaveCommentDelegateCommand}" HorizontalAlignment="Left" Margin="171,98,0,0" VerticalAlignment="Top" Width="75" IsDefault="True" />
+            <Button Content="Cancel" Command="{Binding CancelCommentDelegateCommand}" HorizontalAlignment="Left" Margin="49,98,0,0" VerticalAlignment="Top" Width="75" />
         </Grid>
     </Grid>
 </Window>
