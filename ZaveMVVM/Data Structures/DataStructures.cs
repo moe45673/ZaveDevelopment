@@ -29,7 +29,11 @@ namespace ZaveViewModel.Data_Structures
 
         protected IZDFEntry _zdfEntry;
 
+        
+
         private ObservableImmutableList<ZDFCommentItem> SelectedItems { get; set; }
+
+
 
         private void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -49,6 +53,20 @@ namespace ZaveViewModel.Data_Structures
 
 
                         TxtDocComments.Add(new ZDFCommentItem(tempComment as IEntryComment));
+                        break;
+
+
+                    case NotifyCollectionChangedAction.Replace:
+
+                        TxtDocComments.Clear();
+                        
+                        foreach (var item in (ObservableImmutableList<IEntryComment>)sender)
+                        {
+                            var vmComment = new ZDFCommentItem(item);
+                            TxtDocComments.Add(vmComment);
+                        }
+
+
                         break;
 
                     default:
@@ -101,7 +119,8 @@ namespace ZaveViewModel.Data_Structures
             _editedComment = new ZDFCommentItem(null);
 
             SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SelectComment);
-            //AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesCanExecute(p => CanAdd);
+            AddCommentDelegateCommand = new DelegateCommand(AddComment).ObservesCanExecute(p => CanAdd);
+            EditCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(EditComment).ObservesCanExecute(p => CanEdit);
             
             
 
@@ -115,6 +134,7 @@ namespace ZaveViewModel.Data_Structures
             if(IsNotEditing)
             {
                 CanAdd = true;
+                
             }
 
            
@@ -184,22 +204,28 @@ namespace ZaveViewModel.Data_Structures
             private set { SetProperty(ref _isNotEditing, value); }
         }
 
-        public virtual DelegateCommand<System.Collections.IList> AddCommentDelegateCommand
+        public virtual DelegateCommand AddCommentDelegateCommand
         {
             get;
             protected set;
         }
 
-        protected abstract void AddComment(System.Collections.IList commentList);  
-            
+        protected abstract void AddComment();
 
-        
+        public virtual DelegateCommand<System.Collections.IList> EditCommentDelegateCommand
+        {
+            get;
+            protected set;
+        }
 
-       
+        protected abstract void EditComment(System.Collections.IList commentList);
+
+
+
 
         #endregion
 
-        
+
 
 
 
@@ -414,9 +440,10 @@ namespace ZaveViewModel.Data_Structures
             get { return this._isEditing; }
             set
             {
-                SetProperty(ref _isEditing, value);
+                _isEditing = value;
                 IsNotEditing = !_isEditing;
                 CanAdd = !_isEditing;
+                OnPropertyChanged("IsEditing");
             }
         }
 
@@ -431,7 +458,7 @@ namespace ZaveViewModel.Data_Structures
 
                     SetProperty(ref _canAdd, false);
                 }
-                }
+            }
         }
 
 

@@ -23,6 +23,7 @@ using Prism.Regions;
 using Prism.Unity;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveViewModel.Data_Structures;
+using System.Collections;
 
 //using Zave
 
@@ -41,6 +42,8 @@ namespace ZaveViewModel.ViewModels
 
         private IUnityContainer _container;
 
+        protected ObservableCollection<IDialogViewModel> CommentDialog;
+
         public ZDFEntryViewModel(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container) : base(new ZDFEntry())
         {
             
@@ -51,8 +54,7 @@ namespace ZaveViewModel.ViewModels
                 _regionManager = regionManager;
                 _container = container;
             }
-            // ReSharper disable once VirtualMemberCallInConstructor
-            AddCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(AddComment).ObservesCanExecute(p => CanAdd);
+           
             try
             {
                 setProperties(_zdfEntry.ID, _zdfEntry.Name, _zdfEntry.Page, _zdfEntry.Text, _zdfEntry.DateModified, _zdfEntry.HColor.Color, fromZDFCommentList(_zdfEntry.Comments));
@@ -119,13 +121,13 @@ namespace ZaveViewModel.ViewModels
                 _zdfEntry.Comments.Add(new EntryComment(ec.CommentText, "User"));
             }
         }
+       
 
-        protected override void AddComment(System.Collections.IList items)
+        protected override void AddComment()
         {
 
-            ObservableCollection<IDialogViewModel> vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
-            
-            
+            var vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
+            vm.Clear();
             var dlg = new ModalInputDialogViewModel();
             dlg.PropertyChanged += new PropertyChangedEventHandler(AddDlgBoxReturn);
             
@@ -135,6 +137,43 @@ namespace ZaveViewModel.ViewModels
             //System.Windows.MessageBox.Show(("From addComment: " +  vm.GetHashCode()));
 
             dlg.PropertyChanged -= new PropertyChangedEventHandler(AddDlgBoxReturn);
+        }
+
+        private void EditDlgBoxReturn(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == "CommentText")
+            {
+                var ec = _zdfEntry.Comments.IndexOf(_zdfEntry.Comments.FirstOrDefault(x => x.CommentText == EditedComment.CommentText));
+                
+                _zdfEntry.Comments[ec] = new EntryComment((sender as ModalInputDialogViewModel).CommentText, EditedComment.CommentAuthor);
+
+                
+            }
+        }
+
+        protected override void EditComment(IList commentList)
+        {
+            try
+            {
+                var vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
+                var dlg = new ModalInputDialogViewModel();
+                vm.Clear();
+
+                EditedComment = TxtDocComments.FirstOrDefault(x => x.CommentText == (commentList[0] as ZDFCommentItem).CommentText);
+                dlg.CommentText = EditedComment.CommentText;
+                dlg.PropertyChanged += new PropertyChangedEventHandler(EditDlgBoxReturn);
+                dlg.Show(vm);
+                dlg.PropertyChanged -= new PropertyChangedEventHandler(EditDlgBoxReturn);
+                    
+            }
+            catch (NullReferenceException nre)
+            {
+                System.Windows.Forms.MessageBox.Show(nre.Message + "\nMust Select a comment!");
+            }
+            catch (ArgumentOutOfRangeException arg)
+            {
+                System.Windows.Forms.MessageBox.Show(arg.Message + "\nMust Select a comment!");
+            }
         }
 
         private void Dlg_PropertyChanged(object sender, PropertyChangedEventArgs e)

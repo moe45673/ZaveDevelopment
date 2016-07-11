@@ -76,7 +76,14 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <Button Name="EditButton" Content="Edit Comment" IsEnabled="False" >
-                        
+
+                        <interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding EditCommentDelegateCommand}" CommandParameter="{Binding SelectedItems, ElementName=LB_CommentList}"/>
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>
+
+                  
                     </Button>
                     <Button Name="AddButton" Content="Add Comment">
                         <interactivity:Interaction.Triggers>

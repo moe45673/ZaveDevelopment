@@ -274,7 +274,12 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        protected override void AddComment(IList commentList)
+        protected override void AddComment()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void EditComment(IList commentList)
         {
             throw new NotImplementedException();
         }
