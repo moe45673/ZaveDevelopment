@@ -154,7 +154,7 @@ namespace ZaveModel.ZDFEntry {
         public CommentList Comments
         {
             get { return m_IEntryComment; }
-            set { SetProperty(ref m_IEntryComment, value); }
+            set { m_IEntryComment = value; }
         }
 
         #endregion

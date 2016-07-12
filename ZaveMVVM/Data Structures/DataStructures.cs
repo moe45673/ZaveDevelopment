@@ -24,72 +24,76 @@ namespace ZaveViewModel.Data_Structures
 
     using selStateCommentList = List<Object>;
 
+
     public abstract class ZDFEntryItem : BindableBase
     {
 
         protected IZDFEntry _zdfEntry;
 
+
         
 
-        private ObservableImmutableList<ZDFCommentItem> SelectedItems { get; set; }
-
-
-
-        private void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        protected void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             try
             {
                 switch (e.Action)
                 {
-                    
+
 
                     case NotifyCollectionChangedAction.Add:
 
 
-                        //foreach (var item in e.NewItems.SyncRoot as List<Object>)
-                        //{
-                        int index = (e.NewItems.SyncRoot as Array).Length - 1;
-                        var tempComment = (e.NewItems.SyncRoot as Array).GetValue(index);
+                        var listSend = ((IEnumerable<IEntryComment>)sender).ToList<IEntryComment>();
+                        var tempComment = listSend.LastOrDefault();
 
+                        var newComment = new ZDFCommentItem(tempComment);
 
-                        TxtDocComments.Add(new ZDFCommentItem(tempComment as IEntryComment));
-                        break;
+                        var tempList = new ObservableImmutableList<ZDFCommentItem>();
+                        tempList.Add(newComment);
 
+                        TxtDocComments.DoAdd(x => newComment );
 
-                    case NotifyCollectionChangedAction.Replace:
-
-                        TxtDocComments.Clear();
                         
-                        foreach (var item in (ObservableImmutableList<IEntryComment>)sender)
-                        {
-                            var vmComment = new ZDFCommentItem(item);
-                            TxtDocComments.Add(vmComment);
-                        }
-
-
+                        
                         break;
 
-                    default:
-                        System.Windows.Forms.MessageBox.Show("Nothing Done!");
-                        break;
+
+                        //            case NotifyCollectionChangedAction.Replace:
+
+                        //                System.Windows.Forms.MessageBox.Show("Replace Action Called!");
+
+                        //                break;
+
+                        //            default:
+                        //                System.Windows.Forms.MessageBox.Show("Nothing Done!");
+                        //                break;
+                        //        }
+
+                        //    }
+                        //    catch (Exception ex)
+                        //    {
+                        //        System.Windows.Forms.MessageBox.Show(ex.Message);
+                        //    }
+
+
+
+                        //    //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
+                        //    //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
+                        //    //ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
+                        //    //UpdateGui(zdfEntry.Source);
+
                 }
 
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                System.Windows.Forms.MessageBox.Show("Unable to Add New Comment!");
             }
-
-
-
-            //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
-            //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
-            //ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
-            //UpdateGui(zdfEntry.Source);
-
         }
+            
 
-        //private string _txtDocId;
+                        //private string _txtDocId;
 
         protected void setProperties(int id = default(int), string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = default(CommentList))
         {
@@ -121,11 +125,15 @@ namespace ZaveViewModel.Data_Structures
             SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SelectComment);
             AddCommentDelegateCommand = new DelegateCommand(AddComment).ObservesCanExecute(p => CanAdd);
             EditCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(EditComment).ObservesCanExecute(p => CanEdit);
-            
-            
 
-            SelectedItems = new ObservableImmutableList<ZDFCommentItem>();
-            
+           
+            _zdfEntry.Comments.CollectionChanged -= new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
+            _zdfEntry.Comments.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
+
+
+
+
+
             if (!IsEditing)
             {
                 IsEditing = true;
@@ -136,12 +144,18 @@ namespace ZaveViewModel.Data_Structures
                 CanAdd = true;
                 
             }
+            CanEdit = false;
 
            
 
-            _zdfEntry.Comments.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
+            
 
 
+        }
+
+        ~ZDFEntryItem()
+        {
+            _zdfEntry.Comments.CollectionChanged -= ModelCollectionChanged;
         }
 
         
@@ -231,8 +245,9 @@ namespace ZaveViewModel.Data_Structures
 
         protected ZDFEntryItem(ZDFEntry zdfEntry)
         {
+            
             _zdfEntry = zdfEntry;
-
+            
             try
             {
                 setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified, zdfEntry.HColor.Color, fromZDFCommentList(zdfEntry.Comments));
@@ -399,7 +414,9 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        private readonly object _docCommentsLock;
+        //protected IEnumerable<>
+
+        //private readonly object _docCommentsLock;
         protected CommentList _txtDocComments;
         public CommentList TxtDocComments
         {
@@ -407,11 +424,12 @@ namespace ZaveViewModel.Data_Structures
             
             protected set
             {
-                lock (_docCommentsLock)
-                {
-                    _zdfEntry.Comments = new ObservableImmutableList<IEntryComment>(value.ToList<ZDFCommentItem>().ConvertAll(x => new EntryComment(x.CommentText)));
-                    SetProperty(ref _txtDocComments, value);
-                }
+                //lock (_docCommentsLock)
+                //{
+                    _txtDocComments = value;    
+                             
+                    
+                //}
             }
         }
 
@@ -502,13 +520,26 @@ namespace ZaveViewModel.Data_Structures
                 _modelComment = new EntryComment();
                 _commentID = -1;
             }
-                
+            ((EntryComment)_modelComment).PropertyChanged += ZDFCommentItem_PropertyChanged;
 
+        }
+
+        private void ZDFCommentItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            IEntryComment temp = sender as IEntryComment;
+            if(e.PropertyName == "CommentText")
+            {
+                this.CommentText = temp.CommentText;
+            }
+            if(e.PropertyName == "Author")
+            {
+                CommentAuthor = (string)temp.Author;
+            }
         }
 
         //public static ZDFCommentItem fromObject(Object<Object, String, String> obj = default(Object<Object, String, String>))
         //{
-            
+
         //    return new ZDFCommentItem(obj.FirstProp as ModelComment.EntryComment, obj.SecondProp, obj.ThirdProp);
         //}
 

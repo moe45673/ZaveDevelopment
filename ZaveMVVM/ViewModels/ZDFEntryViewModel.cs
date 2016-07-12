@@ -53,6 +53,7 @@ namespace ZaveViewModel.ViewModels
                 _eventAggregator.GetEvent<EntryReadEvent>().Subscribe(EventSetProperties);
                 _regionManager = regionManager;
                 _container = container;
+                //_zdfEntry.Comments.CollectionChanged += base.ModelCollectionChanged;
             }
            
             try
@@ -143,9 +144,9 @@ namespace ZaveViewModel.ViewModels
         {
             if (args.PropertyName == "CommentText")
             {
-                var ec = _zdfEntry.Comments.IndexOf(_zdfEntry.Comments.FirstOrDefault(x => x.CommentText == EditedComment.CommentText));
+                var commentIndex = _zdfEntry.Comments.IndexOf(_zdfEntry.Comments.FirstOrDefault(x => x.CommentText == EditedComment.CommentText));
                 
-                _zdfEntry.Comments[ec] = new EntryComment((sender as ModalInputDialogViewModel).CommentText, EditedComment.CommentAuthor);
+                _zdfEntry.Comments[commentIndex].CommentText = ((ModalInputDialogViewModel)sender).CommentText;
 
                 
             }

@@ -55,8 +55,13 @@
         <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
         <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged, diag:PresentationTraceSources.TraceLevel=High}" />
-        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" >
-            <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList" Width="Auto">
+        <Grid Grid.Row="6" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList" Width="Auto" >
                 <interactivity:Interaction.Triggers>
                     <interactivity:EventTrigger EventName="SelectionChanged">
                         <prism:InvokeCommandAction
@@ -73,7 +78,8 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <StackPanel Orientation="Horizontal">
+            
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <StackPanel>
                     <Button Name="EditButton" Content="Edit Comment" IsEnabled="False" >
 
@@ -88,7 +94,7 @@
                     <Button Name="AddButton" Content="Add Comment">
                         <interactivity:Interaction.Triggers>
                             <interactivity:EventTrigger EventName="Click">
-                                <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" CommandParameter="{Binding SelectedItems, ElementName=LB_CommentList}"/>
+                                <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" />
                             </interactivity:EventTrigger>
                         </interactivity:Interaction.Triggers>
                         
@@ -99,7 +105,7 @@
             </StackPanel>
 
 
-        </StackPanel>
+        </Grid>
 
     </Grid>
 </UserControl>
