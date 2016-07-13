@@ -72,7 +72,8 @@ namespace ZaveModel.ZDF
                     
                     if (instance == null)
                     {
-                        instance = new ZDFSingleton();                        
+                        instance = new ZDFSingleton();
+                        
                     }
                 }
                 return instance;

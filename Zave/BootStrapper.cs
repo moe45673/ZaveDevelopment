@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Zave.Module;
 using ZaveViewModel.ViewModels;
+using Prism.Events;
 
 namespace Zave
 {
@@ -63,7 +64,8 @@ namespace Zave
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ControlBar), "ControlBar");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");       
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
+            //UnityContainerExtensions.RegisterInstance(Container, typeof(ZaveModel.ZDF.ZDFSingleton), ZaveModel.ZDF.ZDFSingleton.GetInstance(Container.Resolve(typeof(EventAggregator)) as EventAggregator));
             
             
             

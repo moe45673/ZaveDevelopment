@@ -16,15 +16,8 @@
         mc:Ignorable="d"
         zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"
         Title="Zave" Height="600" Width="800" WindowStyle="ThreeDBorderWindow">
-    
+
     <Window.Resources>
-        
-        
-          
-        <Style TargetType="Grid">
-            <Setter Property="Background" Value="#1D1A2F"></Setter>
-        </Style>
-       
 
     </Window.Resources>
     <Grid>
