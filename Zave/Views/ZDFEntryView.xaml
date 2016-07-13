@@ -16,11 +16,38 @@
              d:DataContext="{d:DesignInstance vm:ZDFEntryViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <converters:ColorConverters x:Key="ColorConverter"/>
+        <Style x:Key="gridEntry" TargetType="Grid">
+            <Setter Property="Margin" Value="10"></Setter>
+        </Style>
         <Style x:Key="hiLightHeader" TargetType="Grid">
             <Setter Property="Margin" Value="10"></Setter>
         </Style>
+        <Style x:Key="hiLightHeader_Text" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,0,20,0"></Setter>
+            <Setter Property="FontFamily" Value="Open Sans"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
+        <Style x:Key="docName_Text" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="FontFamily" Value="Open Sans"></Setter>
+            <Setter Property="FontWeight" Value="DemiBold"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+        </Style>
+        <Style x:Key="docText_Text" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="FontFamily" Value="Open Sans"></Setter>
+            <Setter Property="FontWeight" Value="Light"></Setter>
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="LineHeight" Value="20"></Setter>
+        </Style>
+        <Style x:Key="docCommentLbl_Text" TargetType="Label">
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="FontFamily" Value="Open Sans"></Setter>
+            <Setter Property="FontWeight" Value="DemiBold"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
     </UserControl.Resources>
-    <Grid x:Name="gridEntry" Margin="10,-2,-2,10">
+    <Grid x:Name="gridEntry" Style="{StaticResource gridEntry}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
 
@@ -40,27 +67,30 @@
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
-            <!--<ColumnDefinition Width="Auto" />-->
         </Grid.ColumnDefinitions>
 
+        <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}"></Canvas>
         <Label x:Name="docIdLbl" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"  />
-        <Grid x:Name="hiLightHeader" Grid.Row="1" Grid.Column="0" Style="{StaticResource hiLightHeader}">
+        <Grid x:Name="hiLightHeader" Grid.Row="1" Grid.Column="1" Style="{StaticResource hiLightHeader}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="0" Grid.Column="0" Text="{Binding TxtDocPage, StringFormat='Page: {0}',UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="0" Grid.Column="1" Text="{Binding TxtDocLastModified, StringFormat='Modified: {0}',UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Text="Created: Jun"/>
+            <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="0" Grid.Column="0" Text="{Binding TxtDocPage, StringFormat='Page: {0}',UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource hiLightHeader_Text}"/>
+            <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="0" Grid.Column="1" Text="{Binding TxtDocLastModified, StringFormat='Modified: {0}',UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource hiLightHeader_Text}"/>
+            <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Text="Created: 2016-07-12 10:38 AM" Style="{StaticResource hiLightHeader_Text}"/>
         </Grid>
-        <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  />
-        <TextBlock x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged, diag:PresentationTraceSources.TraceLevel=High}" />
+        <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
+        <TextBlock x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged, diag:PresentationTraceSources.TraceLevel=High}" Style="{StaticResource docText_Text}"/>
 
         <!--<TextBlock x:Name="docIdTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" Visibility="Collapsed" />-->
-        <!--<TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />-->
-        <Grid Grid.Row="6" Grid.Column="0">
+
+        <Label x:Name="docCommentLbl" Grid.Row="4" Grid.Column="1" Content="Comments" Style="{StaticResource docCommentLbl_Text}"/>
+        <Grid x:Name="docComments" Grid.Row="5" Grid.Column="1">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -77,13 +107,13 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel >
-                            <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Background="#FF8B8B8B" />
-                            <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="Gainsboro" />
+                            <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Background="#FF8B8B8B" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="Gainsboro" TextWrapping="Wrap"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            
+
             <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <StackPanel>
                     <Button Name="EditButton" Content="Edit Comment" IsEnabled="False" >
@@ -94,7 +124,7 @@
                             </interactivity:EventTrigger>
                         </interactivity:Interaction.Triggers>
 
-                  
+
                     </Button>
                     <Button Name="AddButton" Content="Add Comment">
                         <interactivity:Interaction.Triggers>
@@ -102,15 +132,16 @@
                                 <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" />
                             </interactivity:EventTrigger>
                         </interactivity:Interaction.Triggers>
-                        
+
                     </Button>
                     <Button Name="DeleteButton" Content="Delete Comment" IsEnabled="False"/>
                 </StackPanel>
-                
+
             </StackPanel>
 
 
         </Grid>
 
     </Grid>
+
 </UserControl>
