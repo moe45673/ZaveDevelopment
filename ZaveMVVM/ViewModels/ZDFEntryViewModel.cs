@@ -120,19 +120,21 @@ namespace ZaveViewModel.ViewModels
                 ec.CommentText = ((ModalInputDialogViewModel)sender).CommentText;
 
                 _zdfEntry.Comments.Add(new EntryComment(ec.CommentText, "User"));
+                
             }
+            IsEditing = false;
         }
        
 
         protected override void AddComment()
         {
 
-            var vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
-            vm.Clear();
-            var dlg = new ModalInputDialogViewModel();
-            dlg.PropertyChanged += new PropertyChangedEventHandler(AddDlgBoxReturn);
+            var dlg = _container.Resolve(typeof(ModalInputDialogViewModel), "ModalInputDialog") as ModalInputDialogViewModel;
+            //vm.Clear();
             
-            dlg.Show(vm);
+            dlg.PropertyChanged += new PropertyChangedEventHandler(AddDlgBoxReturn);
+
+            IsEditing = true;
 
 
             //System.Windows.MessageBox.Show(("From addComment: " +  vm.GetHashCode()));

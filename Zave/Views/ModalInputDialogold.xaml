@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Zave.Views.ModalInputDialog"
+﻿<Window x:Class="Zave.Views.ModalInputDialog_old"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,9 +7,10 @@
         xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        d:DataContext="{d:DesignInstance zdfviewmodelns:ModalInputDialogViewModel, IsDesignTimeCreatable=True}">
-    
+        Title="Test" Height="170" Width="300" ResizeMode="NoResize" >
+    <Window.Resources>
+        <local:ModalInputDialog_old x:Key="{x:Type zdfviewmodelns:ModalInputDialogViewModel}" x:Shared="False"/>
+    </Window.Resources>
     <Grid>
         <Grid>
             <TextBox Text="{Binding CommentText}" AcceptsReturn="True" HorizontalAlignment="Left" Margin="49,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197"/>
@@ -17,4 +18,4 @@
             <Button Content="Cancel" Command="{Binding CancelCommentDelegateCommand}" HorizontalAlignment="Left" Margin="49,98,0,0" VerticalAlignment="Top" Width="75" />
         </Grid>
     </Grid>
-</UserControl>
+</Window>

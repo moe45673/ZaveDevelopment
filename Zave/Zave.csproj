@@ -141,6 +141,9 @@
     <Compile Include="Views\ModalInputDialog.xaml.cs">
       <DependentUpon>ModalInputDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ModalInputDialogold.xaml.cs">
+      <DependentUpon>ModalInputDialogold.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestDialog.xaml.cs">
       <DependentUpon>TestDialog.xaml</DependentUpon>
     </Compile>
@@ -184,6 +187,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ModalInputDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ModalInputDialogold.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

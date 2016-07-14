@@ -43,6 +43,7 @@ namespace ZaveViewModel.ViewModels
             try
             {
                 OnPropertyChanged("CommentText");
+                
                 RequestClose();
             }
             catch (NullReferenceException nre)
