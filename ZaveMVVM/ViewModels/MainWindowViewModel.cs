@@ -49,6 +49,8 @@ namespace ZaveViewModel.ViewModels
         public ObservableCollection<IDialogViewModel> Dialogs { get { return _dialogs; } }
         #endregion
 
+        
+
     }
 }
 

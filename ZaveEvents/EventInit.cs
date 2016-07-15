@@ -46,7 +46,7 @@ namespace ZaveController
             CreateFileWatcher(Path.GetTempPath());
             lastRead = DateTime.MinValue;
             System.Drawing.Color startupColor = new System.Drawing.Color();
-            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+            //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
             
             //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");

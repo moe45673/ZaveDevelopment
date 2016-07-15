@@ -240,6 +240,7 @@
     <Compile Include="ViewModels\TestDialogViewModel.cs" />
     <Compile Include="ViewModels\ZDFEntryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ZDFListViewModel.cs" />
     <Compile Include="ViewModels\ZDFViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

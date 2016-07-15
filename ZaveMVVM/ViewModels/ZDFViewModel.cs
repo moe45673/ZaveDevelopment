@@ -207,11 +207,17 @@ namespace ZaveViewModel.ViewModels
         private void CreateEntryList()
         {
             ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+
+           
+
+            
             if (_activeZdf.EntryList.Any<IZDFEntry>())
             {
                 foreach (var item in _activeZdf.EntryList)
                     ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
             }
+
+            
 
 
         }

@@ -21,8 +21,8 @@ namespace Zave.Module
 
         public override void Initialize()
         {
-            var zdfSingleton =
-                ZDFSingleton.GetInstance(_unityContainer.Resolve(typeof(IEventAggregator)) as EventAggregator);
+            //var zdfSingleton =
+            //    ZDFSingleton.GetInstance(_unityContainer.Resolve(typeof(IEventAggregator)) as EventAggregator);
             _regionViewRegistry.RegisterViewWithRegion("ZDFView", typeof(ZDFView));
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZDFView), "ZDFView");
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZdfViewModel), "ZDFViewModel");
