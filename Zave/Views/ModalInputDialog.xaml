@@ -34,8 +34,8 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Button Content="Save" Command="{Binding SaveCommentDelegateCommand}" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" IsDefault="True" />
-                <Button Content="Cancel" Command="{Binding CancelCommentDelegateCommand}" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Button Content="Save" Command="{Binding SaveCommentDelegateCommand}" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" IsDefault="True" />
+                <Button Content="Cancel" Command="{Binding CancelCommentDelegateCommand}" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50"/>
             </Grid>
         </Grid>
     </Grid>
