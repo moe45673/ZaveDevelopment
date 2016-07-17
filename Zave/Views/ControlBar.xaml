@@ -16,7 +16,7 @@
     </UserControl.Resources>
     
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Image Source="img/zave-beta.png" Height="70" Width="250"/>
+        <Image Source="/Zave;component/media/images/zave-beta.png" Height="70" Width="250" diag:PresentationTraceSources.TraceLevel="High"/>
         <!--<TextBlock   Text="[Zave Controls]" FontSize="72" FontFamily="Franklin Gothic Heavy" Opacity="0.8" VerticalAlignment="Center">
             <TextBlock.Effect>
                 <DropShadowEffect Color="#FFF3FF00"/>
