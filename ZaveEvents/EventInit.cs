@@ -9,6 +9,7 @@ using System.Windows.Media;
 using JetBrains.ReSharper.Psi.Resx.Utils;
 using Newtonsoft.Json;
 using Prism.Events;
+using Prism.Unity;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.ZaveFile;
 using ZaveModel.ZDFColors;
@@ -33,6 +34,7 @@ namespace ZaveController
         //private static EventInitSingleton instance;
         private FileSystemWatcher watcher;
         private IEventAggregator _eventAggregator;
+        private 
         
         //public ZDFEntryHandler zdfEntryHandler { get; set; }
 
