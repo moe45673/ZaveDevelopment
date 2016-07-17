@@ -125,7 +125,7 @@
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="5" Grid.Column="1" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, diag:PresentationTraceSources.TraceLevel=High}">
-        <local:ModalInputDialog />
+        <local:ModalInputDialog HorizontalAlignment="Stretch"/>
         </StackPanel>
         <Grid x:Name="docComments" Grid.Row="6" Grid.Column="1">
 
