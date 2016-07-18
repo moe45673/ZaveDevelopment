@@ -34,7 +34,7 @@ namespace ZaveController
         //private static EventInitSingleton instance;
         private FileSystemWatcher watcher;
         private IEventAggregator _eventAggregator;
-        private 
+        
         
         //public ZDFEntryHandler zdfEntryHandler { get; set; }
 
