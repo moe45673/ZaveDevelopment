@@ -63,14 +63,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding CommentText}" Grid.Row="0" Grid.Column="0" Style="{StaticResource Comment_TxtField}"/>
+            <TextBox Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="False" Grid.Row="0" Grid.Column="0" Style="{StaticResource Comment_TxtField}" />
+
+
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Button Content="Save" Command="{Binding SaveCommentDelegateCommand}" Grid.Row="0" Style="{StaticResource Comment_Save_Btn}"/>
-                <Button Content="Cancel" Command="{Binding CancelCommentDelegateCommand}" Grid.Row="1" Style="{StaticResource Comment_Cancel_Btn}"/>
+                <Button Content="Save" Name="SaveButton" IsDefault="True" Command="{Binding SaveCommentDelegateCommand}" Grid.Row="0" Style="{StaticResource Comment_Save_Btn}"/>
+                <Button Content="Cancel" Command="{Binding CancelCommentDelegateCommand}" IsCancel="True" Grid.Row="1" Style="{StaticResource Comment_Cancel_Btn}"/>
             </Grid>
         </Grid>
     </Grid>
