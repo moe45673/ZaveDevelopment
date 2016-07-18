@@ -14,7 +14,8 @@ namespace ZaveViewModel.ViewModels
 {
     public class ModalInputDialogViewModel : BindableBase, IUserDialogViewModel
     {
-        //string toReturn;
+        string originalValue;
+        
         //private Object _sender;
 
         public ModalInputDialogViewModel()
@@ -22,10 +23,23 @@ namespace ZaveViewModel.ViewModels
             //toReturn = fromSender;
             SaveCommentDelegateCommand = new DelegateCommand(SaveComment);
             CancelCommentDelegateCommand = new DelegateCommand(CancelComment);
-            
+            originalValue = CommentText;
+
+            //OnCloseRequest = (sender) =>
+            //{
+            //    sender.result = CommentText;
+            //    sender.Close();
+            //};
         }
 
-        
+
+        private Object result;
+
+        public Object Result
+        {
+            get { return this.result; }
+            private set { result = value; }
+        }
 
         public bool IsModal
         {
@@ -44,7 +58,6 @@ namespace ZaveViewModel.ViewModels
             {
                 OnPropertyChanged("CommentText");
                 
-                RequestClose();
             }
             catch (NullReferenceException nre)
             {
@@ -74,7 +87,9 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand CancelCommentDelegateCommand { get; private set; }
         protected void CancelComment()
         {
-            RequestClose();
+            OnPropertyChanged("Cancel");
+            CommentText = originalValue;
+            //RequestClose();
         }
 
         public event EventHandler DialogClosing;
@@ -92,7 +107,9 @@ namespace ZaveViewModel.ViewModels
         public void Close()
         {
             if (this.DialogClosing != null)
+            {                
                 this.DialogClosing(this, new EventArgs());
+            }
         }
 
         public void Show(IList<IDialogViewModel> collection)

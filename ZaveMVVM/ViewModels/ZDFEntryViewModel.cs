@@ -43,6 +43,7 @@ namespace ZaveViewModel.ViewModels
         private IUnityContainer _container;
 
         protected ObservableCollection<IDialogViewModel> CommentDialog;
+        protected ModalInputDialogViewModel _commentDlg;
 
         public ZDFEntryViewModel(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container) : base(new ZDFEntry())
         {
@@ -53,6 +54,7 @@ namespace ZaveViewModel.ViewModels
                 _eventAggregator.GetEvent<EntryReadEvent>().Subscribe(EventSetProperties);
                 _regionManager = regionManager;
                 _container = container;
+                _commentDlg = new ModalInputDialogViewModel();
                 //_zdfEntry.Comments.CollectionChanged += base.ModelCollectionChanged;
             }
            
@@ -68,6 +70,15 @@ namespace ZaveViewModel.ViewModels
                 throw nre;
             }
             
+        }
+
+
+        
+
+        public ModalInputDialogViewModel CommentDlg
+        {
+            get { return this._commentDlg; }
+            set { SetProperty(ref _commentDlg, value); }
         }
 
 
@@ -112,7 +123,7 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        private void AddDlgBoxReturn(object sender, PropertyChangedEventArgs args)
+        private void AddCommentDlgBoxReturn(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName == "CommentText")
             {
@@ -122,6 +133,8 @@ namespace ZaveViewModel.ViewModels
                 _zdfEntry.Comments.Add(new EntryComment(ec.CommentText, "User"));
                 
             }
+            ((ModalInputDialogViewModel)sender).PropertyChanged -= new PropertyChangedEventHandler(AddCommentDlgBoxReturn);
+            
             IsEditing = false;
         }
        
@@ -129,17 +142,18 @@ namespace ZaveViewModel.ViewModels
         protected override void AddComment()
         {
 
-            var dlg = _container.Resolve(typeof(ModalInputDialogViewModel), "ModalInputDialog") as ModalInputDialogViewModel;
-            //vm.Clear();
             
-            dlg.PropertyChanged += new PropertyChangedEventHandler(AddDlgBoxReturn);
-
+            //var dlgBoxCollection = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
+            //dlgBoxCollection.Clear();
+            
+            CommentDlg.PropertyChanged += new PropertyChangedEventHandler(AddCommentDlgBoxReturn);
+            CommentDlg.CommentText = "";
             IsEditing = true;
 
-
+            //dlg.Show(dlgBoxCollection);
             //System.Windows.MessageBox.Show(("From addComment: " +  vm.GetHashCode()));
 
-            dlg.PropertyChanged -= new PropertyChangedEventHandler(AddDlgBoxReturn);
+            
         }
 
         private void EditDlgBoxReturn(object sender, PropertyChangedEventArgs args)
