@@ -23,11 +23,6 @@ namespace ZaveViewModel.ViewModels
             
             
         }
-
-        public MainContainerViewModel()
-        {
-            
-        }
         
     }
 }
