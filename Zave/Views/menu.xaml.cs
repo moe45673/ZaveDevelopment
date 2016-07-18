@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Zave.Views
 {
     /// <summary>
-    /// Interaction logic for MainContainer.xaml
+    /// Interaction logic for menu.xaml
     /// </summary>
-    public partial class MainContainer : UserControl
+    public partial class menu : UserControl
     {
-        public MainContainer()
+        public menu()
         {
             InitializeComponent();
-        }
-
-        private void ControlBar_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

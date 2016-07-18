@@ -25,25 +25,27 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1*"/>
-
-        
         </Grid.RowDefinitions>
-        <Border Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black" Name="bdrControl">
-            <my:ControlBar></my:ControlBar>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
+            <my:menu></my:menu>
+        </StackPanel>
+        <Border Grid.Row="1" Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black" Name="bdrControl">
+            <my:ControlBar Loaded="ControlBar_Loaded"></my:ControlBar>
         </Border>
-        <Border Grid.ColumnSpan="3" Grid.Row="2" BorderThickness="1" BorderBrush="Black">
+        <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="1" BorderBrush="Black">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="[List of ZDF Files]" FontSize="50" FontFamily="Franklin Gothic Heavy" Opacity="0.8" >
                 <TextBlock.Effect>
                     <DropShadowEffect Color="#FFED3EFF"/>
                 </TextBlock.Effect>
             </TextBlock>
         </Border>
-        <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch" />
-        <my:ZDFView Grid.Row="1" />
-        <Border Grid.Column="2" Grid.Row="1">
+        <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
+        <my:ZDFView Grid.Row="2" />
+        <Border Grid.Column="2" Grid.Row="2">
             <my:ZDFEntryView></my:ZDFEntryView>
         </Border>
     </Grid>
