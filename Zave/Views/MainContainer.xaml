@@ -31,7 +31,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
-            <my:menu></my:menu>
+            <my:Menu></my:Menu>
         </StackPanel>
         <Border Grid.Row="1" Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black" Name="bdrControl">
             <my:ControlBar Loaded="ControlBar_Loaded"></my:ControlBar>
