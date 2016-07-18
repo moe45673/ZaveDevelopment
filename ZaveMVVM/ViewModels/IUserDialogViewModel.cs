@@ -11,5 +11,6 @@ namespace ZaveViewModel.ViewModels
 		bool IsModal { get; }
 		void RequestClose();
 		event EventHandler DialogClosing;
+        Object Result { get; }
 	}
 }

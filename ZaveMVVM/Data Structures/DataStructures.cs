@@ -455,13 +455,14 @@ namespace ZaveViewModel.Data_Structures
 
         public bool IsEditing
         {
-            get { return this._isEditing; }
+            get {return this._isEditing; }
             set
             {
                 _isEditing = value;
                 IsNotEditing = !_isEditing;
                 CanAdd = !_isEditing;
                 OnPropertyChanged("IsEditing");
+                //System.Windows.Forms.MessageBox.Show("IsEditing is set to " + _isEditing);
             }
         }
 

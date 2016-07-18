@@ -16,6 +16,8 @@ using ZaveGlobalSettings.ZaveFile;
 using Prism.Events;
 using Microsoft.Practices.Unity;
 using ZaveController;
+using ZaveGlobalSettings.Data_Structures;
+using System.Drawing;
 
 namespace Zave
 {
@@ -80,6 +82,7 @@ namespace Zave
             var bs = new BootStrapper();
             bs.Run();
             var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
+            //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));
             eventInit = EventInitSingleton.GetInstance(eventAgg);
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
@@ -94,7 +97,9 @@ namespace Zave
                     throw ex;
                 }
             }
+
             
+
         }
 
         

@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Zave.Views
 {
     /// <summary>
-    /// Interaction logic for MainContainer.xaml
+    /// Interaction logic for ModalInputDialog.xaml
     /// </summary>
-    public partial class MainContainer : UserControl
+    public partial class ModalInputDialog_old : Window
     {
-        public MainContainer()
+        public ModalInputDialog_old()
         {
             InitializeComponent();
-        }
-
-        private void ControlBar_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

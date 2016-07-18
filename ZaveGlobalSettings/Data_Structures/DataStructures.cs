@@ -81,7 +81,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
         
-        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<object> comments = default(List<object>))
+        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<object> comments = null)
         {
             ID = id;
             SelectionDocName = name;
@@ -93,8 +93,10 @@ namespace ZaveGlobalSettings.Data_Structures
                 SelectionDateModified = date;
             this.Color = col;
             srcType = src;
-
-            Comments = comments;
+            if (comments != null)
+                Comments = comments;
+            else
+                Comments = new List<object>();
 
             IsValid = true;
         }
