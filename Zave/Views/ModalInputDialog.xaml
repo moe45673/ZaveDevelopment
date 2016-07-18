@@ -11,7 +11,7 @@
         d:DataContext="{d:DesignInstance zdfviewmodelns:ModalInputDialogViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-        <Style x:Key="CommentTxtField" TargetType="TextBox">
+        <Style x:Key="Comment_TxtField" TargetType="TextBox">
             <Setter Property="Margin" Value="10,0,10,0"></Setter>
             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -63,7 +63,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding CommentText}" Grid.Row="0" Grid.Column="0" Style="{StaticResource CommentTxtField}"/>
+            <TextBox Text="{Binding CommentText}" Grid.Row="0" Grid.Column="0" Style="{StaticResource Comment_TxtField}"/>
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
