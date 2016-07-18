@@ -123,9 +123,9 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        private void AddCommentDlgBoxReturn(object sender, PropertyChangedEventArgs args)
+        private void AddCommentDlgBoxReturn(object sender, EventArgs args)
         {
-            if (args.PropertyName == "CommentText")
+            if (((ModalInputDialogViewModel)sender).CommentText != null && ((ModalInputDialogViewModel)sender).CommentText.Any())
             {
                 var ec = new ZDFCommentItem();
                 ec.CommentText = ((ModalInputDialogViewModel)sender).CommentText;
@@ -133,7 +133,7 @@ namespace ZaveViewModel.ViewModels
                 _zdfEntry.Comments.Add(new EntryComment(ec.CommentText, "User"));
                 
             }
-            ((ModalInputDialogViewModel)sender).PropertyChanged -= new PropertyChangedEventHandler(AddCommentDlgBoxReturn);
+            
             
             IsEditing = false;
         }
@@ -142,12 +142,13 @@ namespace ZaveViewModel.ViewModels
         protected override void AddComment()
         {
 
-            
+
             //var dlgBoxCollection = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
             //dlgBoxCollection.Clear();
-            
-            CommentDlg.PropertyChanged += new PropertyChangedEventHandler(AddCommentDlgBoxReturn);
+            CommentDlg.DialogClosing -= new EventHandler(AddCommentDlgBoxReturn);
+            CommentDlg.DialogClosing += new EventHandler(AddCommentDlgBoxReturn);
             CommentDlg.CommentText = "";
+            
             IsEditing = true;
 
             //dlg.Show(dlgBoxCollection);
@@ -179,7 +180,7 @@ namespace ZaveViewModel.ViewModels
                 EditedComment = TxtDocComments.FirstOrDefault(x => x.CommentText == (commentList[0] as ZDFCommentItem).CommentText);
                 dlg.CommentText = EditedComment.CommentText;
                 dlg.PropertyChanged += new PropertyChangedEventHandler(EditDlgBoxReturn);
-                dlg.Show(vm);
+                //dlg.Show(vm);
                 dlg.PropertyChanged -= new PropertyChangedEventHandler(EditDlgBoxReturn);
                     
             }

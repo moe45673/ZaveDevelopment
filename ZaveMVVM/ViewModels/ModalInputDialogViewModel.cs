@@ -23,7 +23,7 @@ namespace ZaveViewModel.ViewModels
             //toReturn = fromSender;
             SaveCommentDelegateCommand = new DelegateCommand(SaveComment);
             CancelCommentDelegateCommand = new DelegateCommand(CancelComment);
-            originalValue = CommentText;
+            _commentText = "";
 
             //OnCloseRequest = (sender) =>
             //{
@@ -56,7 +56,8 @@ namespace ZaveViewModel.ViewModels
             
             try
             {
-                OnPropertyChanged("CommentText");
+
+                Close();
                 
             }
             catch (NullReferenceException nre)
@@ -74,7 +75,7 @@ namespace ZaveViewModel.ViewModels
         public string CommentText
         {
             get { return _commentText;}
-            set { _commentText = value; }
+            set { SetProperty(ref _commentText, value); }
         }
 
         private string _caption;
@@ -87,9 +88,9 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand CancelCommentDelegateCommand { get; private set; }
         protected void CancelComment()
         {
-            OnPropertyChanged("Cancel");
+            
             CommentText = originalValue;
-            //RequestClose();
+            Close();
         }
 
         public event EventHandler DialogClosing;
@@ -112,9 +113,9 @@ namespace ZaveViewModel.ViewModels
             }
         }
 
-        public void Show(IList<IDialogViewModel> collection)
+        public void Show()
         {
-            collection.Add(this);
+            originalValue = CommentText;
         }
 
 
