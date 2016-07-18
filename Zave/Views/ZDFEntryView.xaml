@@ -15,36 +15,95 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:ZDFEntryViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:ColorConverters x:Key="ColorConverter"/>
-        <Style x:Key="gridEntry" TargetType="Grid">
-            <Setter Property="Margin" Value="10"></Setter>
+        <local:MainWindow x:Key="ZaveShell"/>
+        <Style x:Key="gridEntry" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="10"/>
         </Style>
-        <Style x:Key="hiLightHeader" TargetType="Grid">
-            <Setter Property="Margin" Value="10"></Setter>
+        <Style x:Key="hiLightHeader" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="10"/>
         </Style>
-        <Style x:Key="hiLightHeader_Text" TargetType="TextBlock">
-            <Setter Property="Margin" Value="0,0,20,0"></Setter>
-            <Setter Property="FontFamily" Value="Open Sans"></Setter>
-            <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Style x:Key="hiLightHeader_Text" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
-        <Style x:Key="docName_Text" TargetType="TextBlock">
-            <Setter Property="Margin" Value="10"></Setter>
-            <Setter Property="FontFamily" Value="Open Sans"></Setter>
-            <Setter Property="FontWeight" Value="DemiBold"></Setter>
-            <Setter Property="FontSize" Value="20"></Setter>
+        <Style x:Key="docName_Text" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
-        <Style x:Key="docText_Text" TargetType="TextBlock">
-            <Setter Property="Margin" Value="10"></Setter>
-            <Setter Property="FontFamily" Value="Open Sans"></Setter>
-            <Setter Property="FontWeight" Value="Light"></Setter>
-            <Setter Property="FontSize" Value="12"></Setter>
-            <Setter Property="LineHeight" Value="20"></Setter>
+        <Style x:Key="docText_Text" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="LineHeight" Value="20"/>
         </Style>
-        <Style x:Key="docCommentLbl_Text" TargetType="Label">
-            <Setter Property="Margin" Value="10"></Setter>
-            <Setter Property="FontFamily" Value="Open Sans"></Setter>
-            <Setter Property="FontWeight" Value="DemiBold"></Setter>
-            <Setter Property="FontSize" Value="15"></Setter>
+        <Style x:Key="docCommentLbl_Text" TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+        <Style x:Key="CommentHeader_StackPanel_Right" TargetType="{x:Type StackPanel}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="CommentHeader_Button_Action" TargetType="{x:Type Button}">
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                    <Setter Property="Foreground" Value="DarkGray"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                    <Setter Property="Foreground" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Comment_Button_Delete" BasedOn="{StaticResource CommentHeader_Button_Action}" TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Comment_Item_Container" TargetType="{x:Type ListBox}">
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
+        <Style x:Key="Comment_Item" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="0,3,0,3"/>
+        </Style>
+        <Style x:Key="Comment_Txt" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="Comment_Author" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
     </UserControl.Resources>
     <Grid x:Name="gridEntry" Style="{StaticResource gridEntry}">
@@ -88,15 +147,33 @@
 
         <!--<TextBlock x:Name="docIdTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" Visibility="Collapsed" />-->
 
-        <Label x:Name="docCommentLbl" Grid.Row="4" Grid.Column="1" Content="Comments" Style="{StaticResource docCommentLbl_Text}"/>
-        <Grid x:Name="docComments" Grid.Row="5" Grid.Column="1">
+        <Grid x:Name="CommentHeader" Grid.Row="4" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="docCommentLbl" Grid.Row="0" Grid.Column="0" Content="Comments" Style="{StaticResource docCommentLbl_Text}"/>
+            <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource CommentHeader_StackPanel_Right}">
+                <Button Name="MainAddButton" Content="Add" Style="{StaticResource CommentHeader_Button_Action}">
+                    <interactivity:Interaction.Triggers>
+                        <interactivity:EventTrigger EventName="Click">
+                            <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" />
+                        </interactivity:EventTrigger>
+                    </interactivity:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="5" Grid.Column="1" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <local:ModalInputDialog DataContext="{Binding CommentDlg, Mode=OneWay}" />
+        </StackPanel>
+        <Grid x:Name="docComments" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <!--<ColumnDefinition Width="50"/>-->
             </Grid.ColumnDefinitions>
 
-            <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList" Width="Auto" >
+            <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList" Style="{StaticResource Comment_Item_Container}">
                 <interactivity:Interaction.Triggers>
                     <interactivity:EventTrigger EventName="SelectionChanged">
                         <prism:InvokeCommandAction
@@ -106,15 +183,57 @@
                 </interactivity:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel >
-                            <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Background="#FF8B8B8B" TextWrapping="Wrap"/>
-                            <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="Gainsboro" TextWrapping="Wrap"/>
-                        </StackPanel>
+                        <Grid Style="{StaticResource Comment_Item}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel>
+                                <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Txt}"/>
+                                <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Author}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Button Name="EditButton" Content="Edit"  Style="{StaticResource CommentHeader_Button_Action}" IsEnabled="False" >
+
+                                    <interactivity:Interaction.Triggers>
+                                        <interactivity:EventTrigger EventName="Click">
+                                            <prism:InvokeCommandAction Command="{Binding ElementName=LB_CommentList, Path=DataContext.EditCommentDelegateCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                                        </interactivity:EventTrigger>
+                                    </interactivity:Interaction.Triggers>
+
+
+                                </Button>
+                                <Button Name="DeleteButton" Content="Delete"  Style="{StaticResource Comment_Button_Delete}" IsEnabled="False"/>
+                            </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="0,3,0,3"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border Background="{x:Null}" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{x:Null}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
             </ListBox>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <!--<StackPanel Orientation="Horizontal" Grid.Column="1">
                 <StackPanel>
                     <Button Name="EditButton" Content="Edit Comment" IsEnabled="False" >
 
@@ -137,7 +256,7 @@
                     <Button Name="DeleteButton" Content="Delete Comment" IsEnabled="False"/>
                 </StackPanel>
 
-            </StackPanel>
+            </StackPanel>-->
 
 
         </Grid>

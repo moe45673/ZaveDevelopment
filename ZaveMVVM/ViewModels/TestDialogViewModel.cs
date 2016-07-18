@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZaveViewModel.ViewModels
 {
-    public class TestDialogViewModel : IUserDialogViewModel
+    public class TestDialogViewModel // : IUserDialogViewModel
     {
 
 
