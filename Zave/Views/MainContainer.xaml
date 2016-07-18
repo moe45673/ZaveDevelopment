@@ -28,7 +28,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="9*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
             <my:menu></my:menu>
@@ -37,11 +37,12 @@
             <my:ControlBar Loaded="ControlBar_Loaded"></my:ControlBar>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="1" BorderBrush="Black">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="[List of ZDF Files]" FontSize="50" FontFamily="Franklin Gothic Heavy" Opacity="0.8" >
+            <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="[List of ZDF Files]" FontSize="50" FontFamily="Franklin Gothic Heavy" Opacity="0.8" >
                 <TextBlock.Effect>
                     <DropShadowEffect Color="#FFED3EFF"/>
                 </TextBlock.Effect>
-            </TextBlock>
+            </TextBlock>-->
+            <my:ZDFList></my:ZDFList>
         </Border>
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
         <my:ZDFView Grid.Row="2" />
