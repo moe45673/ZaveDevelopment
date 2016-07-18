@@ -46,7 +46,9 @@
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
         <my:ZDFView Grid.Row="2" />
         <Border Grid.Column="2" Grid.Row="2">
-            <my:ZDFEntryView></my:ZDFEntryView>
+            <ScrollViewer>
+                <my:ZDFEntryView></my:ZDFEntryView>
+            </ScrollViewer>
         </Border>
     </Grid>
 </UserControl>
