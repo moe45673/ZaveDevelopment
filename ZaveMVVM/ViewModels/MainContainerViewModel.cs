@@ -26,14 +26,14 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
 
-        public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IOService ioService, IEventAggregator eventAgg)
+        public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg)
         {
             _container = cont;
             _regionManager = regionManager;
             _eventAggregator = eventAgg;
-            SaveZDFDelegateCommand = new DelegateCommand(SaveZDF);
-            OpenZDFDelegateCommand = new DelegateCommand(OpenZDF);
-            _ioService = ioService;
+            //SaveZDFDelegateCommand = new DelegateCommand(SaveZDF);
+            //OpenZDFDelegateCommand = new DelegateCommand(OpenZDF);
+            //_ioService = ioService;
             
         }
 

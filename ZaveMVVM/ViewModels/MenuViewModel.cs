@@ -28,9 +28,9 @@ namespace ZaveViewModel.ViewModels
             _regionManager = reg;
             _container = cont;
 
-            var vm = _container.Resolve(typeof(MainContainerViewModel)) as MainContainerViewModel;
-            SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
-            OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
+            //var vm = _container.Resolve(typeof(MainContainerViewModel)) as MainContainerViewModel;
+            //SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
+            //OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
 
         }
 

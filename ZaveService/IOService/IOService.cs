@@ -23,7 +23,7 @@ namespace ZaveService.IOService
     {
         public StreamReader OpenFileService(string path)
         {
-            var sr = new StreamReader(path);
+            var sr = ZaveGlobalSettings.ZaveFile.StreamReaderFactory.createStreamReader(path);
             return sr;
         }
 
@@ -41,7 +41,7 @@ namespace ZaveService.IOService
 
         public StreamWriter SaveFileService(string path)
         {
-            StreamWriter sw = new StreamWriter(path);
+            StreamWriter sw = ZaveGlobalSettings.ZaveFile.StreamWriterFactory.createStreamWriter(path);
             return sw;
         }
 
