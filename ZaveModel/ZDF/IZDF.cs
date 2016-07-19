@@ -14,7 +14,7 @@ namespace ZaveModel.ZDF
         //static event EventHandler<ModelEventArgs> PropertyChanged;
         void Add(ZaveModel.ZDFEntry.IZDFEntry zEntry);
 
-        ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList { get; set; }
+        ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList { get;}
 
         SelectionStateList toSelectionStateList();
         

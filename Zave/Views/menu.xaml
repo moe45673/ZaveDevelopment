@@ -12,13 +12,14 @@
              xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance vm:MenuViewModel, IsDesignTimeCreatable=True}">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem HorizontalAlignment="Left" Header="_File">
                 <MenuItem Header="_New"  HorizontalAlignment="Left"/>
-                <MenuItem Header="_Open"  HorizontalAlignment="Left"/>
-                <MenuItem Header="_Save"  HorizontalAlignment="Left"/>
+                <MenuItem Header="_Open"  HorizontalAlignment="Left" Command="{Binding OpenZDFDelegateCommand}"/>
+                <MenuItem Header="_Save"  HorizontalAlignment="Left" Command="{Binding SaveZDFDelegateCommand}" />
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>

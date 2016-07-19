@@ -13,6 +13,7 @@ using System.Collections.Immutable;
 using System.Threading;
 using System.Windows.Forms;
 using JetBrains.ReSharper.Psi.Resx.Utils;
+using Newtonsoft.Json;
 using Prism.Mvvm;
 using Prism.Events;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
@@ -21,20 +22,23 @@ using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 namespace ZaveModel.ZDF
 {
 
-
+    [JsonObject]
     public sealed class ZDFSingleton : BindableBase, IZDF
     {
 
         //Needs to be protected virtual with private set
         
-
+        [JsonIgnore]
         private static ZDFSingleton instance;
+        [JsonIgnore]
         private static readonly object syncRoot = new Object();
+        [JsonIgnore]
         private static int _iDTracker;
+        [JsonIgnore]
         private IEventAggregator _eventAggregator;
         //private string _date = DateTime.Now.ToShortTimeString();
         //FileSystemWatcher watcher;
-
+        
         public static int setID()
         {          
             
@@ -42,14 +46,14 @@ namespace ZaveModel.ZDF
         }
 
 
-
+        
         private ZDFSingleton()
         {
 
 
             
             
-            _entryList = new ObservableImmutableList<IZDFEntry>();
+            EntryList = new ObservableImmutableList<IZDFEntry>();
             
             
             if (EntryList.Count.Equals(0))
@@ -62,7 +66,7 @@ namespace ZaveModel.ZDF
         }
 
 
-
+        [JsonIgnore]
         private static ZDFSingleton Instance
         {
             get
@@ -79,7 +83,7 @@ namespace ZaveModel.ZDF
                 return instance;
             }
         }
-
+        
         public static ZDFSingleton GetInstance(IEventAggregator eventAgg = null)
         {
             lock (syncRoot)
@@ -104,21 +108,18 @@ namespace ZaveModel.ZDF
             return Instance;
         }
 
+        [JsonProperty]
         public static int IDTracker { get { return _iDTracker; } }
 
        
-
+        [JsonIgnore]
         private ObservableImmutableList<IZDFEntry> _entryList;
 
         //public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public ObservableImmutableList<IZDFEntry> EntryList
-        {
-            get { return _entryList; }
-            set { SetProperty(ref _entryList, value); }
-
-               
-        }
+        [JsonProperty]
+        public ObservableImmutableList<IZDFEntry> EntryList { get; set; }
+        
 
         
 

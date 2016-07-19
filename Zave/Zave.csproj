@@ -133,6 +133,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ColorConverters.cs" />
+    <Compile Include="Module\IOModule.cs" />
     <Compile Include="Module\MainContainerModule.cs" />
     <Compile Include="Module\MainWindowModule.cs" />
     <Compile Include="Module\ModuleBaseClass.cs" />
@@ -274,6 +275,10 @@
     <ProjectReference Include="..\ZaveMVVM\ZaveViewModel.csproj">
       <Project>{61e09293-709d-447d-bc4c-306e3118f20c}</Project>
       <Name>ZaveViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveService\ZaveService.csproj">
+      <Project>{7564b53b-b138-4e6f-8d37-acdd1e51f787}</Project>
+      <Name>ZaveService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

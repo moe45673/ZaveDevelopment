@@ -15,6 +15,7 @@ using ZaveModel.ZDFColors;
 using ZaveViewModel.ViewModels;
 using WPFColor = System.Windows.Media.Color;
 using Color = System.Drawing.Color;
+using Newtonsoft.Json;
 
 
 namespace ZaveViewModel.Data_Structures
@@ -24,7 +25,7 @@ namespace ZaveViewModel.Data_Structures
 
     using selStateCommentList = List<Object>;
 
-
+    [JsonObject(MemberSerialization.OptIn)]
     public abstract class ZDFEntryItem : BindableBase
     {
 

@@ -219,9 +219,9 @@ namespace ZaveViewModel.ViewModels
                     ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
             }
 
-            ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState1)));
-            ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState2)));
-            ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState3)));
+            //ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState1)));
+            //ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState2)));
+            //ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState3)));
 
         }
 
@@ -236,7 +236,7 @@ namespace ZaveViewModel.ViewModels
 
             _container = container;
 
-            _activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
+            _activeZdf = _container.
 
             //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
             //if (activeZDF.EntryList.Count != 0)
@@ -258,9 +258,16 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        private void SetModel(Object obj)
+        public ZDFSingleton GetModel()
+        {
+            return _activeZdf;
+        }
+
+        public void SetModel(Object obj)
         {
             _activeZdf = obj as ZaveModel.ZDF.ZDFSingleton;
+            CreateEntryList();
+
         }
 
         public bool SelectedItem { get; set; }

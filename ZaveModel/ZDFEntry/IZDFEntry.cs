@@ -22,7 +22,7 @@ namespace ZaveModel.ZDFEntry {
 
         //event EventHandler<ZaveGlobalSettings.Data_Structures.ModelEventArgs> PropertyChanged;
 
-        ObservableImmutableList<IEntryComment> Comments { get; set; }
+        ObservableImmutableList<IEntryComment> Comments { get; }
 
 
         ColorCategory HColor
