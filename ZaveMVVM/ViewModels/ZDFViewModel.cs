@@ -236,7 +236,7 @@ namespace ZaveViewModel.ViewModels
 
             _container = container;
 
-            _activeZdf = _container.
+            _activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
 
             //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
             //if (activeZDF.EntryList.Count != 0)

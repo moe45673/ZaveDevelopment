@@ -67,13 +67,13 @@ namespace ZaveController
             
         }
 
-        public static EventInitSingleton GetInstance(IEventAggregator eventAgg = null, IUnityContainer cont)
+        public static EventInitSingleton GetInstance(IEventAggregator eventAgg = null)
         {
             if (instance._eventAggregator == null && eventAgg != null)
             {
                 instance._eventAggregator = eventAgg;
                 instance._eventAggregator.GetEvent<MainControlsUpdateEvent>().Subscribe(instance.SetActiveColor);
-                instance._container = cont;
+                //instance._container = cont;
             }
             
             return Instance;
@@ -204,7 +204,7 @@ namespace ZaveController
                         //_eventAggregator.GetEvent<EntryCreatedEvent>().Publish(entry)
 
 
-                        activeZDF = (_container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel).GetModel();
+                        activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
                             //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ConvertToString());
                             activeZDF.Add(entry);
                         }
