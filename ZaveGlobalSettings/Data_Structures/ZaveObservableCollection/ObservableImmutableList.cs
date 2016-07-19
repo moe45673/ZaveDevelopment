@@ -6,14 +6,17 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 namespace ZaveGlobalSettings.Data_Structures.ZaveObservableCollection
 {
+    [JsonObject(MemberSerialization.OptIn)]
 	public class ObservableImmutableList<T> : ObservableCollectionObject, IList, ICollection, IEnumerable, IList<T>, IImmutableList<T>, ICollection<T>, IEnumerable<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged, INotifyPropertyChanged
 		{
 		#region Private
 
 		private readonly object _syncRoot;
+        [JsonProperty]
 		private ImmutableList<T> _items;
 
 		#endregion Private

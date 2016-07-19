@@ -15,6 +15,8 @@ using ZaveGlobalSettings.ZaveFile;
 using ZaveModel.ZDFColors;
 //using ZaveService.ZDFEntry;
 using WPFColor = System.Windows.Media.Color;
+using Microsoft.Practices.Unity;
+using ZaveViewModel.ViewModels;
 
 //using ZaveMo
 
@@ -29,6 +31,7 @@ namespace ZaveController
         bool disposed = false;
         public ZaveModel.ZDF.ZDFSingleton activeZDF;
         private static DateTime lastRead;
+        private IUnityContainer _container;
 
         private static readonly EventInitSingleton instance = new EventInitSingleton();
         //private static EventInitSingleton instance;
@@ -70,7 +73,7 @@ namespace ZaveController
             {
                 instance._eventAggregator = eventAgg;
                 instance._eventAggregator.GetEvent<MainControlsUpdateEvent>().Subscribe(instance.SetActiveColor);
-                
+                //instance._container = cont;
             }
             
             return Instance;
@@ -198,10 +201,10 @@ namespace ZaveController
                             
                             entry.HColor = ColorCategory.FromWPFColor(activeColor);
 
-                            //_eventAggregator.GetEvent<EntryCreatedEvent>().Publish(entry)
-                            
+                        //_eventAggregator.GetEvent<EntryCreatedEvent>().Publish(entry)
 
-                            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+
+                        activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
                             //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ConvertToString());
                             activeZDF.Add(entry);
                         }

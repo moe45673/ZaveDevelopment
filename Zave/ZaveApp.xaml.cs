@@ -90,13 +90,18 @@ namespace Zave
                 try
                 {
                     sw.Write("[]");
-                    sw.Close();
+                    
                 }
                 catch (IOException ex)
                 {
                     throw ex;
                 }
+                finally
+                {
+                    sw.Close();
+                }
             }
+            
 
             
 
