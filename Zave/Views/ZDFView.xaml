@@ -9,12 +9,13 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:converters="clr-namespace:Zave.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" 
              d:DataContext="{d:DesignInstance vm:ZDFViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-        
+        <converters:ColorConverters x:Key="ColorConverter"/>
         <!--ListView Styles-->
         <Style TargetType="ListView">
             <Setter Property="Margin" Value="0"></Setter>
@@ -32,7 +33,6 @@
             </Style.Resources>
         </Style>
         <Style x:Key="ListView_Border" TargetType="Border">
-            <Setter Property="BorderBrush" Value="Red"></Setter>
             <Setter Property="BorderThickness" Value="8,0,0,0"></Setter>
             <Setter Property="Margin" Value="0"></Setter>
             <Setter Property="Width" Value="{Binding Path=ActualWidth,ElementName=LV_EntryList, ConverterParameter=0.1}"></Setter>
@@ -96,7 +96,7 @@
         </i:Interaction.Triggers>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border Style="{StaticResource ListView_Border}">
+                <Border Style="{StaticResource ListView_Border}" BorderBrush="{Binding TxtDocColor, Converter={StaticResource ColorConverter}}">
                     <StackPanel Style="{StaticResource ListView_Item}">
                         <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock x:Name="docNameTxtBx" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListView_Item_Title}"/>
