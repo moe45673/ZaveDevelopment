@@ -15,9 +15,98 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:ZDFEntryViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
-        <converters:ColorConverters x:Key="ColorConverter"/> 
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:ColorConverters x:Key="ColorConverter"/>
+        <local:MainWindow x:Key="ZaveShell"/>
+        <Style x:Key="gridEntry" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style x:Key="hiLightHeader" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style x:Key="hiLightHeader_Text" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="docName_Text" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style x:Key="docText_Text" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="LineHeight" Value="20"/>
+        </Style>
+        <Style x:Key="docCommentLbl_Text" TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+        <Style x:Key="CommentHeader_StackPanel_Right" TargetType="{x:Type StackPanel}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="CommentHeader_Button_Action" TargetType="{x:Type Button}">
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                    <Setter Property="Foreground" Value="DarkGray"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                    <Setter Property="Foreground" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Comment_Button_Delete" BasedOn="{StaticResource CommentHeader_Button_Action}" TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Comment_Item_Container" TargetType="{x:Type ListBox}">
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
+        <Style x:Key="Comment_Item" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="0,3,0,3"/>
+        </Style>
+        <Style x:Key="Comment_Txt" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="Comment_Author" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
     </UserControl.Resources>
-    <Grid x:Name="gridEntry" Margin="10,-2,-2,10">
+    <Grid x:Name="gridEntry" Style="{StaticResource gridEntry}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
 
@@ -37,31 +126,54 @@
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}"></Canvas>
         <Label x:Name="docIdLbl" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"  />
-        <Label x:Name="docNameLbl" Grid.Row="1" Grid.Column="0" Content="Document Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docPageLbl" Grid.Row="2" Grid.Column="0" Content="Page Number" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docLastModdedLbl" Grid.Row="3" Grid.Column="0" Content="Date Modified" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docColor" Grid.Row="4" Grid.Column="0" Content="HighlightColor" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docTextLbl" Grid.Row="5" Grid.Column="0" Content="Highlighted Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="docTextComments" Grid.Row="6" Grid.Column="0" Content="Comments" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        
-        <TextBlock x:Name="docIdTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" Visibility="Collapsed" />
-        <TextBlock x:Name="docNameTxtBx" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  />
-        <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocPage, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocLastModified, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock x:Name="docColorTxtBx1" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" Width="30" />
-        <TextBlock x:Name="docTextTxtBx1" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged, diag:PresentationTraceSources.TraceLevel=High}" />
-        <Grid Grid.Row="6" Grid.Column="1">
+        <Grid x:Name="hiLightHeader" Grid.Row="1" Grid.Column="1" Style="{StaticResource hiLightHeader}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="0" Grid.Column="0" Text="{Binding TxtDocPage, StringFormat='Page: {0}',UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource hiLightHeader_Text}"/>
+            <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="0" Grid.Column="1" Text="{Binding TxtDocLastModified, StringFormat='Modified: {0}',UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource hiLightHeader_Text}"/>
+            <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Text="Created: 2016-07-12 10:38 AM" Style="{StaticResource hiLightHeader_Text}"/>
+        </Grid>
+        <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
+        <TextBlock x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged, diag:PresentationTraceSources.TraceLevel=High}" Style="{StaticResource docText_Text}"/>
+
+        <!--<TextBlock x:Name="docIdTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" Visibility="Collapsed" />-->
+
+        <Grid x:Name="CommentHeader" Grid.Row="4" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="docCommentLbl" Grid.Row="0" Grid.Column="0" Content="Comments" Style="{StaticResource docCommentLbl_Text}"/>
+            <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource CommentHeader_StackPanel_Right}">
+                <Button Name="MainAddButton" Content="Add" Style="{StaticResource CommentHeader_Button_Action}">
+                    <interactivity:Interaction.Triggers>
+                        <interactivity:EventTrigger EventName="Click">
+                            <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" />
+                        </interactivity:EventTrigger>
+                    </interactivity:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="5" Grid.Column="1" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <local:ModalInputDialog DataContext="{Binding CommentDlg, Mode=OneWay}" />
+        </StackPanel>
+        <Grid x:Name="docComments" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!--<ColumnDefinition Width="50"/>-->
             </Grid.ColumnDefinitions>
 
-            <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList" Width="Auto" >
+            <ListBox ItemsSource="{Binding TxtDocComments}" Name="LB_CommentList" Style="{StaticResource Comment_Item_Container}">
                 <interactivity:Interaction.Triggers>
                     <interactivity:EventTrigger EventName="SelectionChanged">
                         <prism:InvokeCommandAction
@@ -71,15 +183,57 @@
                 </interactivity:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel >
-                            <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Background="#FF8B8B8B" />
-                            <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Width="Auto" Background="Gainsboro" />
-                        </StackPanel>
+                        <Grid Style="{StaticResource Comment_Item}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel>
+                                <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Txt}"/>
+                                <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Author}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Button Name="EditButton" Content="Edit"  Style="{StaticResource CommentHeader_Button_Action}" IsEnabled="False" >
+
+                                    <interactivity:Interaction.Triggers>
+                                        <interactivity:EventTrigger EventName="Click">
+                                            <prism:InvokeCommandAction Command="{Binding ElementName=LB_CommentList, Path=DataContext.EditCommentDelegateCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                                        </interactivity:EventTrigger>
+                                    </interactivity:Interaction.Triggers>
+
+
+                                </Button>
+                                <Button Name="DeleteButton" Content="Delete"  Style="{StaticResource Comment_Button_Delete}" IsEnabled="False"/>
+                            </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="0,3,0,3"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border Background="{x:Null}" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{x:Null}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
             </ListBox>
-            
-            <StackPanel Orientation="Horizontal" Grid.Column="1">
+
+            <!--<StackPanel Orientation="Horizontal" Grid.Column="1">
                 <StackPanel>
                     <Button Name="EditButton" Content="Edit Comment" IsEnabled="False" >
 
@@ -89,7 +243,7 @@
                             </interactivity:EventTrigger>
                         </interactivity:Interaction.Triggers>
 
-                  
+
                     </Button>
                     <Button Name="AddButton" Content="Add Comment">
                         <interactivity:Interaction.Triggers>
@@ -97,15 +251,16 @@
                                 <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" />
                             </interactivity:EventTrigger>
                         </interactivity:Interaction.Triggers>
-                        
+
                     </Button>
                     <Button Name="DeleteButton" Content="Delete Comment" IsEnabled="False"/>
                 </StackPanel>
-                
-            </StackPanel>
+
+            </StackPanel>-->
 
 
         </Grid>
 
     </Grid>
+
 </UserControl>

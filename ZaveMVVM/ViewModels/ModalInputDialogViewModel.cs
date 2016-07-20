@@ -14,7 +14,8 @@ namespace ZaveViewModel.ViewModels
 {
     public class ModalInputDialogViewModel : BindableBase, IUserDialogViewModel
     {
-        //string toReturn;
+        string originalValue;
+        
         //private Object _sender;
 
         public ModalInputDialogViewModel()
@@ -22,10 +23,23 @@ namespace ZaveViewModel.ViewModels
             //toReturn = fromSender;
             SaveCommentDelegateCommand = new DelegateCommand(SaveComment);
             CancelCommentDelegateCommand = new DelegateCommand(CancelComment);
-            
+            _commentText = "";
+
+            //OnCloseRequest = (sender) =>
+            //{
+            //    sender.result = CommentText;
+            //    sender.Close();
+            //};
         }
 
-        
+
+        private Object result;
+
+        public Object Result
+        {
+            get { return this.result; }
+            private set { result = value; }
+        }
 
         public bool IsModal
         {
@@ -42,8 +56,9 @@ namespace ZaveViewModel.ViewModels
             
             try
             {
-                OnPropertyChanged("CommentText");
-                RequestClose();
+
+                Close();
+                
             }
             catch (NullReferenceException nre)
             {
@@ -60,7 +75,7 @@ namespace ZaveViewModel.ViewModels
         public string CommentText
         {
             get { return _commentText;}
-            set { _commentText = value; }
+            set { SetProperty(ref _commentText, value); }
         }
 
         private string _caption;
@@ -73,7 +88,9 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand CancelCommentDelegateCommand { get; private set; }
         protected void CancelComment()
         {
-            RequestClose();
+            
+            CommentText = originalValue;
+            Close();
         }
 
         public event EventHandler DialogClosing;
@@ -91,12 +108,14 @@ namespace ZaveViewModel.ViewModels
         public void Close()
         {
             if (this.DialogClosing != null)
+            {                
                 this.DialogClosing(this, new EventArgs());
+            }
         }
 
-        public void Show(IList<IDialogViewModel> collection)
+        public void Show()
         {
-            collection.Add(this);
+            originalValue = CommentText;
         }
 
 
