@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using JetBrains.ReSharper.Psi.Resx.Utils;
 using Newtonsoft.Json;
 using Prism.Events;
 using ZaveGlobalSettings.Data_Structures;
@@ -20,8 +15,8 @@ using WPFColor = System.Windows.Media.Color;
 namespace ZaveController
 {
 
-    
-    
+
+
     public sealed class EventInitSingleton : PubSubEvent<SelectionState>, IDisposable
     {
 

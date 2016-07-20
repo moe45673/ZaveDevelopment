@@ -59,7 +59,7 @@ namespace FirstWordAddIn.DataStructures
         }
         protected override ZaveSrc createSrc(string name, string page, string text)
         {
-            return new ZaveSrc(name, page, text);
+            return new ZaveSrc(Convert.ToInt32(name), page, text);
             throw new NotImplementedException();
         }
     }

@@ -9,7 +9,6 @@
              Startup="Application_Startup">
     <Application.Resources>
 
-        <view:ModalInputDialog x:Key="{x:Type vm:ModalInputDialogViewModel}" x:Shared="False"/>
-
+        <view:ModalInputDialog x:Key="somethiung" x:Shared="False"/>
     </Application.Resources>
 </Application>
