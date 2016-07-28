@@ -31,9 +31,10 @@ namespace ZaveViewModel.ViewModels
                 _eventAggregator = eventAggregator;
 
             ColorItemList = new ObservableImmutableList<ColorItem>();
-            
-            ReturnListDel beginColorSet = async () => await SetColorsAsync();
-            beginColorSet.Invoke();
+
+            //ReturnListDel beginColorSet = async () => await SetColorsAsync();
+            ColorItemList = SetColorsAsync().Result;
+            //beginColorSet.Invoke();
             ActiveColor = Color.FromArgb(255, 255, 255, 0);
 
 
@@ -79,7 +80,7 @@ namespace ZaveViewModel.ViewModels
                 items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(color), color));
 
             }
-            await Task.Delay(2000);
+            //await Task.Delay(2000);
             //ActiveColor = Color.FromArgb(255, 255, 255, 0);
             System.Drawing.Color col = new System.Drawing.Color();
             col = ColorCategory.FromWPFColor(ActiveColor).Color;
