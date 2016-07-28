@@ -9,7 +9,8 @@
         xmlns:prism="http://prismlibrary.com/"
         Title="Test" Height="170" Width="300" ResizeMode="NoResize" >
     <Window.Resources>
-        <local:ModalInputDialog_old x:Key="{x:Type zdfviewmodelns:ModalInputDialogViewModel}" x:Shared="False"/>
+        <!--<local:ModalInputDialog_old x:Key="{x:Type zdfviewmodelns:ModalInputDialogViewModel}" x:Shared="False"/>-->
+        
     </Window.Resources>
     <Grid>
         <Grid>

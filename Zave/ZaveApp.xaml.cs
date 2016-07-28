@@ -19,6 +19,7 @@ using ZaveController;
 using ZaveGlobalSettings.Data_Structures;
 using System.Drawing;
 
+
 namespace Zave
 {
     /// <summary>
@@ -53,7 +54,8 @@ namespace Zave
                 eventInit.Dispose();
 
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
-            
+            //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
+
             int maxAttempts = 20;
             int retryMilliseconds = 100;
             
@@ -82,9 +84,10 @@ namespace Zave
             var bs = new BootStrapper();
             bs.Run();
             var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
-            //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));
+            //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));//
             eventInit = EventInitSingleton.GetInstance(eventAgg);
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
+            //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
             {
                 try

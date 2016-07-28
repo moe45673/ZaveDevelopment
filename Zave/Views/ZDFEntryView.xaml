@@ -196,7 +196,7 @@
                                 <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Author}"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
-                                <Button Name="EditButton" Content="Edit"  Style="{StaticResource CommentHeader_Button_Action}" IsEnabled="False" >
+                                <Button Name="EditButton" Content="Edit"  Style="{StaticResource CommentHeader_Button_Action}" IsEnabled="False" Visibility="Hidden" >
 
                                     <interactivity:Interaction.Triggers>
                                         <interactivity:EventTrigger EventName="Click">
@@ -206,7 +206,7 @@
 
 
                                 </Button>
-                                <Button Name="DeleteButton" Content="Delete"  Style="{StaticResource Comment_Button_Delete}" IsEnabled="False"/>
+                                <Button Name="DeleteButton" Content="Delete"  Style="{StaticResource Comment_Button_Delete}" IsEnabled="False" Visibility="Hidden"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

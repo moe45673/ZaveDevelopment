@@ -52,10 +52,14 @@ namespace ZaveModel.ZDFColors {
 
         public static ColorCategory FromWPFColor(WPFColor wCol)
         {
+            
             ColorCategory colCat = null;
             string colorName = "";
             try
             {
+                if (Convert.ToString(wCol) == "#00000000")
+                    colorName = "White";
+                else
                 colorName = GetWPFColorName(wCol);
             }
             catch (System.Data.ObjectNotFoundException onf)

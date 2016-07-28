@@ -26,7 +26,7 @@ namespace ZaveModel.ZDF
     {
 
         //Needs to be protected virtual with private set
-        
+
 
         private static ZDFSingleton instance;
         private static readonly object syncRoot = new Object();
@@ -36,8 +36,8 @@ namespace ZaveModel.ZDF
         //FileSystemWatcher watcher;
 
         public static int setID()
-        {          
-            
+        {
+
             return ++_iDTracker;
         }
 
@@ -47,11 +47,11 @@ namespace ZaveModel.ZDF
         {
 
 
-            
-            
+
+
             _entryList = new ObservableImmutableList<IZDFEntry>();
-            
-            
+
+
             if (EntryList.Count.Equals(0))
                 _iDTracker = 0;
             else
@@ -69,11 +69,10 @@ namespace ZaveModel.ZDF
             {
                 lock (syncRoot)
                 {
-                    
+
                     if (instance == null)
                     {
                         instance = new ZDFSingleton();
-                        
                     }
                 }
                 return instance;
@@ -89,24 +88,24 @@ namespace ZaveModel.ZDF
                     instance = new ZDFSingleton();
                     instance._eventAggregator = eventAgg;
                     instance._eventAggregator.GetEvent<EntryCreatedEvent>().Subscribe(Add);
-                }          
+                }
+                if (instance != null)
+                {
+                    if (instance._eventAggregator == null)
+                        instance._eventAggregator = new EventAggregator();
 
+                    instance._eventAggregator.GetEvent<EntryCreatedEvent>().Subscribe(Add);
+                }
 
             }
             return Instance;
-
-
-
-
-
-
-
-            return Instance;
+            
+            
         }
 
         public static int IDTracker { get { return _iDTracker; } }
 
-       
+
 
         private ObservableImmutableList<IZDFEntry> _entryList;
 
@@ -116,13 +115,7 @@ namespace ZaveModel.ZDF
         {
             get { return _entryList; }
             set { SetProperty(ref _entryList, value); }
-
-               
         }
-
-        
-
-
 
         public SelectionStateList toSelectionStateList()
         {
@@ -130,7 +123,7 @@ namespace ZaveModel.ZDF
 
             selStateList.Clear();
 
-            foreach(var item in EntryList)
+            foreach (var item in EntryList)
             {
                 selStateList.Add(item.toSelectionState());
             }
@@ -147,17 +140,18 @@ namespace ZaveModel.ZDF
 
         public void Add(IZDFEntry zEntry)
         {
-            try {
+            try
+            {
                 EntryList.Add(zEntry);
-                
-                
+
+
 
             }
-            catch(ArgumentException ae)
+            catch (ArgumentException ae)
             {
                 System.Windows.Forms.MessageBox.Show(ae.Message);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show(e.Message);
             }
@@ -168,6 +162,6 @@ namespace ZaveModel.ZDF
             Instance.Add(obj as IZDFEntry);
         }
 
-        
+
     }
 }

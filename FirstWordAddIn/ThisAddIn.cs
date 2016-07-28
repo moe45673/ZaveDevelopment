@@ -86,12 +86,12 @@ namespace FirstWordAddIn
 //#endif
                     string json = Newtonsoft.Json.JsonConvert.SerializeObject(_selStateList.ToArray());
 
-//#if DEBUG
-//                    System.Windows.Forms.MessageBox.Show("After Serialization");
-//#endif
+                    //#if DEBUG
+                    //                    System.Windows.Forms.MessageBox.Show("After Serialization");
+                    //#endif
                     //OnWordFired(selState);         
                     string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
-
+                    //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
                     //System.Windows.Forms.MessageBox.Show(projDir);
 
 

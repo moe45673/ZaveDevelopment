@@ -18,6 +18,8 @@ namespace Zave.Module
         {
             _regionViewRegistry.RegisterViewWithRegion("ZDFEntry", typeof(Views.MainContainer));
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainer");
+
+
         }
     }
 }

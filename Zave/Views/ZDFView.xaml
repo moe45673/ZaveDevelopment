@@ -92,11 +92,11 @@
     </UserControl.Resources>
     <ListView ItemsSource="{Binding ZdfEntries}" Name="LV_EntryList">
         
-        <!--<i:Interaction.Triggers>
+        <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">
                 <prism:InvokeCommandAction Command="{Binding SelectItemDelegateCommand}" CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
             </i:EventTrigger>
-        </i:Interaction.Triggers>-->
+        </i:Interaction.Triggers>
 		
         <ListView.ItemTemplate>
             <DataTemplate>
