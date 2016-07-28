@@ -51,17 +51,17 @@ namespace FirstWordAddIn.DataStructures
 
 
 
-    public class WordSourceFactory : SourceFactory
-    {
-        public WordSourceFactory() : base()
-        {
+    //public class WordSourceFactory : SourceFactory
+    //{
+    //    public WordSourceFactory() : base()
+    //    {
 
-        }
-        protected override ZaveSrc createSrc(string name, string page, string text)
-        {
-            return new ZaveSrc(name, page, text);
-            throw new NotImplementedException();
-        }
-    }
+    //    }
+    //    protected override ZaveSrc createSrc(string name, string page, string text)
+    //    {
+    //        return new ZaveSrc(name, page, text);
+    //        throw new NotImplementedException();
+    //    }
+    //}
 } //end namespace ZDFSource
 
