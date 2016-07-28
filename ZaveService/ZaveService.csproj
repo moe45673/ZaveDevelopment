@@ -189,6 +189,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOService\IOService.cs" />
     <Compile Include="ZDFEntry\DefaultZDFEntryHandler.cs" />
     <Compile Include="ZDFEntry\ZDFEntryHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

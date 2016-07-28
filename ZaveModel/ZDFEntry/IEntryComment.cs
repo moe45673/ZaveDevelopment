@@ -8,16 +8,19 @@
 
 using System;
 using Prism.Mvvm;
+using Newtonsoft.Json;
 
 //using System.Security.Principal;
 
 
 
 namespace ZaveModel.ZDFEntry {
-
+    [JsonObject]
     public class User
     {
+        [JsonProperty]
         public string Name { get; set; }
+
 
         public static explicit operator User(string s)  // explicit string to User conversion operator
         {
@@ -77,6 +80,7 @@ namespace ZaveModel.ZDFEntry {
         }
     }
 
+    [JsonObject]
     public class EntryComment : BindableBase, IEntryComment
     {
 
@@ -94,27 +98,27 @@ namespace ZaveModel.ZDFEntry {
 
         
 
-
+        [JsonIgnore]
         private int _commentID;
-
+        [JsonProperty]
         public int CommentID
         {
             get { return this._commentID; }
             private set { SetProperty(ref _commentID, value); }
         }
 
-
+        [JsonIgnore]
         private string _commentText;
-
+        [JsonProperty]
         public string CommentText
         {
             get { return this._commentText; }
             set { SetProperty(ref _commentText, value); }
         }
 
-
+        [JsonIgnore]
         private User _author;
-
+        [JsonProperty]
         public User Author
         {
             get { return this._author; }

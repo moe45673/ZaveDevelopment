@@ -25,9 +25,9 @@ namespace Zave.Views
     /// <summary>
     /// Interaction logic for menu.xaml
     /// </summary>
-    public partial class menu : UserControl
+    public partial class Menu : UserControl
     {
-        public menu()
+        public Menu()
         {
             InitializeComponent();
         }

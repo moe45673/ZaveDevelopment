@@ -244,10 +244,12 @@
     <Compile Include="ViewModels\MainContainerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ModalInputDialogViewModel.cs" />
     <Compile Include="ViewModels\TestDialogViewModel.cs" />
     <Compile Include="ViewModels\ZDFEntryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ZDFListViewModel.cs" />
     <Compile Include="ViewModels\ZDFViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +260,10 @@
     <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
       <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
       <Name>ZaveModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveService\ZaveService.csproj">
+      <Project>{7564b53b-b138-4e6f-8d37-acdd1e51f787}</Project>
+      <Name>ZaveService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

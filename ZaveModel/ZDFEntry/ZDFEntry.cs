@@ -16,11 +16,15 @@ using ZaveGlobalSettings.Data_Structures;
 using Prism.Mvvm;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using ZaveModel.ZDFColors;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 
 namespace ZaveModel.ZDFEntry {
 
     using CommentList = ObservableImmutableList<IEntryComment>;
 
+    [JsonObject]
     public class ZDFEntry : BindableBase, IZDFEntry
     {
 
@@ -28,8 +32,9 @@ namespace ZaveModel.ZDFEntry {
         
 
         
-
+        [JsonIgnore]
         private int _id;
+        [JsonProperty]
         public int ID { get { return _id; } }
 
         
@@ -76,7 +81,9 @@ namespace ZaveModel.ZDFEntry {
 
 
         #region Properties
+        [JsonIgnore]
         private ColorCategory _hColor;
+        [JsonProperty]
         public ColorCategory HColor
         {
             get { return _hColor; }
@@ -97,8 +104,9 @@ namespace ZaveModel.ZDFEntry {
         //        //OnPropertyChanged("Source", Source);
         //    }
         //}
-
+        [JsonIgnore]
         private string _page;
+        [JsonProperty]
         public string Page
         {
             get { return _page; }
@@ -108,7 +116,9 @@ namespace ZaveModel.ZDFEntry {
             }
         }
 
+        [JsonIgnore]
         private string _text;
+        [JsonProperty]
         public string Text
         {
             get { return _text; }
@@ -117,8 +127,9 @@ namespace ZaveModel.ZDFEntry {
                 SetProperty(ref _text, value);
             }
         }
-
+        [JsonIgnore]
         private DateTime _dateModified;
+        [JsonProperty]
         public DateTime DateModified
         {
             get { return _dateModified; }
@@ -127,8 +138,10 @@ namespace ZaveModel.ZDFEntry {
                 SetProperty(ref _dateModified, value);
             }
         }
-
+        [JsonIgnore]
         private SrcType _format;
+        [JsonProperty]
+        [JsonConverter(typeof(StringEnumConverter))]
         public SrcType Format
         {
             get { return _format; }
@@ -137,8 +150,9 @@ namespace ZaveModel.ZDFEntry {
                 SetProperty(ref _format, value);
             }
         }
-
+        [JsonIgnore]
         private string _name;
+        [JsonProperty]
         public string Name
         {
             get { return _name; }
@@ -148,9 +162,9 @@ namespace ZaveModel.ZDFEntry {
             }
         }
 
-
+        [JsonIgnore]
         private CommentList m_IEntryComment;
-
+        [JsonProperty]
         public CommentList Comments
         {
             get { return m_IEntryComment; }

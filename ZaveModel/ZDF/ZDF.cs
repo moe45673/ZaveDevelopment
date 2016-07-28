@@ -13,6 +13,7 @@ using System.Collections.Immutable;
 using System.Threading;
 using System.Windows.Forms;
 using JetBrains.ReSharper.Psi.Resx.Utils;
+using Newtonsoft.Json;
 using Prism.Mvvm;
 using Prism.Events;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
@@ -21,23 +22,26 @@ using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 namespace ZaveModel.ZDF
 {
 
-
+    [JsonObject]
     public sealed class ZDFSingleton : BindableBase, IZDF
     {
 
         //Needs to be protected virtual with private set
-
-
+        
+        [JsonIgnore]
         private static ZDFSingleton instance;
+        [JsonIgnore]
         private static readonly object syncRoot = new Object();
+        [JsonIgnore]
         private static int _iDTracker;
+        [JsonIgnore]
         private IEventAggregator _eventAggregator;
         //private string _date = DateTime.Now.ToShortTimeString();
         //FileSystemWatcher watcher;
 
         public static int setID()
-        {
-
+        {          
+            
             return ++_iDTracker;
         }
 
@@ -47,11 +51,11 @@ namespace ZaveModel.ZDF
         {
 
 
-
-
-            _entryList = new ObservableImmutableList<IZDFEntry>();
-
-
+            
+            
+            EntryList = new ObservableImmutableList<IZDFEntry>();
+            
+            
             if (EntryList.Count.Equals(0))
                 _iDTracker = 0;
             else
@@ -62,14 +66,14 @@ namespace ZaveModel.ZDF
         }
 
 
-
+        [JsonIgnore]
         private static ZDFSingleton Instance
         {
             get
             {
                 lock (syncRoot)
                 {
-
+                    
                     if (instance == null)
                     {
                         instance = new ZDFSingleton();
@@ -88,7 +92,7 @@ namespace ZaveModel.ZDF
                     instance = new ZDFSingleton();
                     instance._eventAggregator = eventAgg;
                     instance._eventAggregator.GetEvent<EntryCreatedEvent>().Subscribe(Add);
-                }
+                }          
                 if (instance != null)
                 {
                     if (instance._eventAggregator == null)
@@ -99,14 +103,15 @@ namespace ZaveModel.ZDF
 
             }
             return Instance;
-            
-            
+
+
         }
 
+        [JsonProperty]
         public static int IDTracker { get { return _iDTracker; } }
 
-
-
+       
+        [JsonIgnore]
         private ObservableImmutableList<IZDFEntry> _entryList;
 
         //public event NotifyCollectionChangedEventHandler CollectionChanged;
@@ -143,8 +148,8 @@ namespace ZaveModel.ZDF
             try
             {
                 EntryList.Add(zEntry);
-
-
+                
+                
 
             }
             catch (ArgumentException ae)
@@ -162,6 +167,6 @@ namespace ZaveModel.ZDF
             Instance.Add(obj as IZDFEntry);
         }
 
-
+        
     }
 }

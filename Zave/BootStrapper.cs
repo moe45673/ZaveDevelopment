@@ -45,6 +45,7 @@ namespace Zave
 
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
             moduleCatalog.AddModule(typeof(MainWindowModule));
+            //moduleCatalog.AddModule(typeof(IOModule));
             // moduleCatalog.AddModule(typeof(MainContainerModule));
             //moduleCatalog.AddModule(typeof(ZDFModule));
             //moduleCatalog.AddModule(typeof(ZDFEntryModule));
@@ -61,14 +62,16 @@ namespace Zave
             base.ConfigureContainer();
             //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(MainWindow), "MainWindow");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(MainContainer), "MainContainer");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(Menu), "Menu");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ControlBar), "ControlBar");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZaveModel.ZDF.ZDFSingleton), "ZDFModel");
             //UnityContainerExtensions.RegisterInstance(Container, typeof(ZaveModel.ZDF.ZDFSingleton), ZaveModel.ZDF.ZDFSingleton.GetInstance(Container.Resolve(typeof(EventAggregator)) as EventAggregator));
-            
-            
-            
+
+
+
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialog), "ModalInputDialog");
             //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialogViewModel), "ModalInputDialogViewModel");
 

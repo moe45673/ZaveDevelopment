@@ -9,6 +9,7 @@
 using System;
 using System.Drawing;
 using WPFColor = System.Windows.Media.Color;
+using Newtonsoft.Json;
 
 
 
@@ -16,8 +17,10 @@ using WPFColor = System.Windows.Media.Color;
 
 
 namespace ZaveModel.ZDFColors {
+    [JsonObject(MemberSerialization.OptIn)]
     public class ColorCategory{
-
+        
+        
         private ColorCategory(Color col) {
             Color = col;
         }
@@ -31,13 +34,14 @@ namespace ZaveModel.ZDFColors {
 
         }
 
-
+        [JsonProperty]
         public Color Color
         {
             get;
             set;
         }
 
+        [JsonProperty]
         public String Name
         {
             get;
