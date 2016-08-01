@@ -220,8 +220,8 @@ namespace ZaveViewModel.ViewModels
                     ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
             }
 
-            ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState1)));
-            ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState2)));
+            //ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState1)));
+            //ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState2)));
             
 
             //System.Windows.Forms.MessageBox.Show(" Done1");
