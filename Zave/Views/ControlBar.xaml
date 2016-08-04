@@ -14,17 +14,40 @@
     <UserControl.Resources>
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
     </UserControl.Resources>
-    
+
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Image Source="/Zave;component/media/images/zave-beta.png" Height="70" Width="250" diag:PresentationTraceSources.TraceLevel="High"/>
         <!--<TextBlock   Text="[Zave Controls]" FontSize="72" FontFamily="Franklin Gothic Heavy" Opacity="0.8" VerticalAlignment="Center">
             <TextBlock.Effect>
                 <DropShadowEffect Color="#FFF3FF00"/>
             </TextBlock.Effect>
         </TextBlock>-->
 
-        <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
-
+        <ListBox>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBoxItem>
+                <!--<Image Source="/Zave;component/media/images/zave-beta.png" Height="70" Width="250" diag:PresentationTraceSources.TraceLevel="High"/>-->
+                <Image Source="/Zave;component/media/images/new_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Image Source="/Zave;component/media/images/open_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Image Source="/Zave;component/media/images/save_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Image Source="/Zave;component/media/images/undoredo_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Image Source="/Zave;component/media/images/screenshot_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+            </ListBoxItem>
+            <ListBoxItem>
+                <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
+            </ListBoxItem>
+        </ListBox>
     </StackPanel>
     
     

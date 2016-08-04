@@ -29,5 +29,10 @@ namespace Zave.Views
         {
 
         }
+
+        private void ZDFList_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
