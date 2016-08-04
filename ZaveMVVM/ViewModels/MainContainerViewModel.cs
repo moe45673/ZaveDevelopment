@@ -26,14 +26,14 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
 
-        public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg)
+        public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
         {
             _container = cont;
             _regionManager = regionManager;
             _eventAggregator = eventAgg;
-            //SaveZDFDelegateCommand = new DelegateCommand(SaveZDF);
-            //OpenZDFDelegateCommand = new DelegateCommand(OpenZDF);
-            //_ioService = ioService;
+            SaveZDFDelegateCommand = new DelegateCommand(SaveZDF);
+            OpenZDFDelegateCommand = new DelegateCommand(OpenZDF);
+            _ioService = ioService;
             
         }
 
@@ -66,6 +66,7 @@ namespace ZaveViewModel.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    System.Windows.Forms.MessageBox.Show("Save File Error!");
                 }
                 finally
                 {
@@ -90,7 +91,13 @@ namespace ZaveViewModel.ViewModels
                         try
                         {
                             string json = sr.ReadToEnd();
-                            activeZdf.EntryList = JsonConvert.DeserializeObject<ZDFSingleton>(json).EntryList;
+                            activeZdf.Clear();
+                            activeZdf = JsonConvert.DeserializeObject<ZDFSingleton>(json);
+
+                            if(activeZdf.EntryList.Count > 0)
+                            {
+
+                            }
                             
                             
 

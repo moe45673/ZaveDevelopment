@@ -18,8 +18,8 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem HorizontalAlignment="Left" Header="_File">
                 <MenuItem Header="_New"  HorizontalAlignment="Left"/>
-                <MenuItem Header="_Open"  HorizontalAlignment="Left" Click="btnOpenFile_Click" />
-                <MenuItem Header="_Save"  HorizontalAlignment="Left" Click="btnSaveFile_Click"/>
+                <MenuItem Header="_Open"  HorizontalAlignment="Left" Command="{Binding OpenZDFDelegateCommand}" />
+                <MenuItem Header="_Save"  HorizontalAlignment="Left" Command="{Binding SaveZDFDelegateCommand}" />
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>

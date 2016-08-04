@@ -66,23 +66,18 @@ namespace ZaveModel.ZDF
         }
 
 
-        [JsonIgnore]
-        private static ZDFSingleton Instance
+        
+        public static ZDFSingleton Instance
         {
             get
             {
-                lock (syncRoot)
-                {
-                    
-                    if (instance == null)
-                    {
-                        instance = new ZDFSingleton();
-                    }
-                }
-                return instance;
+                
+                return GetInstance();
+                
+                
             }
         }
-
+        
         public static ZDFSingleton GetInstance(IEventAggregator eventAgg = null)
         {
             lock (syncRoot)
@@ -102,7 +97,7 @@ namespace ZaveModel.ZDF
                 }
 
             }
-            return Instance;
+            return instance;
 
 
         }
@@ -165,6 +160,13 @@ namespace ZaveModel.ZDF
         public static void Add(Object obj)
         {
             Instance.Add(obj as IZDFEntry);
+        }
+
+        public void Clear()
+        {
+            IEventAggregator ea = this._eventAggregator;
+            instance = null;
+            GetInstance(ea);
         }
 
         
