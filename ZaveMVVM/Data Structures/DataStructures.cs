@@ -20,19 +20,19 @@ using Newtonsoft.Json;
 
 namespace ZaveViewModel.Data_Structures
 {
-
+    
     using CommentList = ObservableImmutableList<ZDFCommentItem>;
 
     using selStateCommentList = List<Object>;
-
+    
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class ZDFEntryItem : BindableBase
     {
 
         protected IZDFEntry _zdfEntry;
 
+        public static string SelectedZDFByUser = null;
 
-        
 
         protected void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -107,6 +107,7 @@ namespace ZaveViewModel.Data_Structures
             TxtDocName = name;
             TxtDocPage = page;
             TxtDocText = txt;
+            //OnPropertyChanged("TxtDocText");
             TxtDocLastModified = dateModded.ToShortDateString() + " " + dateModded.ToShortTimeString();
             _txtDocColor = new WPFColor();
             _txtDocColor.A = col.A;
@@ -165,6 +166,11 @@ namespace ZaveViewModel.Data_Structures
         {
             try
             {
+                if (selState.SelectionDocName != null)
+                {
+                    //SelectedZDFByUser = selState.SelectionDocName.ToString();
+                    SelectedZDFByUser = Convert.ToString(selState.ID);
+                }
                 setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified, selState.Color, fromObjectList(selState.Comments));
             }
             catch (NullReferenceException nre)
@@ -172,12 +178,11 @@ namespace ZaveViewModel.Data_Structures
                 throw nre;
             }
         }
-
-
+        
 
         #region Commands
 
-       
+
 
         public DelegateCommand<System.Collections.IList> SelectCommentDelegateCommand
         {
@@ -246,7 +251,6 @@ namespace ZaveViewModel.Data_Structures
 
         protected ZDFEntryItem(ZDFEntry zdfEntry)
         {
-            
             _zdfEntry = zdfEntry;
             
             try

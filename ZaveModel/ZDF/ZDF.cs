@@ -149,8 +149,6 @@ namespace ZaveModel.ZDF
             {
                 EntryList.Add(zEntry);
                 
-                
-
             }
             catch (ArgumentException ae)
             {

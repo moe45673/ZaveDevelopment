@@ -17,7 +17,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
+using ZaveGlobalSettings.ZaveFile;
 using ZaveModel.ZDFEntry;
+using ZaveViewModel.Data_Structures;
 using ZaveViewModel.ViewModels;
 
 namespace Zave.Views
@@ -44,9 +46,21 @@ namespace Zave.Views
                 //ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
                 //ObservableImmutableList<IZDFEntry> EntryList = activeZDF.EntryList;
 
+                //string selectedJson = JsonConvert.SerializeObject(EntryList.ToList());
+                //string selectedJson = JsonConvert.SerializeObject(activeZDF.EntryList.ToList());
+                //File.WriteAllText(saveFileDialog.FileName, selectedJson);
 
-                string selectedJson = JsonConvert.SerializeObject(activeZDF.EntryList.ToList());
-                File.WriteAllText(saveFileDialog.FileName, selectedJson);
+                if (activeZDF.EntryList.Count > 0)
+                {
+                    var selected = ZDFEntryItem.SelectedZDFByUser;
+
+                    if (selected != null)
+                    {
+                        var selectZDF = activeZDF.EntryList.Where(t => Convert.ToString(t.ID) == selected);
+                        string selectedJson = JsonConvert.SerializeObject(selectZDF.ToList());
+                        File.WriteAllText(saveFileDialog.FileName, selectedJson);
+                    }
+                }
             }
         }
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
@@ -58,11 +72,9 @@ namespace Zave.Views
             {
 
                 string fileContent = File.ReadAllText(openFileDialog.FileName);
-                
+
                 List<ZDFEntry> selectedJson = JsonConvert.DeserializeObject<List<ZDFEntry>>(fileContent);
-                //Create Instance of one zdf for all open zdf
-                //ZDFEntry ultimateZDFEntry = new ZDFEntry();
-                ZDFEntryView ZEV = new ZDFEntryView();
+
 
                 if (selectedJson.Count > 0)
                 {
@@ -70,16 +82,36 @@ namespace Zave.Views
                     ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
                     activeZDF.Add(selectedJson[0]);
                     ZdfEntries.Add(new ZdfEntryItemViewModel(selectedJson[0] as ZDFEntry));
-                    // ultimateZDFEntry.Text += selectedJson[0].Text;
-                    //ultimateZDFEntry.Name += selectedJson[0].Name;
+                    ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                    //ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
 
-                    //ZEV.docTextTxtBx1.Text = selectedJson[0].Text;
+                    List<SelectionState> selState = activeZDF.toSelectionStateList();
 
                 }
 
-
             }
 
+        }
+
+        private void btnNewFile_Click(object sender, RoutedEventArgs e)
+        {
+            ZaveModel.ZDF.ZDFSingleton activeZDF;
+            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+            //if (this.ForceCursor == false)
+            //{
+            //    this.ForceCursor = true;
+            //    this.Foreground = true;
+            //    this.Focusable = true;
+            //    this.c
+            //}
+            activeZDF.Add(new ZDFEntry());
+            
+            
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
