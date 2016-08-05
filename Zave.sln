@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zave", "Zave\Zave.csproj", "{4E456E7F-FA26-4D6F-A99A-99DC0D481982}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveWordAddin", "FirstWordAddIn\ZaveWordAddin.csproj", "{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveController", "ZaveEvents\ZaveController.csproj", "{6BCC0D8D-FDCA-4BB4-9824-242878FBBE36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveModel", "ZaveModel\ZaveModel.csproj", "{6B255A10-65F0-400A-9B9D-1254CD934ECC}"
@@ -16,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveService", "ZaveService\ZaveService.csproj", "{7564B53B-B138-4E6F-8D37-ACDD1E51F787}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveGlobalSettings", "ZaveGlobalSettings\ZaveGlobalSettings.csproj", "{0F1F4A8F-44FD-4537-88A1-21034AC4335A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveWordAddIn", "ZaveWordAddIn\ZaveWordAddIn.csproj", "{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		{4E456E7F-FA26-4D6F-A99A-99DC0D481982}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E456E7F-FA26-4D6F-A99A-99DC0D481982}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E456E7F-FA26-4D6F-A99A-99DC0D481982}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BCC0D8D-FDCA-4BB4-9824-242878FBBE36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BCC0D8D-FDCA-4BB4-9824-242878FBBE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BCC0D8D-FDCA-4BB4-9824-242878FBBE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{0F1F4A8F-44FD-4537-88A1-21034AC4335A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F1F4A8F-44FD-4537-88A1-21034AC4335A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F1F4A8F-44FD-4537-88A1-21034AC4335A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
