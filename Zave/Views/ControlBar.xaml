@@ -21,8 +21,16 @@
                 <DropShadowEffect Color="#FFF3FF00"/>
             </TextBlock.Effect>
         </TextBlock>-->
-
-        <ListBox>
+        <Grid x:Name="gridEntry">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <ListBox Grid.Row="0" Grid.Column="0">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -44,10 +52,8 @@
             <ListBoxItem>
                 <Image Source="/Zave;component/media/images/screenshot_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
             </ListBoxItem>
-            <ListBoxItem>
-                <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
-            </ListBoxItem>
         </ListBox>
+        <xctk:ColorPicker Grid.Row="0" Grid.Column="1" Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
     </StackPanel>
     
     
