@@ -15,7 +15,7 @@
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
         <Style x:Key="ControlBar_Container" TargetType="{x:Type StackPanel}">
             <Setter Property="Orientation" Value="Horizontal"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
         <Style TargetType="{x:Type ListBox}">
@@ -54,19 +54,22 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/new_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/new.png" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/open_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/open.png" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/save_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/save.png" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/undoredo_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/undo.png" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/screenshot_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/redo.png" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Image Source="/Zave;component/media/images/screenshot.png" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
             </ListBox>
         </StackPanel>

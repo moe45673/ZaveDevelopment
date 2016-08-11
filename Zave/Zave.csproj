@@ -322,6 +322,15 @@
     <Resource Include="media\images\screenshot_t.jpg" />
     <Resource Include="media\images\undoredo_t.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="media\images\new.png" />
+    <Resource Include="media\images\open.png" />
+    <Resource Include="media\images\redo.png" />
+    <Resource Include="media\images\save.png" />
+    <Resource Include="media\images\screenshot.png" />
+    <Resource Include="media\images\settings.png" />
+    <Resource Include="media\images\undo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--<Import Project="..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets" Condition="Exists('..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" />-->
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
