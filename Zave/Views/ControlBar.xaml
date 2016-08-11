@@ -13,9 +13,26 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
+        <Style x:Key="ControlBar_Container" TargetType="{x:Type StackPanel}">
+            <Setter Property="Orientation" Value="Horizontal"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="{x:Type ListBox}">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border BorderBrush="{TemplateBinding Border.BorderBrush}" BorderThickness="0" Name="Bd" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True" Padding="0">
+                            <ScrollViewer Focusable="False" Padding="{TemplateBinding Control.Padding}">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
         <!--<TextBlock   Text="[Zave Controls]" FontSize="72" FontFamily="Franklin Gothic Heavy" Opacity="0.8" VerticalAlignment="Center">
             <TextBlock.Effect>
                 <DropShadowEffect Color="#FFF3FF00"/>
@@ -23,38 +40,37 @@
         </TextBlock>-->
         <Grid x:Name="gridEntry">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="30" />
-            </Grid.ColumnDefinitions>
-        </Grid>
-        <ListBox Grid.Row="0" Grid.Column="0">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBoxItem>
-                <!--<Image Source="/Zave;component/media/images/zave-beta.png" Height="70" Width="250" diag:PresentationTraceSources.TraceLevel="High"/>-->
-                <Image Source="/Zave;component/media/images/new_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Image Source="/Zave;component/media/images/open_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Image Source="/Zave;component/media/images/save_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Image Source="/Zave;component/media/images/undoredo_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Image Source="/Zave;component/media/images/screenshot_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
-            </ListBoxItem>
-        </ListBox>
-        <xctk:ColorPicker Grid.Row="0" Grid.Column="1" Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
-    </StackPanel>
-    
-    
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Style="{StaticResource ControlBar_Container}">
+            <ListBox>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBoxItem>
+                    <Image Source="/Zave;component/media/images/new_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Image Source="/Zave;component/media/images/open_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Image Source="/Zave;component/media/images/save_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Image Source="/Zave;component/media/images/undoredo_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Image Source="/Zave;component/media/images/screenshot_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                </ListBoxItem>
+            </ListBox>
+        </StackPanel>
+    <xctk:ColorPicker Grid.Row="0" Grid.Column="1" Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
+    </Grid>
+
 </UserControl>
