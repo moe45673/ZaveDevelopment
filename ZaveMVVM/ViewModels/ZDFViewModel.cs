@@ -26,8 +26,12 @@ using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using Microsoft.Practices.Unity;
 using ZaveModel.ZDF;
 
+
+
 namespace ZaveViewModel.ViewModels
 {
+
+    
     public class ZDFViewModel : BindableBase
     {
 
@@ -118,6 +122,16 @@ namespace ZaveViewModel.ViewModels
             //ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
             //UpdateGui(zdfEntry.Source);
 
+        }
+
+        private void modelOpened(object zdf)
+        {
+            ZdfEntries.Clear();
+            
+            foreach(var item in ((ZDFSingleton)zdf).EntryList)
+            {
+                ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+            }
         }
 
         //private void ViewPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -248,7 +262,7 @@ namespace ZaveViewModel.ViewModels
 
 
             _activeZdf.EntryList.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
-
+            _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(modelOpened);
             //_activeZdfEntry.PropertyChanged += new PropertyChangedEventHandler(ViewPropertyChanged);
 
             //zdfEntry.Source.SelectionDateModified = null;

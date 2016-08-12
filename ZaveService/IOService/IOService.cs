@@ -55,7 +55,7 @@ namespace ZaveService.IOService
                 return save.FileName;
                 
             }
-            return null;
+            return String.Empty;
         }
     }
 }

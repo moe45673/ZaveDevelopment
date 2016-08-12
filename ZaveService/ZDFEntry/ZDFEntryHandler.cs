@@ -18,7 +18,7 @@ namespace ZaveService.ZDFEntry
             _repository = repository;
         }
 
-        public bool ValidateZDFEntry(ZaveModel.ZDFEntry.IZDFEntry entryToValidate)
+        public bool ValidateZDFEntry(ZaveModel.ZDFEntry.ZDFEntry entryToValidate)
         {
             if (entryToValidate.Name.Trim().Length == 0)
             {
@@ -28,7 +28,7 @@ namespace ZaveService.ZDFEntry
             
         }
 
-        public bool CreateZDFEntry(ZaveModel.ZDFEntry.IZDFEntry entryToCreate)
+        public bool CreateZDFEntry(ZaveModel.ZDFEntry.ZDFEntry entryToCreate)
         {
             if (!ValidateZDFEntry(entryToCreate))
                 return false;

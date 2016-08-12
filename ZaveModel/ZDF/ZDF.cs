@@ -23,6 +23,7 @@ namespace ZaveModel.ZDF
 {
 
     [JsonObject]
+    //[JsonConverter(typeof(ZDFConverter<ZDFSingleton>))]
     public sealed class ZDFSingleton : BindableBase, IZDF
     {
 
@@ -53,7 +54,7 @@ namespace ZaveModel.ZDF
 
             
             
-            EntryList = new ObservableImmutableList<IZDFEntry>();
+            EntryList = new ObservableImmutableList<ZDFEntry.IZDFEntry>();
             
             
             if (EntryList.Count.Equals(0))
@@ -88,14 +89,13 @@ namespace ZaveModel.ZDF
                     instance._eventAggregator = eventAgg;
                     instance._eventAggregator.GetEvent<EntryCreatedEvent>().Subscribe(Add);
                 }          
-                if (instance != null)
+                if (instance != null && instance._eventAggregator == null)
                 {
-                    if (instance._eventAggregator == null)
                         instance._eventAggregator = new EventAggregator();
 
-                    instance._eventAggregator.GetEvent<EntryCreatedEvent>().Subscribe(Add);
+                    
                 }
-
+                
             }
             return instance;
 
@@ -106,12 +106,13 @@ namespace ZaveModel.ZDF
         public static int IDTracker { get { return _iDTracker; } }
 
        
-        [JsonIgnore]
-        private ObservableImmutableList<IZDFEntry> _entryList;
+        [JsonProperty]
+        private ObservableImmutableList<ZDFEntry.IZDFEntry> _entryList;
 
         //public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public ObservableImmutableList<IZDFEntry> EntryList
+        [JsonIgnore]
+        public ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList
         {
             get { return _entryList; }
             set { SetProperty(ref _entryList, value); }
@@ -138,7 +139,7 @@ namespace ZaveModel.ZDF
             return EntryList.ToList<ZDFEntry.IZDFEntry>();
         }
 
-        public void Add(IZDFEntry zEntry)
+        public void Add(ZDFEntry.IZDFEntry zEntry)
         {
             try
             {
@@ -159,7 +160,7 @@ namespace ZaveModel.ZDF
 
         public static void Add(Object obj)
         {
-            Instance.Add(obj as IZDFEntry);
+            Instance.Add(obj as ZDFEntry.IZDFEntry);
         }
 
         public void Clear()
@@ -171,4 +172,55 @@ namespace ZaveModel.ZDF
 
         
     }
+
+    class ZDFConverter<T> : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(ZDFSingleton);
+        }
+
+        public override bool CanWrite
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            //var jsonObject = JObject.Load(reader);
+            var zdf = ZDFSingleton.GetInstance();
+            //System.Windows.Forms.MessageBox.Show(existingValue.ToString());
+            if(reader.TokenType == JsonToken.StartObject)
+            {
+                
+                T instance = (T)serializer.Deserialize<T>(reader);
+                
+                //Comments = (List<EntryComment>) jsonObject.Se
+            }
+            //switch (jsonObject["JobTitle"].Value())
+            //{
+            //    case "Software Developer":
+            //        profession = new Programming();
+            //        break;
+            //    case "Copywriter":
+            //        profession = new Writing();
+            //        break;
+            //}
+
+
+
+            //serializer.Populate(jsonObject.CreateReader(), commentList);
+            //return commentList;
+            return new object();
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

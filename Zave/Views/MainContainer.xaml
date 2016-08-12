@@ -34,7 +34,7 @@
             <my:Menu></my:Menu>
         </StackPanel>
         <Border Grid.Row="1" Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black" Name="bdrControl">
-            <my:ControlBar Loaded="ControlBar_Loaded"></my:ControlBar>
+            <my:ControlBar/>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="1" BorderBrush="Black">
             <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="[List of ZDF Files]" FontSize="50" FontFamily="Franklin Gothic Heavy" Opacity="0.8" >
