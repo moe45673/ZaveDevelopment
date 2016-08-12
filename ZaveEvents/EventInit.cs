@@ -216,11 +216,11 @@ namespace ZaveController
                         activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
 
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ConvertToString());
-                        if (activeZDF.EntryList.Count == 0)
-                        {
+                        //if (activeZDF.EntryList.Count == 0)
+                        //{
                             activeZDF.Add(entry);
-                        }
-                        else if (activeZDF.EntryList.Count > 0)
+                        //}
+                        if (activeZDF.EntryList.Count > 0)
                         {
                             var selected = ZDFEntryItem.SelectedZDFByUser;
                             if (selected != null)

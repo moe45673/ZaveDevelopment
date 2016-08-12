@@ -55,14 +55,11 @@ namespace ZaveModel.ZDF
             
             
             EntryList = new ObservableImmutableList<ZDFEntry.IZDFEntry>();
+
+
             
+            _iDTracker = EntryList.Count;
             
-            if (EntryList.Count.Equals(0))
-                _iDTracker = 0;
-            else
-            {
-                //get highest existing id and set _iDtracker to it
-            }
             //CreateFileWatcher(Path.GetTempPath());
         }
 
@@ -106,12 +103,18 @@ namespace ZaveModel.ZDF
         public static int IDTracker { get { return _iDTracker; } }
 
        
-        [JsonProperty]
+        [JsonIgnore]
         private ObservableImmutableList<ZDFEntry.IZDFEntry> _entryList;
 
         //public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        [JsonIgnore]
+        public static int RefreshIDCounter()
+        {
+            _iDTracker = instance.EntryList.Count;
+            return IDTracker;
+        }
+
+        [JsonProperty]
         public ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList
         {
             get { return _entryList; }
