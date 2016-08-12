@@ -190,8 +190,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOService\IOService.cs" />
-    <Compile Include="ZDFEntry\DefaultZDFEntryHandler.cs" />
-    <Compile Include="ZDFEntry\ZDFEntryHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +205,9 @@
       <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
       <Name>ZaveModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ZDFEntry\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets" Condition="Exists('..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" />

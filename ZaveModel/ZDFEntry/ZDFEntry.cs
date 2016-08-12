@@ -18,26 +18,29 @@ using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using ZaveModel.ZDFColors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 
 
 namespace ZaveModel.ZDFEntry {
 
+    
     using CommentList = ObservableImmutableList<IEntryComment>;
 
     [JsonObject]
+    //[JsonConverter(typeof(ZDFEntryConverter))]
     public class ZDFEntry : BindableBase, IZDFEntry
     {
 
 
-        
 
-        
+
+
         [JsonIgnore]
         private int _id;
         [JsonProperty]
         public int ID { get { return _id; } }
 
-        
+
 
         public ZDFEntry()
         {
@@ -65,8 +68,8 @@ namespace ZaveModel.ZDFEntry {
             _dateModified = src.SelectionDateModified;
             _format = src.srcType;
             _hColor = new ColorCategory(src.Color, src.Color.Name);
-            
-            
+
+
         }
 
         ~ZDFEntry()
@@ -76,7 +79,7 @@ namespace ZaveModel.ZDFEntry {
 
         public SelectionState toSelectionState()
         {
-            return new SelectionState( this.ID, this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format, this.Comments.ToList<object>());
+            return new SelectionState(this.ID, this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format, this.Comments.ToList<object>());
         }
 
 
@@ -177,6 +180,51 @@ namespace ZaveModel.ZDFEntry {
     }
 
     //end ZDFEntry
+
+    class ZDFEntryConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(List<EntryComment>);
+        }
+
+        public override bool CanWrite
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var jsonObject = JObject.Load(reader);
+            var entry = new ZDFEntry
+            {
+                //Comments = (List<EntryComment>) jsonObject.Se
+            };
+            //switch (jsonObject["JobTitle"].Value())
+            //{
+            //    case "Software Developer":
+            //        profession = new Programming();
+            //        break;
+            //    case "Copywriter":
+            //        profession = new Writing();
+            //        break;
+            //}
+
+
+
+            //serializer.Populate(jsonObject.CreateReader(), commentList);
+            //return commentList;
+            return new object();
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 
 }//end namespace ZDFEntry

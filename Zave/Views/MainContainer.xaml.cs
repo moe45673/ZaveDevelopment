@@ -25,9 +25,6 @@ namespace Zave.Views
             InitializeComponent();
         }
 
-        private void ControlBar_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }
