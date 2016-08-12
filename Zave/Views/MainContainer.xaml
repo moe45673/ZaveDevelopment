@@ -42,7 +42,7 @@
                     <DropShadowEffect Color="#FFED3EFF"/>
                 </TextBlock.Effect>
             </TextBlock>-->
-            <my:ZDFList></my:ZDFList>
+            <my:ZDFList Loaded="ZDFList_Loaded"></my:ZDFList>
         </Border>
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
         <my:ZDFView Grid.Row="2" />
