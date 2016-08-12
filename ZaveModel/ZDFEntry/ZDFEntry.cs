@@ -46,7 +46,7 @@ namespace ZaveModel.ZDFEntry {
         {
             m_IEntryComment = new CommentList();
             //Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
-            _id = ZDF.ZDFSingleton.setID();
+            _id = ZaveModel.ZDF.ZDFSingleton.setID();
             HColor = new ColorCategory(default(System.Drawing.Color), "");
             _page = "";
             _name = "";
