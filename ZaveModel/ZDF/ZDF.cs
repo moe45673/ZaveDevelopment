@@ -14,6 +14,7 @@ using System.Threading;
 using System.Windows.Forms;
 using JetBrains.ReSharper.Psi.Resx.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Prism.Mvvm;
 using Prism.Events;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
@@ -23,7 +24,7 @@ namespace ZaveModel.ZDF
 {
 
     [JsonObject]
-    //[JsonConverter(typeof(ZDFConverter<ZDFSingleton>))]
+    [JsonConverter(typeof(ZDFConverter))]
     public sealed class ZDFSingleton : BindableBase, IZDF
     {
 
@@ -110,7 +111,8 @@ namespace ZaveModel.ZDF
 
         public static int RefreshIDCounter()
         {
-            _iDTracker = instance.EntryList.Count;
+            int count = instance.EntryList.Count();
+            _iDTracker = instance.EntryList.ElementAt(count - 1).ID;
             return IDTracker;
         }
 
@@ -174,11 +176,14 @@ namespace ZaveModel.ZDF
         
     }
 
-    class ZDFConverter<T> : JsonConverter
+    class ZDFConverter : JsonConverter
     {
+
+        
+        
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(ZDFSingleton);
+            return (objectType == typeof(ZDFSingleton));
         }
 
         public override bool CanWrite
@@ -191,31 +196,23 @@ namespace ZaveModel.ZDF
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            //var jsonObject = JObject.Load(reader);
-            var zdf = ZDFSingleton.GetInstance();
-            //System.Windows.Forms.MessageBox.Show(existingValue.ToString());
-            if(reader.TokenType == JsonToken.StartObject)
+            var jObject = JObject.Load(reader);
+            ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
+            activeZdf.EntryList.Clear();
+            
+            //activeZdf = ZDFSingleton.GetInstance(eventAggregator);
+            JArray ja = (JArray)jObject["EntryList"]["_items"];
+
+            //activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
+
+            foreach (var item in (ja.ToObject<List<ZDFEntry.ZDFEntry>>()))
             {
-                
-                T instance = (T)serializer.Deserialize<T>(reader);
-                
-                //Comments = (List<EntryComment>) jsonObject.Se
+                activeZdf.EntryList.Add(item);
             }
-            //switch (jsonObject["JobTitle"].Value())
-            //{
-            //    case "Software Developer":
-            //        profession = new Programming();
-            //        break;
-            //    case "Copywriter":
-            //        profession = new Writing();
-            //        break;
-            //}
+            ZDFSingleton.RefreshIDCounter();
 
+            return activeZdf;
 
-
-            //serializer.Populate(jsonObject.CreateReader(), commentList);
-            //return commentList;
-            return new object();
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

@@ -23,7 +23,7 @@ namespace ZaveViewModel.Data_Structures
     
     using CommentList = ObservableImmutableList<ZDFCommentItem>;
 
-    using selStateCommentList = List<Object>;
+    using selStateCommentList = List<SelectionComment>;
     
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class ZDFEntryItem : BindableBase
@@ -155,10 +155,10 @@ namespace ZaveViewModel.Data_Structures
 
         }
 
-        ~ZDFEntryItem()
-        {
-            _zdfEntry.Comments.CollectionChanged -= ModelCollectionChanged;
-        }
+        //~ZDFEntryItem()
+        //{
+        //    _zdfEntry.Comments.CollectionChanged -= ModelCollectionChanged;
+        //}
 
         
 
@@ -280,7 +280,7 @@ namespace ZaveViewModel.Data_Structures
 
             foreach (var comment in list)
             {
-                var tempComment = new ZDFCommentItem(comment as IEntryComment);
+                var tempComment = new ZDFCommentItem(comment);
                 tempList.Add(tempComment);
             }
             return tempList;
@@ -528,6 +528,13 @@ namespace ZaveViewModel.Data_Structures
             }
             ((EntryComment)_modelComment).PropertyChanged += ZDFCommentItem_PropertyChanged;
 
+        }
+
+        public ZDFCommentItem(SelectionComment comment)
+        {
+            _commentAuthor = comment.Author;
+            _commentID = comment.ID;
+            _commentText = comment.Text;
         }
 
         private void ZDFCommentItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

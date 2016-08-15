@@ -107,7 +107,7 @@ namespace ZaveViewModel.ViewModels
                     {
                         try
                         {
-                            JObject jObject = JObject.Load(wr);
+                            activeZdf = new JsonSerializer().Deserialize<ZDFSingleton>(wr);
                             //var output = "";
                             //foreach(JProperty prop in jObject.Properties())
                             //{
@@ -118,11 +118,7 @@ namespace ZaveViewModel.ViewModels
 
                             //ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
-                            activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-                            activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
-                            JArray ja = (JArray)jObject["EntryList"]["_items"];
-
-                            activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
+                            
 
                             //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
                             //foreach (var item in activeZDF.EntryList)
@@ -132,25 +128,24 @@ namespace ZaveViewModel.ViewModels
 
 
 
-                            if (activeZdf.EntryList.Count > 0)
-                            {
-                                //ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-                                ////activeZDF.EntryList.Clear();
-                                ////ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                                //foreach (var item in activeZdf.EntryList)
-                                //{
-                                //    //activeZDF.Add(item);
+                            
+                            //ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+                            ////activeZDF.EntryList.Clear();
+                            ////ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+                            //foreach (var item in activeZdf.EntryList)
+                            //{
+                            //    //activeZDF.Add(item);
 
-                                //    ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
-                                //}
-                                ////ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
-                                ////ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
+                            //    ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                            //}
+                            ////ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                            ////ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
 
-                                ////List<SelectionState> selState = activeZDF.toSelectionStateList();
+                            ////List<SelectionState> selState = activeZDF.toSelectionStateList();
 
-                                _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
+                            _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
 
-                            }
+                            
 
 
 
@@ -167,6 +162,7 @@ namespace ZaveViewModel.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    throw ex;
                 }
                 finally
                 {

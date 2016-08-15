@@ -205,7 +205,7 @@ namespace ZaveController
                     if (temp.Any<SelectionState>())
                     {
                         temp[0].ID = ZaveModel.ZDF.ZDFSingleton.setID();
-                        temp[0].Comments = new List<object>();
+                        temp[0].Comments = new List<SelectionComment>();
 
                         ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
 
