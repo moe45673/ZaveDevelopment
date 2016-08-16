@@ -85,7 +85,7 @@ namespace Zave
             bs.Run();
             var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
             //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));//
-            eventInit = EventInitSingleton.GetInstance(eventAgg);
+            eventInit = EventInitSingleton.GetInstance(eventAgg, bs.Container);
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))

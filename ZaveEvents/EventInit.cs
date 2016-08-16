@@ -37,7 +37,7 @@ namespace ZaveController
         bool disposed = false;
         public ZaveModel.ZDF.ZDFSingleton activeZDF;
         private static DateTime lastRead;
-        //private IUnityContainer _container;
+        private IUnityContainer _container;
 
         private static readonly EventInitSingleton instance = new EventInitSingleton();
         //private static EventInitSingleton instance;
@@ -56,7 +56,7 @@ namespace ZaveController
             //CreateFileWatcher(Path.GetTempPath());
             CreateFileWatcher(Path.GetTempPath());
             lastRead = DateTime.MinValue;
-            System.Drawing.Color startupColor = new System.Drawing.Color();
+            //System.Drawing.Color startupColor = ColorCategory.FromWPFColor(setStartupColor()).Color;
             //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
 
             //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
@@ -73,16 +73,17 @@ namespace ZaveController
 
         }
 
-        public static EventInitSingleton GetInstance(IEventAggregator eventAgg = null)
+        public static EventInitSingleton GetInstance(IEventAggregator eventAgg = null, IUnityContainer cont = null)
         {
             if (instance._eventAggregator == null && eventAgg != null)
             {
                 instance._eventAggregator = eventAgg;
                 instance._eventAggregator.GetEvent<MainControlsUpdateEvent>().Subscribe(instance.SetActiveColor);
                 instance.activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
-
+                instance._container = cont;
+                instance.activeColor = instance._container.Resolve<ControlBarViewModel>().ActiveColor;
             }
-
+            
             return Instance;
         }
 

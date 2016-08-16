@@ -36,6 +36,7 @@ namespace ZaveViewModel.ViewModels
             ColorItemList = SetColorsAsync().Result;
             //beginColorSet.Invoke();
             ActiveColor = Color.FromArgb(255, 255, 255, 0);
+            eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
 
 
 
