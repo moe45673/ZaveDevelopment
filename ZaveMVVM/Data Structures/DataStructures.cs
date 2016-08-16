@@ -178,7 +178,24 @@ namespace ZaveViewModel.Data_Structures
                 throw nre;
             }
         }
-        
+
+        protected virtual void setProperties(IZDFEntry zEntry)
+        {
+            try
+            {
+                if (zEntry.Name != null)
+                {
+                    //SelectedZDFByUser = selState.SelectionDocName.ToString();
+                    SelectedZDFByUser = Convert.ToString(zEntry.ID);
+                }
+                setProperties(zEntry.ID, zEntry.Name, zEntry.Page, zEntry.Text, zEntry.DateModified, zEntry.HColor.Color, fromZDFCommentList(zEntry.Comments));
+            }
+            catch (NullReferenceException nre)
+            {
+                throw nre;
+            }
+        }
+
 
         #region Commands
 
@@ -532,9 +549,9 @@ namespace ZaveViewModel.Data_Structures
 
         public ZDFCommentItem(SelectionComment comment)
         {
-            _commentAuthor = comment.Author;
-            _commentID = comment.ID;
-            _commentText = comment.Text;
+            ModelComment.Author.Name = comment.Author;
+            //ModelComment.CommentID = comment.ID;
+            ModelComment.CommentText = comment.Text;
         }
 
         private void ZDFCommentItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
