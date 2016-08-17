@@ -9,8 +9,10 @@
              prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:converters="clr-namespace:Zave.Converters"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance vm:ControlBarViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
         <Style x:Key="ControlBar_Container" TargetType="{x:Type StackPanel}">
@@ -54,19 +56,23 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/new_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/new_t.jpg" Height="55" Width="70"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/open_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Button Command="{Binding OpenZDFDelegateCommand}">
+                    <Image Source="/Zave;component/media/images/open_t.jpg" Height="55" Width="70"/>
+                    </Button>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/save_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Button Command="{Binding SaveZDFDelegateCommand}">
+                    <Image Source="/Zave;component/media/images/save_t.jpg" Height="55" Width="70"/>
+                    </Button>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/undoredo_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/undoredo_t.jpg" Height="55" Width="70"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/screenshot_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/screenshot_t.jpg" Height="55" Width="70"/>
                 </ListBoxItem>
             </ListBox>
         </StackPanel>
