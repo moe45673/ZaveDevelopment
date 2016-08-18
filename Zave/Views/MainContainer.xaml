@@ -45,8 +45,12 @@
             <my:ZDFList Loaded="ZDFList_Loaded"></my:ZDFList>
         </Border>
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
-        <my:ZDFView Grid.Row="2" />
-        <Border Grid.Column="2" Grid.Row="2">
+        <my:ZDFView Grid.Row="2" Focusable="True" ForceCursor="True" >
+            <ScrollViewer>
+                <my:ZDFView></my:ZDFView>
+            </ScrollViewer>
+        </my:ZDFView>
+                <Border Grid.Column="2" Grid.Row="2">
             <ScrollViewer>
                 <my:ZDFEntryView></my:ZDFEntryView>
             </ScrollViewer>

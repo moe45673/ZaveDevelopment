@@ -119,5 +119,21 @@ namespace Zave.Views
 
         }
 
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void btnNewFile_Click(object sender, RoutedEventArgs e)
+        {
+            ZaveModel.ZDF.ZDFSingleton activeZDF;
+            activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+
+            activeZDF.Add(new ZDFEntry());
+            //SelectionState selState = new SelectionState(activeZDF.EntryList.LastOrDefault().ID, activeZDF.EntryList.LastOrDefault().Name, activeZDF.EntryList.LastOrDefault().Page, activeZDF.EntryList.LastOrDefault().Text, DateTime.Now, System.Drawing.Color.Yellow, SrcType.WORD, new List<SelectionComment>());
+            //var activeNewZdf = activeZDF.EntryList[activeZDF.EntryList.Count - 1].toSelectionState();
+            //activeNewZdf.Color = System.Drawing.Color.White;
+            
+        }
     }
 }
