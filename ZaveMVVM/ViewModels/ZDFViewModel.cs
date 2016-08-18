@@ -80,6 +80,7 @@ namespace ZaveViewModel.ViewModels
             {
                 lock (_zdfEntriesLock)
                 {
+
                     SetProperty(ref _zdfEntries, value);
                 }
             }
@@ -103,10 +104,15 @@ namespace ZaveViewModel.ViewModels
                         
 
                         ZdfEntries.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
-                        
-                        
+
+                        var list = ZdfEntries.OrderBy(o => o.TxtDocColor.ToString()).ToList();
+
+                        ZdfEntries.Clear();
+                        ZdfEntries.AddRange(list);
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
                         break;
+
+                        
 
                     default:
                         System.Windows.Forms.MessageBox.Show("Nothing Done!");
