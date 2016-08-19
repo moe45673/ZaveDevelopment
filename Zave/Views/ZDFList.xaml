@@ -13,6 +13,7 @@
     <UserControl.Resources>
         <Style x:Key="FileList_Container" TargetType="{x:Type ListBox}">
             <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Background" Value="#F0F0F0"/>
         </Style>
     </UserControl.Resources>
     <Canvas>

@@ -13,6 +13,9 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
+        <Style TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
+        </Style>
         <Style x:Key="ControlBar_Container" TargetType="{x:Type StackPanel}">
             <Setter Property="Orientation" Value="Horizontal"></Setter>
             <Setter Property="HorizontalAlignment" Value="Left"></Setter>
@@ -25,6 +28,7 @@
             <Setter Property="Margin" Value="10"></Setter>
         </Style>
         <Style TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
