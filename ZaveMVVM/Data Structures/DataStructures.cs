@@ -20,10 +20,17 @@ using Newtonsoft.Json;
 
 namespace ZaveViewModel.Data_Structures
 {
+
     
+
     using CommentList = ObservableImmutableList<ZDFCommentItem>;
 
     using selStateCommentList = List<SelectionComment>;
+
+
+    
+    
+    
     
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class ZDFEntryItem : BindableBase
@@ -33,6 +40,8 @@ namespace ZaveViewModel.Data_Structures
 
         public static string SelectedZDFByUser = null;
 
+        //Placeholder Variable
+        
 
         protected void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -103,6 +112,7 @@ namespace ZaveViewModel.Data_Structures
                 throw new NullReferenceException("No ZDFEntryItemViewModel referenced!");
             }
 
+            
             _txtDocID = id.ToString();
             TxtDocName = name;
             TxtDocPage = page;
