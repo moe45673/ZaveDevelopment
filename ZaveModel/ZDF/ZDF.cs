@@ -14,6 +14,7 @@ using System.Threading;
 using System.Windows.Forms;
 using JetBrains.ReSharper.Psi.Resx.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Prism.Mvvm;
 using Prism.Events;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
@@ -23,6 +24,7 @@ namespace ZaveModel.ZDF
 {
 
     [JsonObject]
+    [JsonConverter(typeof(ZDFConverter))]
     public sealed class ZDFSingleton : BindableBase, IZDF
     {
 
@@ -53,36 +55,28 @@ namespace ZaveModel.ZDF
 
             
             
-            EntryList = new ObservableImmutableList<IZDFEntry>();
+            EntryList = new ObservableImmutableList<ZDFEntry.IZDFEntry>();
+
+
             
+            _iDTracker = EntryList.Count;
             
-            if (EntryList.Count.Equals(0))
-                _iDTracker = 0;
-            else
-            {
-                //get highest existing id and set _iDtracker to it
-            }
             //CreateFileWatcher(Path.GetTempPath());
         }
 
 
-        [JsonIgnore]
-        private static ZDFSingleton Instance
+        
+        public static ZDFSingleton Instance
         {
             get
             {
-                lock (syncRoot)
-                {
-                    
-                    if (instance == null)
-                    {
-                        instance = new ZDFSingleton();
-                    }
-                }
-                return instance;
+                
+                return GetInstance();
+                
+                
             }
         }
-
+        
         public static ZDFSingleton GetInstance(IEventAggregator eventAgg = null)
         {
             lock (syncRoot)
@@ -93,16 +87,15 @@ namespace ZaveModel.ZDF
                     instance._eventAggregator = eventAgg;
                     instance._eventAggregator.GetEvent<EntryCreatedEvent>().Subscribe(Add);
                 }          
-                if (instance != null)
+                if (instance != null && instance._eventAggregator == null)
                 {
-                    if (instance._eventAggregator == null)
                         instance._eventAggregator = new EventAggregator();
 
-                    instance._eventAggregator.GetEvent<EntryCreatedEvent>().Subscribe(Add);
+                    
                 }
-
+                
             }
-            return Instance;
+            return instance;
 
 
         }
@@ -112,11 +105,19 @@ namespace ZaveModel.ZDF
 
        
         [JsonIgnore]
-        private ObservableImmutableList<IZDFEntry> _entryList;
+        private ObservableImmutableList<ZDFEntry.IZDFEntry> _entryList;
 
         //public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public ObservableImmutableList<IZDFEntry> EntryList
+        public static int RefreshIDCounter()
+        {
+            int count = instance.EntryList.Count();
+            _iDTracker = instance.EntryList.ElementAt(count - 1).ID;
+            return IDTracker;
+        }
+
+        [JsonProperty]
+        public ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList
         {
             get { return _entryList; }
             set { SetProperty(ref _entryList, value); }
@@ -143,7 +144,7 @@ namespace ZaveModel.ZDF
             return EntryList.ToList<ZDFEntry.IZDFEntry>();
         }
 
-        public void Add(IZDFEntry zEntry)
+        public void Add(ZDFEntry.IZDFEntry zEntry)
         {
             try
             {
@@ -162,9 +163,62 @@ namespace ZaveModel.ZDF
 
         public static void Add(Object obj)
         {
-            Instance.Add(obj as IZDFEntry);
+            Instance.Add(obj as ZDFEntry.IZDFEntry);
+        }
+
+        public void Clear()
+        {
+            IEventAggregator ea = this._eventAggregator;
+            instance = null;
+            GetInstance(ea);
         }
 
         
     }
+
+    class ZDFConverter : JsonConverter
+    {
+
+        
+        
+        public override bool CanConvert(Type objectType)
+        {
+            return (objectType == typeof(ZDFSingleton));
+        }
+
+        public override bool CanWrite
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var jObject = JObject.Load(reader);
+            ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
+            activeZdf.EntryList.Clear();
+            
+            //activeZdf = ZDFSingleton.GetInstance(eventAggregator);
+            JArray ja = (JArray)jObject["EntryList"]["_items"];
+
+            //activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
+
+            foreach (var item in (ja.ToObject<List<ZDFEntry.ZDFEntry>>()))
+            {
+                activeZdf.EntryList.Add(item);
+            }
+            ZDFSingleton.RefreshIDCounter();
+
+            return activeZdf;
+
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

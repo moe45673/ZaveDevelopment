@@ -18,32 +18,35 @@ using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using ZaveModel.ZDFColors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 
 
 namespace ZaveModel.ZDFEntry {
 
+    
     using CommentList = ObservableImmutableList<IEntryComment>;
 
     [JsonObject]
+    [JsonConverter(typeof(ZDFEntryConverter))]
     public class ZDFEntry : BindableBase, IZDFEntry
     {
 
 
-        
 
-        
+
+
         [JsonIgnore]
         private int _id;
         [JsonProperty]
         public int ID { get { return _id; } }
 
-        
+
 
         public ZDFEntry()
         {
             m_IEntryComment = new CommentList();
             //Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
-            _id = ZDF.ZDFSingleton.setID();
+            _id = ZaveModel.ZDF.ZDFSingleton.setID();
             HColor = new ColorCategory(default(System.Drawing.Color), "");
             _page = "";
             _name = "";
@@ -56,7 +59,10 @@ namespace ZaveModel.ZDFEntry {
         {
             m_IEntryComment = new CommentList();
 
-            src.Comments.ForEach(item => Comments.Add(item as IEntryComment));
+            foreach(var item in src.Comments)
+            {
+                Comments.Add(new EntryComment(item.Text, item.Author));
+            }
 
             _id = src.ID;
             _page = src.SelectionPage;
@@ -65,8 +71,8 @@ namespace ZaveModel.ZDFEntry {
             _dateModified = src.SelectionDateModified;
             _format = src.srcType;
             _hColor = new ColorCategory(src.Color, src.Color.Name);
-            
-            
+
+
         }
 
         ~ZDFEntry()
@@ -76,7 +82,16 @@ namespace ZaveModel.ZDFEntry {
 
         public SelectionState toSelectionState()
         {
-            return new SelectionState( this.ID, this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format, this.Comments.ToList<object>());
+            var commentList = new List<SelectionComment>();
+            foreach(var item in Comments)
+            {
+                var selCom = new SelectionComment();
+                selCom.Author = item.Author.Name;
+                selCom.ID = item.CommentID;
+                selCom.Text = item.CommentText;
+                commentList.Add(selCom);
+            }
+            return new SelectionState(this.ID, this.Name, this.Page, this.Text, this.DateModified, this.HColor.Color, this.Format, commentList);
         }
 
 
@@ -141,7 +156,6 @@ namespace ZaveModel.ZDFEntry {
         [JsonIgnore]
         private SrcType _format;
         [JsonProperty]
-        [JsonConverter(typeof(StringEnumConverter))]
         public SrcType Format
         {
             get { return _format; }
@@ -177,6 +191,72 @@ namespace ZaveModel.ZDFEntry {
     }
 
     //end ZDFEntry
+
+    class ZDFEntryConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(ZDFEntry);
+        }
+
+        public override bool CanWrite
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var jsonObject = JObject.Load(reader);
+            var tempEntry = new SelectionState();
+            tempEntry.ID = (int)jsonObject["ID"];
+            tempEntry.SelectionDocName = (string)jsonObject["Name"];
+            tempEntry.SelectionPage = (string)jsonObject["Page"];
+            tempEntry.SelectionText = (string)jsonObject["Text"];
+            tempEntry.SelectionDateModified = (DateTime)jsonObject["DateModified"];
+            tempEntry.Color = new System.Drawing.Color();
+            List<int> list = ((string)jsonObject["HColor"]["Color"]).Split(',').Select(int.Parse).ToList();
+            tempEntry.Color = System.Drawing.Color.FromArgb(list[0], list[1], list[2]);
+            tempEntry.srcType = (SrcType)int.Parse((string)jsonObject["Format"]);
+            var comments = (JArray)jsonObject["Comments"]["_items"];
+            foreach(var item in comments)
+            {
+                var selCom = new SelectionComment();
+                selCom.Author = (string)item["Author"]["Name"];
+                selCom.ID = (int)item["CommentID"];
+                selCom.Text = (string)item["CommentText"];
+                tempEntry.Comments.Add(selCom);
+            }
+            
+            var entry = new ZDFEntry(tempEntry);
+
+
+            
+
+            //switch (jsonObject["JobTitle"].Value())
+            //{
+            //    case "Software Developer":
+            //        profession = new Programming();
+            //        break;
+            //    case "Copywriter":
+            //        profession = new Writing();
+            //        break;
+            //}
+
+
+
+            //serializer.Populate(jsonObject.CreateReader(), commentList);
+            //return commentList;
+            return entry;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 
 }//end namespace ZDFEntry

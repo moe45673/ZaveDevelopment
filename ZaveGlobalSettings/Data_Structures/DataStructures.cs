@@ -73,7 +73,12 @@ namespace ZaveGlobalSettings.Data_Structures
 //    }
 
 //}
-
+    public struct SelectionComment
+    {
+        public int ID;
+        public string Text;
+        public string Author;
+    }
 
     /// <summary>
     /// High Level class that holds all data/metadata from an Entry abstractly
@@ -81,7 +86,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
         
-        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<object> comments = null)
+        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
         {
             ID = id;
             SelectionDocName = name;
@@ -96,7 +101,7 @@ namespace ZaveGlobalSettings.Data_Structures
             if (comments != null)
                 Comments = comments;
             else
-                Comments = new List<object>();
+                Comments = new List<SelectionComment>();
 
             IsValid = true;
         }
@@ -111,7 +116,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public DateTime SelectionDateModified { get; set; }
         // String SelectionType { get; set; }
         public SrcType srcType { get; set; }
-        public List<object> Comments { get; set; }
+        public List<SelectionComment> Comments { get; set; }
 
 
         public bool IsValid { get; set; }

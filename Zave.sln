@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zave", "Zave\Zave.csproj", "{4E456E7F-FA26-4D6F-A99A-99DC0D481982}"
 EndProject
@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveService", "ZaveService\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveGlobalSettings", "ZaveGlobalSettings\ZaveGlobalSettings.csproj", "{0F1F4A8F-44FD-4537-88A1-21034AC4335A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveWordAddIn", "ZaveWordAddIn\ZaveWordAddIn.csproj", "{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaveWordAddin", "FirstWordAddIn\ZaveWordAddin.csproj", "{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{0F1F4A8F-44FD-4537-88A1-21034AC4335A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F1F4A8F-44FD-4537-88A1-21034AC4335A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F1F4A8F-44FD-4537-88A1-21034AC4335A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75EDDC7D-13A8-45C1-90B9-B1A477B4DA0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FEC93AB-A5DE-49EE-84E5-43090C2B007B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

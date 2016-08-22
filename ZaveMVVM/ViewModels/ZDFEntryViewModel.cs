@@ -87,7 +87,7 @@ namespace ZaveViewModel.ViewModels
             ZDFEntryItem item = obj as ZDFEntryItem;
 
             if (item != null) _zdfEntry = item.ZDFEntry;
-            setProperties(_zdfEntry.toSelectionState());
+            setProperties(item.ZDFEntry);
         }
         
 

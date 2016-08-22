@@ -20,11 +20,11 @@ using Newtonsoft.Json;
 
 namespace ZaveViewModel.Data_Structures
 {
-    
+    using System.Windows.Threading;
     using CommentList = ObservableImmutableList<ZDFCommentItem>;
 
-    using selStateCommentList = List<Object>;
-    
+    using selStateCommentList = List<SelectionComment>;
+
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class ZDFEntryItem : BindableBase
     {
@@ -53,10 +53,10 @@ namespace ZaveViewModel.Data_Structures
                         var tempList = new ObservableImmutableList<ZDFCommentItem>();
                         tempList.Add(newComment);
 
-                        TxtDocComments.DoAdd(x => newComment );
+                        TxtDocComments.DoAdd(x => newComment);
 
-                        
-                        
+
+
                         break;
 
 
@@ -92,9 +92,9 @@ namespace ZaveViewModel.Data_Structures
                 System.Windows.Forms.MessageBox.Show("Unable to Add New Comment!");
             }
         }
-            
 
-                        //private string _txtDocId;
+
+        //private string _txtDocId;
 
         protected void setProperties(int id = default(int), string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = default(CommentList))
         {
@@ -128,7 +128,7 @@ namespace ZaveViewModel.Data_Structures
             AddCommentDelegateCommand = new DelegateCommand(AddComment).ObservesCanExecute(p => CanAdd);
             EditCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(EditComment).ObservesCanExecute(p => CanEdit);
 
-           
+
             _zdfEntry.Comments.CollectionChanged -= new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
             _zdfEntry.Comments.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
 
@@ -141,36 +141,36 @@ namespace ZaveViewModel.Data_Structures
                 IsEditing = true;
                 IsEditing = false;
             }
-            if(IsNotEditing)
+            if (IsNotEditing)
             {
                 CanAdd = true;
-                
+
             }
             CanEdit = false;
 
-           
 
-            
+
+
 
 
         }
 
-        ~ZDFEntryItem()
-        {
-            _zdfEntry.Comments.CollectionChanged -= ModelCollectionChanged;
-        }
+        //~ZDFEntryItem()
+        //{
+        //    _zdfEntry.Comments.CollectionChanged -= ModelCollectionChanged;
+        //}
 
-        
+
 
         protected virtual void setProperties(SelectionState selState)
         {
             try
             {
-                if (selState.SelectionDocName != null)
-                {
-                    //SelectedZDFByUser = selState.SelectionDocName.ToString();
-                    SelectedZDFByUser = Convert.ToString(selState.ID);
-                }
+                //if (selState.SelectionDocName != null)
+                //{
+                //    //SelectedZDFByUser = selState.SelectionDocName.ToString();
+                //    SelectedZDFByUser = Convert.ToString(selState.ID);
+                //}
                 setProperties(selState.ID, selState.SelectionDocName, selState.SelectionPage, selState.SelectionText, selState.SelectionDateModified, selState.Color, fromObjectList(selState.Comments));
             }
             catch (NullReferenceException nre)
@@ -178,7 +178,23 @@ namespace ZaveViewModel.Data_Structures
                 throw nre;
             }
         }
-        
+
+        protected virtual void setProperties(IZDFEntry zEntry)
+        {
+            try
+            {
+                if (zEntry.ID != 0)
+                {
+                    SelectedZDFByUser = Convert.ToString(zEntry.ID);
+                }
+                setProperties(zEntry.ID, zEntry.Name, zEntry.Page, zEntry.Text, zEntry.DateModified, zEntry.HColor.Color, fromZDFCommentList(zEntry.Comments));
+            }
+            catch (NullReferenceException nre)
+            {
+                throw nre;
+            }
+        }
+
 
         #region Commands
 
@@ -219,7 +235,8 @@ namespace ZaveViewModel.Data_Structures
         }
 
         private bool _isNotEditing;
-        protected bool IsNotEditing {
+        protected bool IsNotEditing
+        {
             get { return _isNotEditing; }
             private set { SetProperty(ref _isNotEditing, value); }
         }
@@ -252,7 +269,7 @@ namespace ZaveViewModel.Data_Structures
         protected ZDFEntryItem(ZDFEntry zdfEntry)
         {
             _zdfEntry = zdfEntry;
-            
+
             try
             {
                 setProperties(zdfEntry.ID, zdfEntry.Name, zdfEntry.Page, zdfEntry.Text, zdfEntry.DateModified, zdfEntry.HColor.Color, fromZDFCommentList(zdfEntry.Comments));
@@ -280,7 +297,7 @@ namespace ZaveViewModel.Data_Structures
 
             foreach (var comment in list)
             {
-                var tempComment = new ZDFCommentItem(comment as IEntryComment);
+                var tempComment = new ZDFCommentItem(comment);
                 tempList.Add(tempComment);
             }
             return tempList;
@@ -349,7 +366,7 @@ namespace ZaveViewModel.Data_Structures
             get { return _zdfEntry.Page; }
             set
             {
-                
+
                 _zdfEntry.Page = value;
                 SetProperty(ref _txtDocPage, value);
 
@@ -365,7 +382,7 @@ namespace ZaveViewModel.Data_Structures
             {
                 //if (SetProperty(ref _txtDocText, value))
                 //    _zdfEntry.Text = _txtDocText;
-                
+
                 _zdfEntry.Text = value;
                 SetProperty(ref _txtDocText, value);
 
@@ -387,7 +404,7 @@ namespace ZaveViewModel.Data_Structures
             }
             set
             {
-                
+
                 _zdfEntry.DateModified = DateTime.Parse(value);
                 SetProperty(ref _txtDocLastModified, value);
 
@@ -403,7 +420,7 @@ namespace ZaveViewModel.Data_Structures
             }
             set
             {
-                
+
                 _zdfEntry.HColor = ColorCategory.FromWPFColor(value);
                 SetProperty(ref _txtDocColor, value);
 
@@ -426,14 +443,14 @@ namespace ZaveViewModel.Data_Structures
         public CommentList TxtDocComments
         {
             get { return _txtDocComments; }
-            
+
             protected set
             {
                 //lock (_docCommentsLock)
                 //{
-                    _txtDocComments = value;    
-                             
-                    
+                _txtDocComments = value;
+
+
                 //}
             }
         }
@@ -460,7 +477,7 @@ namespace ZaveViewModel.Data_Structures
 
         public bool IsEditing
         {
-            get {return this._isEditing; }
+            get { return this._isEditing; }
             set
             {
                 _isEditing = value;
@@ -476,12 +493,41 @@ namespace ZaveViewModel.Data_Structures
         public bool CanAdd
         {
             get { return this._canAdd; }
-            set { SetProperty(ref _canAdd, value);
-                if (_txtDocText == "")
+            set
+            {
+                try
                 {
+                    //lock (this)
+                    //{
+                    //    SetProperty(ref _canAdd, value);
+                    //    if (_txtDocText == "")
+                    //    {
 
-                    SetProperty(ref _canAdd, false);
+                    //        SetProperty(ref _canAdd, false);
+                    //    }
+                    //}
+                    if (_canAdd == true)
+                    {
+                        Dispatcher.CurrentDispatcher.Invoke(() =>
+                        {
+                            SetProperty(ref _canAdd, value);
+                            if (_txtDocText == "")
+                            {
+
+                                SetProperty(ref _canAdd, false);
+                            }
+                        });
+                    }
+
                 }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message.ToString());
+                    //System.Threading.Thread th = System.Threading.Thread.CurrentThread;
+                    //th.IsBackground = true;
+                    //System.Threading.Thread.Sleep(50);
+                }
+
             }
         }
 
@@ -492,8 +538,8 @@ namespace ZaveViewModel.Data_Structures
     public class ZDFCommentItem : BindableBase
     {
 
-        
-        
+
+
         private ZDFCommentItem(IEntryComment modelComment = default(EntryComment), string text = default(string), string author = default(string), int id = default(int))
         {
             _modelComment = modelComment;
@@ -503,14 +549,14 @@ namespace ZaveViewModel.Data_Structures
 
         public static ZDFCommentItem ItemFactory(ref IEntryComment modelComment, string text = default(string), string author = default(string))
         {
-            
-            
+
+
             var item = new ZDFCommentItem(modelComment, text, author, modelComment.CommentID);
-            
+
             return item;
         }
 
-        public ZDFCommentItem(IEntryComment comment = default(EntryComment)) 
+        public ZDFCommentItem(IEntryComment comment = default(EntryComment))
         {
             _commentAuthor = "";
             _commentText = "Testing";
@@ -522,7 +568,7 @@ namespace ZaveViewModel.Data_Structures
             }
             else
             {
-                
+
                 _modelComment = new EntryComment();
                 _commentID = -1;
             }
@@ -530,14 +576,21 @@ namespace ZaveViewModel.Data_Structures
 
         }
 
+        public ZDFCommentItem(SelectionComment comment)
+        {
+            ModelComment.Author.Name = comment.Author;
+            //ModelComment.CommentID = comment.ID;
+            ModelComment.CommentText = comment.Text;
+        }
+
         private void ZDFCommentItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             IEntryComment temp = sender as IEntryComment;
-            if(e.PropertyName == "CommentText")
+            if (e.PropertyName == "CommentText")
             {
                 this.CommentText = temp.CommentText;
             }
-            if(e.PropertyName == "Author")
+            if (e.PropertyName == "Author")
             {
                 CommentAuthor = (string)temp.Author;
             }
@@ -583,7 +636,8 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        public IEntryComment ModelComment {
+        public IEntryComment ModelComment
+        {
             get { return _modelComment; }
             private set { SetProperty(ref _modelComment, value); }
         }
@@ -601,6 +655,6 @@ namespace ZaveViewModel.Data_Structures
         }
     }
 
-   
+
 
 }

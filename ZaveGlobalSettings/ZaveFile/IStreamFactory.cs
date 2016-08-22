@@ -77,7 +77,7 @@ namespace ZaveGlobalSettings.ZaveFile
                 {
                     if (i == NumberOfRetries)
                     {
-                        throw new IOException("Entry not written!");
+                        throw new IOException("Unable to Save to Path " + filepath);
                     }
 
                     System.Threading.Thread.Sleep(DelayOnRetry);
