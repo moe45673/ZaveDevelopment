@@ -27,6 +27,7 @@ namespace ZaveViewModel.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
         private readonly IIOService _ioService;
+        public static string ACTIVESORT = "TxtDocColor";
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
