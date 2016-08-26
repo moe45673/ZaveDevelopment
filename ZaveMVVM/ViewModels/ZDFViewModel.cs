@@ -32,12 +32,17 @@ using ZaveModel.ZDF;
 
 namespace ZaveViewModel.ViewModels
 {
+    
 
+    
     
     public class ZDFViewModel : BindableBase
     {
-
-
+        private string activeSort;
+        private void getActiveSort()
+        {
+            activeSort = MainContainerViewModel.ACTIVESORT;
+        }
         private ZaveModel.ZDF.ZDFSingleton _activeZdf;
         private IEventAggregator _eventAggregator;
         private IUnityContainer _container;
@@ -52,7 +57,22 @@ namespace ZaveViewModel.ViewModels
         //    }
         //}
 
-
+        private List<T> EntrySort<T>(List<T> listToSort, string propName)
+        {
+            System.Reflection.PropertyInfo propInfo = typeof(T).GetProperty(propName);
+            object property = propInfo.GetValue(listToSort.FirstOrDefault(), null);
+            List<T> list = default(List<T>);
+            if (property is IComparable)
+            {
+                
+                list = listToSort.OrderBy(o => propInfo.GetValue(o, null)).ToList();
+            }
+            else
+            {
+                list = listToSort.OrderBy(o => propInfo.GetValue(o, null).ToString()).ToList();
+            }
+            return list;
+        }
 
         protected ObservableImmutableList<ZdfEntryItemViewModel> CreateEntryList(ZaveModel.ZDF.IZDF zdf)
         {
@@ -80,6 +100,7 @@ namespace ZaveViewModel.ViewModels
             {
                 lock (_zdfEntriesLock)
                 {
+
                     SetProperty(ref _zdfEntries, value);
                 }
             }
@@ -103,10 +124,15 @@ namespace ZaveViewModel.ViewModels
                         
 
                         ZdfEntries.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
-                        
-                        
+
+                        var list = EntrySort(ZdfEntries.ToList(), activeSort);
+
+                        ZdfEntries.Clear();
+                        ZdfEntries.AddRange(list);
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
                         break;
+
+                        
 
                     default:
                         System.Windows.Forms.MessageBox.Show("Nothing Done!");
@@ -266,7 +292,7 @@ namespace ZaveViewModel.ViewModels
 
         public ZDFViewModel(IEventAggregator eventAggregator, IUnityContainer container)
         {
-
+            
             _eventAggregator = eventAggregator;
             SelectedItem = true;
             SelectItemDelegateCommand = new DelegateCommand<IList>(SelectItem, CanSelectItem);
@@ -280,7 +306,7 @@ namespace ZaveViewModel.ViewModels
             //_activeZdfEntry = new ZDFEntryViewModel(activeZDF.EntryList[0]);
             _zdfEntriesLock = new Object();
             CreateEntryList();
-
+            getActiveSort();
 
             //_activeZdf.EntryList.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(modelOpened);
