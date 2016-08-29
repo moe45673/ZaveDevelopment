@@ -13,12 +13,22 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
+        <Style TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
+        </Style>
         <Style x:Key="ControlBar_Container" TargetType="{x:Type StackPanel}">
             <Setter Property="Orientation" Value="Horizontal"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
+        <Style x:Key="ColourSelector_Container" TargetType="{x:Type StackPanel}">
+            <Setter Property="Orientation" Value="Horizontal"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+        </Style>
         <Style TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
@@ -40,11 +50,11 @@
         </TextBlock>-->
         <Grid x:Name="gridEntry">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="120" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Style="{StaticResource ControlBar_Container}">
             <ListBox>
@@ -54,23 +64,28 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/new_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/new.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/open_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/open.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/save_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/save.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/undoredo_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/undo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/screenshot_t.jpg" Height="55" Width="70" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/redo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Image Source="/Zave;component/media/images/screenshot.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                 </ListBoxItem>
             </ListBox>
         </StackPanel>
-    <xctk:ColorPicker Grid.Row="0" Grid.Column="1" Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
+        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource ColourSelector_Container}">
+            <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
+        </StackPanel>
     </Grid>
 
 </UserControl>

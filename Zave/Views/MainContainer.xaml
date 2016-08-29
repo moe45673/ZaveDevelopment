@@ -16,7 +16,18 @@
              
              d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
-        
+        <Style x:Key="Section_Border" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+        </Style>
+        <Style x:Key="ZDFList_Border" BasedOn="{StaticResource Section_Border}" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0,3,0,0"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
+        </Style>
+        <Style x:Key="ListItem_Container" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -33,24 +44,17 @@
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
             <my:Menu></my:Menu>
         </StackPanel>
-        <Border Grid.Row="1" Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="Black" Name="bdrControl">
-            <my:ControlBar/>
+        <Border Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource Section_Border}">
+            <my:ControlBar Loaded="ControlBar_Loaded"></my:ControlBar>
         </Border>
-        <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="1" BorderBrush="Black">
-            <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="[List of ZDF Files]" FontSize="50" FontFamily="Franklin Gothic Heavy" Opacity="0.8" >
-                <TextBlock.Effect>
-                    <DropShadowEffect Color="#FFED3EFF"/>
-                </TextBlock.Effect>
-            </TextBlock>-->
+        <Border Grid.ColumnSpan="3" Grid.Row="3" Style="{StaticResource ZDFList_Border}">
             <my:ZDFList Loaded="ZDFList_Loaded"></my:ZDFList>
         </Border>
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
-        <my:ZDFView Grid.Row="2" Focusable="True" ForceCursor="True" >
-            <ScrollViewer>
-                <my:ZDFView></my:ZDFView>
-            </ScrollViewer>
-        </my:ZDFView>
-                <Border Grid.Column="2" Grid.Row="2">
+        <Border Grid.Row="2" Style="{StaticResource ListItem_Container}">
+            <my:ZDFView/>
+        </Border>
+        <Border Grid.Column="2" Grid.Row="2">
             <ScrollViewer>
                 <my:ZDFEntryView></my:ZDFEntryView>
             </ScrollViewer>

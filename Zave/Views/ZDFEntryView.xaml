@@ -19,7 +19,8 @@
         <converters:ColorConverters x:Key="ColorConverter"/>
         <local:MainWindow x:Key="ZaveShell"/>
         <Style x:Key="gridEntry" TargetType="{x:Type Grid}">
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
         </Style>
         <Style x:Key="hiLightHeader" TargetType="{x:Type Grid}">
             <Setter Property="Margin" Value="10"/>
@@ -89,6 +90,7 @@
             <Setter Property="BorderBrush" Value="{x:Null}"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
         </Style>
         <Style x:Key="Comment_Item" TargetType="{x:Type Grid}">
             <Setter Property="Margin" Value="0,3,0,3"/>

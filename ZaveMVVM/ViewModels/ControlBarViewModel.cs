@@ -10,9 +10,11 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 using Prism.Mvvm;
 using Prism.Events;
+using Prism.Commands;
 using System.Threading;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using ZaveModel.ZDFColors;
+using Microsoft.Practices.Unity;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -22,14 +24,21 @@ namespace ZaveViewModel.ViewModels
         private IEventAggregator _eventAggregator;
 
         private delegate Task<ObservableImmutableList<ColorItem>> ReturnListDel();
-        
 
-        public ControlBarViewModel(IEventAggregator eventAggregator)
+        private IUnityContainer _container;
+
+        public DelegateCommand SaveZDFDelegateCommand { get; set; }
+        public DelegateCommand OpenZDFDelegateCommand { get; set; }
+
+
+        public ControlBarViewModel(IEventAggregator eventAggregator, IUnityContainer cont)
         {
             _activeColor = new Color();
             if (_eventAggregator == null && eventAggregator != null)
+            {
                 _eventAggregator = eventAggregator;
-
+                _container = cont;
+            }
             ColorItemList = new ObservableImmutableList<ColorItem>();
 
             //ReturnListDel beginColorSet = async () => await SetColorsAsync();
@@ -37,6 +46,10 @@ namespace ZaveViewModel.ViewModels
             //beginColorSet.Invoke();
             ActiveColor = Color.FromArgb(255, 255, 255, 0);
             eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
+
+            var vm = _container.Resolve(typeof(MainContainerViewModel)) as MainContainerViewModel;
+            SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
+            OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
 
 
 

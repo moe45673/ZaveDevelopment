@@ -317,6 +317,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="media\images\new.png" />
+    <Resource Include="media\images\open.png" />
+    <Resource Include="media\images\redo.png" />
+    <Resource Include="media\images\save.png" />
+    <Resource Include="media\images\screenshot.png" />
+    <Resource Include="media\images\settings.png" />
+    <Resource Include="media\images\undo.png" />
     <Resource Include="media\images\zave-beta.png" />
   </ItemGroup>
   <ItemGroup>
