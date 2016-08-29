@@ -22,7 +22,6 @@ using Microsoft.Practices.Unity;
 using ZaveViewModel.Data_Structures;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Threading;
 
 
 //using ZaveMo
@@ -218,51 +217,54 @@ namespace ZaveController
                         activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
 
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ConvertToString());
-                        if (activeZDF.EntryList.Count == 0)
+                        //if (activeZDF.EntryList.Count == 0)
+                        //{
+                        activeZDF.Add(entry);
+                        //}
+                        if (activeZDF.EntryList.Count > 0)
                         {
-                            activeZDF.Add(entry);
-                            ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-                            _eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.FirstOrDefault());
-                        }
-                        else if (activeZDF.EntryList.Count > 0)
-                        {
-                            //activeZDF.EntryList.FirstOrDefault().Text = activeZDF.EntryList.FirstOrDefault().Text+ entry.Text;
-                            //entry.Text = activeZDF.EntryList.FirstOrDefault().Text;
-                            //ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-                            ////SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now, System.Drawing.Color.Yellow, SrcType.WORD,new List<SelectionComment>());
-                            //_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.FirstOrDefault());
-
-                            #region Old 
                             var selected = ZDFEntryItem.SelectedZDFByUser;
                             if (selected != null)
                             {
-                                #region Previous
                                 var selectZDF = activeZDF.EntryList.Where(t => Convert.ToString(t.ID) == selected);
-                                if (selectZDF.ToArray().Length > 0)
-                                {
-                                    entry.Text = selectZDF.FirstOrDefault().Text + entry.Text;
-                                    activeZDF.EntryList.Where(t=>t.ID==Convert.ToInt32(selected)).FirstOrDefault().Text = entry.Text;
-                                    ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-                                }
-                                else {
-                                    activeZDF.EntryList.FirstOrDefault().Text = activeZDF.EntryList.FirstOrDefault().Text + entry.Text;
-                                    entry.Text = activeZDF.EntryList.FirstOrDefault().Text;
-                                    ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-                                }
-                                #endregion
-
-                                _eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.FirstOrDefault());
-                            }
-                            else {
-                                activeZDF.EntryList.FirstOrDefault().Text = activeZDF.EntryList.FirstOrDefault().Text + entry.Text;
+                                selectZDF.FirstOrDefault().Text = selectZDF.FirstOrDefault().Text + entry.Text;
                                 ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-                                _eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.FirstOrDefault());
 
-                                //var id = ZdfEntries.Cast<ZdfEntryItemViewModel>();
-                                //_eventAggregator.GetEvent<EntryUpdateEvent>().Publish(ZdfEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZdfEntryItemViewModel>().TxtDocID));
-                                //ZdfEntries.FirstOrDefault().TxtDocColor = System.Windows.Media.Color.FromRgb(110, 120, 130);
-                                //_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZdfEntryItemViewModel>().TxtDocID));
+                                //SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
+                                //ZDFEntryViewModel OBJ = ZDFEntryViewModel.EntryVmFactory(null, null, null, selectZDF.FirstOrDefault());
+
+                                ////SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
+                                //ZaveViewModel.Data_Structures.ZDFEntryItem obj = ZdfEntries[0];
+                                //EventSetProperties(obj, selState);
                             }
+
+                            #region Later Code
+                            //SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
+                            //selected zdf required
+                            //string selection = selState.SelectionDocName;
+                            //var r = activeZDF.toSelectionStateList().Where(t => t.srcType == SrcType.WORD);
+                            //ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
+                            //List<SelectionState> selState1 = activeZDF.toSelectionStateList();
+
+                            //bool isactive = ZdfEntries.FirstOrDefault().AddCommentDelegateCommand.IsActive;
+                            //foreach (ZDFEntry en in activeZDF.EntryList.ToList())
+                            //{
+                            //foreach (ZdfEntryItemViewModel zeivm in ZdfEntries)
+                            //{
+                            //    if (zeivm.AddCommentDelegateCommand.IsActive)
+                            //    {
+                            //        activeZDF.EntryList[1].Text = "Active-AddCommentDelegateCommand" + temp[0].SelectionText;
+                            //    }
+                            //    else {
+                            //        activeZDF.EntryList[1].Text = "In Active" + temp[0].SelectionText;
+                            //    }
+                            //}
+                            //if (en.toSelectionState().SelectionDocName != null)
+                            //{
+                            //    string sam = en.toSelectionState().SelectionDocName.ToString();
+                            //}
+                            //}
+
                             #endregion
                         }
 

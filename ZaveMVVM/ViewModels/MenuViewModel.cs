@@ -22,6 +22,8 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
 
+        public DelegateCommand NewZDFDelegateCommand { get; set; }
+
         public MenuViewModel(IEventAggregator eventAgg, IRegionManager reg, IUnityContainer cont)
         {
             _eventAggregator = eventAgg;
@@ -31,7 +33,7 @@ namespace ZaveViewModel.ViewModels
             var vm = _container.Resolve(typeof(MainContainerViewModel)) as MainContainerViewModel;
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
-
+            NewZDFDelegateCommand = vm.NewZDFDelegateCommand;
         }
 
     }

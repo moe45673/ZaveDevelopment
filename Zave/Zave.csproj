@@ -88,8 +88,9 @@
       <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NuGet.Core">
       <HintPath>..\packages\NuGet.Core.2.11.1\lib\net40-Client\NuGet.Core.dll</HintPath>
@@ -122,6 +123,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\Facades\System.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
@@ -271,6 +273,10 @@
     <Resource Include="DevNotes.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FirstWordAddIn\ZaveWordAddin.csproj">
+      <Project>{2fec93ab-a5de-49ee-84e5-43090c2b007b}</Project>
+      <Name>ZaveWordAddin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZaveEvents\ZaveController.csproj">
       <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
       <Name>ZaveController</Name>
