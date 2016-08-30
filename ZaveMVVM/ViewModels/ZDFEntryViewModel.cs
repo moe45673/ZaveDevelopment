@@ -86,8 +86,18 @@ namespace ZaveViewModel.ViewModels
         {
             ZDFEntryItem item = obj as ZDFEntryItem;
 
-            if (item != null) _zdfEntry = item.ZDFEntry;
-            setProperties(item.ZDFEntry);
+            if (item != null)
+            {
+                _zdfEntry = item.ZDFEntry;
+                setProperties(item.ZDFEntry);
+            }
+            else
+            {
+                _zdfEntry = new ZDFEntry();
+                setProperties(_zdfEntry);
+            }
+
+
         }
         
 
