@@ -273,28 +273,29 @@ namespace ZaveViewModel.ViewModels
         {
             //ZaveModel.ZDF.ZDFSingleton activeZDF;
             //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-            ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
+            //ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+            //ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
             ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-            activeZDF.Add(new ZDFEntry());
+            activeZDF.EntryList.Clear();
+            //activeZDF.Add(new ZDFEntry());
 
-            //_eventAggregator.GetEvent<EntryCreatedEvent>().Publish(new ZDFEntry());
-            activeZDF.EntryList.LastOrDefault().Text = activeZDF.EntryList.Count.ToString();
-            activeZDF.EntryList.LastOrDefault().DateModified = DateTime.Now.Date;
-            activeZDF.EntryList.LastOrDefault().DateModified = DateTime.Now.Date;
-            activeZDF.EntryList.LastOrDefault().Name = "New ZDF Name";
-            ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-           
-            //MouseButtonEventArgs ek = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
-            //ek.RoutedEvent = System.Windows.Controls.TextBlock.MouseLeftButtonDownEvent;
-            ZDFViewModel objmodel = new ZDFViewModel(_eventAggregator,_container);
-            
-            //_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.LastOrDefault(x => x.TxtDocID == ZdfEntries.First<ZdfEntryItemViewModel>().TxtDocID));
-            MouseButtonEventArgs mm = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
-            
-            LV_EntryList_PreviewMouseLeftButtonDown(mm.Source, mm);
+            ////_eventAggregator.GetEvent<EntryCreatedEvent>().Publish(new ZDFEntry());
+            //activeZDF.EntryList.LastOrDefault().Text = activeZDF.EntryList.Count.ToString();
+            //activeZDF.EntryList.LastOrDefault().DateModified = DateTime.Now.Date;
+            //activeZDF.EntryList.LastOrDefault().DateModified = DateTime.Now.Date;
+            //activeZDF.EntryList.LastOrDefault().Name = "New ZDF Name";
             //ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-            //_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZDFSingleton.GetInstance());
+           
+            ////MouseButtonEventArgs ek = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
+            ////ek.RoutedEvent = System.Windows.Controls.TextBlock.MouseLeftButtonDownEvent;
+            //ZDFViewModel objmodel = new ZDFViewModel(_eventAggregator,_container);
+            
+            ////_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.LastOrDefault(x => x.TxtDocID == ZdfEntries.First<ZdfEntryItemViewModel>().TxtDocID));
+            //MouseButtonEventArgs mm = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
+            
+            //LV_EntryList_PreviewMouseLeftButtonDown(mm.Source, mm);
+            ////ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
+            ////_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZDFSingleton.GetInstance());
         }
 
         private string getSaveDirectory()
