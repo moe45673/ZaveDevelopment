@@ -4,12 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Zave.Views"
+             xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:converters="clr-namespace:Zave.Converters"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:ControlBarViewModel, IsDesignTimeCreatable=True}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
@@ -64,13 +66,19 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/new.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Button Command="{Binding NewZDFDelegateCommand}" >
+                    <Image Source="/Zave;component/media/images/new.png" Height="30" Width="40" />
+                    </Button>
                 </ListBoxItem>
                 <ListBoxItem>
+                    <Button Command="{Binding OpenZDFDelegateCommand}" >
                     <Image Source="/Zave;component/media/images/open.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    </Button>
                 </ListBoxItem>
                 <ListBoxItem>
+                    <Button Command="{Binding SaveZDFDelegateCommand}" >
                     <Image Source="/Zave;component/media/images/save.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    </Button>
                 </ListBoxItem>
                 <ListBoxItem>
                     <Image Source="/Zave;component/media/images/undo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>

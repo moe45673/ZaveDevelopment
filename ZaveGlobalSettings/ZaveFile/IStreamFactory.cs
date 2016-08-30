@@ -34,13 +34,14 @@ namespace ZaveGlobalSettings.ZaveFile
                 {
                     if (i == NumberOfRetries)
                     {
-                        throw new IOException("Entry not saved!");
+                        throw new IOException("Entry not read!");
                        
                     }
 
                     System.Threading.Thread.Sleep(DelayOnRetry);
 
                 }
+
                
                 
             }

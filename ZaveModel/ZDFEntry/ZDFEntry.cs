@@ -28,7 +28,7 @@ namespace ZaveModel.ZDFEntry
     using CommentList = ObservableImmutableList<IEntryComment>;
 
     [JsonObject]
-    //[JsonConverter(typeof(ZDFEntryConverter))]
+    [JsonConverter(typeof(ZDFEntryConverter))]
     public class ZDFEntry : BindableBase, IZDFEntry
     {
 
@@ -212,34 +212,34 @@ namespace ZaveModel.ZDFEntry
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             #region Previous code 
-            //var jsonObject = JObject.Load(reader);
-            //var tempEntry = new SelectionState();
-            //tempEntry.ID = (int)jsonObject["ID"];
-            //tempEntry.SelectionDocName = (string)jsonObject["Name"];
-            //tempEntry.SelectionPage = (string)jsonObject["Page"];
-            //tempEntry.SelectionText = (string)jsonObject["Text"];
-            //tempEntry.SelectionDateModified = (DateTime)jsonObject["DateModified"];
-            //tempEntry.Color = new System.Drawing.Color();
-            //List<int> list = ((string)jsonObject["HColor"]["Color"]).Split(',').Select(int.Parse).ToList();
-            //tempEntry.Color = System.Drawing.Color.FromArgb(list[0], list[1], list[2]);
-            //tempEntry.srcType = (SrcType)int.Parse((string)jsonObject["Format"]);
-            //var comments = (JArray)jsonObject["Comments"]["_items"];
-            //foreach (var item in comments)
-            //{
-            //    var selCom = new SelectionComment();
-            //    selCom.Author = (string)item["Author"]["Name"];
-            //    selCom.ID = (int)item["CommentID"];
-            //    selCom.Text = (string)item["CommentText"];
-            //    tempEntry.Comments.Add(selCom);
-            //}
-
-            //var entry = new ZDFEntry(tempEntry);
-            #endregion
             var jsonObject = JObject.Load(reader);
-            var entry = new ZDFEntry
+            var tempEntry = new SelectionState();
+            tempEntry.ID = (int)jsonObject["ID"];
+            tempEntry.SelectionDocName = (string)jsonObject["Name"];
+            tempEntry.SelectionPage = (string)jsonObject["Page"];
+            tempEntry.SelectionText = (string)jsonObject["Text"];
+            tempEntry.SelectionDateModified = (DateTime)jsonObject["DateModified"];
+            tempEntry.Color = new System.Drawing.Color();
+            List<int> list = ((string)jsonObject["HColor"]["Color"]).Split(',').Select(int.Parse).ToList();
+            tempEntry.Color = System.Drawing.Color.FromArgb(list[0], list[1], list[2]);
+            tempEntry.srcType = (SrcType)int.Parse((string)jsonObject["Format"]);
+            var comments = (JArray)jsonObject["Comments"]["_items"];
+            foreach (var item in comments)
             {
-                //Comments = (List<EntryComment>) jsonObject.Se
-            };
+                var selCom = new SelectionComment();
+                selCom.Author = (string)item["Author"]["Name"];
+                selCom.ID = (int)item["CommentID"];
+                selCom.Text = (string)item["CommentText"];
+                tempEntry.Comments.Add(selCom);
+            }
+
+            var entry = new ZDFEntry(tempEntry);
+            #endregion
+            //var jsonObject = JObject.Load(reader);
+            //var entry = new ZDFEntry
+            //{
+            //    //Comments = (List<EntryComment>) jsonObject.Se
+            //};
 
 
 

@@ -23,8 +23,12 @@ namespace ZaveService.IOService
     {
         public StreamReader OpenFileService(string path)
         {
-            var sr = ZaveGlobalSettings.ZaveFile.StreamReaderFactory.createStreamReader(path);
-            return sr;
+            if (path != null)
+            {
+                var sr = ZaveGlobalSettings.ZaveFile.StreamReaderFactory.createStreamReader(path);
+                return sr;
+            }
+            return null;
         }
 
         public string OpenFileDialogService(string defaultPath)
@@ -36,7 +40,7 @@ namespace ZaveService.IOService
                 return open.FileName;
             }
 
-            return null;
+            return String.Empty;
         }
 
         public StreamWriter SaveFileService(string path)

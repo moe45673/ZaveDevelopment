@@ -105,81 +105,87 @@ namespace ZaveViewModel.ViewModels
             JsonSerializer serializer = new JsonSerializer();
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
             var filename = _ioService.OpenFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            using (var sr = _ioService.OpenFileService(filename))
+
+            
+            if (filename != String.Empty) //If the user presses cancel
             {
-                try
+                using (var sr = _ioService.OpenFileService(filename))
                 {
-                    using (JsonReader wr = new JsonTextReader(sr))
+                    try
                     {
-                        try
+                        using (JsonReader wr = new JsonTextReader(sr))
                         {
-                            JObject jObject = JObject.Load(wr);
-                            //var output = "";
-                            //foreach(JProperty prop in jObject.Properties())
-                            //{
-                            //    output += "PROPERTY 1 EQUALS " + prop.Name + "-" + prop.Value + '\r' + '\n';
-                            //}
-
-                            //System.Windows.Forms.MessageBox.Show(output);
-
-                            //ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
-
-                            //activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-                            activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-                            activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
-                            JArray ja = (JArray)jObject["EntryList"]["_items"];
-
-                            activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
-
-                            //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
-                            //foreach (var item in activeZDF.EntryList)
-                            //{
-                            //    activeZDF.Add(item);
-                            //}
-
-
-
-                            if (activeZdf.EntryList.Count > 0)
+                            try
                             {
-                                ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-                                ////activeZDF.EntryList.Clear();
-                                ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                                foreach (var item in activeZdf.EntryList)
+                                JObject jObject = JObject.Load(wr);
+                                //var output = "";
+                                //foreach(JProperty prop in jObject.Properties())
+                                //{
+                                //    output += "PROPERTY 1 EQUALS " + prop.Name + "-" + prop.Value + '\r' + '\n';
+                                //}
+
+                                //System.Windows.Forms.MessageBox.Show(output);
+
+                                //ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
+
+                                //activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
+                                activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
+                                activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
+                                JArray ja = (JArray)jObject["EntryList"]["_items"];
+
+                                activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
+
+                                //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
+                                //foreach (var item in activeZDF.EntryList)
+                                //{
+                                //    activeZDF.Add(item);
+                                //}
+
+
+
+                                if (activeZdf.EntryList.Count > 0)
                                 {
-                                    //activeZdf.Add(item);
+                                    ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+                                    ////activeZDF.EntryList.Clear();
+                                    ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+                                    foreach (var item in activeZdf.EntryList)
+                                    {
+                                        //activeZdf.Add(item);
 
-                                    ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                                        ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                                    }
+                                    ////ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                                    ////ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
+
+                                    ////List<SelectionState> selState = activeZDF.toSelectionStateList();
+
+                                    activeZdf.EntryList.LastOrDefault().Name = Path.GetFileName(filename);
+
+                                    _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
+
                                 }
-                                ////ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
-                                ////ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
 
-                                ////List<SelectionState> selState = activeZDF.toSelectionStateList();
 
-                                activeZdf.EntryList.LastOrDefault().Name = Path.GetFileName(filename);
-
-                                _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
 
                             }
-
-
-
-                        }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
-                        finally
-                        {
-                            wr.Close();
+                            catch (Exception ex)
+                            {
+                                throw ex;
+                            }
+                            finally
+                            {
+                                wr.Close();
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                }
-                finally
-                {
-                    sr.Close();
+
+                    catch (Exception ex)
+                    {
+                    }
+                    finally
+                    {
+                        sr.Close();
+                    }
                 }
             }
         }

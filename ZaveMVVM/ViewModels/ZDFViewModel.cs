@@ -132,7 +132,17 @@ namespace ZaveViewModel.ViewModels
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
                         break;
 
-                        
+                    case NotifyCollectionChangedAction.Move:
+                        break;
+
+                    case NotifyCollectionChangedAction.Remove:
+                        break;
+
+                    case NotifyCollectionChangedAction.Replace:
+                        break;
+
+                    case NotifyCollectionChangedAction.Reset:
+                        break;
 
                     default:
                         System.Windows.Forms.MessageBox.Show("Nothing Done!");

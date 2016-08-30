@@ -497,27 +497,27 @@ namespace ZaveViewModel.Data_Structures
             {
                 try
                 {
-                    //lock (this)
-                    //{
-                    //    SetProperty(ref _canAdd, value);
-                    //    if (_txtDocText == "")
-                    //    {
-
-                    //        SetProperty(ref _canAdd, false);
-                    //    }
-                    //}
-                    if (_canAdd == true)
+                    lock (this)
                     {
-                        Dispatcher.CurrentDispatcher.Invoke(() =>
+                        SetProperty(ref _canAdd, value);
+                        if (_txtDocText == "")
                         {
-                            SetProperty(ref _canAdd, value);
-                            if (_txtDocText == "")
-                            {
 
-                                SetProperty(ref _canAdd, false);
-                            }
-                        });
+                            SetProperty(ref _canAdd, false);
+                        }
                     }
+                    //if (_canAdd == true)
+                    //{
+                    //    Dispatcher.CurrentDispatcher.Invoke(() =>
+                    //    {
+                    //        SetProperty(ref _canAdd, value);
+                    //        if (_txtDocText == "")
+                    //        {
+
+                    //            SetProperty(ref _canAdd, false);
+                    //        }
+                    //    });
+                    //}
 
                 }
                 catch (Exception ex)
