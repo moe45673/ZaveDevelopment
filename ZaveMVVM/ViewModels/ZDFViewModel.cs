@@ -142,6 +142,7 @@ namespace ZaveViewModel.ViewModels
                         break;
 
                     case NotifyCollectionChangedAction.Reset:
+                        ZdfEntries.Clear();
                         break;
 
                     default:

@@ -29,8 +29,8 @@ namespace ZaveViewModel.ViewModels
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
-        public DelegateCommand NewZDFDelegateCommand { get; set; }
-
+        public DelegateCommand NewZDFEntryDelegateCommand { get; set; }
+        
 
         public ControlBarViewModel(IEventAggregator eventAggregator, IUnityContainer cont)
         {
@@ -49,10 +49,11 @@ namespace ZaveViewModel.ViewModels
             eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
 
             var vm = _container.Resolve(typeof(MainContainerViewModel)) as MainContainerViewModel;
+            
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
-            NewZDFDelegateCommand = vm.NewZDFDelegateCommand;
-
+            NewZDFEntryDelegateCommand = vm.NewZDFEntryDelegateCommand;
+            
 
 
         }

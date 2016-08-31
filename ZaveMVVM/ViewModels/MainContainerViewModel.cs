@@ -19,6 +19,8 @@ using ZaveGlobalSettings.ZaveFile;
 using ZaveService.IOService;
 using Prism.Events;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -35,6 +37,8 @@ namespace ZaveViewModel.ViewModels
 
         public DelegateCommand NewZDFDelegateCommand { get; set; }
 
+        public DelegateCommand NewZDFEntryDelegateCommand { get; set; }
+
         public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
         {
             _container = cont;
@@ -43,6 +47,7 @@ namespace ZaveViewModel.ViewModels
             SaveZDFDelegateCommand = new DelegateCommand(SaveZDF);
             OpenZDFDelegateCommand = new DelegateCommand(OpenZDF);
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
+            NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
             _ioService = ioService;
 
         }
@@ -256,69 +261,26 @@ namespace ZaveViewModel.ViewModels
         //}
         #endregion
 
-        private void LV_EntryList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+        private void NewZDFEntry()
         {
-            //IEventAggregator obj = new EventAggregator();
-            //ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-            //ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
-            //ZaveModel.ZDF.ZDFSingleton activeZDF;
-            //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-            //activeZDF.EntryList.LastOrDefault().Text = activeZDF.EntryList.Count.ToString();
-            //activeZDF.EntryList.LastOrDefault().Name = "from event123";
-            //ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-            //_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.LastOrDefault());
-        }
-        
-        private void NewZDF()
-        {
-            #region Last Checking
-
-            ////ZaveModel.ZDF.ZDFSingleton activeZDF;
-            ////activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-            ////ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-            ////ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
-            //ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-            //activeZDF.EntryList.Clear();
-            ////activeZDF.Add(new ZDFEntry());
-
-            //////_eventAggregator.GetEvent<EntryCreatedEvent>().Publish(new ZDFEntry());
-            ////activeZDF.EntryList.LastOrDefault().Text = activeZDF.EntryList.Count.ToString();
-            ////activeZDF.EntryList.LastOrDefault().DateModified = DateTime.Now.Date;
-            ////activeZDF.EntryList.LastOrDefault().DateModified = DateTime.Now.Date;
-            ////activeZDF.EntryList.LastOrDefault().Name = "New ZDF Name";
-            ////ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-
-            //////MouseButtonEventArgs ek = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
-            //////ek.RoutedEvent = System.Windows.Controls.TextBlock.MouseLeftButtonDownEvent;
-            ////ZDFViewModel objmodel = new ZDFViewModel(_eventAggregator,_container);
-
-            //////_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.LastOrDefault(x => x.TxtDocID == ZdfEntries.First<ZdfEntryItemViewModel>().TxtDocID));
-            ////MouseButtonEventArgs mm = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
-
-            ////LV_EntryList_PreviewMouseLeftButtonDown(mm.Source, mm);
-            //////ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-            //////_eventAggregator.GetEvent<EntryReadEvent>().Publish(ZDFSingleton.GetInstance());
-            #endregion
-
-            #region Previous checking
-
-            //ZaveModel.ZDF.ZDFSingleton activeZDF;
-            //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+            #region checkin
             ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
             ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-            activeZDF.EntryList.Clear();
             activeZDF.Add(new ZDFEntry());
-
-            
-            activeZDF.EntryList.LastOrDefault().Text = activeZDF.EntryList.Count.ToString();
-            activeZDF.EntryList.LastOrDefault().DateModified = DateTime.Now.Date;
-            activeZDF.EntryList.LastOrDefault().DateModified = DateTime.Now.Date;
-            activeZDF.EntryList.LastOrDefault().Name = "New ZDF Name";
             ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-
-            //_eventAggregator.GetEvent<EntryReadEvent>().Publish(new ZDFEntry());
             #endregion
+            
+        }
+
+
+        private void NewZDF()
+        {
+            ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
+            activeZDF.EntryList.Clear();
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+
         }
 
         private string getSaveDirectory()
