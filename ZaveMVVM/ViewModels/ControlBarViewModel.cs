@@ -29,7 +29,7 @@ namespace ZaveViewModel.ViewModels
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
-        public DelegateCommand NewZDFEntryDelegateCommand { get; set; }
+        public DelegateCommand NewZDFDelegateCommand { get; set; }
         
 
         public ControlBarViewModel(IEventAggregator eventAggregator, IUnityContainer cont)
@@ -52,7 +52,7 @@ namespace ZaveViewModel.ViewModels
             
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
-            NewZDFEntryDelegateCommand = vm.NewZDFEntryDelegateCommand;
+            NewZDFDelegateCommand = vm.NewZDFDelegateCommand;
             
 
 
