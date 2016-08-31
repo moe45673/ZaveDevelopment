@@ -221,52 +221,52 @@ namespace ZaveController
                         //{
                         activeZDF.Add(entry);
                         //}
-                        if (activeZDF.EntryList.Count > 0)
-                        {
-                            var selected = ZDFEntryItem.SelectedZDFByUser;
-                            if (selected != null)
-                            {
-                                var selectZDF = activeZDF.EntryList.Where(t => Convert.ToString(t.ID) == selected);
-                                selectZDF.FirstOrDefault().Text = selectZDF.FirstOrDefault().Text + entry.Text;
-                                ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
+                        //if (activeZDF.EntryList.Count > 0)
+                        //{
+                        //    var selected = ZDFEntryItem.SelectedZDFByUser;
+                        //    if (selected != null)
+                        //    {
+                        //        var selectZDF = activeZDF.EntryList.Where(t => Convert.ToString(t.ID) == selected);
+                        //        selectZDF.FirstOrDefault().Text = selectZDF.FirstOrDefault().Text + entry.Text;
+                        //        ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
 
-                                //SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
-                                //ZDFEntryViewModel OBJ = ZDFEntryViewModel.EntryVmFactory(null, null, null, selectZDF.FirstOrDefault());
+                        //        //SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
+                        //        //ZDFEntryViewModel OBJ = ZDFEntryViewModel.EntryVmFactory(null, null, null, selectZDF.FirstOrDefault());
 
-                                ////SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
-                                //ZaveViewModel.Data_Structures.ZDFEntryItem obj = ZdfEntries[0];
-                                //EventSetProperties(obj, selState);
-                            }
+                        //        ////SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
+                        //        //ZaveViewModel.Data_Structures.ZDFEntryItem obj = ZdfEntries[0];
+                        //        //EventSetProperties(obj, selState);
+                        //    }
 
-                            #region Later Code
-                            //SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
-                            //selected zdf required
-                            //string selection = selState.SelectionDocName;
-                            //var r = activeZDF.toSelectionStateList().Where(t => t.srcType == SrcType.WORD);
-                            //ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-                            //List<SelectionState> selState1 = activeZDF.toSelectionStateList();
+                        //    #region Later Code
+                        //    //SelectionState selState = new SelectionState(temp[0].ID, temp[0].SelectionDocName, temp[0].SelectionPage, temp[0].SelectionText, DateTime.Now.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
+                        //    //selected zdf required
+                        //    //string selection = selState.SelectionDocName;
+                        //    //var r = activeZDF.toSelectionStateList().Where(t => t.srcType == SrcType.WORD);
+                        //    //ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
+                        //    //List<SelectionState> selState1 = activeZDF.toSelectionStateList();
 
-                            //bool isactive = ZdfEntries.FirstOrDefault().AddCommentDelegateCommand.IsActive;
-                            //foreach (ZDFEntry en in activeZDF.EntryList.ToList())
-                            //{
-                            //foreach (ZdfEntryItemViewModel zeivm in ZdfEntries)
-                            //{
-                            //    if (zeivm.AddCommentDelegateCommand.IsActive)
-                            //    {
-                            //        activeZDF.EntryList[1].Text = "Active-AddCommentDelegateCommand" + temp[0].SelectionText;
-                            //    }
-                            //    else {
-                            //        activeZDF.EntryList[1].Text = "In Active" + temp[0].SelectionText;
-                            //    }
-                            //}
-                            //if (en.toSelectionState().SelectionDocName != null)
-                            //{
-                            //    string sam = en.toSelectionState().SelectionDocName.ToString();
-                            //}
-                            //}
+                        //    //bool isactive = ZdfEntries.FirstOrDefault().AddCommentDelegateCommand.IsActive;
+                        //    //foreach (ZDFEntry en in activeZDF.EntryList.ToList())
+                        //    //{
+                        //    //foreach (ZdfEntryItemViewModel zeivm in ZdfEntries)
+                        //    //{
+                        //    //    if (zeivm.AddCommentDelegateCommand.IsActive)
+                        //    //    {
+                        //    //        activeZDF.EntryList[1].Text = "Active-AddCommentDelegateCommand" + temp[0].SelectionText;
+                        //    //    }
+                        //    //    else {
+                        //    //        activeZDF.EntryList[1].Text = "In Active" + temp[0].SelectionText;
+                        //    //    }
+                        //    //}
+                        //    //if (en.toSelectionState().SelectionDocName != null)
+                        //    //{
+                        //    //    string sam = en.toSelectionState().SelectionDocName.ToString();
+                        //    //}
+                        //    //}
 
-                            #endregion
-                        }
+                        //    #endregion
+                        //}
 
                     }
                     sr.Close();
