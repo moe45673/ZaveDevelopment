@@ -279,7 +279,7 @@ namespace ZaveController
 
             }
         }
-        protected IZDFEntry _zdfEntry;
+        private IZDFEntry _zdfEntry;
         void EventSetProperties(object obj, SelectionState sc)
         {
             ZDFEntryItem item = obj as ZDFEntryItem;
