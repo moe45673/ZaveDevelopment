@@ -91,11 +91,18 @@ namespace ZaveViewModel.ViewModels
         {
             var items = new ObservableImmutableList<ColorItem>();
             //var converter = new System.Windows.Media.ColorConverter();
-            foreach (string color in Enum.GetNames(typeof(AvailableColors)))
-            {
-                items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(color), color));
 
+            
+            var query = Enum.GetValues(typeof(AvailableColors))
+                .Cast<AvailableColors>()
+                .Except(new AvailableColors[] { AvailableColors.None }); //remove "None" from equation
+
+            foreach (AvailableColors color in query)
+            {
+                var name = color.ToString();
+                items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(name), name));
             }
+
             //await Task.Delay(2000);
             //ActiveColor = Color.FromArgb(255, 255, 255, 0);
             System.Drawing.Color col = new System.Drawing.Color();
