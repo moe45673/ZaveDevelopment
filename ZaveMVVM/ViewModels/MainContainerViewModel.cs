@@ -39,7 +39,9 @@ namespace ZaveViewModel.ViewModels
 
         public DelegateCommand NewZDFEntryDelegateCommand { get; set; }
 
-        public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
+        public DelegateCommand<String> ExportZDFDelegateCommand { get; set; }
+
+    public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
         {
             _container = cont;
             _regionManager = regionManager;
@@ -48,6 +50,8 @@ namespace ZaveViewModel.ViewModels
             OpenZDFDelegateCommand = new DelegateCommand(OpenZDF);
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
             NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
+
+            ExportZDFDelegateCommand = new DelegateCommand(ExportZDF);
             _ioService = ioService;
 
         }
@@ -56,6 +60,11 @@ namespace ZaveViewModel.ViewModels
         private void setIndented(JsonSerializer ser)
         {
             ser.Formatting = Formatting.Indented;
+        }
+
+        private void ExportZDF(String type)
+        {
+
         }
 
         private void SaveZDF()

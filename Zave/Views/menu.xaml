@@ -21,6 +21,11 @@
                 <MenuItem Header="_Open"  HorizontalAlignment="Left" Command="{Binding OpenZDFDelegateCommand}" />
                 <MenuItem Header="_Save"  HorizontalAlignment="Left" Command="{Binding SaveZDFDelegateCommand}" />
                 <Separator />
+                <MenuItem Header="Export" HorizontalAlignment="Left">
+                    <MenuItem Header="Word" HorizontalAlignment="Center" Command="ExportZDFDelegateCommand" CommandParameter="Word"/>
+                    <MenuItem Header="Excel" IsEnabled="False"/>
+                </MenuItem>
+                <Separator />
                 <MenuItem Header="_Exit"  Click="btnExit_Click"/>
             </MenuItem>
             <MenuItem HorizontalAlignment="Left" Header="_Help">
