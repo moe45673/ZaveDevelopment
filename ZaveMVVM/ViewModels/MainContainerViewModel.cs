@@ -51,7 +51,7 @@ namespace ZaveViewModel.ViewModels
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
             NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
 
-            ExportZDFDelegateCommand = new DelegateCommand(ExportZDF);
+            ExportZDFDelegateCommand = new DelegateCommand<String>(ExportZDF);
             _ioService = ioService;
 
         }
@@ -62,7 +62,7 @@ namespace ZaveViewModel.ViewModels
             ser.Formatting = Formatting.Indented;
         }
 
-        private void ExportZDF(String type)
+        private void ExportZDF(string type)
         {
 
         }
