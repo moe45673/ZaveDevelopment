@@ -21,6 +21,8 @@ using Prism.Events;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using Novacode;
+using ZaveViewModel.Data_Structures;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -59,12 +61,27 @@ namespace ZaveViewModel.ViewModels
         [Conditional("DEBUG")]
         private void setIndented(JsonSerializer ser)
         {
-            ser.Formatting = Formatting.Indented;
+            ser.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
 
         private void ExportZDF(string type)
         {
+            var activeZDF = ZDFSingleton.GetInstance();
+            if (activeZDF.Name == "")
+                SaveZDF();
 
+            var zdfVM = ZDFSorting.EntrySort<IZDFEntry>(activeZDF.EntryList.ToList(), "HColor.Color");
+
+
+            using (DocX export = DocX.Create(activeZDF.Name + "_Export.docx"))
+            {
+                
+
+                
+                Paragraph p = export.InsertParagraph();
+
+
+            }
         }
 
         private void SaveZDF()
@@ -74,7 +91,7 @@ namespace ZaveViewModel.ViewModels
             JsonSerializer serializer = new JsonSerializer();
 
             var filename = _ioService.SaveFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            if (filename != String.Empty)
+            if (filename != String.Empty & filename != null)
             {
 
                 using (var sw = _ioService.SaveFileService(filename))
@@ -88,6 +105,7 @@ namespace ZaveViewModel.ViewModels
 
                                 setIndented(serializer);
                                 serializer.Serialize(wr, activeZDFVM.GetModel());
+                                ZDFSingleton.GetInstance().Name = filename;
                             }
                             catch (Exception ex)
                             {

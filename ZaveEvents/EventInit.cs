@@ -191,7 +191,7 @@ namespace ZaveController
             //List<SelectionState> _selState = new List<SelectionState>();
             //SelectionState selState = new SelectionState();
 
-            //_selState.Add(JsonConvert.DeserializeObject<SelectionState>(File.ReadAllText(e.FullPath)));
+            //_selState.Add(JsonConvert.DeserializeObject<SelectionState>(File.ReadAllText(e.FullPath)));5
             //SelectionState temp = new SelectionState>();
 
             using (StreamReader sr = StreamReaderFactory.createStreamReader(e.FullPath))
@@ -220,6 +220,7 @@ namespace ZaveController
                         //if (activeZDF.EntryList.Count == 0)
                         //{
                         activeZDF.Add(entry);
+                        #region oldstuff
                         //}
                         //if (activeZDF.EntryList.Count > 0)
                         //{
@@ -267,6 +268,7 @@ namespace ZaveController
 
                         //    #endregion
                         //}
+                        #endregion
 
                     }
                     sr.Close();
