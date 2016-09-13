@@ -21,6 +21,16 @@ using Prism.Events;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
+using System.Windows;
+using System.Windows.Interop;
+using DevExpress.Utils.Drawing.Helpers;
+using System.Runtime.InteropServices;
+using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -31,6 +41,8 @@ namespace ZaveViewModel.ViewModels
         private readonly IUnityContainer _container;
         private readonly IIOService _ioService;
         public static string ACTIVESORT = "TxtDocColor";
+        public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
+        public static string SaveLocation = null; 
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
@@ -38,6 +50,12 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand NewZDFDelegateCommand { get; set; }
 
         public DelegateCommand NewZDFEntryDelegateCommand { get; set; }
+
+        public DelegateCommand UndoZDFDelegateCommand { get; set; }
+
+        public DelegateCommand RedoZDFDelegateCommand { get; set; }
+
+        public DelegateCommand ScreenshotZDFDelegateCommand { get; set; }
 
         public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
         {
@@ -48,6 +66,9 @@ namespace ZaveViewModel.ViewModels
             OpenZDFDelegateCommand = new DelegateCommand(OpenZDF);
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
             NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
+            UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
+            RedoZDFDelegateCommand = new DelegateCommand(RedoZDF);
+            ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
             _ioService = ioService;
 
         }
@@ -58,13 +79,206 @@ namespace ZaveViewModel.ViewModels
             ser.Formatting = Formatting.Indented;
         }
 
+        private void UndoZDF()
+        {
+            
+            #region MyCode2
+            ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
+
+            ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+            if (activeZdf.EntryList.Count > 0)
+            {
+                int id = activeZdf.EntryList.LastOrDefault().ID;
+                var withoutfilter = activeZdf.EntryList.Where(t => t.ID == id).ToList();
+                foreach (var undoitem in withoutfilter)
+                {
+                    activeZdfUndo.Add(undoitem);
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(undoitem as ZDFEntry));
+                }
+
+                var filter = activeZdf.EntryList.Where(t => t.ID != id).ToList();
+                activeZdf.EntryList.Clear();
+
+                foreach (var item in filter.ToList())
+                {
+                    activeZdf.Add(item);
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                }
+            }
+            #endregion
+        }
+
+        private void RedoZDF()
+        {
+            #region MyCode2
+            ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
+            ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+
+            //if (activeZdfUndo.Count > 0 && activeZdfUndo.Count != 1)
+            if (activeZdfUndo.Count > 0)
+            {
+                activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
+                ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
+                activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
+            }
+            //else if (activeZdfUndo.Count == 1)
+            //{
+            //    if (activeZdf.EntryList.Count > 0)
+            //    {
+            //        activeZdf.EntryList.Add(activeZdf.EntryList.LastOrDefault());
+            //        ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdf.EntryList.LastOrDefault() as ZDFEntry));
+            //    }
+            //    else{
+            //        activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
+            //        ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
+            //    }
+
+            //}
+            else if (activeZdfUndo.Count == 0)
+            {
+                if (activeZdf.EntryList.Count > 0)
+                {
+                    activeZdf.EntryList.Add(activeZdf.EntryList.LastOrDefault());
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdf.EntryList.LastOrDefault() as ZDFEntry));
+                }
+            }
+
+            #endregion
+        }
+
+        private void ScreenshotZDF()
+        {
+            double screenLeft = SystemParameters.VirtualScreenLeft;
+            double screenTop = SystemParameters.VirtualScreenTop;
+            double screenWidth = SystemParameters.VirtualScreenWidth;
+            double screenHeight = SystemParameters.VirtualScreenHeight;
+
+            //double x =0, y=0, width=0, height=0;
+            Bitmap sb;
+            sb = new System.Drawing.Bitmap((int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(sb))
+            {
+
+                g.CopyFromScreen((int)screenLeft, (int)screenTop, 0, 0, sb.Size);
+            }
+
+            //IntPtr handle = IntPtr.Zero;
+            try
+            {
+                //    handle = sb.GetHbitmap();
+
+                //SaveFileDialog dlg = new SaveFileDialog();
+                //dlg.DefaultExt = "png";
+                //dlg.Filter = "Png Files|*.png";
+                //DialogResult res = dlg.ShowDialog();
+                //if (res == System.Windows.Forms.DialogResult.OK)
+                ////sb.Save(dlg.FileName, ImageFormat.Png);
+                //{
+
+                var image = NativeMethods.CaptureActiveWindow();
+                image.Save("F:\\Zave Backup\\a.png", ImageFormat.Png);
+                //}
+                //String filename1 = "ScreenCapture-" + DateTime.Now.ToString("ddMMyyyy-hhmmss") + ".png";
+                //sb.Save("F:\\Zave Backup\\" + filename1);
+
+                //using (Bitmap bmp = new Bitmap((int)screenWidth,
+                //    (int)screenHeight))
+                //{
+                //    using (Graphics g = Graphics.FromImage(bmp))
+                //    {
+                //        String filename = "ScreenCapture-" + DateTime.Now.ToString("ddMMyyyy-hhmmss") + ".png";
+
+                //        g.CopyFromScreen((int)screenLeft, (int)screenTop, 0, 0, bmp.Size);
+                //        bmp.Save("C:\\Screenshots\\" + filename);
+
+                //    }
+
+                //}
+            }
+            catch { }
+            #region MyCode2
+            //int ix, iy, iw, ih;
+            //ix = Convert.ToInt32(x);
+            //iy = Convert.ToInt32(y);
+            //iw = Convert.ToInt32(width);
+            //ih = Convert.ToInt32(height);
+            //Bitmap image = new Bitmap(iw, ih,
+            //       System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            //Graphics g = Graphics.FromImage(image);
+            //g.CopyFromScreen(ix, iy, ix, iy,
+            //         new System.Drawing.Size(iw, ih),
+            //         CopyPixelOperation.SourceCopy);
+            //SaveFileDialog dlg = new SaveFileDialog();
+            //dlg.DefaultExt = "png";
+            //dlg.Filter = "Png Files|*.png";
+            //DialogResult res = dlg.ShowDialog();
+            //if (res == System.Windows.Forms.DialogResult.OK)
+            //    image.Save(dlg.FileName, ImageFormat.Png);
+            #endregion
+        }
+
+        //public void SaveScreen(double x, double y, double width, double height)
+        //{
+        //    int ix, iy, iw, ih;
+        //    ix = Convert.ToInt32(x);
+        //    iy = Convert.ToInt32(y);
+        //    iw = Convert.ToInt32(width);
+        //    ih = Convert.ToInt32(height);
+        //    try
+        //    {
+        //        Bitmap myImage = new Bitmap(iw, ih);
+
+        //        Graphics gr1 = Graphics.FromImage(myImage);
+        //        IntPtr dc1 = gr1.GetHdc();
+        //        IntPtr dc2 = NativeMethods.GetWindowDC(NativeMethods.GetForegroundWindow());
+        //        NativeMethods.BitBlt(dc1, ix, iy, iw, ih, dc2, ix, iy, 13369376);
+        //        gr1.ReleaseHdc(dc1);
+        //        SaveFileDialog dlg = new SaveFileDialog();
+        //        dlg.DefaultExt = "png";
+        //        dlg.Filter = "Png Files|*.png";
+        //        DialogResult res = dlg.ShowDialog();
+        //        if (res == System.Windows.Forms.DialogResult.OK)
+        //            myImage.Save(dlg.FileName, ImageFormat.Png);
+        //    }
+        //    catch { }
+        //}
+        //public void CaptureScreen(double x, double y, double width, double height)
+        //{
+        //    int ix, iy, iw, ih;
+        //    ix = Convert.ToInt32(x);
+        //    iy = Convert.ToInt32(y);
+        //    iw = Convert.ToInt32(width);
+        //    ih = Convert.ToInt32(height);
+        //    Bitmap image = new Bitmap(iw, ih, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        //    Graphics g = Graphics.FromImage(image);
+        //    g.CopyFromScreen(ix, iy, ix, iy, new System.Drawing.Size(iw, ih), CopyPixelOperation.SourceCopy);
+        //    SaveFileDialog dlg = new SaveFileDialog();
+        //    dlg.DefaultExt = "png";
+        //    dlg.Filter = "Png Files|*.png";
+        //    DialogResult res = dlg.ShowDialog();
+        //    if (res == System.Windows.Forms.DialogResult.OK)
+        //        image.Save(dlg.FileName, ImageFormat.Png);
+        //}
         private void SaveZDF()
+        {
+            if (SaveLocation == null)
+            {
+                var filename = _ioService.SaveFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                SaveLogic(Convert.ToString(filename));
+            }
+            else {
+                var filename = SaveLocation;
+                SaveLogic(Convert.ToString(filename));
+            }
+        }
+
+        #region Save Common Logic
+        private void SaveLogic(string filename)
         {
             var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
 
             JsonSerializer serializer = new JsonSerializer();
 
-            var filename = _ioService.SaveFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             if (filename != String.Empty)
             {
 
@@ -79,6 +293,7 @@ namespace ZaveViewModel.ViewModels
 
                                 setIndented(serializer);
                                 serializer.Serialize(wr, activeZDFVM.GetModel());
+                                SaveLocation = filename;
                             }
                             catch (Exception ex)
                             {
@@ -101,6 +316,7 @@ namespace ZaveViewModel.ViewModels
                 }
             }
         }
+        #endregion
 
         #region New OPen
         private void OpenZDF()
@@ -111,7 +327,7 @@ namespace ZaveViewModel.ViewModels
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
             var filename = _ioService.OpenFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 
-            
+
             if (filename != String.Empty) //If the user presses cancel
             {
                 using (var sr = _ioService.OpenFileService(filename))
@@ -165,7 +381,7 @@ namespace ZaveViewModel.ViewModels
                                     ////List<SelectionState> selState = activeZDF.toSelectionStateList();
 
                                     activeZdf.EntryList.LastOrDefault().Name = Path.GetFileName(filename);
-
+                                    SaveLocation = filename;
                                     _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
 
                                 }
@@ -271,7 +487,7 @@ namespace ZaveViewModel.ViewModels
             activeZDF.Add(new ZDFEntry());
             ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
             #endregion
-            
+
         }
 
 
@@ -279,6 +495,8 @@ namespace ZaveViewModel.ViewModels
         {
             ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
             activeZDF.EntryList.Clear();
+            MainContainerViewModel.activeZdfUndo.Clear();
+            SaveLocation = null;
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
 
         }
@@ -293,6 +511,47 @@ namespace ZaveViewModel.ViewModels
             return "\\SaveDoc";
         }
 
+    }
+
+    internal class NativeMethods
+    {
+
+        [DllImport("user32.dll")]
+        public extern static IntPtr GetDesktopWindow();
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindowDC(IntPtr hwnd);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern IntPtr GetForegroundWindow();
+        [DllImport("gdi32.dll")]
+        public static extern UInt64 BitBlt(IntPtr hDestDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, System.Int32 dwRop);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
+        public static Bitmap CaptureActiveWindow()
+        {
+            return CaptureWindow(GetForegroundWindow());
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        private struct Rect
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+        public static Bitmap CaptureWindow(IntPtr handle)
+        {
+            var rect = new Rect();
+            GetWindowRect(handle, ref rect);
+            var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
+            var result = new Bitmap(bounds.Width, bounds.Height);
+
+            using (var graphics = Graphics.FromImage(result))
+            {
+                graphics.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, bounds.Size);
+            }
+
+            return result;
+        }
     }
 
 

@@ -30,8 +30,9 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
         public DelegateCommand NewZDFDelegateCommand { get; set; }
-        
-
+        public DelegateCommand UndoZDFDelegateCommand { get; set; }
+        public DelegateCommand RedoZDFDelegateCommand { get; set; }
+        public DelegateCommand ScreenshotZDFDelegateCommand { get; set; }
         public ControlBarViewModel(IEventAggregator eventAggregator, IUnityContainer cont)
         {
             _activeColor = new Color();
@@ -53,8 +54,9 @@ namespace ZaveViewModel.ViewModels
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
             NewZDFDelegateCommand = vm.NewZDFDelegateCommand;
-            
-
+            UndoZDFDelegateCommand = vm.UndoZDFDelegateCommand;
+            RedoZDFDelegateCommand = vm.RedoZDFDelegateCommand;
+            ScreenshotZDFDelegateCommand = vm.ScreenshotZDFDelegateCommand;
 
         }
 
@@ -103,6 +105,7 @@ namespace ZaveViewModel.ViewModels
             _eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(col);
             ColorItemList = new ObservableImmutableList<ColorItem>(items);
             OnPropertyChanged("ColorItemList");
+
             return items;
         }
 

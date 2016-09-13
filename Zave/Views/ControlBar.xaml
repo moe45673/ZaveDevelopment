@@ -81,13 +81,19 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem>
+                    <Button Command="{Binding UndoZDFDelegateCommand}" >
                     <Image Source="/Zave;component/media/images/undo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    </Button>
                 </ListBoxItem>
                 <ListBoxItem>
+                    <Button Command="{Binding RedoZDFDelegateCommand}" >
                     <Image Source="/Zave;component/media/images/redo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    </Button>
                 </ListBoxItem>
                 <ListBoxItem>
+                    <Button Command="{Binding ScreenshotZDFDelegateCommand}" >
                     <Image Source="/Zave;component/media/images/screenshot.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    </Button>
                 </ListBoxItem>
             </ListBox>
         </StackPanel>

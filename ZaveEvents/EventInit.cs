@@ -198,7 +198,7 @@ namespace ZaveController
             {
                 try
                 {
-                    ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+                    //ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
                     string json = sr.ReadToEnd();
 
                     var temp = JsonConvert.DeserializeObject<SelectionState[]>(json).ToList<SelectionState>();
