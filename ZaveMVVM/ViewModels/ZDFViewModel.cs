@@ -106,9 +106,9 @@ namespace ZaveViewModel.ViewModels
                         //foreach (var item in e.NewItems.SyncRoot as List<Object>)
                         //{
                         int index = (e.NewItems.SyncRoot as Array).Length - 1;
-                        var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index);
+                        var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index); //get new entry
 
-                        var list = ZdfEntries.ToList();
+                        var list = ZdfEntries.ToList(); //create temp list to add item to and then sort
 
 
                         list.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
