@@ -30,7 +30,7 @@ namespace ZaveController
 {
 
 
-
+   
     public sealed class EventInitSingleton : PubSubEvent<SelectionState>, IDisposable
     {
 
@@ -58,7 +58,8 @@ namespace ZaveController
             lastRead = DateTime.MinValue;
             //System.Drawing.Color startupColor = ColorCategory.FromWPFColor(setStartupColor()).Color;
             //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-
+            //enum Example { None = 0, Something = 1};
+            
             //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
             //DateTime date = DateTime.Now;
@@ -191,7 +192,7 @@ namespace ZaveController
             //List<SelectionState> _selState = new List<SelectionState>();
             //SelectionState selState = new SelectionState();
 
-            //_selState.Add(JsonConvert.DeserializeObject<SelectionState>(File.ReadAllText(e.FullPath)));
+            //_selState.Add(JsonConvert.DeserializeObject<SelectionState>(File.ReadAllText(e.FullPath)));5
             //SelectionState temp = new SelectionState>();
 
             using (StreamReader sr = StreamReaderFactory.createStreamReader(e.FullPath))
@@ -220,6 +221,7 @@ namespace ZaveController
                         //if (activeZDF.EntryList.Count == 0)
                         //{
                         activeZDF.Add(entry);
+                        #region oldstuff
                         //}
                         //if (activeZDF.EntryList.Count > 0)
                         //{
@@ -267,6 +269,7 @@ namespace ZaveController
 
                         //    #endregion
                         //}
+                        #endregion
 
                     }
                     sr.Close();

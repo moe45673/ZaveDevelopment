@@ -57,7 +57,7 @@ namespace ZaveModel.ZDF
             
             EntryList = new ObservableImmutableList<ZDFEntry.IZDFEntry>();
 
-
+            Name = "";
             
             _iDTracker = EntryList.Count;
             
@@ -100,6 +100,7 @@ namespace ZaveModel.ZDF
         [JsonProperty]
         public static int IDTracker { get { return _iDTracker; } }
 
+        
        
         [JsonIgnore]
         private ObservableImmutableList<ZDFEntry.IZDFEntry> _entryList;
@@ -112,6 +113,9 @@ namespace ZaveModel.ZDF
             _iDTracker = instance.EntryList.ElementAt(count - 1).ID;
             return IDTracker;
         }
+
+        [JsonProperty]
+        public string Name { get; set; }
 
         [JsonProperty]
         public ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList

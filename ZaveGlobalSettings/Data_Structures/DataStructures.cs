@@ -16,9 +16,10 @@ using Prism.Events;
 namespace ZaveGlobalSettings.Data_Structures
 {
     /// <summary>
-    /// holds all allowable platforms for Zave to integrate with
+    /// holds all allowable platforms for Zave to integrate with. Value must be a power of 2
     /// </summary>
-    public enum SrcType { GENERIC = 0, WORD = 1, EXCEL = 2 }
+    [Flags]
+    public enum SrcType { NONE = 0, WORD = 1, EXCEL = 2 }
 
 
     public sealed class SelectionStateList : List<SelectionState>
@@ -58,10 +59,10 @@ namespace ZaveGlobalSettings.Data_Structures
     /// 
     /// 
     /// </summary>
-        
+    [Flags]
     public enum AvailableColors
     {
-        YELLOW, LIGHTBLUE, LIGHTGREEN, FUCHSIA, BLACK, AQUA, LIME,  WHITE, NAVY, TEAL, PURPLE, MAROON, OLIVE, GRAY, SILVER, RED
+        None, YELLOW, LIGHTBLUE, LIGHTGREEN=4, FUCHSIA=8, BLACK=16, AQUA=32, LIME=64,  WHITE=128, NAVY=256, TEAL=512, PURPLE=1024, MAROON=2048, OLIVE=4096, GRAY=8192, SILVER=16384, RED=32768
     }
 
 //public struct AvailableColors

@@ -25,6 +25,26 @@ namespace ZaveViewModel.Data_Structures
 
     using selStateCommentList = List<SelectionComment>;
 
+    public class ZDFSorting
+    {
+        public static List<T> EntrySort<T>(List<T> listToSort, string propName)
+        {
+            System.Reflection.PropertyInfo propInfo = typeof(T).GetProperty(propName);
+            object property = propInfo.GetValue(listToSort.FirstOrDefault(), null);
+            List<T> list = default(List<T>);
+            if (property is IComparable)
+            {
+
+                list = listToSort.OrderBy(o => propInfo.GetValue(o, null)).ToList();
+            }
+            else
+            {
+                list = listToSort.OrderBy(o => propInfo.GetValue(o, null).ToString()).ToList();
+            }
+            return list;
+        }
+    }
+
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class ZDFEntryItem : BindableBase
     {
