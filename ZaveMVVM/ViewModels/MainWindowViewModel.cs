@@ -25,19 +25,29 @@ namespace ZaveViewModel.ViewModels
     {
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
+        private readonly IEventAggregator _eventAggregator;
+        private string _filename;
+        
 
         public DelegateCommand<string> NavigateCommand { get; set; }
 
-        public MainWindowViewModel(IRegionManager regionManager, IUnityContainer cont)
+        public MainWindowViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator agg)
         {
             _container = cont;
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<string>(Navigate);
             //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
+            _eventAggregator = agg;
+            _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
+            _filename = MainContainerViewModel.SaveLocation;
+
         }
 
-        
+        private void setFileName(string name)
+        {
+            Filename = name;
+        }
 
         private void Navigate(string uri)
         {
@@ -47,9 +57,21 @@ namespace ZaveViewModel.ViewModels
         #region Properties
         private ObservableCollection<IDialogViewModel> _dialogs = new ObservableCollection<IDialogViewModel>();
         public ObservableCollection<IDialogViewModel> Dialogs { get { return _dialogs; } }
+        public string Filename
+        {
+            get
+            {
+                return _filename;
+            }
+            set
+            {
+                MainContainerViewModel.SaveLocation = value;
+                SetProperty(ref _filename, value);
+            }
+        }
         #endregion
 
-        
+
 
     }
 }

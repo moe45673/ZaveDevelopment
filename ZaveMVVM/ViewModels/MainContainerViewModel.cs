@@ -302,6 +302,7 @@ namespace ZaveViewModel.ViewModels
                                 setIndented(serializer);
                                 serializer.Serialize(wr, activeZDFVM.GetModel());
                                 SaveLocation = filename;
+                                _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(SaveLocation);
                             }
                             catch (Exception ex)
                             {
