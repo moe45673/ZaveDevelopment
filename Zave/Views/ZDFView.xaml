@@ -7,6 +7,7 @@
              xmlns:vm ="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=mscorlib"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
@@ -48,8 +49,33 @@
                 <Trigger Property="IsMouseOver" Value="False">
                     <Setter Property="Background" Value="Transparent" />
                 </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="{Binding TxtDocColor, Converter={StaticResource ColorConverter}}" />
+                </Trigger>
+                <Trigger Property="IsFocused" Value="False">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
             </Style.Triggers>
         </Style>
+
+        <!--<Style x:Key="ListViewItem" TargetType="ListViewItem">
+            <Setter Property="Height" Value="130"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{Binding TxtDocColor, Converter={StaticResource ColorConverter}}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="{Binding TxtDocColor, Converter={StaticResource ColorConverter}}" />
+                </Trigger>
+                <Trigger Property="IsFocused" Value="False">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>-->
         <!--Text Styles-->
         <Style x:Key="ListView_Item_Text" TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -62,7 +88,7 @@
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=IsMouseOver}" Value="True">
                     <Setter Property="Foreground" Value="white"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=Focused}" Value="True">
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=IsFocused}" Value="True">
                     <Setter Property="Foreground" Value="black"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -89,7 +115,7 @@
             <Setter Property="TextAlignment" Value="Right"></Setter>
         </Style>
     </UserControl.Resources>
-    <ListView ItemsSource="{Binding ZdfEntries}" Name="LV_EntryList">
+    <ListView ItemsSource="{Binding ZdfEntries}" Name="LV_EntryList" PresentationTraceSources.TraceLevel="High">
         
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">

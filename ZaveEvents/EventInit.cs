@@ -30,7 +30,7 @@ namespace ZaveController
 {
 
 
-
+   
     public sealed class EventInitSingleton : PubSubEvent<SelectionState>, IDisposable
     {
 
@@ -58,7 +58,8 @@ namespace ZaveController
             lastRead = DateTime.MinValue;
             //System.Drawing.Color startupColor = ColorCategory.FromWPFColor(setStartupColor()).Color;
             //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-
+            //enum Example { None = 0, Something = 1};
+            
             //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
             //System.Windows.Forms.MessageBox.Show("EventInit Started!");
             //DateTime date = DateTime.Now;

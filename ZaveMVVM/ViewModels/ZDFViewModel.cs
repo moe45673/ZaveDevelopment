@@ -112,8 +112,9 @@ namespace ZaveViewModel.ViewModels
                         ZdfEntries.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
 
                         var list = ZDFSorting.EntrySort(ZdfEntries.ToList(), activeSort);
-
+                        Thread.Sleep(20);
                         ZdfEntries.Clear();
+                        Thread.Sleep(20);
                         ZdfEntries.AddRange(list);
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
                         break;

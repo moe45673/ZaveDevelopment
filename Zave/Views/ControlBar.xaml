@@ -72,22 +72,22 @@
                 </ListBoxItem>
                 <ListBoxItem>
                     <Button Command="{Binding OpenZDFDelegateCommand}" >
-                    <Image Source="/Zave;component/media/images/open.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/open.png" Height="30" Width="40" />
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem>
                     <Button Command="{Binding SaveZDFDelegateCommand}" >
-                    <Image Source="/Zave;component/media/images/save.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/save.png" Height="30" Width="40" />
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/undo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/undo.png" Height="30" Width="40" />
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/redo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/redo.png" Height="30" Width="40" />
                 </ListBoxItem>
                 <ListBoxItem>
-                    <Image Source="/Zave;component/media/images/screenshot.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    <Image Source="/Zave;component/media/images/screenshot.png" Height="30" Width="40" />
                 </ListBoxItem>
             </ListBox>
         </StackPanel>
