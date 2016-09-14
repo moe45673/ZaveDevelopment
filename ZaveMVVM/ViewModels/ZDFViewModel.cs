@@ -107,14 +107,14 @@ namespace ZaveViewModel.ViewModels
                         //{
                         int index = (e.NewItems.SyncRoot as Array).Length - 1;
                         var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index);
-                        
 
-                        ZdfEntries.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
+                        var list = ZdfEntries.ToList();
 
-                        var list = ZDFSorting.EntrySort(ZdfEntries.ToList(), activeSort);
-                        Thread.Sleep(20);
+
+                        list.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
+
+                        list = ZDFSorting.EntrySort(list, activeSort);                        
                         ZdfEntries.Clear();
-                        Thread.Sleep(20);
                         ZdfEntries.AddRange(list);
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
                         break;
