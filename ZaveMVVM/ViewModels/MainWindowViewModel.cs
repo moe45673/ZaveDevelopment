@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.IO;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -27,6 +28,7 @@ namespace ZaveViewModel.ViewModels
         private readonly IUnityContainer _container;
         private readonly IEventAggregator _eventAggregator;
         private string _filename;
+        public static string SaveLocation = null;
         
 
         public DelegateCommand<string> NavigateCommand { get; set; }
@@ -40,7 +42,9 @@ namespace ZaveViewModel.ViewModels
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
             _eventAggregator = agg;
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
-            _filename = MainContainerViewModel.SaveLocation;
+            SaveLocation = "";
+            _filename = SaveLocation;
+            
 
         }
 
@@ -65,7 +69,8 @@ namespace ZaveViewModel.ViewModels
             }
             set
             {
-                MainContainerViewModel.SaveLocation = value;
+                SaveLocation = value;
+                var name = Path.GetFileName(SaveLocation);
                 SetProperty(ref _filename, value);
             }
         }

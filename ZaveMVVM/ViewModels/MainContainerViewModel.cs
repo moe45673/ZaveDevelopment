@@ -34,6 +34,8 @@ using System.Windows.Controls;
 
 namespace ZaveViewModel.ViewModels
 {
+    
+
     public class MainContainerViewModel
     {
         private readonly IEventAggregator _eventAggregator;
@@ -42,7 +44,7 @@ namespace ZaveViewModel.ViewModels
         private readonly IIOService _ioService;
         public static string ACTIVESORT = "TxtDocColor";
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
-        public static string SaveLocation = null; 
+        
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
@@ -58,6 +60,18 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand ScreenshotZDFDelegateCommand { get; set; }
 
         public DelegateCommand<String> ExportZDFDelegateCommand { get; set; }
+
+        public string SaveLocation
+        {
+            get
+            {
+                return MainWindowViewModel.SaveLocation;
+            }
+            set
+            {
+                MainWindowViewModel.SaveLocation = value;
+            }
+        }
 
         public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
         {
