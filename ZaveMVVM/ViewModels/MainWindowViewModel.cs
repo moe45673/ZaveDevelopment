@@ -71,7 +71,7 @@ namespace ZaveViewModel.ViewModels
             {
                 SaveLocation = value;
                 var name = Path.GetFileName(SaveLocation);
-                SetProperty(ref _filename, value);
+                SetProperty(ref _filename, name);
             }
         }
         #endregion
