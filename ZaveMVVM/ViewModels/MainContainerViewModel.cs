@@ -285,7 +285,7 @@ namespace ZaveViewModel.ViewModels
         {
             if (SaveLocation == null)
             {
-                var filename = _ioService.SaveFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                var filename = _ioService.SaveFileDialogService(getSaveDirectory());
                 SaveLogic(Convert.ToString(filename));
             }
             else {
@@ -316,6 +316,7 @@ namespace ZaveViewModel.ViewModels
                                 setIndented(serializer);
                                 serializer.Serialize(wr, activeZDFVM.GetModel());
                                 SaveLocation = filename;
+                                ZDFSingleton.GetInstance().Name = filename;
                                 _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(SaveLocation);
                             }
                             catch (Exception ex)
@@ -348,7 +349,7 @@ namespace ZaveViewModel.ViewModels
 
             JsonSerializer serializer = new JsonSerializer();
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
-            var filename = _ioService.OpenFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            var filename = _ioService.OpenFileDialogService(getSaveDirectory());
 
 
             if (filename != String.Empty) //If the user presses cancel
@@ -405,6 +406,7 @@ namespace ZaveViewModel.ViewModels
 
                                     activeZdf.EntryList.LastOrDefault().Name = Path.GetFileName(filename);
                                     SaveLocation = filename;
+                                    activeZdf.Name = filename;
                                     _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
 
                                 }
@@ -524,9 +526,9 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        private string getSaveDirectory()
+        public static string getSaveDirectory()
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\ZDFs";
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ZDFs";
         }
 
         private string getSaveFileName()

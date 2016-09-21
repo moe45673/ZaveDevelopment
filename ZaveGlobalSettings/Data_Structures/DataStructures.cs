@@ -37,6 +37,8 @@ namespace ZaveGlobalSettings.Data_Structures
             SelStateList = new List<SelectionState>();
         }
 
+        
+
         public void Add(SelectionState selstate)
         {
             lock (_selStateLock)

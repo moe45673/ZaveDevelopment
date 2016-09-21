@@ -33,6 +33,33 @@ namespace ZaveViewModel.ViewModels
 
         public DelegateCommand<string> NavigateCommand { get; set; }
 
+        //async Task<string> GetDefaultSaveDirectory()
+        //{
+        //    for(int i = 0; i<20; i++)
+        //    {
+        //        try
+        //        {
+        //            var mcvm = await Task<MainContainerViewModel>.Factory.StartNew(() =>
+        //            {
+        //                return _container.Resolve<MainContainerViewModel>() as MainContainerViewModel;
+        //            });                   
+
+        //            return mcvm.getSaveDirectory() + "ZDF_" + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToShortTimeString() + ".zdf"; ;
+                    
+
+        //        }
+        //        catch(NullReferenceException nre)
+        //        {
+        //            Thread.Sleep(100);
+        //        }
+
+
+                
+        //    }
+
+        //    return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        //}
+
         public MainWindowViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator agg)
         {
             _container = cont;
@@ -40,17 +67,19 @@ namespace ZaveViewModel.ViewModels
             NavigateCommand = new DelegateCommand<string>(Navigate);
             //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
+            
             _eventAggregator = agg;
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
+            //var getDirectory = GetDefaultSaveDirectory();
             SaveLocation = "";
-            _filename = SaveLocation;
-            
+            _filename = "UntitledDocument";
+            _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
 
         }
 
-        private void setFileName(string name)
+        private void setFileName(object activeZDF)
         {
-            Filename = name;
+            Filename = ((ZaveModel.ZDF.ZDFSingleton)activeZDF).Name;
         }
 
         private void Navigate(string uri)
