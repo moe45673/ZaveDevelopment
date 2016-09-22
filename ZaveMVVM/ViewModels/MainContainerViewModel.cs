@@ -31,10 +31,17 @@ using DevExpress.Utils.Drawing.Helpers;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Windows.Controls;
+using Novacode;
 
 namespace ZaveViewModel.ViewModels
 {
-    
+    class ColorComparer : IComparer<IZDFEntry>
+    {
+        public int Compare(IZDFEntry x, IZDFEntry y)
+        {
+            return x.HColor.CompareTo(y.HColor);
+        }
+    }
 
     public class MainContainerViewModel
     {
@@ -44,7 +51,7 @@ namespace ZaveViewModel.ViewModels
         private readonly IIOService _ioService;
         public static string ACTIVESORT = "TxtDocColor";
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
-        
+
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
@@ -85,7 +92,8 @@ namespace ZaveViewModel.ViewModels
             UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
             RedoZDFDelegateCommand = new DelegateCommand(RedoZDF);
             ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
-            ExportZDFDelegateCommand = new DelegateCommand<string>(ExportZDF);
+            ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
+            //ExportZDFDelegateCommand = new DelegateCommand<string>(ExportZDF);
             _ioService = ioService;
 
         }
@@ -93,17 +101,105 @@ namespace ZaveViewModel.ViewModels
         [Conditional("DEBUG")]
         private void setIndented(JsonSerializer ser)
         {
-            ser.Formatting = Formatting.Indented;
+            ser.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
 
-        private void ExportZDF(string source)
+        private async Task ExportZDF(string source)
         {
 
+            var activeZDF = ZDFSingleton.GetInstance();
+            switch (source)
+            {
+                case "WORD":
+                    await Task.Run(() =>
+                    {
+                        try
+                    {
+
+                        using (DocX doc = DocX.Load(createExportFileName()))
+
+                        {
+
+                            int numPar = doc.Paragraphs.Count;
+                            for (int i = 0; i < numPar; i++)
+                            {
+                                doc.RemoveParagraphAt(0);
+                            }
+
+
+                            var entries = activeZDF.EntryList.ToList();
+                            var comp = new ColorComparer();
+                            entries.Sort(comp);
+                            var lastColor = default(System.Drawing.Color);
+
+                            foreach (var entry in entries)
+
+                            {
+
+                                var thisColor = entry.HColor.Color;
+
+                                if (!thisColor.Equals(lastColor))
+                                {
+
+                                    Table t = doc.InsertTable(1, 1);
+                                    Row r = t.Rows.ElementAt(0);
+                                    Cell c = r.Cells.ElementAt(0);
+                                    c.Shading = thisColor;
+                                    
+                                }
+
+
+                                Paragraph p = doc.InsertParagraph();
+
+                                p.InsertText(entry.Text + Environment.NewLine);
+
+                                lastColor = thisColor;
+                            }
+
+                            doc.Save();
+                        }
+                    }
+                    catch(IOException ioex)
+                    {
+                        System.Windows.Forms.MessageBox.Show(ioex.Message + Environment.NewLine + Environment.NewLine + "Unable to create export file. If file is currently open, please close and try again.");
+                    }
+
+                    });
+                    break;
+            }
         }
+
+
+        private string createExportFileName()
+        {
+            var activeZDF = ZDFSingleton.GetInstance();
+            var str1 = getSaveDirectory() + "\\ExportedFiles";
+            if (!Directory.Exists(str1))
+            {
+                Directory.CreateDirectory(str1);
+            }
+
+
+            var str2 = Path.Combine(str1, Path.GetFileNameWithoutExtension(activeZDF.Name) + "Export.docx");
+            if (!File.Exists(str2))
+            {
+                using (DocX newDoc = DocX.Create(str2))
+                    newDoc.Save();
+
+
+            }
+            //else
+            //{
+            //    File.Delete(str2);
+            //}
+            return str2;
+        }
+
+
 
         private void UndoZDF()
         {
-            
+
             #region MyCode2
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
 
@@ -288,7 +384,8 @@ namespace ZaveViewModel.ViewModels
                 var filename = _ioService.SaveFileDialogService(getSaveDirectory());
                 SaveLogic(Convert.ToString(filename));
             }
-            else {
+            else
+            {
                 var filename = SaveLocation;
                 SaveLogic(Convert.ToString(filename));
             }
