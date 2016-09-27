@@ -22,6 +22,11 @@
             <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="Background" Value="#F0F0F0"></Setter>
         </Style>
+        <Style x:Key="NotificationBar_Border" BasedOn="{StaticResource Section_Border}" TargetType="Border">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
+        </Style>
         <Style x:Key="ListItem_Container" TargetType="Border">
             <Setter Property="BorderThickness" Value="0"></Setter>
         </Style>
@@ -37,6 +42,7 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
             <my:Menu></my:Menu>
@@ -46,6 +52,9 @@
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="3" Style="{StaticResource ZDFList_Border}">
             <my:ZDFList Loaded="ZDFList_Loaded"></my:ZDFList>
+        </Border>
+        <Border Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource NotificationBar_Border}">
+            <my:NotificationBar></my:NotificationBar>
         </Border>
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
         <Border Grid.Row="2" Style="{StaticResource ListItem_Container}">
