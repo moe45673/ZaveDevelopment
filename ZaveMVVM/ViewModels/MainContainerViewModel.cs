@@ -379,7 +379,7 @@ namespace ZaveViewModel.ViewModels
         //}
         private void SaveZDF()
         {
-            if (SaveLocation == null)
+            if (SaveLocation == null || SaveLocation == "" || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
             {
                 var filename = _ioService.SaveFileDialogService(getSaveDirectory());
                 SaveLogic(Convert.ToString(filename));

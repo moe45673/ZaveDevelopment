@@ -14,6 +14,7 @@ using ZaveViewModel.ViewModels;
 using ZaveModel.ZDFEntry;
 using System.Collections.ObjectModel;
 using ZaveGlobalSettings.Data_Structures;
+using ZaveGlobalSettings.ZaveFile;
 using System.ComponentModel;
 using System.Windows.Data;
 using Microsoft.Practices.Unity;
@@ -72,7 +73,7 @@ namespace ZaveViewModel.ViewModels
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
             //var getDirectory = GetDefaultSaveDirectory();
             SaveLocation = "";
-            _filename = "UntitledDocument";
+            _filename = GuidGenerator.UNSAVEDFILENAME;
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
 
         }

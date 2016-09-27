@@ -21,6 +21,7 @@ namespace ZaveGlobalSettings.Data_Structures
     [Flags]
     public enum SrcType { NONE = 0, WORD = 1, EXCEL = 2 }
 
+    
 
     public sealed class SelectionStateList : List<SelectionState>
     {
@@ -443,6 +444,6 @@ namespace ZaveGlobalSettings.Data_Structures
 
     public class ZDFOpenedEvent : PubSubEvent<object> { }
 
-    public class ZDFSavedEvent : PubSubEvent<string> { }
+    public class ZDFSavedEvent : PubSubEvent<object> { }
     
 }

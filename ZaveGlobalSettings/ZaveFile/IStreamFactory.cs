@@ -17,6 +17,7 @@ namespace ZaveGlobalSettings.ZaveFile
 
         //}
 
+
         public static StreamReader createStreamReader(string filepath)
         {
             int NumberOfRetries = 20;
@@ -102,6 +103,8 @@ namespace ZaveGlobalSettings.ZaveFile
             var id = attribute.Value;
             return (string)id;
         }
+
+        public readonly static string UNSAVEDFILENAME = "UntitledDocument";
     }
 
 }
