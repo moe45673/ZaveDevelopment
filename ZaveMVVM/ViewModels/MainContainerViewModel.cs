@@ -103,6 +103,7 @@ namespace ZaveViewModel.ViewModels
         {
             ser.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
+        
 
         private async Task ExportZDF(string source)
         {
@@ -114,55 +115,50 @@ namespace ZaveViewModel.ViewModels
                     await Task.Run(() =>
                     {
                         try
-                    {
-
-                        using (DocX doc = DocX.Load(createExportFileName()))
-
                         {
 
-                            int numPar = doc.Paragraphs.Count;
-                            for (int i = 0; i < numPar; i++)
-                            {
-                                doc.RemoveParagraphAt(0);
-                            }
-
-
-                            var entries = activeZDF.EntryList.ToList();
-                            var comp = new ColorComparer();
-                            entries.Sort(comp);
-                            var lastColor = default(System.Drawing.Color);
-
-                            foreach (var entry in entries)
+                            var exportfilename = createExportFileName();
+                            using (DocX doc = DocX.Load(exportfilename))
 
                             {
 
-                                var thisColor = entry.HColor.Color;
+                                var entries = activeZDF.EntryList.ToList();
+                                var comp = new ColorComparer();
+                                entries.Sort(comp);
+                                var lastColor = default(System.Drawing.Color);
 
-                                if (!thisColor.Equals(lastColor))
+                                foreach (var entry in entries)
+
                                 {
 
-                                    Table t = doc.InsertTable(1, 1);
-                                    Row r = t.Rows.ElementAt(0);
-                                    Cell c = r.Cells.ElementAt(0);
-                                    c.Shading = thisColor;
+                                    var thisColor = entry.HColor.Color;
+
+                                    if (!thisColor.Equals(lastColor))
+                                    {
+
+                                        Table t = doc.InsertTable(1, 1);
+                                        Row r = t.Rows.ElementAt(0);
+                                        Cell c = r.Cells.ElementAt(0);
+                                        c.Shading = thisColor;
                                     
+                                    }
+
+
+                                    Paragraph p = doc.InsertParagraph();
+
+                                    p.InsertText(entry.Text + Environment.NewLine);
+
+                                    lastColor = thisColor;
                                 }
 
-
-                                Paragraph p = doc.InsertParagraph();
-
-                                p.InsertText(entry.Text + Environment.NewLine);
-
-                                lastColor = thisColor;
+                                doc.Save();
+                                _eventAggregator.GetEvent<ZDFExportedEvent>().Publish(exportfilename);
                             }
-
-                            doc.Save();
                         }
-                    }
-                    catch(IOException ioex)
-                    {
-                        System.Windows.Forms.MessageBox.Show(ioex.Message + Environment.NewLine + Environment.NewLine + "Unable to create export file. If file is currently open, please close and try again.");
-                    }
+                        catch(IOException ioex)
+                        {
+                        System.Windows.Forms.MessageBox.Show("Unable to create export file. If file is currently open, please close and try again.", "FILE NOT EXPORTED", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                        }
 
                     });
                     break;
@@ -181,17 +177,36 @@ namespace ZaveViewModel.ViewModels
 
 
             var str2 = Path.Combine(str1, Path.GetFileNameWithoutExtension(activeZDF.Name) + "Export.docx");
-            if (!File.Exists(str2))
+
+            //Better way to delete the file?
+            if (File.Exists(str2))
+            {
+               for(int i = 0; i < 20; i++)
+                {
+                    try
+                    {
+                        File.Delete(str2);
+                        System.Threading.Thread.Sleep(50);
+                        break;
+                    }
+                    catch(IOException ioex)
+                    {
+                        Console.WriteLine(ioex.Message);
+                    }
+                }
+
+            }
+            try
             {
                 using (DocX newDoc = DocX.Create(str2))
                     newDoc.Save();
-
-
+                
             }
-            //else
-            //{
-            //    File.Delete(str2);
-            //}
+            catch(IOException ioex)
+            {
+                
+                throw ioex;
+            }
             return str2;
         }
 
