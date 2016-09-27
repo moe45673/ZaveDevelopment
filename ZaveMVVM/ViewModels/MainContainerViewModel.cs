@@ -413,8 +413,9 @@ namespace ZaveViewModel.ViewModels
                                 setIndented(serializer);
                                 serializer.Serialize(wr, activeZDFVM.GetModel());
                                 SaveLocation = filename;
-                                ZDFSingleton.GetInstance().Name = filename;
-                                _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(SaveLocation);
+                                var activeZDF = ZDFSingleton.GetInstance();
+                                activeZDF.Name = filename;
+                                _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(activeZDF);
                             }
                             catch (Exception ex)
                             {
@@ -501,7 +502,7 @@ namespace ZaveViewModel.ViewModels
 
                                     ////List<SelectionState> selState = activeZDF.toSelectionStateList();
 
-                                    activeZdf.EntryList.LastOrDefault().Name = Path.GetFileName(filename);
+                                    // = Path.GetFileName(filename);
                                     SaveLocation = filename;
                                     activeZdf.Name = filename;
                                     _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);

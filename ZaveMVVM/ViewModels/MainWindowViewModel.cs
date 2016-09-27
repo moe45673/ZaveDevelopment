@@ -79,7 +79,7 @@ namespace ZaveViewModel.ViewModels
 
         private void setFileName(object activeZDF)
         {
-            Filename = activeZDF as string;
+            Filename = ((ZaveModel.ZDF.ZDFSingleton)activeZDF).Name;
         }
 
         private void Navigate(string uri)
