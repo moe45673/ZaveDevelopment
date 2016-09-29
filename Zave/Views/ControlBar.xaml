@@ -43,6 +43,42 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="Main_Button" TargetType="{x:Type Button}">
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="ButtonBorder" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#c3c3c3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MainButton_Container" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
         <!--<TextBlock   Text="[Zave Controls]" FontSize="72" FontFamily="Franklin Gothic Heavy" Opacity="0.8" VerticalAlignment="Center">
@@ -65,33 +101,33 @@
                         <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
-                <ListBoxItem>
-                    <Button Command="{Binding NewZDFDelegateCommand}" >
+                <ListBoxItem Style="{StaticResource MainButton_Container}">
+                    <Button Command="{Binding NewZDFDelegateCommand}"  Style="{StaticResource Main_Button}">
                     <Image Source="/Zave;component/media/images/new.png" Height="30" Width="40" />
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
-                    <Button Command="{Binding OpenZDFDelegateCommand}" >
+                <ListBoxItem Style="{StaticResource MainButton_Container}">
+                    <Button Command="{Binding OpenZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
                     <Image Source="/Zave;component/media/images/open.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
-                    <Button Command="{Binding SaveZDFDelegateCommand}" >
+                <ListBoxItem Style="{StaticResource MainButton_Container}">
+                    <Button Command="{Binding SaveZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
                     <Image Source="/Zave;component/media/images/save.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
-                    <Button Command="{Binding UndoZDFDelegateCommand}" >
+                <ListBoxItem Style="{StaticResource MainButton_Container}">
+                    <Button Command="{Binding UndoZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
                     <Image Source="/Zave;component/media/images/undo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
-                    <Button Command="{Binding RedoZDFDelegateCommand}" >
+                <ListBoxItem Style="{StaticResource MainButton_Container}">
+                    <Button Command="{Binding RedoZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
                     <Image Source="/Zave;component/media/images/redo.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
-                    <Button Command="{Binding ScreenshotZDFDelegateCommand}" >
+                <ListBoxItem Style="{StaticResource MainButton_Container}">
+                    <Button Command="{Binding ScreenshotZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
                     <Image Source="/Zave;component/media/images/screenshot.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                     </Button>
                 </ListBoxItem>

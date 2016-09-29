@@ -121,7 +121,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="docCommentTxtBx" Text="Comments(3)" Style="{StaticResource ListView_Item_Comments}"></TextBlock>
+                            <TextBlock x:Name="docCommentTxtBx" Text="{Binding TxtDocComments.Count, Mode=OneWay, StringFormat='Comments ({0})'}" Style="{StaticResource ListView_Item_Comments}">
+                            </TextBlock>
                             <TextBlock x:Name="docTimeTxtBx" Text="2 mins ago" Grid.Column="1" Style="{StaticResource ListView_Item_Time}"></TextBlock>
                         </Grid>
                         </StackPanel>
