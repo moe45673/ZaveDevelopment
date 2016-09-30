@@ -34,7 +34,7 @@ using System.Windows.Controls;
 
 namespace ZaveViewModel.ViewModels
 {
-    public class MainContainerViewModel
+    public class MainContainerViewModel : INotifyPropertyChanged, IDisposable
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
@@ -42,7 +42,10 @@ namespace ZaveViewModel.ViewModels
         private readonly IIOService _ioService;
         public static string ACTIVESORT = "TxtDocColor";
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
-        public static string SaveLocation = null; 
+        public static string SaveLocation = null;
+        public static List<ZdfUndoComments> ZdfUndoComments = new List<ZdfUndoComments>();
+        public static List<ZdfUndoComments> RemoveZdundoComments = new List<ZdfUndoComments>();
+        public event PropertyChangedEventHandler PropertyChanged = null;
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
@@ -81,24 +84,56 @@ namespace ZaveViewModel.ViewModels
 
         private void UndoZDF()
         {
-            
+
             #region MyCode2
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
 
             ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+            var zdfEntryList = new List<ZDFEntry>();
             if (activeZdf.EntryList.Count > 0)
             {
                 int id = activeZdf.EntryList.LastOrDefault().ID;
                 var withoutfilter = activeZdf.EntryList.Where(t => t.ID == id).ToList();
+
                 foreach (var undoitem in withoutfilter)
                 {
-                    activeZdfUndo.Add(undoitem);
-                    ZdfEntries.Add(new ZdfEntryItemViewModel(undoitem as ZDFEntry));
+                    if (((ZDFEntry)undoitem).Comments != null && ((ZDFEntry)undoitem).Comments.Count > 0)
+                    {
+                        ZdfEntries.Add(new ZdfEntryItemViewModel(undoitem as ZDFEntry));
+                        var commentID = ((ZDFEntry)undoitem).Comments.LastOrDefault().CommentID;
+                        var commentObject = ((ZDFEntry)undoitem).Comments.FirstOrDefault(a => a.CommentID == commentID);
+                        ((ZDFEntry)undoitem).Comments.Remove(commentObject);
+                        zdfEntryList.Add(((ZDFEntry)undoitem));
+                        if(RemoveZdundoComments.Any(a=>a.ID==id && a.Comments.CommentID == commentID))
+                        {
+                            RemoveZdundoComments.Remove(RemoveZdundoComments.FirstOrDefault(a => a.ID == id && a.Comments.CommentID == commentID));
+                        }
+                        if (!ZdfUndoComments.Any(a => a.Comments.CommentID == commentID && a.ID == id))
+                        {
+                            ZdfUndoComments.Add(new ZdfUndoComments
+                            {
+                                Comments = commentObject,
+                                ID = id
+                            });
+                        }
+                    }
+                    else
+                    {
+                        activeZdfUndo.Add(undoitem);
+                        ZdfEntries.Add(new ZdfEntryItemViewModel(undoitem as ZDFEntry));
+                    }
+
+
                 }
 
                 var filter = activeZdf.EntryList.Where(t => t.ID != id).ToList();
+
                 activeZdf.EntryList.Clear();
 
+                foreach (var item in zdfEntryList)
+                {
+                    activeZdf.Add(item);
+                }
                 foreach (var item in filter.ToList())
                 {
                     activeZdf.Add(item);
@@ -113,14 +148,72 @@ namespace ZaveViewModel.ViewModels
             #region MyCode2
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
             ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-
+            
             //if (activeZdfUndo.Count > 0 && activeZdfUndo.Count != 1)
-            if (activeZdfUndo.Count > 0)
+            //if (activeZdfUndo.Count > 0)
+            //{
+            //    activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
+            //    ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
+            //    activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
+            //    //return;
+            //}
+            if (ZdfUndoComments != null && ZdfUndoComments.Count > 0)
             {
-                activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
-                ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
-                activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
+                if (activeZdf.EntryList.Count > 0)
+                {
+                    var tempObject = new ZdfUndoComments();
+                    if (RemoveZdundoComments == null || !RemoveZdundoComments.Any())
+                    {
+                        tempObject = ZdfUndoComments.LastOrDefault();
+                    }
+                    else
+                    {
+                        tempObject = ZdfUndoComments.Where(a => !RemoveZdundoComments.Any(b => b.Comments.CommentID == a.Comments.CommentID && b.ID == a.ID)).LastOrDefault();
+                    }
+                    if (tempObject != null)
+                    {
+                        var zdfEntry = activeZdf.EntryList.FirstOrDefault(a => a.ID == tempObject.ID);
+                        if (zdfEntry != null)
+                        {
+                            if (!zdfEntry.Comments.Any(a => a.CommentID == tempObject.Comments.CommentID))
+                            {
+                                zdfEntry.Comments.Add(tempObject.Comments);
+                                RemoveZdundoComments.Add(tempObject);
+                                if (ZdfUndoComments.Any(a=>a.ID== zdfEntry.ID &&  a.Comments.CommentID== tempObject.Comments.CommentID))
+                                {
+                                    ZdfUndoComments.Remove(ZdfUndoComments.FirstOrDefault(a => a.ID == zdfEntry.ID && a.Comments.CommentID == tempObject.Comments.CommentID));
+                                }
+                                //ZdfUndoComments.Remove(item);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
+                    activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
+                    //return;
+                }
+                //ZdfUndoComments = null;
             }
+            else
+            {
+                if (activeZdfUndo.Count > 0)
+                {
+                    activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
+                    activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
+                    //return;
+                }
+            }
+            //if(removeZdundoComments!=null && removeZdundoComments.Any())
+            //{
+            //    foreach (var item in removeZdundoComments)
+            //    {
+            //        ZdfUndoComments.Remove(item);
+            //    }
+            //}
             //else if (activeZdfUndo.Count == 1)
             //{
             //    if (activeZdf.EntryList.Count > 0)
@@ -134,14 +227,14 @@ namespace ZaveViewModel.ViewModels
             //    }
 
             //}
-            else if (activeZdfUndo.Count == 0)
-            {
-                if (activeZdf.EntryList.Count > 0)
-                {
-                    activeZdf.EntryList.Add(activeZdf.EntryList.LastOrDefault());
-                    ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdf.EntryList.LastOrDefault() as ZDFEntry));
-                }
-            }
+            //else if (activeZdfUndo.Count == 0)
+            //{
+            //    if (activeZdf.EntryList.Count > 0)
+            //    {
+            //        activeZdf.EntryList.Add(activeZdf.EntryList.LastOrDefault());
+            //        ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdf.EntryList.LastOrDefault() as ZDFEntry));
+            //    }
+            //}
 
             #endregion
         }
@@ -511,6 +604,10 @@ namespace ZaveViewModel.ViewModels
             return "\\SaveDoc";
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     internal class NativeMethods
@@ -553,10 +650,13 @@ namespace ZaveViewModel.ViewModels
             return result;
         }
     }
-
+    public class ZdfUndoComments
+    {
+        public int ID { get; set; }
+        public IEntryComment Comments { get; set; }
+    }
 
 }
-
 //using System;
 //using System.Collections.Generic;
 //using System.Collections.ObjectModel;
