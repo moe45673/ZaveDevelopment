@@ -15,10 +15,11 @@
         xmlns:zaveDialogs="clr-namespace:ZaveViewModel.Data_Structures.ZaveDialogs;assembly=ZaveViewModel"
         mc:Ignorable="d"
         zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"
-        Title="Zave" Height="600" Width="800" WindowStyle="ThreeDBorderWindow">
+        d:DataContext="{d:DesignInstance zdfviewmodelns:MainWindowViewModel, IsDesignTimeCreatable=True}"
+        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="600" Width="800" WindowStyle="ThreeDBorderWindow">
 
     <Window.Resources>
-
+        
 
     </Window.Resources>
     <Grid>

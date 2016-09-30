@@ -145,7 +145,7 @@
             <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Text="Created: 2016-07-12 10:38 AM" Style="{StaticResource hiLightHeader_Text}"/>
         </Grid>
         <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
-        <TextBlock x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged, diag:PresentationTraceSources.TraceLevel=High}" Style="{StaticResource docText_Text}"/>
+        <TextBlock x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource docText_Text}"/>
 
         <!--<TextBlock x:Name="docIdTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" Visibility="Collapsed" />-->
 

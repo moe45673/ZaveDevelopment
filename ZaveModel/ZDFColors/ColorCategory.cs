@@ -18,7 +18,8 @@ using Newtonsoft.Json;
 
 namespace ZaveModel.ZDFColors {
     [JsonObject(MemberSerialization.OptIn)]
-    public class ColorCategory{
+    public class ColorCategory : IComparable<ColorCategory>
+    {
         
         
         private ColorCategory(Color col) {
@@ -100,10 +101,9 @@ namespace ZaveModel.ZDFColors {
             throw new System.Data.ObjectNotFoundException("The provided Color is not named.");
         }
 
-
-
-
-
-
+        public int CompareTo(ColorCategory other)
+        {
+            return this.Color.ToString().CompareTo(other.Color.ToString());
+        }
     }//end ColorCategory
 }

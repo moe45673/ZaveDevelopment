@@ -27,6 +27,7 @@ using Prism.Commands;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using Microsoft.Practices.Unity;
 using ZaveModel.ZDF;
+using ZaveViewModel.Data_Structures;
 
 
 
@@ -57,22 +58,7 @@ namespace ZaveViewModel.ViewModels
         //    }
         //}
 
-        private List<T> EntrySort<T>(List<T> listToSort, string propName)
-        {
-            System.Reflection.PropertyInfo propInfo = typeof(T).GetProperty(propName);
-            object property = propInfo.GetValue(listToSort.FirstOrDefault(), null);
-            List<T> list = default(List<T>);
-            if (property is IComparable)
-            {
-                
-                list = listToSort.OrderBy(o => propInfo.GetValue(o, null)).ToList();
-            }
-            else
-            {
-                list = listToSort.OrderBy(o => propInfo.GetValue(o, null).ToString()).ToList();
-            }
-            return list;
-        }
+        
 
         protected ObservableImmutableList<ZdfEntryItemViewModel> CreateEntryList(ZaveModel.ZDF.IZDF zdf)
         {
@@ -120,13 +106,14 @@ namespace ZaveViewModel.ViewModels
                         //foreach (var item in e.NewItems.SyncRoot as List<Object>)
                         //{
                         int index = (e.NewItems.SyncRoot as Array).Length - 1;
-                        var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index);
-                        
+                        var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index); //get new entry
 
-                        ZdfEntries.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
+                        var list = ZdfEntries.ToList(); //create temp list to add item to and then sort
 
-                        var list = EntrySort(ZdfEntries.ToList(), activeSort);
 
+                        list.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
+
+                        list = ZDFSorting.EntrySort(list, activeSort);                        
                         ZdfEntries.Clear();
                         ZdfEntries.AddRange(list);
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
@@ -179,6 +166,7 @@ namespace ZaveViewModel.ViewModels
             //    _activeZdf.EntryList.Add(item);
             //}
             CreateEntryList();
+
         }
 
         //private void ViewPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -348,6 +336,17 @@ namespace ZaveViewModel.ViewModels
         private bool CanSelectItem(IList arg)
         {
             return SelectedItem;
+        }
+
+
+        private string _name;
+
+        public string Name
+        {
+            get { return _activeZdf.Name; }
+            set {
+                _activeZdf.Name = value;
+                SetProperty(ref _name, value); }
         }
     }
 

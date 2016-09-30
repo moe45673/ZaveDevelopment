@@ -31,10 +31,19 @@ using DevExpress.Utils.Drawing.Helpers;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Windows.Controls;
+using Novacode;
 
 namespace ZaveViewModel.ViewModels
 {
-    public class MainContainerViewModel : INotifyPropertyChanged, IDisposable
+    class ColorComparer : IComparer<IZDFEntry>
+    {
+        public int Compare(IZDFEntry x, IZDFEntry y)
+        {
+            return x.HColor.CompareTo(y.HColor);
+        }
+    }
+
+    public class MainContainerViewModel
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
@@ -42,10 +51,11 @@ namespace ZaveViewModel.ViewModels
         private readonly IIOService _ioService;
         public static string ACTIVESORT = "TxtDocColor";
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
-        public static string SaveLocation = null;
+        //public static string SaveLocation = null;
         public static List<ZdfUndoComments> ZdfUndoComments = new List<ZdfUndoComments>();
         public static List<ZdfUndoComments> RemoveZdundoComments = new List<ZdfUndoComments>();
         public event PropertyChangedEventHandler PropertyChanged = null;
+
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
@@ -60,6 +70,20 @@ namespace ZaveViewModel.ViewModels
 
         public DelegateCommand ScreenshotZDFDelegateCommand { get; set; }
 
+        public DelegateCommand<String> ExportZDFDelegateCommand { get; set; }
+
+        public string SaveLocation
+        {
+            get
+            {
+                return MainWindowViewModel.SaveLocation;
+            }
+            set
+            {
+                MainWindowViewModel.SaveLocation = value;
+            }
+        }
+
         public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
         {
             _container = cont;
@@ -72,6 +96,8 @@ namespace ZaveViewModel.ViewModels
             UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
             RedoZDFDelegateCommand = new DelegateCommand(RedoZDF);
             ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
+            ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
+            //ExportZDFDelegateCommand = new DelegateCommand<string>(ExportZDF);
             _ioService = ioService;
 
         }
@@ -79,12 +105,120 @@ namespace ZaveViewModel.ViewModels
         [Conditional("DEBUG")]
         private void setIndented(JsonSerializer ser)
         {
-            ser.Formatting = Formatting.Indented;
+            ser.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
+        
+
+        private async Task ExportZDF(string source)
+        {
+
+            var activeZDF = ZDFSingleton.GetInstance();
+            switch (source)
+            {
+                case "WORD":
+                    await Task.Run(() =>
+                    {
+                        try
+                        {
+
+                            var exportfilename = createExportFileName();
+                            using (DocX doc = DocX.Load(exportfilename))
+
+                            {
+
+                                var entries = activeZDF.EntryList.ToList();
+                                var comp = new ColorComparer();
+                                entries.Sort(comp);
+                                var lastColor = default(System.Drawing.Color);
+
+                                foreach (var entry in entries)
+
+                                {
+
+                                    var thisColor = entry.HColor.Color;
+
+                                    if (!thisColor.Equals(lastColor))
+                                    {
+
+                                        Table t = doc.InsertTable(1, 1);
+                                        Row r = t.Rows.ElementAt(0);
+                                        Cell c = r.Cells.ElementAt(0);
+                                        c.Shading = thisColor;
+                                    
+                                    }
+
+
+                                    Paragraph p = doc.InsertParagraph();
+
+                                    p.InsertText(entry.Text + Environment.NewLine);
+
+                                    lastColor = thisColor;
+                                }
+
+                                doc.Save();
+                                _eventAggregator.GetEvent<ZDFExportedEvent>().Publish(exportfilename);
+                            }
+                        }
+                        catch(IOException ioex)
+                        {
+                        System.Windows.Forms.MessageBox.Show("Unable to create export file. If file is currently open, please close and try again.", "FILE NOT EXPORTED", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                        }
+
+                    });
+                    break;
+            }
+        }
+
+
+        private string createExportFileName()
+        {
+            var activeZDF = ZDFSingleton.GetInstance();
+            var str1 = getSaveDirectory() + "\\ExportedFiles";
+            if (!Directory.Exists(str1))
+            {
+                Directory.CreateDirectory(str1);
+            }
+
+
+            var str2 = Path.Combine(str1, Path.GetFileNameWithoutExtension(activeZDF.Name) + "Export.docx");
+
+            //Better way to delete the file?
+            if (File.Exists(str2))
+            {
+               for(int i = 0; i < 20; i++)
+                {
+                    try
+                    {
+                        File.Delete(str2);
+                        System.Threading.Thread.Sleep(50);
+                        break;
+                    }
+                    catch(IOException ioex)
+                    {
+                        Console.WriteLine(ioex.Message);
+                    }
+                }
+
+            }
+            try
+            {
+                using (DocX newDoc = DocX.Create(str2))
+                    newDoc.Save();
+                
+            }
+            catch(IOException ioex)
+            {
+                
+                throw ioex;
+            }
+            return str2;
+        }
+
+
 
         private void UndoZDF()
         {
-
+            
             #region MyCode2
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
 
@@ -119,9 +253,9 @@ namespace ZaveViewModel.ViewModels
                     }
                     else
                     {
-                        activeZdfUndo.Add(undoitem);
-                        ZdfEntries.Add(new ZdfEntryItemViewModel(undoitem as ZDFEntry));
-                    }
+                    activeZdfUndo.Add(undoitem);
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(undoitem as ZDFEntry));
+                }
 
 
                 }
@@ -148,7 +282,7 @@ namespace ZaveViewModel.ViewModels
             #region MyCode2
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
             ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-            
+
             //if (activeZdfUndo.Count > 0 && activeZdfUndo.Count != 1)
             //if (activeZdfUndo.Count > 0)
             //{
@@ -199,11 +333,11 @@ namespace ZaveViewModel.ViewModels
             }
             else
             {
-                if (activeZdfUndo.Count > 0)
-                {
-                    activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
-                    ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
-                    activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
+            if (activeZdfUndo.Count > 0)
+            {
+                activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
+                ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
+                activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
                     //return;
                 }
             }
@@ -354,12 +488,13 @@ namespace ZaveViewModel.ViewModels
         //}
         private void SaveZDF()
         {
-            if (SaveLocation == null)
+            if (SaveLocation == null || SaveLocation == "" || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
             {
-                var filename = _ioService.SaveFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                var filename = _ioService.SaveFileDialogService(getSaveDirectory());
                 SaveLogic(Convert.ToString(filename));
             }
-            else {
+            else
+            {
                 var filename = SaveLocation;
                 SaveLogic(Convert.ToString(filename));
             }
@@ -387,6 +522,9 @@ namespace ZaveViewModel.ViewModels
                                 setIndented(serializer);
                                 serializer.Serialize(wr, activeZDFVM.GetModel());
                                 SaveLocation = filename;
+                                var activeZDF = ZDFSingleton.GetInstance();
+                                activeZDF.Name = filename;
+                                _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(activeZDF);
                             }
                             catch (Exception ex)
                             {
@@ -418,7 +556,7 @@ namespace ZaveViewModel.ViewModels
 
             JsonSerializer serializer = new JsonSerializer();
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
-            var filename = _ioService.OpenFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            var filename = _ioService.OpenFileDialogService(getSaveDirectory());
 
 
             if (filename != String.Empty) //If the user presses cancel
@@ -473,8 +611,9 @@ namespace ZaveViewModel.ViewModels
 
                                     ////List<SelectionState> selState = activeZDF.toSelectionStateList();
 
-                                    activeZdf.EntryList.LastOrDefault().Name = Path.GetFileName(filename);
+                                    // = Path.GetFileName(filename);
                                     SaveLocation = filename;
+                                    activeZdf.Name = filename;
                                     _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
 
                                 }
@@ -594,9 +733,9 @@ namespace ZaveViewModel.ViewModels
 
         }
 
-        private string getSaveDirectory()
+        public static string getSaveDirectory()
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\ZDFs";
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ZDFs";
         }
 
         private string getSaveFileName()
