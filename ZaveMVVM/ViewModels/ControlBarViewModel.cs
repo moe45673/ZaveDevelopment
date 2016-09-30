@@ -33,6 +33,7 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand UndoZDFDelegateCommand { get; set; }
         public DelegateCommand RedoZDFDelegateCommand { get; set; }
         public DelegateCommand ScreenshotZDFDelegateCommand { get; set; }
+        public DelegateCommand SaveASZDFDelegateCommand { get; set; }
         public ControlBarViewModel(IEventAggregator eventAggregator, IUnityContainer cont)
         {
             _activeColor = new Color();
@@ -57,7 +58,7 @@ namespace ZaveViewModel.ViewModels
             UndoZDFDelegateCommand = vm.UndoZDFDelegateCommand;
             RedoZDFDelegateCommand = vm.RedoZDFDelegateCommand;
             ScreenshotZDFDelegateCommand = vm.ScreenshotZDFDelegateCommand;
-
+            SaveASZDFDelegateCommand = vm.SaveASZDFDelegateCommand;
         }
 
         

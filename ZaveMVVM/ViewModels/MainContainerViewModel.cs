@@ -72,6 +72,8 @@ namespace ZaveViewModel.ViewModels
 
         public DelegateCommand<String> ExportZDFDelegateCommand { get; set; }
 
+        public DelegateCommand SaveASZDFDelegateCommand { get; set; }
+
         public string SaveLocation
         {
             get
@@ -95,8 +97,9 @@ namespace ZaveViewModel.ViewModels
             NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
             UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
             RedoZDFDelegateCommand = new DelegateCommand(RedoZDF);
-            ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
+            ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);            
             ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
+            SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
             //ExportZDFDelegateCommand = new DelegateCommand<string>(ExportZDF);
             _ioService = ioService;
 
@@ -213,8 +216,6 @@ namespace ZaveViewModel.ViewModels
             }
             return str2;
         }
-
-
 
         private void UndoZDF()
         {
@@ -743,9 +744,18 @@ namespace ZaveViewModel.ViewModels
             return "\\SaveDoc";
         }
 
-        public void Dispose()
+        void SaveAsZdfFile()
         {
-            throw new NotImplementedException();
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+            saveFileDialog.DefaultExt = ".ZDF"; // Default file extension
+            saveFileDialog.Filter = "ZDF documents (.ZDF)|*.ZDF"; // Filter files by extension
+            saveFileDialog.FileName = "";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+                SaveLogic(Convert.ToString(saveFileDialog.FileName));
+            }
         }
     }
 
