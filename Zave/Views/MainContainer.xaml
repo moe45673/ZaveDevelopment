@@ -43,6 +43,7 @@
             <RowDefinition Height="9*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="180"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
             <my:Menu></my:Menu>
@@ -67,5 +68,8 @@
                 <my:ZDFEntryView></my:ZDFEntryView>
             </ScrollViewer>
         </Border>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="5">
+            <my:WidgetView></my:WidgetView>
+        </StackPanel>
     </Grid>
 </UserControl>
