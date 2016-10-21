@@ -199,7 +199,7 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        protected virtual void setProperties(IZDFEntry zEntry)
+        public virtual void setProperties(IZDFEntry zEntry)
         {
             try
             {

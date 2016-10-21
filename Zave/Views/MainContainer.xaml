@@ -65,7 +65,10 @@
         </Border>
         <Border Grid.Column="2" Grid.Row="2">
             <ScrollViewer>
-                <my:ZDFEntryView></my:ZDFEntryView>
+                <ContentControl x:Name="ZDFEntryDetailRegion"
+                                prism:RegionManager.RegionName="ZDFEntryDetailRegion"
+                                VerticalContentAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch" />
             </ScrollViewer>
         </Border>
     </Grid>

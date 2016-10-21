@@ -407,6 +407,11 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+    public class EntrySelectedEvent : PubSubEvent<string>
+    {
+
+    }
+
     public class EntryCreatedEvent : PubSubEvent<Object>
     {
 

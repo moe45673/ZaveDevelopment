@@ -96,16 +96,16 @@
       <HintPath>..\packages\NuGet.Core.2.11.1\lib\net40-Client\NuGet.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
+    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Prism.Unity.Wpf, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Unity.6.1.1\lib\net45\Prism.Unity.Wpf.dll</HintPath>
+    <Reference Include="Prism.Unity.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Unity.6.2.0\lib\net45\Prism.Unity.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Prism.Wpf, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Wpf.6.1.0\lib\net45\Prism.Wpf.dll</HintPath>
+    <Reference Include="Prism.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="sysglobl" />
@@ -125,7 +125,10 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -146,6 +149,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ColorConverters.cs" />
+    <Compile Include="MainContainerController.cs" />
     <Compile Include="Module\IOModule.cs" />
     <Compile Include="Module\MainContainerModule.cs" />
     <Compile Include="Module\MainWindowModule.cs" />
@@ -280,32 +284,6 @@
     <Resource Include="DevNotes.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FirstWordAddIn\ZaveWordAddin.csproj">
-      <Project>{2fec93ab-a5de-49ee-84e5-43090c2b007b}</Project>
-      <Name>ZaveWordAddin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZaveEvents\ZaveController.csproj">
-      <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
-      <Name>ZaveController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZaveGlobalSettings\ZaveGlobalSettings.csproj">
-      <Project>{0f1f4a8f-44fd-4537-88a1-21034ac4335a}</Project>
-      <Name>ZaveGlobalSettings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
-      <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
-      <Name>ZaveModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZaveMVVM\ZaveViewModel.csproj">
-      <Project>{61e09293-709d-447d-bc4c-306e3118f20c}</Project>
-      <Name>ZaveViewModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZaveService\ZaveService.csproj">
-      <Project>{7564b53b-b138-4e6f-8d37-acdd1e51f787}</Project>
-      <Name>ZaveService</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +323,32 @@
     <Resource Include="media\images\save_t.jpg" />
     <Resource Include="media\images\screenshot_t.jpg" />
     <Resource Include="media\images\undoredo_t.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FirstWordAddIn\ZaveWordAddin.csproj">
+      <Project>{2fec93ab-a5de-49ee-84e5-43090c2b007b}</Project>
+      <Name>ZaveWordAddin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveEvents\ZaveController.csproj">
+      <Project>{6bcc0d8d-fdca-4bb4-9824-242878fbbe36}</Project>
+      <Name>ZaveController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveGlobalSettings\ZaveGlobalSettings.csproj">
+      <Project>{0f1f4a8f-44fd-4537-88a1-21034ac4335a}</Project>
+      <Name>ZaveGlobalSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveModel\ZaveModel.csproj">
+      <Project>{6b255a10-65f0-400a-9b9d-1254cd934ecc}</Project>
+      <Name>ZaveModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveMVVM\ZaveViewModel.csproj">
+      <Project>{61e09293-709d-447d-bc4c-306e3118f20c}</Project>
+      <Name>ZaveViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZaveService\ZaveService.csproj">
+      <Project>{7564b53b-b138-4e6f-8d37-acdd1e51f787}</Project>
+      <Name>ZaveService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--<Import Project="..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets" Condition="Exists('..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" />-->

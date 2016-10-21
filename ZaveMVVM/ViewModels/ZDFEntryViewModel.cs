@@ -24,6 +24,7 @@ using Prism.Unity;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveViewModel.Data_Structures;
 using System.Collections;
+using ZaveModel.ZDF;
 
 //using Zave
 
@@ -51,7 +52,7 @@ namespace ZaveViewModel.ViewModels
             if (_eventAggregator == null && eventAgg != null)
             {
                 _eventAggregator = eventAgg;
-                _eventAggregator.GetEvent<EntryReadEvent>().Subscribe(EventSetProperties);
+                //_eventAggregator.GetEvent<EntrySelectedEvent>().Subscribe(EventSetProperties);
                 _regionManager = regionManager;
                 _container = container;
                 _commentDlg = new ModalInputDialogViewModel();
@@ -82,14 +83,14 @@ namespace ZaveViewModel.ViewModels
         }
 
 
-        protected virtual void EventSetProperties(object obj)
+        protected virtual void EventSetProperties(string id)
         {
-            ZDFEntryItem item = obj as ZDFEntryItem;
+            
 
-            if (item != null)
+            if (id != null && id != "")
             {
-                _zdfEntry = item.ZDFEntry;
-                setProperties(item.ZDFEntry);
+                _zdfEntry = ZDFSingleton.GetInstance().EntryList.FirstOrDefault(x => x.ID == Convert.ToInt64(id)) as ZDFEntry;
+                setProperties(_zdfEntry);
             }
             else
             {

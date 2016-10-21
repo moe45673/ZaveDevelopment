@@ -197,7 +197,7 @@ namespace ZaveViewModel.ViewModels
         {
             var id = items.Cast<ZdfEntryItemViewModel>();
 
-            _eventAggregator.GetEvent<EntryReadEvent>().Publish(ZdfEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZdfEntryItemViewModel>().TxtDocID));
+            _eventAggregator.GetEvent<EntrySelectedEvent>().Publish(ZdfEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZdfEntryItemViewModel>().TxtDocID).TxtDocID);
             //SelectionState selstate = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState();
 
 

@@ -33,8 +33,8 @@ namespace Zave
         /// </summary>
         protected override void InitializeShell()
         {
-            ZaveApp.Current.MainWindow = Shell as Window;
-            ZaveApp.Current.MainWindow.Show();
+            //ZaveApp.Current.MainWindow = Shell as Window;
+            Application.Current.MainWindow.Show();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Zave
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
             moduleCatalog.AddModule(typeof(MainWindowModule));
             moduleCatalog.AddModule(typeof(IOModule));
-            // moduleCatalog.AddModule(typeof(MainContainerModule));
+            moduleCatalog.AddModule(typeof(MainContainerModule));
             //moduleCatalog.AddModule(typeof(ZDFModule));
             //moduleCatalog.AddModule(typeof(ZDFEntryModule));
 

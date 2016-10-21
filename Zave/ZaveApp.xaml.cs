@@ -81,7 +81,7 @@ namespace Zave
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var bs = new BootStrapper();
+            var bs = new Zave.BootStrapper();
             bs.Run();
             //var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
             //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));//
