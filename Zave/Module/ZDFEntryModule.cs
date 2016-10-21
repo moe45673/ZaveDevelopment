@@ -12,11 +12,11 @@ namespace Zave.Module
     public class ZDFEntryModule : ModuleBaseClass
     {
 
-        public ZDFEntryModule(IUnityContainer cont, IRegionViewRegistry _reg) : base(cont, _reg) { }
+        public ZDFEntryModule(IUnityContainer cont, IRegionManager _reg) : base(cont, _reg) { }
 
         public override void Initialize()
         {
-            _regionViewRegistry.RegisterViewWithRegion("ZDFEntry", typeof(ZDFEntryView));
+            _regionManager.RegisterViewWithRegion("ZDFEntry", typeof(ZDFEntryView));
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZDFEntryView), "ZDFEntry");
 
         }

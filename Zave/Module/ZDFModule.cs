@@ -15,7 +15,7 @@ namespace Zave.Module
 {
     class ZDFModule : ModuleBaseClass
     {
-        public ZDFModule(IUnityContainer cont, IRegionViewRegistry registry) : base(cont, registry)
+        public ZDFModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry)
         {
         }
 
@@ -23,7 +23,7 @@ namespace Zave.Module
         {
             //var zdfSingleton =
             //    ZDFSingleton.GetInstance(_unityContainer.Resolve(typeof(IEventAggregator)) as EventAggregator);
-            _regionViewRegistry.RegisterViewWithRegion("ZDFView", typeof(ZDFView));
+            _regionManager.RegisterViewWithRegion("ZDFView", typeof(ZDFView));
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZDFView), "ZDFView");
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZdfViewModel), "ZDFViewModel");
             //UnityContainerExtensions.RegisterInstance(_unityContainer, typeof(ZaveModel.ZDF.IZDF), "ZDFSingleton", ZDFSingleton.GetInstance(_unityContainer.Resolve(typeof(IEventAggregator)) as EventAggregator));

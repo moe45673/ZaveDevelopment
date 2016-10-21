@@ -30,7 +30,7 @@ namespace Zave
 
 
 
-        public EventInitSingleton eventInit;
+        //public EventInitSingleton eventInit;
        
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace Zave
         ~ZaveApp()
         {
 
-            if(eventInit != null)
-                eventInit.Dispose();
+            //if(eventInit != null)
+            //    eventInit.Dispose();
 
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
@@ -83,9 +83,9 @@ namespace Zave
         {
             var bs = new BootStrapper();
             bs.Run();
-            var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
+            //var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
             //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));//
-            eventInit = EventInitSingleton.GetInstance(eventAgg, bs.Container);
+            //eventInit = EventInitSingleton.GetInstance(eventAgg, bs.Container);
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
             using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))

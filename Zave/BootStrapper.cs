@@ -33,7 +33,8 @@ namespace Zave
         /// </summary>
         protected override void InitializeShell()
         {
-            Application.Current.MainWindow.Show();
+            ZaveApp.Current.MainWindow = Shell as Window;
+            ZaveApp.Current.MainWindow.Show();
         }
 
         /// <summary>
