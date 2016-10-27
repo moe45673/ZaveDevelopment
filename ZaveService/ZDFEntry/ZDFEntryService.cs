@@ -19,8 +19,9 @@ namespace ZaveService.ZDFEntry
 
         public IZDFEntry getZDFEntry(string id)
         {
-
-            return ZaveModel.ZDF.ZDFSingleton.GetInstance().ListEntries().FirstOrDefault(x => x.ID == Convert.ToInt64(id));
+            int idToPass;
+            Int32.TryParse(id, out idToPass);
+            return ZaveModel.ZDF.ZDFSingleton.GetInstance().ListEntries().FirstOrDefault(x => x.ID == idToPass);
         }
     }
 }

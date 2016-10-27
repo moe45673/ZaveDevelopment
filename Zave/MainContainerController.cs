@@ -19,10 +19,7 @@ namespace Zave.Controllers
         private readonly IEventAggregator eventAggregator;
         private readonly IZDFEntryService entryService;
         
-        public MainContainerController(IUnityContainer container,
-                                    IRegionManager regionManager,
-                                    IEventAggregator eventAggregator,
-                                    IZDFEntryService entryService)
+        public MainContainerController(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator, IZDFEntryService entryService)
         {
             if (container == null) throw new ArgumentNullException("container");
             if (regionManager == null) throw new ArgumentNullException("regionManager");

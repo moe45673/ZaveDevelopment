@@ -23,8 +23,9 @@ namespace Zave.Module
             
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainer");
             _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>());
-            this._unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
-            _mainContainerController = _unityContainer.Resolve<Controllers.MainContainerController>();
+            _unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
+            
+            _mainContainerController = new Controllers.MainContainerController(_unityContainer, this._regionManager, _unityContainer.Resolve<IEventAggregator>(), _unityContainer.Resolve<IZDFEntryService>());
 
         }
     }
