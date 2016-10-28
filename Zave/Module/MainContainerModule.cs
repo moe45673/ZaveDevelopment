@@ -13,7 +13,7 @@ namespace Zave.Module
     public class MainContainerModule : ModuleBaseClass
     {
 
-        private Zave.Controllers.MainContainerController _mainContainerController;
+        private Zave.Controllers.ZDFEntryController _mainContainerController;
 
         public MainContainerModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry) { }
 
@@ -24,8 +24,9 @@ namespace Zave.Module
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainer");
             _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>());
             _unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
-            
-            _mainContainerController = new Controllers.MainContainerController(_unityContainer, this._regionManager, _unityContainer.Resolve<IEventAggregator>(), _unityContainer.Resolve<IZDFEntryService>());
+            _unityContainer.RegisterType<Controllers.ZDFEntryController>();
+            //_mainContainerController = _unityContainer.Resolve<Controllers.MainContainerController>();
+
 
         }
     }

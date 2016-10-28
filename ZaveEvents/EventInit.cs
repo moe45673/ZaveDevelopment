@@ -209,7 +209,7 @@ namespace ZaveController
                         temp[0].ID = ZaveModel.ZDF.ZDFSingleton.setID();
                         temp[0].Comments = new List<SelectionComment>();
 
-                        ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry(temp[0]);
+                        ZaveModel.ZDFEntry.ZDFEntry entry = ZaveModel.ZDFEntry.ZDFEntry.CreateZDFEntry(temp[0]);
 
                         entry.HColor = ColorCategory.FromWPFColor(activeColor);
 

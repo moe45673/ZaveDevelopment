@@ -17,9 +17,11 @@ namespace Zave.Module
 
         
 
-        public ModuleBaseClass(IUnityContainer cont, IRegionManager registry)
+        public ModuleBaseClass(IUnityContainer cont, IRegionManager registry = null)
         {
-            this._regionManager = registry;
+            
+                this._regionManager = registry;
+            
             _unityContainer = cont;
         }
 

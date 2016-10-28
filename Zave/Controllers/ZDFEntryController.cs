@@ -12,17 +12,14 @@ using Zave.Module;
 
 namespace Zave.Controllers
 {
-    public class MainContainerController
+    public class ZDFEntryController
     {
         private readonly IUnityContainer container;
         private readonly IRegionManager regionManager;
         private readonly IEventAggregator eventAggregator;
         private readonly IZDFEntryService entryService;
         
-        public MainContainerController(IUnityContainer container,
-                                    IRegionManager regionManager,
-                                    IEventAggregator eventAggregator,
-                                    IZDFEntryService entryService)
+        public ZDFEntryController(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator, IZDFEntryService entryService)
         {
             if (container == null) throw new ArgumentNullException("container");
             if (regionManager == null) throw new ArgumentNullException("regionManager");
@@ -46,20 +43,20 @@ namespace Zave.Controllers
 
 
 
-            IRegion mainContRegion = regionManager.Regions[RegionNames.MainContainerRegion];
+            IRegion entryRegion = regionManager.Regions[RegionNames.ZDFEntryDetailRegion];
 
-            if (mainContRegion == null) return;
+            if (entryRegion == null) return;
 
-            var view = mainContRegion.GetView("ZDFEntryView") as Zave.Views.ZDFEntryView;
+            var view = entryRegion.GetView("ZDFEntryView") as Zave.Views.ZDFEntryView;
 
             if(view == null)
             {
                 view = container.Resolve<Zave.Views.ZDFEntryView>();
-                mainContRegion.Add(view, "ZDFEntryView");
+                entryRegion.Add(view, "ZDFEntryView");
             }
             else
             {
-                mainContRegion.Activate(view);
+                entryRegion.Activate(view);
             }
 
             var viewModel = view.DataContext as ZaveViewModel.ViewModels.ZDFEntryViewModel;

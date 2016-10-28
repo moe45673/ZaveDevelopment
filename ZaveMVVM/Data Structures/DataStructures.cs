@@ -116,7 +116,7 @@ namespace ZaveViewModel.Data_Structures
 
         //private string _txtDocId;
 
-        protected void setProperties(int id = 0, string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = default(CommentList))
+        protected void setProperties(int id = 0, string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = null)
         {
             if (_zdfEntry == null)
             {
@@ -560,7 +560,7 @@ namespace ZaveViewModel.Data_Structures
 
 
 
-        private ZDFCommentItem(IEntryComment modelComment = default(EntryComment), string text = default(string), string author = default(string), int id = 0)
+        private ZDFCommentItem(IEntryComment modelComment = null, string text = default(string), string author = default(string), int id = 0)
         {
             _modelComment = modelComment;
             _commentText = text;

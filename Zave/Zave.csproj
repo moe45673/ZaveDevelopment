@@ -149,7 +149,8 @@
     </ApplicationDefinition>
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ColorConverters.cs" />
-    <Compile Include="MainContainerController.cs" />
+    <Compile Include="Controllers\ZDFEntryController.cs" />
+    <Compile Include="Module\DataServiceModule.cs" />
     <Compile Include="Module\IOModule.cs" />
     <Compile Include="Module\MainContainerModule.cs" />
     <Compile Include="Module\MainWindowModule.cs" />

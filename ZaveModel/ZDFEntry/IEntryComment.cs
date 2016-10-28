@@ -29,7 +29,7 @@ namespace ZaveModel.ZDFEntry {
             return u;
         }
 
-        public static explicit operator string(User u = default(User))  // explicit string to User conversion operator
+        public static explicit operator string(User u = null)  // explicit string to User conversion operator
         {
             try
             {

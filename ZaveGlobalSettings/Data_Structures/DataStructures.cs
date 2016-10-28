@@ -90,7 +90,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
         
-        public SelectionState(int id = 0, string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
+        public SelectionState(int id = -1, string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
         {
             ID = id;
             SelectionDocName = name;
