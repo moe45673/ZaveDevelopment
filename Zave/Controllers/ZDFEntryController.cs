@@ -37,9 +37,14 @@ namespace Zave.Controllers
 
         private void ZDFEntrySelected(string id)
         {
-            if (string.IsNullOrEmpty(id)) return;
+            ZaveModel.ZDFEntry.IZDFEntry selectedEntry = new ZaveModel.ZDFEntry.ZDFEntry();
+            
+            if (!string.IsNullOrEmpty(id))
+            {
+                selectedEntry = this.entryService.getZDFEntry(id);
+            }
 
-            var selectedEntry = this.entryService.getZDFEntry(id);
+             
 
 
 
@@ -53,11 +58,10 @@ namespace Zave.Controllers
             {
                 view = container.Resolve<Zave.Views.ZDFEntryView>();
                 entryRegion.Add(view, "ZDFEntryView");
+                //entryRegion.Activate(view);
             }
-            else
-            {
                 entryRegion.Activate(view);
-            }
+            
 
             var viewModel = view.DataContext as ZaveViewModel.ViewModels.ZDFEntryViewModel;
 
