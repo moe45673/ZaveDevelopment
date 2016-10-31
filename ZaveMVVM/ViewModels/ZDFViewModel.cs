@@ -195,13 +195,15 @@ namespace ZaveViewModel.ViewModels
         /// <returns></returns>
         private void SelectItem(System.Collections.IList items)
         {
-            var id = items.Cast<ZdfEntryItemViewModel>();
+            if (items.Count > 0)
+            {
+                var id = items.Cast<ZdfEntryItemViewModel>();
 
-            _eventAggregator.GetEvent<EntrySelectedEvent>().Publish(ZdfEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZdfEntryItemViewModel>().TxtDocID).TxtDocID);
-            //SelectionState selstate = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState();
+                _eventAggregator.GetEvent<EntrySelectedEvent>().Publish(ZdfEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZdfEntryItemViewModel>().TxtDocID).TxtDocID);
+                //SelectionState selstate = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState();
 
 
-            
+            }
 
             //return await Task.FromResult(1);
         }
