@@ -10,7 +10,7 @@ namespace ZaveGlobalTestProject
         public void CheckDefaultSelectionState()
         {
             var selState = new ZaveGlobalSettings.Data_Structures.SelectionState();
-            Assert.AreEqual<int>(0, selState.ID);
+            Assert.AreEqual<int>(-1, selState.ID);
         }
     }
 }
