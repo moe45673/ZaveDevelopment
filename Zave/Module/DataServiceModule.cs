@@ -7,6 +7,7 @@ using ZaveService.ZDFEntry;
 
 namespace Zave.Module
 {
+    [Module(ModuleName = "DataServiceModule")]
     public class DataServiceModule : ModuleBaseClass
     {
         public DataServiceModule(IUnityContainer cont) : base(cont) { }

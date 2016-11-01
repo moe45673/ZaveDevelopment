@@ -20,7 +20,7 @@ namespace ZaveServiceTest
         public static void Initialize(TestContext tc)
         {
             activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(new EventAggregator());
-            service = new ZDFEntryService();
+            service = new ZDFEntryService(new EventAggregator());
         }
 
 
@@ -37,9 +37,9 @@ namespace ZaveServiceTest
         [TestMethod]
         public void CreateDefaultService()
         {
-            var newservice = new ZDFEntryService();
+            var newservice = new ZDFEntryService(new EventAggregator());
             Assert.IsNotNull(newservice);
-            Assert.AreEqual<int>(ZaveModel.ZDF.ZDFSingleton.IDTracker, newservice.ActiveZDFEntry.ID);            
+            Assert.AreEqual<int>(ZaveModel.ZDF.ZDFSingleton.IDTracker, newservice.ActiveZDFEntryId);            
         }
 
         //[TestMethod]

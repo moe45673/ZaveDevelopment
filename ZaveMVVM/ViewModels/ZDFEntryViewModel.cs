@@ -25,6 +25,7 @@ using ZaveGlobalSettings.Data_Structures;
 using ZaveViewModel.Data_Structures;
 using System.Collections;
 using ZaveModel.ZDF;
+using ZaveService.ZDFEntry;
 
 //using Zave
 
@@ -43,10 +44,12 @@ namespace ZaveViewModel.ViewModels
 
         private IUnityContainer _container;
 
+        private IZDFEntryService _entryService;
+
         protected ObservableCollection<IDialogViewModel> CommentDialog;
         protected ModalInputDialogViewModel _commentDlg;
 
-        public ZDFEntryViewModel(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container) : base(new ZDFEntry())
+        public ZDFEntryViewModel(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, IZDFEntryService entryService) : base(new ZaveModel.ZDFEntry.ZDFEntry())
         {
             
             if (_eventAggregator == null && eventAgg != null)
@@ -56,6 +59,8 @@ namespace ZaveViewModel.ViewModels
                 _regionManager = regionManager;
                 _container = container;
                 _commentDlg = new ModalInputDialogViewModel();
+                _entryService = entryService;
+                _zdfEntry = _entryService.getZDFEntry(entryService.ActiveZDFEntryId);
                 //_zdfEntry.Comments.CollectionChanged += base.ModelCollectionChanged;
             }
            
@@ -103,9 +108,9 @@ namespace ZaveViewModel.ViewModels
         
 
 
-        public static ZDFEntryViewModel EntryVmFactory(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, IZDFEntry entry)
+        public static ZDFEntryViewModel EntryVmFactory(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, ZaveService.ZDFEntry.IZDFEntryService entryService, IZDFEntry entry)
         {
-            var entryVm = new ZDFEntryViewModel(eventAgg, regionManager, container);
+            var entryVm = new ZDFEntryViewModel(eventAgg, regionManager, container, entryService);
             entryVm._zdfEntry = entry;            
 
             try

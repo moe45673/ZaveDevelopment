@@ -417,6 +417,11 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+    public class ActiveEntryUpdatedEvent : PubSubEvent<string>
+    {
+
+    }
+
     public class EntryDeletedEvent : PubSubEvent<Object>
     {
 

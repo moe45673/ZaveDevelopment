@@ -28,7 +28,7 @@ using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using Microsoft.Practices.Unity;
 using ZaveModel.ZDF;
 using ZaveViewModel.Data_Structures;
-
+using ZaveService.ZDFEntry;
 
 
 namespace ZaveViewModel.ViewModels
@@ -47,6 +47,7 @@ namespace ZaveViewModel.ViewModels
         private ZaveModel.ZDF.ZDFSingleton _activeZdf;
         private IEventAggregator _eventAggregator;
         private IUnityContainer _container;
+        private IZDFEntryService _entryService;
 
         //private ZDFEntryViewModel _activeZdfEntry;
         //public ZDFEntryViewModel ActiveZDFEntry
@@ -202,6 +203,7 @@ namespace ZaveViewModel.ViewModels
 
                 id = ZdfEntries.FirstOrDefault(x => x.TxtDocID == entryItems.First<ZdfEntryItemViewModel>().TxtDocID).TxtDocID;
                 
+
                 //SelectionState selstate = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState();
                 
             }
@@ -294,12 +296,14 @@ namespace ZaveViewModel.ViewModels
 
         //private SynchronizationContext context;
 
-        public ZDFViewModel(IEventAggregator eventAggregator, IUnityContainer container)
+        public ZDFViewModel(IEventAggregator eventAggregator, IUnityContainer container, IZDFEntryService entryService)
         {
             
             _eventAggregator = eventAggregator;
             SelectedItem = true;
             SelectItemDelegateCommand = new DelegateCommand<IList>(SelectItem, CanSelectItem);
+
+            _entryService = entryService;
 
             _container = container;
 

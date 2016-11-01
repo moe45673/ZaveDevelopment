@@ -20,7 +20,7 @@ namespace Zave.Module
         public override void Initialize()
         {
 
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZDFEntryView), "ZDFEntry");
+            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
             //_regionManager.RegisterViewWithRegion(RegionNames.ZDFEntryDetailRegion, () => _unityContainer.Resolve<ZDFEntryView>());
             //_unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
             _entryController = this._unityContainer.Resolve<ZDFEntryController>();

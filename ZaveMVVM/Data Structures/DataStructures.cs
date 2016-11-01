@@ -206,6 +206,7 @@ namespace ZaveViewModel.Data_Structures
                 if (zEntry.ID != 0)
                 {
                     SelectedZDFByUser = Convert.ToString(zEntry.ID);
+                    _zdfEntry = zEntry;
                 }
                 setProperties(zEntry.ID, zEntry.Name, zEntry.Page, zEntry.Text, zEntry.DateModified, zEntry.HColor.Color, fromZDFCommentList(zEntry.Comments));
             }

@@ -32,10 +32,10 @@ namespace Zave.Controllers
             this.eventAggregator = eventAggregator;
             this.entryService = entryService;
 
-            eventAggregator.GetEvent<EntrySelectedEvent>().Subscribe(this.ZDFEntrySelected, true);
+            eventAggregator.GetEvent<ActiveEntryUpdatedEvent>().Subscribe(this.ZDFActiveEntryUpdated, true);
         }
 
-        private void ZDFEntrySelected(string id)
+        private void ZDFActiveEntryUpdated(string id)
         {
             //Get the view
             IRegion entryRegion = regionManager.Regions[RegionNames.ZDFEntryDetailRegion];
@@ -74,6 +74,7 @@ namespace Zave.Controllers
             
 
             var viewModel = view.DataContext as ZaveViewModel.ViewModels.ZDFEntryViewModel;
+            
 
             if(viewModel != null)
             {
