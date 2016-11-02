@@ -9,6 +9,8 @@ using Prism.Modularity;
 using Zave.Module;
 using ZaveViewModel.ViewModels;
 using Prism.Events;
+using Zave.Controllers;
+using ZaveService.ZDFEntry;
 
 namespace Zave
 {
@@ -33,22 +35,27 @@ namespace Zave
         /// </summary>
         protected override void InitializeShell()
         {
+            ZaveApp.Current.MainWindow = Shell as Window;
             Application.Current.MainWindow.Show();
         }
 
         /// <summary>
-        /// 
+        /// 4
         /// </summary>
         protected override void ConfigureModuleCatalog()
         {
             base.ConfigureModuleCatalog();
-
+            
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(MainWindowModule));
             moduleCatalog.AddModule(typeof(IOModule));
-            // moduleCatalog.AddModule(typeof(MainContainerModule));
-            //moduleCatalog.AddModule(typeof(ZDFModule));
-            //moduleCatalog.AddModule(typeof(ZDFEntryModule));
+            moduleCatalog.AddModule(typeof(DataServiceModule));
+            moduleCatalog.AddModule(typeof(MainWindowModule));
+           
+            //moduleCatalog.AddModule(typeof(MainContainerModule));
+            moduleCatalog.AddModule(typeof(ZDFEntryModule));
+            moduleCatalog.AddModule(typeof(ZDFModule));
+
+
 
 
 
@@ -65,8 +72,11 @@ namespace Zave
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(Menu), "Menu");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ControlBar), "ControlBar");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
+            //UnityContainerExtensions.RegisterType(Container, typeof(IZDFEntryService), typeof(ZDFEntryService), "ZDFEntryService");
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof())
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFEntryView), "ZDFEntryView");
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(MainContainerController), "ZDFEntryView");
             //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZaveModel.ZDF.ZDFSingleton), "ZDFModel");
             //UnityContainerExtensions.RegisterInstance(Container, typeof(ZaveModel.ZDF.ZDFSingleton), ZaveModel.ZDF.ZDFSingleton.GetInstance(Container.Resolve(typeof(EventAggregator)) as EventAggregator));
 

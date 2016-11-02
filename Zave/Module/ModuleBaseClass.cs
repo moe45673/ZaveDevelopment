@@ -6,19 +6,23 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
+using ZaveController;
 
 namespace Zave.Module
 {
     public abstract class ModuleBaseClass : IModule
     {
-        protected readonly IRegionViewRegistry _regionViewRegistry;
+        protected readonly IRegionManager _regionManager;
         protected readonly IUnityContainer _unityContainer;
 
+        
 
-        public ModuleBaseClass(IUnityContainer cont, IRegionViewRegistry registry)
+        public ModuleBaseClass(IUnityContainer cont, IRegionManager registry = null)
         {
-            this._regionViewRegistry = registry;
-            _unityContainer = cont.CreateChildContainer();
+            
+                this._regionManager = registry;
+            
+            _unityContainer = cont;
         }
 
         public abstract void Initialize();

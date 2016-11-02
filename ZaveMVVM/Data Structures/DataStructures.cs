@@ -116,7 +116,7 @@ namespace ZaveViewModel.Data_Structures
 
         //private string _txtDocId;
 
-        protected void setProperties(int id = default(int), string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = default(CommentList))
+        protected void setProperties(int id = 0, string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = null)
         {
             if (_zdfEntry == null)
             {
@@ -199,13 +199,14 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        protected virtual void setProperties(IZDFEntry zEntry)
+        public virtual void setProperties(IZDFEntry zEntry)
         {
             try
             {
                 if (zEntry.ID != 0)
                 {
                     SelectedZDFByUser = Convert.ToString(zEntry.ID);
+                    _zdfEntry = zEntry;
                 }
                 setProperties(zEntry.ID, zEntry.Name, zEntry.Page, zEntry.Text, zEntry.DateModified, zEntry.HColor.Color, fromZDFCommentList(zEntry.Comments));
             }
@@ -560,7 +561,7 @@ namespace ZaveViewModel.Data_Structures
 
 
 
-        private ZDFCommentItem(IEntryComment modelComment = default(EntryComment), string text = default(string), string author = default(string), int id = default(int))
+        private ZDFCommentItem(IEntryComment modelComment = null, string text = default(string), string author = default(string), int id = 0)
         {
             _modelComment = modelComment;
             _commentText = text;

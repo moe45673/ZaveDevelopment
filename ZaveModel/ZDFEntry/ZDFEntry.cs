@@ -42,39 +42,46 @@ namespace ZaveModel.ZDFEntry
         public int ID { get { return _id; } }
 
 
-
+        
         public ZDFEntry()
         {
             m_IEntryComment = new CommentList();
             //Source = new ZaveGlobalSettings.Data_Structures.SelectionState();
-            _id = ZaveModel.ZDF.ZDFSingleton.setID();
-            HColor = new ColorCategory(default(System.Drawing.Color), "");
+            _id = ZaveModel.ZDF.ZDFSingleton.setEntryID();
+            HColor = new ColorCategory(new System.Drawing.Color(), "");
             //HColor = ColorCategory.FromWPFColor(System.Windows.Media.Color.FromRgb(255, 255, 0));
             _page = "";
             _name = "";
             _text = "";
             _dateModified = default(DateTime);
-            _format = default(SrcType);
+            _format = new SrcType();
         }
 
-        public ZDFEntry(SelectionState src) : this()
+        public static ZDFEntry CreateZDFEntry(SelectionState src)
         {
-            m_IEntryComment = new CommentList();
 
-            foreach (var item in src.Comments)
+            var entry = new ZDFEntry();
+            if (src != null)
             {
-                Comments.Add(new EntryComment(item.Text, item.Author));
+                
+
+                foreach (var item in src.Comments)
+                {
+                    entry.Comments.Add(new EntryComment(item.Text, item.Author));
+                }
+
+                entry._id = src.ID;
+                entry._page = src.SelectionPage;
+                entry._name = src.SelectionDocName;
+                entry._text = src.SelectionText;
+                entry._dateModified = src.SelectionDateModified;
+                entry._format = src.srcType;
+                entry._hColor = new ColorCategory(src.Color, src.Color.Name);
+
+                
             }
 
-            _id = src.ID;
-            _page = src.SelectionPage;
-            _name = src.SelectionDocName;
-            _text = src.SelectionText;
-            _dateModified = src.SelectionDateModified;
-            _format = src.srcType;
-            _hColor = new ColorCategory(src.Color, src.Color.Name);
-
-
+            return entry;
         }
 
         ~ZDFEntry()
@@ -233,7 +240,7 @@ namespace ZaveModel.ZDFEntry
                 tempEntry.Comments.Add(selCom);
             }
 
-            var entry = new ZDFEntry(tempEntry);
+            var entry = ZDFEntry.CreateZDFEntry(tempEntry);
             #endregion
             //var jsonObject = JObject.Load(reader);
             //var entry = new ZDFEntry

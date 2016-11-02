@@ -9,7 +9,7 @@ namespace Zave.Module
 {
     public class IOModule : ModuleBaseClass
     {
-        public IOModule(IUnityContainer cont, IRegionViewRegistry registry) : base(cont, registry) { }
+        public IOModule(IUnityContainer cont) : base(cont) { }
 
 
         public override void Initialize()

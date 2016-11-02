@@ -3,21 +3,29 @@ using System.Windows;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
+using Prism.Events;
 using Zave.Views;
 using ZaveViewModel.ViewModels;
+using ZaveService.ZDFEntry;
 
 namespace Zave.Module
 {
     public class MainContainerModule : ModuleBaseClass
     {
 
-        public MainContainerModule(IUnityContainer cont, IRegionViewRegistry registry) : base(cont, registry) { }
-        
+        private Zave.Controllers.ZDFEntryController _mainContainerController;
 
+        public MainContainerModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry) { }
+
+        //private ZaveController.EventInitSingleton eventInit;
         public override void Initialize()
         {
-            _regionViewRegistry.RegisterViewWithRegion("ZDFEntry", typeof(Views.MainContainer));
+            
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainer");
+            _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>());
+            _unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
+            _unityContainer.RegisterType<Controllers.ZDFEntryController>();
+            //_mainContainerController = _unityContainer.Resolve<Controllers.MainContainerController>();
 
 
         }

@@ -731,6 +731,7 @@ namespace ZaveViewModel.ViewModels
             MainContainerViewModel.activeZdfUndo.Clear();
             SaveLocation = null;
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+            _eventAggregator.GetEvent<NewZDFCreatedEvent>().Publish(activeZDF.ID.ToString());
 
         }
 

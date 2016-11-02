@@ -90,7 +90,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public class SelectionState
     {
         
-        public SelectionState(int id = default(int), string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
+        public SelectionState(int id = -1, string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
         {
             ID = id;
             SelectionDocName = name;
@@ -407,7 +407,17 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+    public class EntrySelectedEvent : PubSubEvent<string>
+    {
+
+    }
+
     public class EntryCreatedEvent : PubSubEvent<Object>
+    {
+
+    }
+
+    public class ActiveEntryUpdatedEvent : PubSubEvent<string>
     {
 
     }
@@ -447,5 +457,10 @@ namespace ZaveGlobalSettings.Data_Structures
     public class ZDFSavedEvent : PubSubEvent<object> { }
 
     public class ZDFExportedEvent : PubSubEvent<object> { }
+
+    public class NewZDFCreatedEvent : PubSubEvent<string>
+    {
+
+    }
 
 }

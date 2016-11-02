@@ -10,21 +10,24 @@ using Zave.Views;
 using ZaveModel.ZDF;
 using ZaveViewModel.ViewModels;
 using ZaveModel.ZDFEntry;
+using Prism.Modularity;
 
 namespace Zave.Module
 {
-    class ZDFModule : ModuleBaseClass
+    [Module(ModuleName="ZDFModule")]
+    [ModuleDependency("DataServiceModule")]
+    public class ZDFModule : ModuleBaseClass
     {
-        public ZDFModule(IUnityContainer cont, IRegionViewRegistry registry) : base(cont, registry)
+        public ZDFModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry)
         {
         }
 
         public override void Initialize()
         {
-            //var zdfSingleton =
-            //    ZDFSingleton.GetInstance(_unityContainer.Resolve(typeof(IEventAggregator)) as EventAggregator);
-            _regionViewRegistry.RegisterViewWithRegion("ZDFView", typeof(ZDFView));
-            //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZDFView), "ZDFView");
+            
+            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZDFView), "ZDFView");
+            _regionManager.RegisterViewWithRegion(RegionNames.ZDFEntryListRegion, () => _unityContainer.Resolve<ZDFView>());
+            
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZdfViewModel), "ZDFViewModel");
             //UnityContainerExtensions.RegisterInstance(_unityContainer, typeof(ZaveModel.ZDF.IZDF), "ZDFSingleton", ZDFSingleton.GetInstance(_unityContainer.Resolve(typeof(IEventAggregator)) as EventAggregator));
 
