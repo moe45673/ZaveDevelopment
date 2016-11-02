@@ -37,14 +37,16 @@ namespace ZaveModel.ZDF
         [JsonIgnore]
         private static int _iDTracker;
         [JsonIgnore]
+        private static int _entryIDTracker;
+        [JsonIgnore]
         private IEventAggregator _eventAggregator;
         //private string _date = DateTime.Now.ToShortTimeString();
         //FileSystemWatcher watcher;
 
-        public static int setID()
+        public static int setEntryID()
         {          
             
-            return ++_iDTracker;
+            return ++_entryIDTracker;
         }
 
 
@@ -58,8 +60,10 @@ namespace ZaveModel.ZDF
             EntryList = new ObservableImmutableList<ZDFEntry.IZDFEntry>();
 
             Name = "";
+
+
             
-            _iDTracker = EntryList.Count;
+            _entryIDTracker = EntryList.Count;
             
             //CreateFileWatcher(Path.GetTempPath());
         }
@@ -98,7 +102,7 @@ namespace ZaveModel.ZDF
         }
 
         [JsonProperty]
-        public static int IDTracker { get { return _iDTracker; } }
+        public static int EntryIDTracker { get { return _entryIDTracker; } }
 
         
        
@@ -107,21 +111,42 @@ namespace ZaveModel.ZDF
 
         //public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public static int RefreshIDCounter()
+        public static int RefreshEntryIDCounter()
         {
             int count = instance.EntryList.Count();
-            _iDTracker = instance.EntryList.ElementAt(count - 1).ID;
-            return IDTracker;
+            _entryIDTracker = instance.EntryList.ElementAt(count - 1).ID;
+            return EntryIDTracker;
         }
 
+        [JsonIgnore]
+        private string _name;
         [JsonProperty]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                SetProperty(ref _name, value);
+            }
+        }
 
         [JsonProperty]
         public ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList
         {
             get { return _entryList; }
             set { SetProperty(ref _entryList, value); }
+        }
+
+        [JsonIgnore]
+        private int _id;
+        [JsonProperty]
+        public int ID
+        {
+            get { return _id; }
+            set
+            {
+                SetProperty(ref _id, value);
+            }
         }
 
         public SelectionStateList toSelectionStateList()
@@ -230,7 +255,7 @@ namespace ZaveModel.ZDF
             {
                 activeZdf.EntryList.Add(item);
             }
-            ZDFSingleton.RefreshIDCounter();
+            ZDFSingleton.RefreshEntryIDCounter();
 
             return activeZdf;
 

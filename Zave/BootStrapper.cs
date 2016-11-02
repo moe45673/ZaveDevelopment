@@ -40,7 +40,7 @@ namespace Zave
         }
 
         /// <summary>
-        /// 
+        /// 4
         /// </summary>
         protected override void ConfigureModuleCatalog()
         {

@@ -39,7 +39,7 @@ namespace ZaveServiceTest
         {
             var newservice = new ZDFEntryService(new EventAggregator());
             Assert.IsNotNull(newservice);
-            Assert.AreEqual<int>(ZaveModel.ZDF.ZDFSingleton.IDTracker, newservice.ActiveZDFEntryId);            
+            Assert.AreEqual<int>(ZaveModel.ZDF.ZDFSingleton.EntryIDTracker, newservice.ActiveZDFEntryId);            
         }
 
         //[TestMethod]
