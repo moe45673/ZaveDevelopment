@@ -31,8 +31,15 @@
         <Style x:Key="ListItem_Container" TargetType="Border">
             <Setter Property="BorderThickness" Value="0"></Setter>
         </Style>
+        <Style x:Key="Region_Container" TargetType="ContentControl">
+            <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+        </Style>
+        <Style x:Key="MainContainer" TargetType="Grid">
+            <Setter Property="Background" Value="#F0F0F0"></Setter>
+        </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid Style="{StaticResource MainContainer}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="5" />
@@ -44,6 +51,7 @@
             <RowDefinition Height="9*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="180"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
             <my:Menu></my:Menu>
@@ -60,13 +68,20 @@
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
         <Border Grid.Row="2" Style="{StaticResource ListItem_Container}">
             <ScrollViewer>
-                <my:ZDFView></my:ZDFView>
+                <ContentControl x:Name="ZDFEntryListRegion"
+                               prism:RegionManager.RegionName="ZDFEntryListRegion"
+                               Style="{StaticResource Region_Container}" />
             </ScrollViewer>
         </Border>
         <Border Grid.Column="2" Grid.Row="2">
             <ScrollViewer>
-                <my:ZDFEntryView></my:ZDFEntryView>
+                <ContentControl x:Name="ZDFEntryDetailRegion"
+                               prism:RegionManager.RegionName="ZDFEntryDetailRegion"
+                                Style="{StaticResource Region_Container}" />
             </ScrollViewer>
         </Border>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="5">
+            <my:WidgetView></my:WidgetView>
+        </StackPanel>
     </Grid>
 </UserControl>

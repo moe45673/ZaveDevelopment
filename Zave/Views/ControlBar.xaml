@@ -131,6 +131,11 @@
                     <Image Source="/Zave;component/media/images/screenshot.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                     </Button>
                 </ListBoxItem>
+                <ListBoxItem Style="{StaticResource MainButton_Container}">
+                    <Button Style="{StaticResource Main_Button}">
+                        <Image Source="/Zave;component/media/images/windowsize.png" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                    </Button>
+                </ListBoxItem>
             </ListBox>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource ColourSelector_Container}">

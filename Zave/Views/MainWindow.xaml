@@ -19,8 +19,6 @@
         Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="600" Width="800" WindowStyle="ThreeDBorderWindow">
 
     <Window.Resources>
-        
-
     </Window.Resources>
     <Grid>
         <my:MainContainer Grid.Row="0"></my:MainContainer>
