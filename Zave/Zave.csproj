@@ -170,6 +170,9 @@
     <Compile Include="Views\TestDialog.xaml.cs">
       <DependentUpon>TestDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WidgetControls.xaml.cs">
+      <DependentUpon>WidgetControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WidgetView.xaml.cs">
       <DependentUpon>WidgetView.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WidgetControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -356,6 +363,16 @@
     <Resource Include="media\images\close.png" />
     <Resource Include="media\images\min.png" />
     <Resource Include="media\images\op.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="media\images\new_w.png" />
+    <Resource Include="media\images\open_w.png" />
+    <Resource Include="media\images\redo_w.png" />
+    <Resource Include="media\images\save_w.png" />
+    <Resource Include="media\images\screenshot_w.png" />
+    <Resource Include="media\images\settings_w.png" />
+    <Resource Include="media\images\undo_w.png" />
+    <Resource Include="media\images\windowsize_w.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--<Import Project="..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets" Condition="Exists('..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" />-->

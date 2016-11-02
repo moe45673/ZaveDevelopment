@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="Zave.Views.WidgetControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Zave.Views"
+             xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="500"
+             d:DataContext="{d:DesignInstance vm:ZDFViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <Style x:Key="Enable_Button" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Typography.Capitals" Value="AllSmallCaps"/>
+        </Style>
+        <Style x:Key="Other_Button" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="ButtonBorder" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="DarkGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Other_Button_Image" TargetType="{x:Type Image}">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Width" Value="27"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0"  Style="{StaticResource Enable_Button}">
+            Enable
+        </Button>
+        <Button Grid.Row="0" Grid.Column="1" Command="{Binding NewZDFDelegateCommand}" Style="{StaticResource Other_Button}">
+            <Image Source="/Zave;component/media/images/new_w.png" Style="{StaticResource Other_Button_Image}"/>
+        </Button>
+        <Button Grid.Row="0" Grid.Column="2" Command="{Binding OpenZDFDelegateCommand}" Style="{StaticResource Other_Button}">
+            <Image Source="/Zave;component/media/images/open_w.png" Style="{StaticResource Other_Button_Image}"/>
+        </Button>
+        <Button Grid.Row="0" Grid.Column="3" Command="{Binding SaveZDFDelegateCommand}" Style="{StaticResource Other_Button}">
+            <Image Source="/Zave;component/media/images/save_w.png" Style="{StaticResource Other_Button_Image}"/>
+        </Button>
+        <Button Grid.Row="0" Grid.Column="4" Command="{Binding UndoZDFDelegateCommand}" Style="{StaticResource Other_Button}">
+            <Image Source="/Zave;component/media/images/undo_w.png" Style="{StaticResource Other_Button_Image}"/>
+        </Button>
+        <Button Grid.Row="0" Grid.Column="5" Command="{Binding RedoZDFDelegateCommand}" Style="{StaticResource Other_Button}">
+            <Image Source="/Zave;component/media/images/redo_w.png" Style="{StaticResource Other_Button_Image}"/>
+        </Button>
+        <Button Grid.Row="0" Grid.Column="6" Command="{Binding ScreenshotZDFDelegateCommand}" Style="{StaticResource Other_Button}">
+            <Image Source="/Zave;component/media/images/screenshot_w.png" Style="{StaticResource Other_Button_Image}"/>
+        </Button>
+        <Button Grid.Row="0" Grid.Column="7" Style="{StaticResource Other_Button}">
+            <Image Source="/Zave;component/media/images/windowsize_w.png" Style="{StaticResource Other_Button_Image}"/>
+        </Button>
+        <!--<xctk:ColorPicker Grid.Row="0" Grid.Column="8" Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />-->
+    </Grid>
+</UserControl>
