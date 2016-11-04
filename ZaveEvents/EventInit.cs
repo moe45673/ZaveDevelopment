@@ -216,8 +216,8 @@ namespace ZaveController
                         //_eventAggregator.GetEvent<EntryCreatedEvent>().Publish(entry)
 
                         activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                        MainContainerViewModel.ZdfUndoComments.Clear();
-                        MainContainerViewModel.RemoveZdundoComments.Clear();
+                        MainWindowViewModel.ZdfUndoComments.Clear();
+                        MainWindowViewModel.RemoveZdundoComments.Clear();
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ConvertToString());
                         //if (activeZDF.EntryList.Count == 0)
                         //{

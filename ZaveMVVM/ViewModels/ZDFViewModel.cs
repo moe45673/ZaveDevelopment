@@ -44,7 +44,7 @@ namespace ZaveViewModel.ViewModels
         {
             activeSort = MainContainerViewModel.ACTIVESORT;
         }
-        private ZaveModel.ZDF.ZDFSingleton _activeZdf;
+        private ZDFSingleton _activeZdf;
         private IEventAggregator _eventAggregator;
         private IUnityContainer _container;
         private IZDFEntryService _entryService;
@@ -298,7 +298,10 @@ namespace ZaveViewModel.ViewModels
 
         public ZDFViewModel(IEventAggregator eventAggregator, IUnityContainer container, IZDFEntryService entryService)
         {
-            
+
+            if (container == null) throw new ArgumentNullException("container");            
+            if (eventAggregator == null) throw new ArgumentNullException("eventAggregator");
+
             _eventAggregator = eventAggregator;
             SelectedItem = true;
             SelectItemDelegateCommand = new DelegateCommand<IList>(SelectItem, CanSelectItem);

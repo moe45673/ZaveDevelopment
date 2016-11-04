@@ -15,6 +15,7 @@ using System.Threading;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using ZaveModel.ZDFColors;
 using Microsoft.Practices.Unity;
+using ZaveViewModel.ViewModels;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -34,8 +35,15 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand RedoZDFDelegateCommand { get; set; }
         public DelegateCommand ScreenshotZDFDelegateCommand { get; set; }
         public DelegateCommand SaveASZDFDelegateCommand { get; set; }
+
+        public DelegateCommand<string> SwitchWindowModeDelegateCommand { get; set; }
+
         public ControlBarViewModel(IEventAggregator eventAggregator, IUnityContainer cont)
         {
+
+            if (cont == null) throw new ArgumentNullException("container");            
+            if (eventAggregator == null) throw new ArgumentNullException("eventAggregator");
+
             _activeColor = new Color();
             if (_eventAggregator == null && eventAggregator != null)
             {
@@ -50,7 +58,7 @@ namespace ZaveViewModel.ViewModels
             ActiveColor = Color.FromArgb(255, 255, 255, 0);
             eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
 
-            var vm = _container.Resolve(typeof(MainContainerViewModel)) as MainContainerViewModel;
+            var vm = _container.Resolve(typeof(MainWindowViewModel)) as MainWindowViewModel;
             
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
@@ -59,6 +67,7 @@ namespace ZaveViewModel.ViewModels
             RedoZDFDelegateCommand = vm.RedoZDFDelegateCommand;
             ScreenshotZDFDelegateCommand = vm.ScreenshotZDFDelegateCommand;
             SaveASZDFDelegateCommand = vm.SaveASZDFDelegateCommand;
+            SwitchWindowModeDelegateCommand = vm.SwitchWindowModeCommand;
         }
 
         

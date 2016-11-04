@@ -21,7 +21,9 @@ namespace ZaveGlobalSettings.Data_Structures
     [Flags]
     public enum SrcType { NONE = 0, WORD = 1, EXCEL = 2 }
 
-    
+    public enum WindowMode { NONE = 0, MAIN = 1, WIDGET = 2 }
+
+
 
     public sealed class SelectionStateList : List<SelectionState>
     {
@@ -462,5 +464,7 @@ namespace ZaveGlobalSettings.Data_Structures
     {
 
     }
+
+    public class WindowModeChangeEvent : PubSubEvent<WindowMode> { }
 
 }

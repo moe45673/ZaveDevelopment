@@ -39,6 +39,8 @@ namespace Zave
             Application.Current.MainWindow.Show();
         }
 
+        
+
         /// <summary>
         /// 4
         /// </summary>
@@ -50,10 +52,10 @@ namespace Zave
             moduleCatalog.AddModule(typeof(IOModule));
             moduleCatalog.AddModule(typeof(DataServiceModule));
             moduleCatalog.AddModule(typeof(MainWindowModule));
-           
-            //moduleCatalog.AddModule(typeof(MainContainerModule));
-            moduleCatalog.AddModule(typeof(ZDFEntryModule));
             moduleCatalog.AddModule(typeof(ZDFModule));
+            moduleCatalog.AddModule(typeof(MainContainerModule));
+            moduleCatalog.AddModule(typeof(ZDFEntryModule));
+            moduleCatalog.AddModule(typeof(WidgetModule));
 
 
 
@@ -68,9 +70,9 @@ namespace Zave
         {
             base.ConfigureContainer();
             //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(MainWindow), "MainWindow");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(MainContainer), "MainContainer");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(Menu), "Menu");
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ControlBar), "ControlBar");
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(MainContainer), "MainContainerView");
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(Menu), "Menu");
+            //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ControlBar), "ControlBar");
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
             //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFView), "ZDFView");
             //UnityContainerExtensions.RegisterType(Container, typeof(IZDFEntryService), typeof(ZDFEntryService), "ZDFEntryService");

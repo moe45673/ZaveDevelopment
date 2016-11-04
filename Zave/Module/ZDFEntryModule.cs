@@ -11,6 +11,7 @@ using ZaveService.ZDFEntry;
 
 namespace Zave.Module
 {
+    [Module(ModuleName = "ZDFEntryModule")]
     public class ZDFEntryModule : ModuleBaseClass
     {
         private ZDFEntryController _entryController;

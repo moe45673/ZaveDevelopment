@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Zave"
              xmlns:view="clr-namespace:Zave.Views"
              xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
-             
+             ShutdownMode="OnMainWindowClose"
              x:Class="Zave.ZaveApp"
              Startup="Application_Startup">
     <Application.Resources>

@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Zave.Views"
-             xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
+             xmlns:vmns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"             
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="500"
-             d:DataContext="{d:DesignInstance vm:ZDFViewModel, IsDesignTimeCreatable=True}">
+             d:DesignHeight="100" d:DesignWidth="500">
+
+
     <UserControl.Resources>
         <Style x:Key="Enable_Button" TargetType="{x:Type Button}">
             <Setter Property="Height" Value="30"/>
@@ -78,7 +78,7 @@
         <Button Grid.Row="0" Grid.Column="6" Command="{Binding ScreenshotZDFDelegateCommand}" Style="{StaticResource Other_Button}">
             <Image Source="/Zave;component/media/images/screenshot_w.png" Style="{StaticResource Other_Button_Image}"/>
         </Button>
-        <Button Grid.Row="0" Grid.Column="7" Style="{StaticResource Other_Button}">
+        <Button Command="{Binding SwitchWindowModeDelegateCommand}" CommandParameter="1" Grid.Row="0" Grid.Column="7" Style="{StaticResource Other_Button}">
             <Image Source="/Zave;component/media/images/windowsize_w.png" Style="{StaticResource Other_Button_Image}"/>
         </Button>
         <!--<xctk:ColorPicker Grid.Row="0" Grid.Column="8" Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />-->

@@ -14,20 +14,24 @@ using Prism.Modularity;
 
 namespace Zave.Module
 {
-    [Module(ModuleName="ZDFModule")]
+    [Module(ModuleName = "WidgetModule", OnDemand = true)]
     [ModuleDependency("DataServiceModule")]
-    public class ZDFModule : ModuleBaseClass
+
+    public class WidgetModule : ModuleBaseClass
     {
-        public ZDFModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry)
+        public WidgetModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry)
         {
         }
 
         public override void Initialize()
         {
-            
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZDFView), "ZDFView");
-            _regionManager.RegisterViewWithRegion(RegionNames.ZDFEntryListRegion, () => _unityContainer.Resolve<ZDFView>());
-            _unityContainer.RegisterType<Controllers.ZDFEntryController>();
+
+            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(WidgetView), "WidgetView");
+            //var window = _unityContainer.Resolve<WidgetControls>();
+            //var viewmodel = _unityContainer.Resolve<ControlBarViewModel>();
+            //window.DataContext = viewmodel;
+            _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<WidgetControls>());
+            //_regionManager.RegisterViewWithRegion(RegionNames.ZDFEntryListRegion, () => _unityContainer.Resolve<ZDFView>());
 
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZdfViewModel), "ZDFViewModel");
             //UnityContainerExtensions.RegisterInstance(_unityContainer, typeof(ZaveModel.ZDF.IZDF), "ZDFSingleton", ZDFSingleton.GetInstance(_unityContainer.Resolve(typeof(IEventAggregator)) as EventAggregator));

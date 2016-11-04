@@ -7,6 +7,7 @@ using ZaveService.IOService;
 
 namespace Zave.Module
 {
+    [Module(ModuleName = "IOModule")]
     public class IOModule : ModuleBaseClass
     {
         public IOModule(IUnityContainer cont) : base(cont) { }
@@ -14,8 +15,8 @@ namespace Zave.Module
 
         public override void Initialize()
         {
-            
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(IIOService), "IOService");
+
+            _unityContainer.RegisterType<IIOService, IOService>();
         }
     }
 }

@@ -147,14 +147,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\MainWindowController.cs" />
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ColorConverters.cs" />
     <Compile Include="Controllers\ZDFEntryController.cs" />
+    <Compile Include="Module\ControlBarModule.cs" />
     <Compile Include="Module\DataServiceModule.cs" />
     <Compile Include="Module\IOModule.cs" />
     <Compile Include="Module\MainContainerModule.cs" />
     <Compile Include="Module\MainWindowModule.cs" />
+    <Compile Include="Module\MenuModule.cs" />
     <Compile Include="Module\ModuleBaseClass.cs" />
+    <Compile Include="Module\WidgetModule.cs" />
     <Compile Include="Module\ZDFEntryModule.cs" />
     <Compile Include="Module\ZDFModule.cs" />
     <Compile Include="Views\MainContainer.xaml.cs">

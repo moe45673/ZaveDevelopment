@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZaveViewModel.ViewModels;
+using Microsoft.Practices.Unity;
 
 namespace Zave.Views
 {
@@ -20,9 +22,11 @@ namespace Zave.Views
     /// </summary>
     public partial class WidgetControls : UserControl
     {
-        public WidgetControls()
+        public WidgetControls(IUnityContainer cont)
         {
+
             InitializeComponent();
+            DataContext = cont.Resolve<ControlBarViewModel>();
         }
     }
 }

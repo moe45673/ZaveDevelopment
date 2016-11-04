@@ -1,4 +1,4 @@
-﻿<Window x:Class="Zave.Views.MainWindow" x:Name="MainShell"
+﻿<Window x:Class="Zave.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"        
@@ -10,18 +10,19 @@
         xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
         xmlns:my="clr-namespace:Zave.Views"
         xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:zaveDialogs="clr-namespace:ZaveViewModel.Data_Structures.ZaveDialogs;assembly=ZaveViewModel"
         mc:Ignorable="d"
-        zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"
-        d:DataContext="{d:DesignInstance zdfviewmodelns:MainWindowViewModel, IsDesignTimeCreatable=True}"
-        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="600" Width="800" WindowStyle="ThreeDBorderWindow">
+        zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"        
+        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="600" Width="800" WindowStyle="ThreeDBorderWindow"
+        d:DataContext="{d:DesignInstance vm:}">
 
     <Window.Resources>
     </Window.Resources>
     <Grid>
-        <my:MainContainer Grid.Row="0"></my:MainContainer>
+        <ContentControl x:Name="MainViewRegion"
+                               prism:RegionManager.RegionName="MainViewRegion"
+                               />
     </Grid>
 
 </Window>

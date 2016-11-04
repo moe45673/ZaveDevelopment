@@ -7,8 +7,7 @@
         xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        d:DataContext="{d:DesignInstance zdfviewmodelns:ModalInputDialogViewModel, IsDesignTimeCreatable=True}">
+        prism:ViewModelLocator.AutoWireViewModel="True">
 
     <UserControl.Resources>
         <Style x:Key="Comment_TxtField" TargetType="TextBox">

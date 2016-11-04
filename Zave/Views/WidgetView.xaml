@@ -9,8 +9,7 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance vm:ZDFViewModel, IsDesignTimeCreatable=True}">
+             d:DesignHeight="100" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="EndSection_Border" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Black"></Setter>
@@ -104,7 +103,8 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
-                        <my:WidgetControls Grid.Row="0" Grid.Column="0"></my:WidgetControls>
+                    <ContentControl x:Name="WidgetMainRegion"
+                               prism:RegionManager.RegionName="WidgetMainRegion"/>
                 </Grid>
             </Grid>
         </Border>

@@ -10,10 +10,11 @@ using ZaveService.ZDFEntry;
 
 namespace Zave.Module
 {
+    [ModuleDependency("DataServiceModule")]
     public class MainContainerModule : ModuleBaseClass
     {
 
-        private Zave.Controllers.ZDFEntryController _mainContainerController;
+        //private Zave.Controllers.ZDFEntryController _mainContainerController;
 
         public MainContainerModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry) { }
 
@@ -21,10 +22,11 @@ namespace Zave.Module
         public override void Initialize()
         {
             
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainer");
+            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainerView");
             _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>());
-            _unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
-            _unityContainer.RegisterType<Controllers.ZDFEntryController>();
+            _regionManager.RegisterViewWithRegion(RegionNames.MenuRegion, () => _unityContainer.Resolve<Menu>());
+            //_unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
+
             //_mainContainerController = _unityContainer.Resolve<Controllers.MainContainerController>();
 
 

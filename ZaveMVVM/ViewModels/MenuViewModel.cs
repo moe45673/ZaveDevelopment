@@ -28,11 +28,16 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand SaveASZDFDelegateCommand { get; set; }
         public MenuViewModel(IEventAggregator eventAgg, IRegionManager reg, IUnityContainer cont)
         {
+
+            if (cont == null) throw new ArgumentNullException("container");
+            if (reg == null) throw new ArgumentNullException("regionManager");
+            if (eventAgg == null) throw new ArgumentNullException("eventAggregator");
+
             _eventAggregator = eventAgg;
             _regionManager = reg;
             _container = cont;
 
-            var vm = _container.Resolve(typeof(MainContainerViewModel)) as MainContainerViewModel;
+            var vm = _container.Resolve(typeof(MainWindowViewModel)) as MainWindowViewModel;
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
             NewZDFDelegateCommand = vm.NewZDFDelegateCommand;

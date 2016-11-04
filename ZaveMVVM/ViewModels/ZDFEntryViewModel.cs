@@ -51,7 +51,11 @@ namespace ZaveViewModel.ViewModels
 
         public ZDFEntryViewModel(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, IZDFEntryService entryService) : base(new ZaveModel.ZDFEntry.ZDFEntry())
         {
-            
+
+            if (container == null) throw new ArgumentNullException("container");
+            if (regionManager == null) throw new ArgumentNullException("regionManager");
+            if (eventAgg == null) throw new ArgumentNullException("eventAggregator");
+
             if (_eventAggregator == null && eventAgg != null)
             {
                 _eventAggregator = eventAgg;
