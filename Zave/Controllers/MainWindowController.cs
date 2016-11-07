@@ -47,7 +47,7 @@ namespace Zave.Controllers
                 
             
                 case (WindowMode.MAIN):
-                    WindowModeChange<Views.MainContainer, MainContainerViewModel>("MainContainerView");
+                    WindowModeChange<Views.MainContainer, MainContainerViewModel>("MainContainer");
                     
                     break;
                 case (WindowMode.WIDGET):
@@ -68,9 +68,9 @@ namespace Zave.Controllers
         IRegion mviewRegion = regionManager.Regions[RegionNames.MainViewRegion];
 
             if (mviewRegion == null) return;
-            
-           
-            var view = mviewRegion.GetView(uri) as ViewType;         
+
+
+            regionManager.RequestNavigate(mviewRegion.Name, uri);         
 
             
             
@@ -86,14 +86,14 @@ namespace Zave.Controllers
             //otherwise, populate view with selected Entry  
                       
             
-            if(view == null)
-            {
-                view = container.Resolve<ViewType>();
-                mviewRegion.Add(view, uri);
-                //entryRegion.Activate(view);
-            }           
+            //if(view == null)
+            //{
+            //    view = container.Resolve<ViewType>();
+            //    mviewRegion.Add(view, uri);
+            //    //entryRegion.Activate(view);
+            //}           
             
-                mviewRegion.Activate(view);
+            //    mviewRegion.Activate(view);
 
             
 
