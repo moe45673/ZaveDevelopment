@@ -24,5 +24,19 @@ namespace Zave.Views
         {
             InitializeComponent();
         }
+
+        private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            var mainWin = Window.GetWindow(this);
+            if(e.LeftButton == MouseButtonState.Pressed)
+                mainWin.DragMove();
+
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

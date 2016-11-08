@@ -29,14 +29,12 @@ namespace Zave.Views
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
-            
+            InitializeComponent();      
             
 
 
         }
 
-        
     }
 
     

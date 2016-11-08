@@ -83,9 +83,9 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-                <Border Style="{StaticResource TitleBar_Border}">
-                    <DockPanel Grid.Row="0" Grid.Column="0" x:Name="TitleBar" Style="{StaticResource TitleBar_DockPanel}">
-                        <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}">
+                <Border Style="{StaticResource TitleBar_Border}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                    <DockPanel Grid.Row="0" Grid.Column="0" x:Name="TitleBar" Style="{StaticResource TitleBar_DockPanel}" >
+                        <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="CloseButton_Click" >
                             <Image Source="/Zave;component/media/images/close.png" Style="{StaticResource TitleBar_Button_Image}"/>
                         </Button>
                         <Button x:Name="MaxButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}">
@@ -96,6 +96,7 @@
                         </Button>
 
                         <TextBlock Style="{StaticResource TitleBar_Text}">Zave Widget</TextBlock>
+                        <TextBlock> </TextBlock>
                     </DockPanel>
                 </Border>
                 <Grid Grid.Row="2" Grid.Column="1">
