@@ -179,6 +179,9 @@
     <Compile Include="Views\TestDialog.xaml.cs">
       <DependentUpon>TestDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TitleBar.xaml.cs">
+      <DependentUpon>TitleBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WidgetControls.xaml.cs">
       <DependentUpon>WidgetControls.xaml</DependentUpon>
     </Compile>
@@ -241,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

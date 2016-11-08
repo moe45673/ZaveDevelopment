@@ -38,6 +38,9 @@
         <Style x:Key="MainContainer" TargetType="Grid">
             <Setter Property="Background" Value="#F0F0F0"></Setter>
         </Style>
+        <Style x:Key="TitleBar_Style" TargetType="Border">
+            <Setter Property="Background" Value="#3A3A3A"></Setter>
+        </Style>
     </UserControl.Resources>
     <Grid Style="{StaticResource MainContainer}">
         <Grid.ColumnDefinitions>
@@ -46,38 +49,42 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="30"/>
             <!--<RowDefinition Height="180"/>-->
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
+        <Border Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource TitleBar_Style}">
+            <my:TitleBar></my:TitleBar>
+        </Border>
+        <Border Grid.Row="1" Grid.ColumnSpan="3">
             <ContentControl x:Name="MenuRegion"
                                prism:RegionManager.RegionName="MenuRegion"
                                Style="{StaticResource Region_Container}" />
-        </StackPanel>
-        <Border Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource Section_Border}">
+        </Border>
+        <Border Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource Section_Border}">
             <ContentControl x:Name="ControlBarRegion"
                                prism:RegionManager.RegionName="ControlBarRegion"
                                Style="{StaticResource Region_Container}" />
         </Border>
-        <Border Grid.ColumnSpan="3" Grid.Row="3" Style="{StaticResource ZDFList_Border}">
+        <Border Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource ZDFList_Border}">
             <my:ZDFList></my:ZDFList>
         </Border>
-        <Border Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource NotificationBar_Border}">
+        <Border Grid.ColumnSpan="3" Grid.Row="5" Style="{StaticResource NotificationBar_Border}">
             <my:NotificationBar></my:NotificationBar>
         </Border>
         <GridSplitter Grid.Column="1" Grid.Row="2" Width="5" HorizontalAlignment="Stretch" />
-        <Border Grid.Row="2" Style="{StaticResource ListItem_Container}">
+        <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource ListItem_Container}">
             <ScrollViewer>
                 <ContentControl x:Name="ZDFEntryListRegion"
                                prism:RegionManager.RegionName="ZDFEntryListRegion"
                                Style="{StaticResource Region_Container}" />
             </ScrollViewer>
         </Border>
-        <Border Grid.Column="2" Grid.Row="2">
+        <Border Grid.Column="3" Grid.Row="3">
             <ScrollViewer>
                 <ContentControl x:Name="ZDFEntryDetailRegion"
                                prism:RegionManager.RegionName="ZDFEntryDetailRegion"

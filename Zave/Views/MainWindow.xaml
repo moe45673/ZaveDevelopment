@@ -14,7 +14,7 @@
         xmlns:zaveDialogs="clr-namespace:ZaveViewModel.Data_Structures.ZaveDialogs;assembly=ZaveViewModel"
         mc:Ignorable="d"
         zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"   
-        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="200" Width="625" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="600" Width="625" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
 
     <Window.Resources>

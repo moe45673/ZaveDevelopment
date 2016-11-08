@@ -36,35 +36,7 @@
             <Setter Property="BorderBrush" Value="#353132"></Setter>
             <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
         </Style>
-        <Style x:Key="TitleBar_DockPanel" TargetType="{x:Type DockPanel}">
-        </Style>
-        <Style x:Key="TitleBar_Text" TargetType="{x:Type TextBlock}">
-            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-        </Style>
-        <Style x:Key="TitleBar_Button" TargetType="{x:Type Button}">
-            <Setter Property="BorderBrush" Value="Transparent"></Setter>
-            <Setter Property="Background" Value="Transparent"></Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="ButtonBorder" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
-                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="ButtonBorder" Property="Background" Value="#524a4d"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="TitleBar_Button_Image" TargetType="{x:Type Image}">
-            <Setter Property="Height" Value="15"></Setter>
-            <Setter Property="Width" Value="15"></Setter>
-        </Style>
+
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -84,20 +56,7 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
                 <Border Style="{StaticResource TitleBar_Border}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
-                    <DockPanel Grid.Row="0" Grid.Column="0" x:Name="TitleBar" Style="{StaticResource TitleBar_DockPanel}" >
-                        <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="CloseButton_Click" >
-                            <Image Source="/Zave;component/media/images/close.png" Style="{StaticResource TitleBar_Button_Image}"/>
-                        </Button>
-                        <Button x:Name="MaxButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}">
-                            <Image Source="/Zave;component/media/images/op.png"  Style="{StaticResource TitleBar_Button_Image}" />
-                        </Button>
-                        <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}">
-                            <Image Source="/Zave;component/media/images/min.png"  Style="{StaticResource TitleBar_Button_Image}" VerticalAlignment="Bottom"/>
-                        </Button>
-
-                        <TextBlock Style="{StaticResource TitleBar_Text}">Zave Widget</TextBlock>
-                        <TextBlock> </TextBlock>
-                    </DockPanel>
+                    <my:TitleBar></my:TitleBar>
                 </Border>
                 <Grid Grid.Row="2" Grid.Column="1">
                     <Grid.ColumnDefinitions>
