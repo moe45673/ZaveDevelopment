@@ -55,7 +55,7 @@ namespace ZaveViewModel.ViewModels
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
 
         #region Delegate Properties
-        public DelegateCommand<string> SwitchWindowModeCommand { get; set; }
+        public DelegateCommand SwitchWindowModeCommand { get; set; }
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
@@ -112,7 +112,7 @@ namespace ZaveViewModel.ViewModels
 
             _container = cont;
             _regionManager = regionManager;
-            SwitchWindowModeCommand = new DelegateCommand<string>(SwitchWindowMode);
+            SwitchWindowModeCommand = new DelegateCommand(SwitchWindowMode);
             //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
             
@@ -152,13 +152,21 @@ namespace ZaveViewModel.ViewModels
             _winMode = setting;
         }
 
-        private void SwitchWindowMode(string windowType)
+        private void SwitchWindowMode()
         {
-            int intMode;
-            int.TryParse(windowType, out intMode);
-            WindowMode mode = (WindowMode)intMode;
-            _eventAggregator.GetEvent<WindowModeChangeEvent>().Publish(mode);
-            WinMode = mode;
+            int intMode = (int)WinMode;
+            intMode++;
+            var tempWinMode = (WindowMode)intMode;
+            if (Enum.IsDefined(typeof(WindowMode), tempWinMode))
+            {
+                WinMode = tempWinMode;
+            }
+            else
+                WinMode = WindowMode.MAIN;
+            
+            
+            _eventAggregator.GetEvent<WindowModeChangeEvent>().Publish(WinMode);
+            
         }
 
         #region Properties

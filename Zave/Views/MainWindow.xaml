@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"        
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Zave"
         xmlns:view="clr-namespace:Zave.Views"
         xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
+        xmlns:converters="clr-namespace:Zave.Converters"
         xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
         xmlns:my="clr-namespace:Zave.Views"
         xmlns:prism="http://prismlibrary.com/"
@@ -14,15 +16,30 @@
         xmlns:zaveDialogs="clr-namespace:ZaveViewModel.Data_Structures.ZaveDialogs;assembly=ZaveViewModel"
         mc:Ignorable="d"
         zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"   
-        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="600" Width="625" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
+        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" AllowsTransparency="False" Background="Red"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}" ResizeMode="NoResize" SnapsToDevicePixels="False">
 
     <Window.Resources>
+
+        <!--<Style x:Key="TitleBar_Border" TargetType="{x:Type Border}">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Padding" Value="0,0,0,5"></Setter>
+            <Setter Property="BorderBrush" Value="#353132"></Setter>
+            <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+        </Style>-->
     </Window.Resources>
     <Grid Background="Transparent">
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>-->
+        <!--<Border Style="{StaticResource TitleBar_Border}">
+            <my:TitleBar></my:TitleBar>
+        </Border>-->
         <ContentControl x:Name="MainViewRegion"
-                               prism:RegionManager.RegionName="MainViewRegion"
-                               />
+                               prism:RegionManager.RegionName="MainViewRegion"/>
     </Grid>
 
 </Window>

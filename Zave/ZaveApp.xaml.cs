@@ -22,6 +22,8 @@ using System.Drawing;
 
 namespace Zave
 {
+
+    
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
@@ -46,6 +48,8 @@ namespace Zave
 
 
         }
+
+        
 
         ~ZaveApp()
         {
@@ -75,6 +79,7 @@ namespace Zave
                     System.Threading.Thread.Sleep(retryMilliseconds);
                     
                 }
+                
                
             }
         }

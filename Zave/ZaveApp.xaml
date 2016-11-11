@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Zave"
              xmlns:view="clr-namespace:Zave.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              ShutdownMode="OnMainWindowClose"
              x:Class="Zave.ZaveApp"
@@ -10,5 +11,6 @@
     <Application.Resources>
 
         <view:ModalInputDialog x:Key="somethiung" x:Shared="False"/>
+        <sys:String x:Key="ImageURIRoot">/Zave;component/media/images/</sys:String>
     </Application.Resources>
 </Application>

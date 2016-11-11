@@ -30,7 +30,7 @@ namespace Zave.Module
             //var window = _unityContainer.Resolve<WidgetControls>();
             //var viewmodel = _unityContainer.Resolve<ControlBarViewModel>();
             //window.DataContext = viewmodel;
-            _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<WidgetControls>());
+            _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>());
             //_regionManager.RegisterViewWithRegion(RegionNames.ZDFEntryListRegion, () => _unityContainer.Resolve<ZDFView>());
 
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZdfViewModel), "ZDFViewModel");

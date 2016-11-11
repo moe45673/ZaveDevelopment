@@ -36,7 +36,7 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand ScreenshotZDFDelegateCommand { get; set; }
         public DelegateCommand SaveASZDFDelegateCommand { get; set; }
 
-        public DelegateCommand<string> SwitchWindowModeDelegateCommand { get; set; }
+        public DelegateCommand SwitchWindowModeDelegateCommand { get; set; }
 
         public ControlBarViewModel(IEventAggregator eventAggregator, IUnityContainer cont)
         {
@@ -97,7 +97,8 @@ namespace ZaveViewModel.ViewModels
             set;
         }
 
-       
+        
+
 
         async private Task<ObservableImmutableList<ColorItem>> SetColorsAsync()
         {

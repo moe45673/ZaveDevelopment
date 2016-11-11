@@ -29,11 +29,32 @@ namespace Zave.Views
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();      
+            InitializeComponent();
             
 
 
         }
+        public static readonly DependencyProperty HeightProperty = 
+            DependencyProperty.Register
+            (
+                "DynamicHeight", typeof(int), typeof(MainWindow)
+            );
+
+        public int DynamicHeight
+        {
+            get
+            {
+                return (int)this.GetValue(HeightProperty);
+            }
+            set
+            {
+                SetValue(HeightProperty, value);
+            }
+        }
+
+
+
+
 
     }
 

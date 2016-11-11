@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Prism.Events;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Views
 {
@@ -20,9 +22,28 @@ namespace Zave.Views
     /// </summary>
     public partial class ControlBar : UserControl
     {
-        public ControlBar()
+        public ControlBar(IEventAggregator eventAgg)
         {
             InitializeComponent();
+            eventAgg.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
+            
+        }
+
+        private void setSuffix(WindowMode wm)
+        {
+            var suffix = FindResource("BtnImgSuffix");
+            switch (wm)
+            {
+                case (WindowMode.MAIN):
+                    suffix = "";
+                    break;
+                case (WindowMode.WIDGET):
+                    suffix = "_w";
+                    break;
+                default:
+                    suffix = "";
+                    break;
+            }
         }
     }
 }
