@@ -18,6 +18,7 @@
         <converters:StringToSourceConverter x:Key="strToSrcConvert"/>
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
         <sys:String x:Key="BtnImgSuffix">_w</sys:String>
+        
 
         <Style TargetType="{x:Type Grid}">
             <Setter Property="Background" Value="#F0F0F0"></Setter>
@@ -138,7 +139,16 @@
                 
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding SwitchWindowModeDelegateCommand}" Style="{StaticResource Main_Button}">
-                        <Image Source="{Binding Source={StaticResource ImageURIRoot}, Converter={StaticResource strToSrcConvert}, ConverterParameter='{}{0}windowsize.png'}" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                        <Image Source="{
+	                                        Binding Source=
+	                                        {
+			                                    StaticResource ImageURIRoot
+	                                        }, 
+	                                        Converter=
+		                                        {StaticResource strToSrcConvert}, 
+	                                        ConverterParameter='{}{0}windowsize.png'	                                   
+                                       }"   
+                                       Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
                     </Button>
                 </ListBoxItem>
             </ListBox>

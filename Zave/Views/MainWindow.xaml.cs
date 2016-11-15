@@ -52,10 +52,20 @@ namespace Zave.Views
             }
         }
 
+        private void Window_Deactivated(object sender, EventArgs args)
+        {
+            var window = (Window)sender;
+            window.Topmost = true;
+            window.Opacity = 0.5;
+            //window.BeginAnimation(Window.OpacityProperty, null);
+                      //window.Activate();
+        }
 
-
-
-
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            var window = (Window)sender;
+            window.Opacity = 1;
+        }
     }
 
     

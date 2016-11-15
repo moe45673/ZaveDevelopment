@@ -9,6 +9,8 @@ using Prism.Common;
 using Prism.Unity;
 using Prism.Regions;
 using Microsoft.Practices.Unity;
+using System.Windows.Media;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -28,10 +30,27 @@ namespace ZaveViewModel.ViewModels
             _container = cont;
             _regionManager = manager;
 
+            _eventAgg.GetEvent<ActiveColorUpdatedEvent>().Subscribe(UpdateColor);
+
 
         }
 
+        private Color _activeColor;
+        public Color ActiveColor {
+            get
+            {
+                return _activeColor;
+            }
+            set
+            {
+                SetProperty<Color>(ref _activeColor, value);
+            }
+        }
 
+        private void UpdateColor(System.Drawing.Color color)
+        {
+            ActiveColor = Color.FromArgb(color.A, color.R, color.G, color.B);
+        }
 
     }
 }

@@ -449,7 +449,12 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
-    public class MainControlsUpdateEvent : PubSubEvent<Color>
+    public class MainControlsUpdateEvent : PubSubEvent<Object>
+    {
+
+    }
+
+    public class ActiveColorUpdatedEvent : PubSubEvent<Color>
     {
 
     }

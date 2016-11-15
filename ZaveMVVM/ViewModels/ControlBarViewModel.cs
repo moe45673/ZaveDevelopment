@@ -56,7 +56,7 @@ namespace ZaveViewModel.ViewModels
             ColorItemList = SetColorsAsync().Result;
             //beginColorSet.Invoke();
             ActiveColor = Color.FromArgb(255, 255, 255, 0);
-            eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
+            eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
 
             var vm = _container.Resolve(typeof(MainWindowViewModel)) as MainWindowViewModel;
             
@@ -81,7 +81,7 @@ namespace ZaveViewModel.ViewModels
             {
                 SetProperty(ref _activeColor, value);
                 ColorCategory colCat = ColorCategory.FromWPFColor(ActiveColor);
-                _eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(colCat.Color);
+                _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(colCat.Color);
             }
 
         }
@@ -120,7 +120,7 @@ namespace ZaveViewModel.ViewModels
             //ActiveColor = Color.FromArgb(255, 255, 255, 0);
             System.Drawing.Color col = new System.Drawing.Color();
             col = ColorCategory.FromWPFColor(ActiveColor).Color;
-            _eventAggregator.GetEvent<MainControlsUpdateEvent>().Publish(col);
+            _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(col);
             ColorItemList = new ObservableImmutableList<ColorItem>(items);
             OnPropertyChanged("ColorItemList");
 

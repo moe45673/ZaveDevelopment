@@ -79,7 +79,7 @@ namespace ZaveController
             if (instance._eventAggregator == null && eventAgg != null)
             {
                 instance._eventAggregator = eventAgg;
-                instance._eventAggregator.GetEvent<MainControlsUpdateEvent>().Subscribe(instance.SetActiveColor);
+                instance._eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Subscribe(instance.SetActiveColor);
                 instance.activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
                 instance._container = cont;
                 instance.activeColor = instance._container.Resolve<ControlBarViewModel>().ActiveColor;

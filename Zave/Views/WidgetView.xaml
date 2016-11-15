@@ -7,15 +7,16 @@
              xmlns:my="clr-namespace:Zave.Views" 
              xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:converters="clr-namespace:Zave.Converters"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              Height="100" Width="600">
     <UserControl.Resources>
+        <converters:ColorConverters x:Key="colorConverter"></converters:ColorConverters>
         <Style x:Key="EndSection_Border" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="BorderThickness" Value="2,2,0,2"></Setter>
             <Setter Property="CornerRadius" Value="5,0,0,5"></Setter>
-            <Setter Property="Background" Value="#FBB040"></Setter>
         </Style>
         <Style x:Key="MainSection_Border" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Black"></Setter>
@@ -40,17 +41,36 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
-        
-        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Image Source="/Zave;component/media/images/tip.png" Height="100" Width="80" />
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="38" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="38" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0"></StackPanel>
+                <!--<StackPanel Grid.Row="1" Grid.Column="0" Background="#FFFBB040"></StackPanel>-->
+                <Polygon Grid.Row="1" Grid.Column="0"
+    Points="0 0, 30 0, 30 24, 15 24"
+    StrokeThickness="0">
+                    <Polygon.Fill>
+                        <SolidColorBrush Color="{Binding ActiveColor}" Opacity="1"/>
+                    </Polygon.Fill>
+                </Polygon>
+                <StackPanel Grid.Row="2" Grid.Column="0"></StackPanel>
+            </Grid>
         </StackPanel>
-        <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource EndSection_Border}">
+        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Image Source="/Zave;component/media/images/notip.png" Height="100" Width="80" />
+        </StackPanel>
+        <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource EndSection_Border}" Background="{Binding ActiveColor, Converter={StaticResource colorConverter}}">
         </Border>
-        <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource MainSection_Border}">
+        <Border Grid.Row="0" Grid.Column="3" Style="{StaticResource MainSection_Border}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
