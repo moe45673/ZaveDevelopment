@@ -43,6 +43,7 @@ namespace ZaveViewModel.ViewModels
             }
             set
             {
+                
                 SetProperty<Color>(ref _activeColor, value);
             }
         }

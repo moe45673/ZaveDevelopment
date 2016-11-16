@@ -21,9 +21,15 @@ namespace Zave.Module
         //private ZaveController.EventInitSingleton eventInit;
         public override void Initialize()
         {
-            
+            var controlbar = _unityContainer.Resolve<ControlBar>();
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainerView");
-            _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>());
+            IRegion controlbarRegion = _regionManager.Regions[RegionNames.ControlBarRegion];
+            controlbarRegion.Add(controlbar);
+            
+            
+
+            //_regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => controlbar);
+            //_regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => controlbar);
             _regionManager.RegisterViewWithRegion(RegionNames.MenuRegion, () => _unityContainer.Resolve<Menu>());
             //_unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
 

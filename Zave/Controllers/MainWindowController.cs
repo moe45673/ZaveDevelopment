@@ -70,7 +70,7 @@ namespace Zave.Controllers
             if (mviewRegion == null) return;
 
 
-            regionManager.RequestNavigate(mviewRegion.Name, uri);         
+            regionManager.RequestNavigate(mviewRegion.Name, new Uri(uri, UriKind.Relative));         
 
             
             

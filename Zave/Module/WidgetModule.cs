@@ -14,8 +14,9 @@ using Prism.Modularity;
 
 namespace Zave.Module
 {
-    [Module(ModuleName = "WidgetModule", OnDemand = true)]
+    [Module(ModuleName = "WidgetModule")]
     [ModuleDependency("DataServiceModule")]
+    [ModuleDependency("ControlBarModule")]
 
     public class WidgetModule : ModuleBaseClass
     {
@@ -27,10 +28,37 @@ namespace Zave.Module
         {
 
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(WidgetView), "WidgetView");
+
+            //var view = _unityContainer.Resolve<WidgetView>();
+            //_regionManager.Regions.Add(RegionNames.WidgetMainRegion);
             //var window = _unityContainer.Resolve<WidgetControls>();
             //var viewmodel = _unityContainer.Resolve<ControlBarViewModel>();
             //window.DataContext = viewmodel;
-            _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>());
+            //IRegionManager regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
+            //_regionManager.Regions.Remove("WidgetMainRegion");
+            //RegionManager.SetRegionManager(view.WidgetMainRegion, _regionManager);
+            //var controlbar = _unityContainer.Resolve<ControlBar>();
+            //var widgetView = _unityContainer.Resolve<WidgetView>();
+            //for (int i = 0; i < 200; i++)
+            //{
+            //    try
+            //    {
+            //        IRegion widgetmainRegion = _regionManager.Regions[RegionNames.WidgetMainRegion];
+            //        widgetmainRegion.Add(controlbar);
+            //        i = 500;
+            //        System.Windows.Forms.MessageBox.Show("widgetRegionInitialized!");
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        i++;
+            //    }
+            //}
+            _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>("ControlBarView"));
+
+            //var controlbar = _unityContainer.Resolve<ControlBar>();
+            //_regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>());
+
+
             //_regionManager.RegisterViewWithRegion(RegionNames.ZDFEntryListRegion, () => _unityContainer.Resolve<ZDFView>());
 
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ZdfViewModel), "ZDFViewModel");

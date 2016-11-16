@@ -24,10 +24,21 @@ namespace Zave.Views
     {
         public ControlBar(IEventAggregator eventAgg)
         {
+          
             InitializeComponent();
+            //var suffix = FindResource("BtnImgSuffix");
+            //suffix = "";
             eventAgg.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
-            
+            //setSuffix(WindowMode.NONE);
         }
+
+        //public static readonly DependencyProperty StringProperty = DependencyProperty.Register("BtnImgSuffix", typeof(string), typeof(ControlBar), new FrameworkPropertyMetadata(String.Empty));
+
+        //public String BtnImgSuffix
+        //{
+        //    get { return GetValue(StringProperty) as string; }
+        //    set { SetValue(StringProperty, value); }
+        //}
 
         private void setSuffix(WindowMode wm)
         {
@@ -35,13 +46,13 @@ namespace Zave.Views
             switch (wm)
             {
                 case (WindowMode.MAIN):
-                    suffix = "";
+                    suffix = String.Empty;
                     break;
                 case (WindowMode.WIDGET):
                     suffix = "_w";
                     break;
                 default:
-                    suffix = "";
+                    suffix = String.Empty;
                     break;
             }
         }

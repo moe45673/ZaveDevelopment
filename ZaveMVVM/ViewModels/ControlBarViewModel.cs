@@ -51,15 +51,16 @@ namespace ZaveViewModel.ViewModels
                 _container = cont;
             }
             ColorItemList = new ObservableImmutableList<ColorItem>();
-
+            
             //ReturnListDel beginColorSet = async () => await SetColorsAsync();
             ColorItemList = SetColorsAsync().Result;
             //beginColorSet.Invoke();
             ActiveColor = Color.FromArgb(255, 255, 255, 0);
             eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
+            eventAggregator.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
 
             var vm = _container.Resolve(typeof(MainWindowViewModel)) as MainWindowViewModel;
-            
+            _suffix = String.Empty;
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
             NewZDFDelegateCommand = vm.NewZDFDelegateCommand;
@@ -70,6 +71,34 @@ namespace ZaveViewModel.ViewModels
             SwitchWindowModeDelegateCommand = vm.SwitchWindowModeCommand;
         }
 
+        private string _suffix;
+        public string Suffix
+        {
+            get
+            {
+                return _suffix;
+            }
+            set
+            {
+                SetProperty(ref _suffix, value);
+            }
+        }
+
+        private void setSuffix(WindowMode wm)
+        {
+            switch (wm)
+            {
+                case (WindowMode.MAIN):
+                    Suffix = String.Empty;
+                    break;
+                case (WindowMode.WIDGET):
+                    Suffix = "_w";
+                    break;
+                default:
+                    Suffix = String.Empty;
+                    break;
+            }
+        }
         
 
         private Color _activeColor;

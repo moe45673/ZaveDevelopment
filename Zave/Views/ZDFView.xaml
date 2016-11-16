@@ -18,6 +18,17 @@
     <UserControl.Resources>
 
         <converters:ColorConverters x:Key="ColorConverter"/>
+
+        <Style x:Key="ActiveEntry">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel Background="Red"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--ListView Styles-->
         <Style TargetType="ListView">
             <Setter Property="Margin" Value="0"></Setter>
@@ -48,7 +59,7 @@
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="False">
                     <Setter Property="Background" Value="Transparent" />
-                </Trigger>                
+                </Trigger>               
             </Style.Triggers>
         </Style>
 

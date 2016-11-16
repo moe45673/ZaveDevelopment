@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Prism.Regions;
+using Microsoft.Practices.ServiceLocation;
+using Zave.Module;
 
 namespace Zave.Views
 {
@@ -23,6 +26,16 @@ namespace Zave.Views
         public WidgetView()
         {
             InitializeComponent();
+            
+        }
+
+        protected override void OnInitialized(System.EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            //var regionManager = ServiceLocator.Current.GetService(typeof(IRegionManager)) as IRegionManager;
+            //regionManager.Regions.Remove("WidgetMainRegion");
+            //RegionManager.SetRegionManager(WidgetMainRegion, regionManager);
         }
 
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
