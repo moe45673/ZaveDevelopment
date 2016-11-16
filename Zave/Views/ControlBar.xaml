@@ -8,15 +8,16 @@
              xmlns:vm="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-             prism:ViewModelLocator.AutoWireViewModel="True"             
-             xmlns:converters="clr-namespace:Zave.Converters"
+             prism:ViewModelLocator.AutoWireViewModel="True"        
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:converters="clr-namespace:Zave.Converters"             
              mc:Ignorable="d"             
-             d:DesignHeight="300" d:DesignWidth="300">
-    
-    <UserControl.Resources>
+             d:DesignHeight="300" d:DesignWidth="300">    
+    <UserControl.Resources>        
+        <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>        
         <converters:StringToSourceConverter x:Key="strToSrcConvert"/>
-        <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
+        <converters:StringsToSourceConverter x:Key="stringsToSrcConvert"/>
+
         <sys:String x:Key="BtnImgSuffix">_w</sys:String>
         
 
@@ -133,7 +134,14 @@
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding ScreenshotZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
-                        <Image Source="{Binding Source={StaticResource ImageURIRoot},Converter={StaticResource strToSrcConvert}, ConverterParameter={}{0}screenshot.png}" Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High"/>
+                        <Image  Height="30" Width="40" diag:PresentationTraceSources.TraceLevel="High">
+                            <Image.Source>
+                                <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="screenshot.png">
+                                    <Binding Source="{StaticResource ImageURIRoot}"/>
+                                    <Binding Source="{StaticResource BtnImgSuffix}"/>
+                                </MultiBinding>
+                            </Image.Source>
+                        </Image> 
                     </Button>
                 </ListBoxItem>
                 

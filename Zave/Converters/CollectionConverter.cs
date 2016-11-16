@@ -11,6 +11,9 @@ using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 
 namespace Zave.Converters
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AvailableColorCollectionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -19,6 +22,7 @@ namespace Zave.Converters
             try
             {
                 obsColl = new ObservableCollection<ColorItem>(value as ObservableImmutableList<ColorItem>);
+                
                 
             }
             catch(Exception ex)

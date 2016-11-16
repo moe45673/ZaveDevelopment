@@ -11,6 +11,6 @@
     <Application.Resources>
 
         <view:ModalInputDialog x:Key="somethiung" x:Shared="False"/>
-        <sys:String x:Key="ImageURIRoot">/Zave;component/media/images/</sys:String>
+        <sys:String x:Key="ImageURIRoot">pack://application:,,,/Zave;component/media/images/</sys:String>
     </Application.Resources>
 </Application>

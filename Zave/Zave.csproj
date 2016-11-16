@@ -163,6 +163,9 @@
     <Compile Include="Module\WidgetModule.cs" />
     <Compile Include="Module\ZDFEntryModule.cs" />
     <Compile Include="Module\ZDFModule.cs" />
+    <Compile Include="Views\ControlBar.xaml.cs">
+      <DependentUpon>ControlBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainContainer.xaml.cs">
       <DependentUpon>MainContainer.xaml</DependentUpon>
     </Compile>
@@ -209,9 +212,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="BootStrapper.cs" />
-    <Compile Include="Views\ControlBar.xaml.cs">
-      <DependentUpon>ControlBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ZDFEntryView.xaml.cs">
       <DependentUpon>ZDFEntryView.xaml</DependentUpon>
     </Compile>
