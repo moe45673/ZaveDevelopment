@@ -48,7 +48,7 @@
         <Button x:Name="MaxButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MaxButton_Click">
             <Image Source="/Zave;component/media/images/op.png"  Style="{StaticResource TitleBar_Button_Image}" />
         </Button>
-        <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}">
+        <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MinButton_Click">
             <Image Source="/Zave;component/media/images/min.png"  Style="{StaticResource TitleBar_Button_Image}" VerticalAlignment="Bottom"/>
         </Button>
 
