@@ -63,7 +63,7 @@ namespace Zave.Converters
             /// <summary>
             /// 
             /// </summary>
-            /// <param name="value"></param>
+            /// <param name="values"></param>
             /// <param name="targetType"></param>
             /// <param name="parameter"></param>
             /// <param name="culture"></param>

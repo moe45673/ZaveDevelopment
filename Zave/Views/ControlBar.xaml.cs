@@ -22,39 +22,16 @@ namespace Zave.Views
     /// </summary>
     public partial class ControlBar : UserControl
     {
-        public ControlBar(IEventAggregator eventAgg)
+        /// <summary>
+        /// 
+        /// </summary>
+        public ControlBar()
         {
-          
+
             InitializeComponent();
-            //var suffix = FindResource("BtnImgSuffix");
-            //suffix = "";
-            eventAgg.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
-            //setSuffix(WindowMode.NONE);
+
         }
 
-        //public static readonly DependencyProperty StringProperty = DependencyProperty.Register("BtnImgSuffix", typeof(string), typeof(ControlBar), new FrameworkPropertyMetadata(String.Empty));
-
-        //public String BtnImgSuffix
-        //{
-        //    get { return GetValue(StringProperty) as string; }
-        //    set { SetValue(StringProperty, value); }
-        //}
-
-        private void setSuffix(WindowMode wm)
-        {
-            var suffix = FindResource("BtnImgSuffix");
-            switch (wm)
-            {
-                case (WindowMode.MAIN):
-                    suffix = String.Empty;
-                    break;
-                case (WindowMode.WIDGET):
-                    suffix = "_w";
-                    break;
-                default:
-                    suffix = String.Empty;
-                    break;
-            }
-        }
     }
+        
 }

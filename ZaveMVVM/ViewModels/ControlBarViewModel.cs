@@ -58,6 +58,7 @@ namespace ZaveViewModel.ViewModels
             ActiveColor = Color.FromArgb(255, 255, 255, 0);
             eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
             eventAggregator.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
+            eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Subscribe(SetActiveColor);
 
             var vm = _container.Resolve(typeof(MainWindowViewModel)) as MainWindowViewModel;
             _suffix = String.Empty;
@@ -100,6 +101,10 @@ namespace ZaveViewModel.ViewModels
             }
         }
         
+        private void SetActiveColor(System.Drawing.Color col)
+        {
+            ActiveColor = Color.FromArgb(col.A, col.R, col.G, col.B);
+        }
 
         private Color _activeColor;
         public Color ActiveColor
@@ -108,9 +113,12 @@ namespace ZaveViewModel.ViewModels
             get { return _activeColor; }
             set
             {
-                SetProperty(ref _activeColor, value);
-                ColorCategory colCat = ColorCategory.FromWPFColor(ActiveColor);
-                _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(colCat.Color);
+                if (_activeColor != value)
+                {
+                    SetProperty(ref _activeColor, value);
+                    ColorCategory colCat = ColorCategory.FromWPFColor(ActiveColor);
+                    _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(colCat.Color);
+                }
             }
 
         }
