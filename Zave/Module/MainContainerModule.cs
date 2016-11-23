@@ -23,10 +23,11 @@ namespace Zave.Module
         {
             var controlbar = _unityContainer.Resolve<ControlBar>();
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainerView");
-            IRegion controlbarRegion = _regionManager.Regions[RegionNames.ControlBarRegion];
-            controlbarRegion.Add(controlbar);
-            
-            
+            //IRegion controlbarRegion = _regionManager.Regions[RegionNames.ControlBarRegion];
+            //controlbarRegion.Add(controlbar);
+            _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>("ControlBarView"));
+            _regionManager.RegisterViewWithRegion(RegionNames.ZaveMainColorPicker, () => _unityContainer.Resolve<ColorPickerView>("ColorPickerView"));
+
 
             //_regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => controlbar);
             //_regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => controlbar);

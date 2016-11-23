@@ -56,6 +56,7 @@ namespace Zave
             moduleCatalog.AddModule(typeof(MainContainerModule));
             moduleCatalog.AddModule(typeof(ZDFEntryModule));
             moduleCatalog.AddModule(typeof(WidgetModule));
+            moduleCatalog.AddModule(typeof(ColorPickerModule));
 
 
 

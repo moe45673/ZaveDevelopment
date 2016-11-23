@@ -41,9 +41,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
                         <Border BorderBrush="{TemplateBinding Border.BorderBrush}" BorderThickness="0" Name="Bd" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True" Padding="0">
-                            <ScrollViewer Focusable="False" Padding="{TemplateBinding Control.Padding}">
+                            <!--<ScrollViewer Focusable="False" Padding="{TemplateBinding Control.Padding}">-->
                                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-                            </ScrollViewer>
+                            <!--</ScrollViewer>-->
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -97,8 +97,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="1*" />
+            <!--<ColumnDefinition Width="120" />-->
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Style="{StaticResource ControlBar_Container}">
             <ListBox>
@@ -180,7 +180,7 @@
 
                     </Button>
                 </ListBoxItem>
-                
+
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding SwitchWindowModeDelegateCommand}" Style="{StaticResource Main_Button}">
                         <Image  Height="30" Width="40">
@@ -194,9 +194,6 @@
                     </Button>
                 </ListBoxItem>
             </ListBox>
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource ColourSelector_Container}">
-            <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
         </StackPanel>
     </Grid>
 

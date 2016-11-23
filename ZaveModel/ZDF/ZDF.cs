@@ -114,7 +114,8 @@ namespace ZaveModel.ZDF
         public static int RefreshEntryIDCounter()
         {
             int count = instance.EntryList.Count();
-            _entryIDTracker = instance.EntryList.ElementAt(count - 1).ID;
+            if(count>0)
+                _entryIDTracker = instance.EntryList.ElementAt(count - 1).ID;
             return EntryIDTracker;
         }
 

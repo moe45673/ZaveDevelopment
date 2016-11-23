@@ -116,6 +116,7 @@
       <HintPath>..\packages\JetBrains.Platform.Lib.VisualStudio.AnyVs.ShellInterop.PrivateBuild.2.0.20140304.0\lib\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.Tools.Applications.Hosting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.XmlTransform">
       <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
       <Private>True</Private>
@@ -239,6 +240,7 @@
     <Compile Include="Data Structures\DataStructures.cs" />
     <Compile Include="Data Structures\ZaveDialogs\DialogBehavior.cs" />
     <Compile Include="Data Structures\ZaveDialogs\IDialogBoxPresenter.cs" />
+    <Compile Include="ViewModels\ColorPickerViewModel.cs" />
     <Compile Include="ViewModels\IDialogViewModel.cs" />
     <Compile Include="ViewModels\IUserDialogViewModel.cs" />
     <Compile Include="ViewModels\ControlBarViewModel.cs" />

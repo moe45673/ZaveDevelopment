@@ -10,7 +10,7 @@
              xmlns:converters="clr-namespace:Zave.Converters"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             Height="100" Width="600">
+             Height="110" Width="650">
     <UserControl.Resources>
         <converters:ColorConverters x:Key="colorConverter"></converters:ColorConverters>
         <Style x:Key="EndSection_Border" TargetType="{x:Type Border}">
@@ -75,18 +75,24 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="2*"/>
+                    <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
                 <Border Style="{StaticResource TitleBar_Border}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
                     <my:TitleBar></my:TitleBar>
                 </Border>
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="1" Grid.Column="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <ContentControl x:Name="WidgetMainRegion"
-                               prism:RegionManager.RegionName="WidgetMainRegion"/>
+                    <ContentControl Grid.Column="0" x:Name="ZaveWidgetColorPicker"
+                               prism:RegionManager.RegionName="ZaveWidgetColorPicker" />
+                    <ContentControl Grid.Column="1" x:Name="WidgetMainRegion"
+                               prism:RegionManager.RegionName="WidgetMainRegion" HorizontalAlignment="Right"/>
                 </Grid>
+                <StackPanel Grid.Row="2">
+                    <Image Source="/Zave;component/media/images/corner-pull-black.png" Height="15" HorizontalAlignment="Right" Margin="2"/>
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>

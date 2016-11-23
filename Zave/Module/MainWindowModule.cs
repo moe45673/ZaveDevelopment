@@ -32,6 +32,9 @@ namespace Zave.Module
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static class RegionNames
     {
         public const string RecentZDFListRegion = "RecentZDFListRegion";
@@ -41,5 +44,7 @@ namespace Zave.Module
         public const string MainViewRegion = "MainViewRegion";
         public const string WidgetMainRegion = "WidgetMainRegion";
         public static string MenuRegion = "MenuRegion";
+        public static string ZaveMainColorPicker = "ZaveMainColorPicker";
+        public static string ZaveWidgetColorPicker = "ZaveWidgetColorPicker";
     }
 }

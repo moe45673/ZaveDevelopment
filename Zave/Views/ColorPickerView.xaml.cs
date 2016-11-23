@@ -12,24 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Prism.Events;
-using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Views
 {
     /// <summary>
-    /// Interaction logic for ControlBar.xaml
+    /// Interaction logic for ColorPickerView.xaml
     /// </summary>
-    public partial class ControlBar : UserControl
+    public partial class ColorPickerView : UserControl
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public ControlBar()
+        public ColorPickerView()
         {
             InitializeComponent();
         }
-
     }
-        
 }

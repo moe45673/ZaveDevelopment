@@ -21,6 +21,9 @@ namespace Zave.Views
     /// </summary>
     public partial class TitleBar : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public TitleBar()
         {
             InitializeComponent();

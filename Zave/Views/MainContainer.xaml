@@ -66,9 +66,18 @@
                                Style="{StaticResource Region_Container}" />
         </Border>
         <Border Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource Section_Border}">
-            <ContentControl x:Name="ControlBarRegion"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <ContentControl Grid.Column="0" x:Name="ControlBarRegion"
                                prism:RegionManager.RegionName="ControlBarRegion"
                                Style="{StaticResource Region_Container}" />
+                <ContentControl Grid.Column="1" x:Name="ZaveMainColorPicker"
+                               prism:RegionManager.RegionName="ZaveMainColorPicker" />
+            </Grid>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource ZDFList_Border}">
             <my:ZDFList></my:ZDFList>

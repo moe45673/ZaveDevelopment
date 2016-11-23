@@ -54,6 +54,7 @@ namespace Zave.Module
             //    }
             //}
             _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>("ControlBarView"));
+            _regionManager.RegisterViewWithRegion(RegionNames.ZaveWidgetColorPicker, () => _unityContainer.Resolve<ColorPickerView>("ColorPickerView"));
 
             //var controlbar = _unityContainer.Resolve<ControlBar>();
             //_regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>());

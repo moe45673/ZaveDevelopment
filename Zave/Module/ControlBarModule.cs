@@ -25,7 +25,7 @@ namespace Zave.Module
         public override void Initialize()
         {
 
-            UnityContainerExtensions.RegisterInstance(_unityContainer, "ControlBarView", _unityContainer.Resolve<ControlBar>());
+            UnityContainerExtensions.RegisterType<ControlBar>(_unityContainer, "ControlBarView");
             //_regionManager.RegisterViewWithRegion(RegionNames.ZDFEntryListRegion, () => _unityContainer.Resolve<ZDFView>());
             //_unityContainer.RegisterType<Controllers.ZDFEntryController>();
 

@@ -11,12 +11,14 @@
              xmlns:converters="clr-namespace:Zave.Converters"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="25" d:DesignWidth="300">
     <UserControl.Resources>
+        
         <Style x:Key="TitleBar_Text" TargetType="{x:Type TextBlock}">
-            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
+           
         </Style>
         <Style x:Key="TitleBar_Button" TargetType="{x:Type Button}">
             <Setter Property="BorderBrush" Value="Transparent"></Setter>
@@ -40,8 +42,14 @@
             <Setter Property="Height" Value="15"></Setter>
             <Setter Property="Width" Value="15"></Setter>
         </Style>
+        <Style x:Key="TitleBar_Zave_Logo" TargetType="{x:Type Image}">
+            <!--<Setter Property="Height" Value="15"></Setter>-->
+           
+            <!--<Setter Property="VerticalAlignment" Value="Center"></Setter>-->
+            
+        </Style>
     </UserControl.Resources>
-    <DockPanel Grid.Row="0" Grid.Column="0" x:Name="TitleBar_Structure" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+    <DockPanel Grid.Row="0" Grid.Column="0"  x:Name="TitleBar_Structure" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" LastChildFill="True">
         <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="CloseButton_Click">
             <Image Source="/Zave;component/media/images/close.png" Style="{StaticResource TitleBar_Button_Image}"/>
         </Button>
@@ -51,8 +59,19 @@
         <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MinButton_Click">
             <Image Source="/Zave;component/media/images/min.png"  Style="{StaticResource TitleBar_Button_Image}" VerticalAlignment="Bottom"/>
         </Button>
+        <Grid DockPanel.Dock="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"> </TextBlock>
+            <TextBlock Grid.Row="2" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"> </TextBlock>
+            <Image  Grid.Row="1" Source="/Zave;component/media/images/zave.png" Style="{StaticResource TitleBar_Zave_Logo}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"/>
+        </Grid>
 
-        <TextBlock Style="{StaticResource TitleBar_Text}">Zave Widget</TextBlock>
-        <TextBlock></TextBlock>
+        
+            <TextBlock Style="{StaticResource TitleBar_Text}" Text="{Binding Path=DataContext.Filename, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" PresentationTraceSources.TraceLevel="High"  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" />
+        
     </DockPanel>
 </UserControl>
