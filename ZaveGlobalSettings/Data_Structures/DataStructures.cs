@@ -470,6 +470,10 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+    public class MainWindowInstantiatedEvent : PubSubEvent<object> { }
+
+    public class FilenameChangedEvent : PubSubEvent<string> { }
+
     public class WindowModeChangeEvent : PubSubEvent<WindowMode> { }
 
 }

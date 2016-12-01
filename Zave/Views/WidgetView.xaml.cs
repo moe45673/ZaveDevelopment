@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
 using Zave.Module;
+using Prism.Mvvm;
+using System.ComponentModel;
 
 namespace Zave.Views
 {
@@ -29,14 +31,6 @@ namespace Zave.Views
             
         }
 
-        protected override void OnInitialized(System.EventArgs e)
-        {
-            base.OnInitialized(e);
-
-            //var regionManager = ServiceLocator.Current.GetService(typeof(IRegionManager)) as IRegionManager;
-            //regionManager.Regions.Remove("WidgetMainRegion");
-            //RegionManager.SetRegionManager(WidgetMainRegion, regionManager);
-        }
 
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

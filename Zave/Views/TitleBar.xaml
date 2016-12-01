@@ -11,7 +11,8 @@
              xmlns:converters="clr-namespace:Zave.Converters"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="25" d:DesignWidth="300">
+             d:DesignHeight="25" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=vm:TitleBarViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         
         <Style x:Key="TitleBar_Text" TargetType="{x:Type TextBlock}">
@@ -69,9 +70,6 @@
             <TextBlock Grid.Row="2" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"> </TextBlock>
             <Image  Grid.Row="1" Source="/Zave;component/media/images/zave.png" Style="{StaticResource TitleBar_Zave_Logo}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"/>
         </Grid>
-
-        
-            <TextBlock Style="{StaticResource TitleBar_Text}" Text="{Binding Path=DataContext.Filename, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" PresentationTraceSources.TraceLevel="High"  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" />
-        
+        <TextBlock Style="{StaticResource TitleBar_Text}" Name="fileNameTxtBlck" Text ="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" PresentationTraceSources.TraceLevel="High"  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" />
     </DockPanel>
 </UserControl>

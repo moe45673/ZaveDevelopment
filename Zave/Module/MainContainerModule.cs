@@ -11,6 +11,7 @@ using ZaveService.ZDFEntry;
 namespace Zave.Module
 {
     [ModuleDependency("DataServiceModule")]
+    [ModuleDependency("MainWindowModule")]
     public class MainContainerModule : ModuleBaseClass
     {
 
