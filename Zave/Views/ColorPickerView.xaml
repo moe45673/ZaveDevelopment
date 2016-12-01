@@ -15,48 +15,58 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
+        
         <Style x:Key="ColorPicker_Section" TargetType="StackPanel">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="5 0 5 0"/>
         </Style>
+        <Style x:Key="CommonColors_Border" TargetType="Border">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        <Style x:Key="FirstCommonColor_Border" TargetType="Border">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
 
-        <Ellipse Grid.Column="0"
-                Canvas.Top="0"
-                Canvas.Left="0"
-                Fill="#F2CB1D"
-                Height="25"
-                Width="25"/>
+        <Border Grid.Column="1"
+                Style="{StaticResource FirstCommonColor_Border}">
+            <Line
+    X1="0" Y1="0"
+    X2="0" Y2="25"
+    Stroke="#A2B4E5"
+    StrokeThickness="1" />
+        </Border>
 
-        <Ellipse Grid.Column="1"
-                Canvas.Top="0"
-                Canvas.Left="0"
-                Fill="#25D8F9"
-                Height="25"
-                Width="25"/>
+        <Border Grid.Column="2"
+                Background="#F2CB1D"
+                Style="{StaticResource CommonColors_Border}"/>
 
-        <Ellipse Grid.Column="2"
-                Canvas.Top="0"
-                Canvas.Left="0"
-                Fill="#E35395"
-                Height="25"
-                Width="25"/>
+        <Border Grid.Column="3"
+                Background="#25D8F9"
+                Style="{StaticResource CommonColors_Border}"/>
 
-        <Ellipse Grid.Column="3"
-                Canvas.Top="0"
-                Canvas.Left="0"
-                Height="25"
-                Width="25" Fill="#FF22C131"/>
+        <Border Grid.Column="4"
+                Background="#E35395"
+                Style="{StaticResource CommonColors_Border}"/>
 
-        <StackPanel Grid.Column="4" Style="{StaticResource ColorPicker_Section}">
+        <Border Grid.Column="5"
+                Background="#FF22C131"
+                Style="{StaticResource CommonColors_Border}"/>
+
+        <StackPanel Grid.Column="0" Style="{StaticResource ColorPicker_Section}">
             <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
         </StackPanel>
             </Grid>

@@ -362,11 +362,6 @@
     <Resource Include="media\images\tip.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="media\images\close.png" />
-    <Resource Include="media\images\min.png" />
-    <Resource Include="media\images\op.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="media\images\new_w.png" />
     <Resource Include="media\images\open_w.png" />
     <Resource Include="media\images\redo_w.png" />
@@ -409,6 +404,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="media\images\corner-pull-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="media\images\close.png" />
+    <Content Include="media\images\close.svg" />
+    <Resource Include="media\images\maximize.png" />
+    <Content Include="media\images\maximize.svg" />
+    <Resource Include="media\images\minimize.png" />
+    <Content Include="media\images\minimize.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--<Import Project="..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets" Condition="Exists('..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" />-->

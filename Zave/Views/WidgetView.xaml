@@ -10,48 +10,47 @@
              xmlns:converters="clr-namespace:Zave.Converters"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             Height="110" Width="650">
+             Height="140" Width="700">
     <UserControl.Resources>
         <converters:ColorConverters x:Key="colorConverter"></converters:ColorConverters>
         <Style x:Key="EndSection_Border" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="Black"></Setter>
-            <Setter Property="BorderThickness" Value="2,2,0,2"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
             <Setter Property="CornerRadius" Value="5,0,0,5"></Setter>
         </Style>
         <Style x:Key="MainSection_Border" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Black"></Setter>
-            <Setter Property="BorderThickness" Value="2,2,2,2"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
             <Setter Property="CornerRadius" Value="0,5,5,0"></Setter>
             <Setter Property="Background">
                 <Setter.Value>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#221F20" Offset="0"/>
-                        <GradientStop Color="#414043" Offset="1"/>
+                        <GradientStop Color="#122232" Offset="0"/>
+                        <GradientStop Color="#131B2A" Offset="1"/>
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
         </Style>
         <Style x:Key="TitleBar_Border" TargetType="{x:Type Border}">
-            <Setter Property="Margin" Value="5"></Setter>
-            <Setter Property="Padding" Value="0,0,0,5"></Setter>
+            <Setter Property="Padding" Value="10,5,5,5"></Setter>
             <Setter Property="BorderBrush" Value="#353132"></Setter>
             <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+            <Setter Property="Background" Value="#13151C"></Setter>
         </Style>
 
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="96"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="38" />
+                    <RowDefinition Height="58" />
                     <RowDefinition Height="24" />
-                    <RowDefinition Height="38" />
+                    <RowDefinition Height="58" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Grid.Column="0"></StackPanel>
                 <!--<StackPanel Grid.Row="1" Grid.Column="0" Background="#FFFBB040"></StackPanel>-->
@@ -66,7 +65,7 @@
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Image Source="/Zave;component/media/images/notip.png" Height="100" Width="80" />
+            <Image Source="/Zave;component/media/images/notip.png" Height="120" Width="96" />
         </StackPanel>
         <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource EndSection_Border}" Background="{Binding ActiveColor, Converter={StaticResource colorConverter}}">
         </Border>
