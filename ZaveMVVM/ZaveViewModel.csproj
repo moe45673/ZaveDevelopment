@@ -250,6 +250,7 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ModalInputDialogViewModel.cs" />
     <Compile Include="ViewModels\TestDialogViewModel.cs" />
+    <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\WidgetViewModel.cs" />
     <Compile Include="ViewModels\ZDFEntryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

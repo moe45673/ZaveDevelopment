@@ -121,110 +121,110 @@ namespace ZaveViewModel.ViewModels
         }
         
 
-        private async Task ExportZDF(string source)
-        {
+        //private async Task ExportZDF(string source)
+        //{
 
-            var activeZDF = ZDFSingleton.GetInstance();
-            switch (source)
-            {
-                case "WORD":
-                    await Task.Run(() =>
-                    {
-                        try
-                        {
+        //    var activeZDF = ZDFSingleton.GetInstance();
+        //    switch (source)
+        //    {
+        //        case "WORD":
+        //            await Task.Run(() =>
+        //            {
+        //                try
+        //                {
 
-                            var exportfilename = createExportFileName();
-                            using (DocX doc = DocX.Load(exportfilename))
+        //                    var exportfilename = createExportFileName();
+        //                    using (DocX doc = DocX.Load(exportfilename))
 
-                            {
+        //                    {
 
-                                var entries = activeZDF.EntryList.ToList();
-                                var comp = new ColorComparer();
-                                entries.Sort(comp);
-                                var lastColor = default(System.Drawing.Color);
+        //                        var entries = activeZDF.EntryList.ToList();
+        //                        var comp = new ColorComparer();
+        //                        entries.Sort(comp);
+        //                        var lastColor = default(System.Drawing.Color);
 
-                                foreach (var entry in entries)
+        //                        foreach (var entry in entries)
 
-                                {
+        //                        {
 
-                                    var thisColor = entry.HColor.Color;
+        //                            var thisColor = entry.HColor.Color;
 
-                                    if (!thisColor.Equals(lastColor))
-                                    {
+        //                            if (!thisColor.Equals(lastColor))
+        //                            {
 
-                                        Table t = doc.InsertTable(1, 1);
-                                        Row r = t.Rows.ElementAt(0);
-                                        Cell c = r.Cells.ElementAt(0);
-                                        c.Shading = thisColor;
+        //                                Table t = doc.InsertTable(1, 1);
+        //                                Row r = t.Rows.ElementAt(0);
+        //                                Cell c = r.Cells.ElementAt(0);
+        //                                c.Shading = thisColor;
                                     
-                                    }
+        //                            }
 
 
-                                    Paragraph p = doc.InsertParagraph();
+        //                            Paragraph p = doc.InsertParagraph();
 
-                                    p.InsertText(entry.Text + Environment.NewLine);
+        //                            p.InsertText(entry.Text + Environment.NewLine);
 
-                                    lastColor = thisColor;
-                                }
+        //                            lastColor = thisColor;
+        //                        }
 
-                                doc.Save();
-                                _eventAggregator.GetEvent<ZDFExportedEvent>().Publish(exportfilename);
-                            }
-                        }
-                        catch(IOException ioex)
-                        {
-                        System.Windows.Forms.MessageBox.Show("Unable to create export file. If file is currently open, please close and try again.", "FILE NOT EXPORTED", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                        }
+        //                        doc.Save();
+        //                        _eventAggregator.GetEvent<ZDFExportedEvent>().Publish(exportfilename);
+        //                    }
+        //                }
+        //                catch(IOException ioex)
+        //                {
+        //                System.Windows.Forms.MessageBox.Show("Unable to create export file. If file is currently open, please close and try again.", "FILE NOT EXPORTED", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+        //                }
 
-                    });
-                    break;
-            }
-        }
-
-
-        private string createExportFileName()
-        {
-            var activeZDF = ZDFSingleton.GetInstance();
-            var str1 = getSaveDirectory() + "\\ExportedFiles";
-            if (!Directory.Exists(str1))
-            {
-                Directory.CreateDirectory(str1);
-            }
+        //            });
+        //            break;
+        //    }
+        //}
 
 
-            var str2 = Path.Combine(str1, Path.GetFileNameWithoutExtension(activeZDF.Name) + "Export.docx");
+        //private string createExportFileName()
+        //{
+        //    var activeZDF = ZDFSingleton.GetInstance();
+        //    var str1 = getSaveDirectory() + "\\ExportedFiles";
+        //    if (!Directory.Exists(str1))
+        //    {
+        //        Directory.CreateDirectory(str1);
+        //    }
 
-            //Better way to delete the file?
-            if (File.Exists(str2))
-            {
-               for(int i = 0; i < 20; i++)
-                {
-                    try
-                    {
-                        File.Delete(str2);
-                        System.Threading.Thread.Sleep(50);
-                        break;
-                    }
-                    catch(IOException ioex)
-                    {
-                        Console.WriteLine(ioex.Message);
-                    }
-                }
 
-            }
-            try
-            {
-                using (DocX newDoc = DocX.Create(str2))
-                    newDoc.Save();
+        //    var str2 = Path.Combine(str1, Path.GetFileNameWithoutExtension(activeZDF.Name) + "Export.docx");
+
+        //    //Better way to delete the file?
+        //    if (File.Exists(str2))
+        //    {
+        //       for(int i = 0; i < 20; i++)
+        //        {
+        //            try
+        //            {
+        //                File.Delete(str2);
+        //                System.Threading.Thread.Sleep(50);
+        //                break;
+        //            }
+        //            catch(IOException ioex)
+        //            {
+        //                Console.WriteLine(ioex.Message);
+        //            }
+        //        }
+
+        //    }
+        //    try
+        //    {
+        //        using (DocX newDoc = DocX.Create(str2))
+        //            newDoc.Save();
                 
-            }
-            catch(IOException ioex)
-            {
+        //    }
+        //    catch(IOException ioex)
+        //    {
                 
-                throw ioex;
-            }
-            return str2;
-        }
+        //        throw ioex;
+        //    }
+        //    return str2;
+        //}
 
         //private void UndoZDF()
         //{
@@ -496,205 +496,45 @@ namespace ZaveViewModel.ViewModels
         //    if (res == System.Windows.Forms.DialogResult.OK)
         //        image.Save(dlg.FileName, ImageFormat.Png);
         //}
-        private void SaveZDF()
-        {
-            if (SaveLocation == null || SaveLocation == "" || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
-            {
-                var filename = _ioService.SaveFileDialogService(getSaveDirectory());
-                SaveLogic(Convert.ToString(filename));
-            }
-            else
-            {
-                var filename = SaveLocation;
-                SaveLogic(Convert.ToString(filename));
-            }
-        }
+        //private void SaveZDF()
+        //{
+        //    if (SaveLocation == null || SaveLocation == "" || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
+        //    {
+        //        var filename = _ioService.SaveFileDialogService(getSaveDirectory());
+        //        SaveLogic(Convert.ToString(filename));
+        //    }
+        //    else
+        //    {
+        //        var filename = SaveLocation;
+        //        SaveLogic(Convert.ToString(filename));
+        //    }
+        //}
 
         #region Save Common Logic
-        private void SaveLogic(string filename)
-        {
-            var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
-
-            JsonSerializer serializer = new JsonSerializer();
-
-            if (filename != String.Empty)
-            {
-
-                using (var sw = _ioService.SaveFileService(filename))
-                {
-                    try
-                    {
-                        using (JsonWriter wr = new JsonTextWriter(sw))
-                        {
-                            try
-                            {
-
-                                setIndented(serializer);
-                                serializer.Serialize(wr, activeZDFVM.GetModel());
-                                SaveLocation = filename;
-                                var activeZDF = ZDFSingleton.GetInstance();
-                                activeZDF.Name = filename;
-                                _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(activeZDF);
-                            }
-                            catch (Exception ex)
-                            {
-                                throw ex;
-                            }
-                            finally
-                            {
-                                wr.Close();
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Windows.Forms.MessageBox.Show("Save File Error!");
-                    }
-                    finally
-                    {
-                        sw.Close();
-                    }
-                }
-            }
-        }
-        #endregion
-
-        #region New OPen
-        private void OpenZDF()
-        {
-            //var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
-
-            JsonSerializer serializer = new JsonSerializer();
-            ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
-            var filename = _ioService.OpenFileDialogService(getSaveDirectory());
-
-
-            if (filename != String.Empty) //If the user presses cancel
-            {
-                using (var sr = _ioService.OpenFileService(filename))
-                {
-                    try
-                    {
-                        using (JsonReader wr = new JsonTextReader(sr))
-                        {
-                            try
-                            {
-                                JObject jObject = JObject.Load(wr);
-                                //var output = "";
-                                //foreach(JProperty prop in jObject.Properties())
-                                //{
-                                //    output += "PROPERTY 1 EQUALS " + prop.Name + "-" + prop.Value + '\r' + '\n';
-                                //}
-
-                                //System.Windows.Forms.MessageBox.Show(output);
-
-                                //ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
-
-                                //activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-                                activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-                                activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
-                                JArray ja = (JArray)jObject["EntryList"]["_items"];
-
-                                activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
-
-                                //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
-                                //foreach (var item in activeZDF.EntryList)
-                                //{
-                                //    activeZDF.Add(item);
-                                //}
-
-
-
-                                if (activeZdf.EntryList.Count > 0)
-                                {
-                                    ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-                                    ////activeZDF.EntryList.Clear();
-                                    ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                                    foreach (var item in activeZdf.EntryList)
-                                    {
-                                        //activeZdf.Add(item);
-
-                                        ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
-                                    }
-                                    ////ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
-                                    ////ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
-
-                                    ////List<SelectionState> selState = activeZDF.toSelectionStateList();
-
-                                    // = Path.GetFileName(filename);
-                                    SaveLocation = filename;
-                                    activeZdf.Name = filename;
-                                    _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
-
-                                }
-
-
-
-                            }
-                            catch (Exception ex)
-                            {
-                                throw ex;
-                            }
-                            finally
-                            {
-                                wr.Close();
-                            }
-                        }
-                    }
-
-                    catch (Exception ex)
-                    {
-                    }
-                    finally
-                    {
-                        sr.Close();
-                    }
-                }
-            }
-        }
-        #endregion
-
-        #region Old Open
-        //private void OpenZDF()
+        //private void SaveLogic(string filename)
         //{
-        //    //var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
+        //    var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
 
         //    JsonSerializer serializer = new JsonSerializer();
-        //    ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
-        //    var filename = _ioService.OpenFileDialogService(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-        //    if (filename != null)
+
+        //    if (filename != String.Empty)
         //    {
-        //        using (var sr = _ioService.OpenFileService(filename))
+
+        //        using (var sw = _ioService.SaveFileService(filename))
         //        {
         //            try
         //            {
-        //                using (JsonReader wr = new JsonTextReader(sr))
+        //                using (JsonWriter wr = new JsonTextWriter(sw))
         //                {
         //                    try
         //                    {
-        //                        JObject jObject = JObject.Load(wr);
-        //                        //var output = "";
-        //                        //foreach(JProperty prop in jObject.Properties())
-        //                        //{
-        //                        //    output += "PROPERTY 1 EQUALS " + prop.Name + "-" + prop.Value + '\r' + '\n';
-        //                        //}
 
-        //                        //System.Windows.Forms.MessageBox.Show(output);
-
-        //                        //ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
-
-        //                        //activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-        //                        activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-        //                        activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
-        //                        JArray ja = (JArray)jObject["EntryList"]["_items"];
-
-        //                        activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
-
-        //                        if (activeZdf.EntryList.Count > 0)
-        //                        {
-        //                            activeZdf.EntryList.FirstOrDefault().Name = Path.GetFileName(filename);
-        //                            _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
-        //                        }
+        //                        setIndented(serializer);
+        //                        serializer.Serialize(wr, activeZDFVM.GetModel());
+        //                        SaveLocation = filename;
+        //                        var activeZDF = ZDFSingleton.GetInstance();
+        //                        activeZDF.Name = filename;
+        //                        _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(activeZDF);
         //                    }
         //                    catch (Exception ex)
         //                    {
@@ -708,41 +548,18 @@ namespace ZaveViewModel.ViewModels
         //            }
         //            catch (Exception ex)
         //            {
-        //                throw ex;
+        //                System.Windows.Forms.MessageBox.Show("Save File Error!");
         //            }
         //            finally
         //            {
-        //                sr.Close();
+        //                sw.Close();
         //            }
         //        }
         //    }
         //}
         #endregion
 
-
-        private void NewZDFEntry()
-        {
-            #region checkin
-            ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
-            ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-            activeZDF.Add(new ZDFEntry());
-            ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-            #endregion
-
-        }
-
-
-        private void NewZDF()
-        {
-            ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-            activeZDF.EntryList.Clear();
-            MainContainerViewModel.activeZdfUndo.Clear();
-            SaveLocation = null;
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-            _eventAggregator.GetEvent<NewZDFCreatedEvent>().Publish(activeZDF.ID.ToString());
-
-        }
+       
 
         public static string getSaveDirectory()
         {
@@ -754,19 +571,7 @@ namespace ZaveViewModel.ViewModels
             return "\\SaveDoc";
         }
 
-        void SaveAsZdfFile()
-        {
-            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
-            saveFileDialog.DefaultExt = ".ZDF"; // Default file extension
-            saveFileDialog.Filter = "ZDF documents (.ZDF)|*.ZDF"; // Filter files by extension
-            saveFileDialog.FileName = "";
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                SaveLogic(Convert.ToString(saveFileDialog.FileName));
-            }
-        }
+       
     }
 
     //internal class NativeMethods

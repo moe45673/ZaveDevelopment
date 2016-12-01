@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Prism.Mvvm;
+using System.ComponentModel;
+using ZaveViewModel.ViewModels;
 
 namespace Zave.Views
 {
@@ -21,14 +24,24 @@ namespace Zave.Views
     /// </summary>
     public partial class TitleBar : UserControl
     {
+        
         /// <summary>
         /// 
         /// </summary>
         public TitleBar()
         {
+
+            
+            
             InitializeComponent();
+           
+                
+
         }
 
+       
+
+       
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);

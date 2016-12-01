@@ -120,7 +120,7 @@ namespace ZaveViewModel.ViewModels
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
             //var getDirectory = GetDefaultSaveDirectory();
             SaveLocation = "";
-            _filename = GuidGenerator.UNSAVEDFILENAME;
+            Filename = GuidGenerator.UNSAVEDFILENAME;
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
             SetWindowMode(WindowMode.MAIN);
             _ioService = ioservice;
@@ -133,6 +133,8 @@ namespace ZaveViewModel.ViewModels
             ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
             ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
             SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
+
+            //_eventAggregator.GetEvent<MainWindowInstantiatedEvent>().Publish(true);
 
         }
 
@@ -149,7 +151,7 @@ namespace ZaveViewModel.ViewModels
 
         private void SetWindowMode(WindowMode setting)
         {
-            _winMode = setting;
+            WinMode = setting;
         }
 
         private void SwitchWindowMode()
@@ -172,7 +174,7 @@ namespace ZaveViewModel.ViewModels
         #region Properties
         private ObservableCollection<IDialogViewModel> _dialogs = new ObservableCollection<IDialogViewModel>();
         public ObservableCollection<IDialogViewModel> Dialogs { get { return _dialogs; } }
-        public string Filename
+        public String Filename
         {
             get
             {
@@ -182,16 +184,18 @@ namespace ZaveViewModel.ViewModels
             {
                 SaveLocation = value;
                 var name = Path.GetFileName(SaveLocation);
+                _eventAggregator.GetEvent<FilenameChangedEvent>().Publish(Filename);
                 SetProperty(ref _filename, name);
             }
         }
-        #endregion       
+              
 
         public WindowMode WinMode
         {
             get { return _winMode; }
             set { SetProperty(ref _winMode, value); }
         }
+        #endregion 
 
         #region Delegate Implementation
         private async Task ExportZDF(string source)
