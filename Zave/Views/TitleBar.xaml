@@ -71,8 +71,8 @@
             <Image  Grid.Row="1" Source="/Zave;component/media/images/zave.png" Style="{StaticResource TitleBar_Zave_Logo}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"/>
         </Grid>
 
-        
-            <TextBlock Style="{StaticResource TitleBar_Text}" Text="Untitled Document" PresentationTraceSources.TraceLevel="High"  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" VerticalAlignment="Center"/>
+
+        <TextBlock Style="{StaticResource TitleBar_Text}" Text ="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" PresentationTraceSources.TraceLevel="High"  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" VerticalAlignment="Center"/>
         
     </DockPanel>
 </UserControl>

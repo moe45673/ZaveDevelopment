@@ -29,6 +29,7 @@ namespace Zave.Module
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
             eventInit = ZaveController.EventInitSingleton.GetInstance(_unityContainer.Resolve<IEventAggregator>(), _unityContainer);
             mainWinController = _unityContainer.Resolve<Controllers.MainWindowController>();
+            _regionManager.RegisterViewWithRegion(RegionNames.TitleBarRegion, () => _unityContainer.Resolve<TitleBar>());
         }
     }
 
@@ -46,5 +47,6 @@ namespace Zave.Module
         public static string MenuRegion = "MenuRegion";
         public static string ZaveMainColorPicker = "ZaveMainColorPicker";
         public static string ZaveWidgetColorPicker = "ZaveWidgetColorPicker";
+        public static string TitleBarRegion = "TitleBarRegion";
     }
 }

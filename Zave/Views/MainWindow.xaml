@@ -36,7 +36,8 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Border Style="{StaticResource TitleBar_Border}">
-            <my:TitleBar></my:TitleBar>
+            <ContentControl x:Name="TitleBarRegion"
+                               prism:RegionManager.RegionName="TitleBarRegion"/>
         </Border>
         <ContentControl x:Name="MainViewRegion"
                                prism:RegionManager.RegionName="MainViewRegion"/>
