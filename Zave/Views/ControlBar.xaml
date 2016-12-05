@@ -35,6 +35,9 @@
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="Margin" Value="10"></Setter>
         </Style>
+        <Style x:Key="ColourSelector_Container_Image" TargetType="{x:Type Image}">
+            <Setter Property="Width" Value="25"></Setter>
+        </Style>
         <Style TargetType="{x:Type ListBox}">
             <Setter Property="Background" Value="Transparent"></Setter>
             <Setter Property="Control.Template">
@@ -55,7 +58,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Name="ButtonBorder" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                        <Border Name="ButtonBorder" Padding="5" SnapsToDevicePixels="true" Background="Transparent" CornerRadius="5">
                             <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -109,7 +112,7 @@
                 </ListBox.ItemsPanel>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding NewZDFDelegateCommand}"  Style="{StaticResource Main_Button}">
-                        <Image  Height="30" Width="40">
+                        <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="new.png">
                                     <Binding Source="{StaticResource ImageURIRoot}"/>
@@ -121,7 +124,7 @@
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding OpenZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
-                        <Image  Height="30" Width="40">
+                        <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="open.png">
                                     <Binding Source="{StaticResource ImageURIRoot}"/>
@@ -133,7 +136,7 @@
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding SaveZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
-                        <Image  Height="30" Width="40">
+                        <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="save.png">
                                     <Binding Source="{StaticResource ImageURIRoot}"/>
@@ -145,7 +148,7 @@
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding UndoZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
-                        <Image  Height="30" Width="40">
+                        <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="undo.png">
                                     <Binding Source="{StaticResource ImageURIRoot}"/>
@@ -157,7 +160,7 @@
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding RedoZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
-                        <Image  Height="30" Width="40">
+                        <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="redo.png">
                                     <Binding Source="{StaticResource ImageURIRoot}"/>
@@ -169,7 +172,7 @@
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding ScreenshotZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
-                        <Image Height="30" Width="40">
+                        <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="screenshot.png">
                                     <Binding Source="{StaticResource ImageURIRoot}"/>
@@ -183,9 +186,9 @@
 
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding SwitchWindowModeDelegateCommand}" Style="{StaticResource Main_Button}">
-                        <Image  Height="30" Width="40">
+                        <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
-                                <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="windowsize.png">
+                                <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="switch.png">
                                     <Binding Source="{StaticResource ImageURIRoot}"/>
                                     <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" Path="DataContext.Suffix" />
                                 </MultiBinding>

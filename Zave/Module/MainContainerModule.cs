@@ -28,7 +28,7 @@ namespace Zave.Module
             //controlbarRegion.Add(controlbar);
             _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>("ControlBarView"));
             _regionManager.RegisterViewWithRegion(RegionNames.ZaveMainColorPicker, () => _unityContainer.Resolve<ColorPickerView>("ColorPickerView"));
-
+            _regionManager.RegisterViewWithRegion(RegionNames.MainTitleBarRegion, () => _unityContainer.Resolve<TitleBar>());
 
             //_regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => controlbar);
             //_regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => controlbar);

@@ -406,6 +406,8 @@
     <Resource Include="media\images\corner-pull-black.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="media\images\switch_w.png" />
+    <Resource Include="media\images\switch.png" />
     <Resource Include="media\images\close.png" />
     <Content Include="media\images\close.svg" />
     <Resource Include="media\images\maximize.png" />

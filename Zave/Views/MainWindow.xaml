@@ -25,7 +25,7 @@
             <Setter Property="Margin" Value="5"></Setter>
             <Setter Property="Padding" Value="0,0,0,5"></Setter>
             <Setter Property="BorderBrush" Value="#353132"></Setter>
-            <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
         </Style>
     </Window.Resources>
     <Grid Background="Transparent">
@@ -35,10 +35,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Border Style="{StaticResource TitleBar_Border}">
-            <ContentControl x:Name="TitleBarRegion"
-                               prism:RegionManager.RegionName="TitleBarRegion"/>
-        </Border>
+        <!--<Border Style="{StaticResource TitleBar_Border}">
+            --><!--<ContentControl x:Name="TitleBarRegion"
+                               prism:RegionManager.RegionName="TitleBarRegion"/>--><!--
+        </Border>-->
         <ContentControl x:Name="MainViewRegion"
                                prism:RegionManager.RegionName="MainViewRegion"/>
     </Grid>
