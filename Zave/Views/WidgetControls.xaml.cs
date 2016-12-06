@@ -26,7 +26,7 @@ namespace Zave.Views
         {
 
             InitializeComponent();
-            DataContext = cont.Resolve<ControlBarViewModel>();
+            //DataContext = cont.Resolve<ControlBarViewModel>();
         }
     }
 }

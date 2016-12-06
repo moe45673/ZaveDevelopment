@@ -60,7 +60,7 @@ namespace ZaveViewModel.ViewModels
             eventAggregator.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
             eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Subscribe(SetActiveColor);
 
-            var vm = _container.Resolve(typeof(MainWindowViewModel)) as MainWindowViewModel;
+            var vm = _container.Resolve<MainWindowViewModel>() as MainWindowViewModel;
             _suffix = String.Empty;
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;

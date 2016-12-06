@@ -22,7 +22,7 @@ namespace Zave.Module
         //private ZaveController.EventInitSingleton eventInit;
         public override void Initialize()
         {
-            var controlbar = _unityContainer.Resolve<ControlBar>();
+            //var controlbar = _unityContainer.Resolve<ControlBar>();
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainerView");
             //IRegion controlbarRegion = _regionManager.Regions[RegionNames.ControlBarRegion];
             //controlbarRegion.Add(controlbar);

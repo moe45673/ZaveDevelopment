@@ -14,8 +14,9 @@ using Prism.Modularity;
 
 namespace Zave.Module
 {
-    [Module(ModuleName = "ControlBarModule")]
+    [Module(ModuleName = "ControlBarModule", OnDemand = true)]
     [ModuleDependency("IOModule")]
+    
     public class ControlBarModule : ModuleBaseClass
     {
         public ControlBarModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry)

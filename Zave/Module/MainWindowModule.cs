@@ -8,6 +8,8 @@ using Prism.Regions;
 using Zave.Views;
 using Prism.Events;
 using Prism.Modularity;
+using ZaveGlobalSettings.Data_Structures;
+using ZaveViewModel.ViewModels;
 
 namespace Zave.Module
 {
@@ -22,11 +24,13 @@ namespace Zave.Module
 
         public override void Initialize()
         {
-            var window = _unityContainer.Resolve<MainWindow>();
-            var viewmodel = _unityContainer.Resolve<ZaveViewModel.ViewModels.MainWindowViewModel>();
-            window.DataContext = viewmodel;
+            //_unityContainer.RegisterInstance<MainWindow>(_unityContainer.Resolve<MainWindow>());
+            //var viewmodel = _unityContainer.Resolve<ZaveViewModel.ViewModels.MainWindowViewModel>();
+            //window.DataContext = viewmodel;
+            var window = _unityContainer.Resolve<MainWindow>(InstanceNames.MainWindowView);
+            
             _regionManager.RegisterViewWithRegion(RegionNames.MainViewRegion, () => _unityContainer.Resolve<MainContainer>());
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
+            //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
             eventInit = ZaveController.EventInitSingleton.GetInstance(_unityContainer.Resolve<IEventAggregator>(), _unityContainer);
             mainWinController = _unityContainer.Resolve<Controllers.MainWindowController>();
             
@@ -49,5 +53,9 @@ namespace Zave.Module
         public static string ZaveWidgetColorPicker = "ZaveWidgetColorPicker";
         public static string MainTitleBarRegion = "MainTitleBarRegion";
         public static string WidgetTitleBarRegion = "WidgetTitleBarRegion";
+
+        
     }
+
+   
 }

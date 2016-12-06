@@ -40,7 +40,7 @@ namespace Zave.Controllers
 
         private void WindowModeChangeAbstract(WindowMode winMode) {
 
-            var main = container.Resolve<MainWindowViewModel>();
+            //var main = container.Resolve<MainWindowViewModel>();
 
             switch (winMode)
             {
@@ -51,8 +51,8 @@ namespace Zave.Controllers
                     
                     break;
                 case (WindowMode.WIDGET):
-                    var modManager = container.Resolve<IModuleManager>();
-                    modManager.LoadModule("WidgetModule");
+                    //var modManager = container.Resolve<IModuleManager>();
+                    //modManager.LoadModule("WidgetModule");
                     WindowModeChange<Views.WidgetView, WidgetViewModel>("WidgetView");                    
                     break;
                 default:                    
@@ -74,36 +74,7 @@ namespace Zave.Controllers
 
             
             
-            ////If no entry was selected, clear the view                       
-            //if (winMode == WindowMode.NONE)
-            //{
-               
-            //    return;
-            //}
-
            
-            
-            //otherwise, populate view with selected Entry  
-                      
-            
-            //if(view == null)
-            //{
-            //    view = container.Resolve<ViewType>();
-            //    mviewRegion.Add(view, uri);
-            //    //entryRegion.Activate(view);
-            //}           
-            
-            //    mviewRegion.Activate(view);
-
-            
-
-            //var viewModel = view.DataContext as ViewType;
-            
-
-            //if(viewModel != null)
-            //{
-            //    viewModel.setProperties(selectedEntry);
-            //}
 
         }
 

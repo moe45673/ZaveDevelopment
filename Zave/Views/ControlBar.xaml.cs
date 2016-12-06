@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Prism.Events;
 using ZaveGlobalSettings.Data_Structures;
+using System.Threading;
 
 namespace Zave.Views
 {
@@ -25,11 +26,23 @@ namespace Zave.Views
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        public static int counter = 0;
         public ControlBar()
         {
             InitializeComponent();
+            Interlocked.Increment(ref counter);
         }
 
+        ~ControlBar()
+        {
+            Interlocked.Decrement(ref counter);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show("There are " + counter + " instances");
+        }
     }
         
 }

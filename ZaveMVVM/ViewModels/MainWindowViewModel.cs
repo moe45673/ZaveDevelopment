@@ -115,7 +115,7 @@ namespace ZaveViewModel.ViewModels
             SwitchWindowModeCommand = new DelegateCommand(SwitchWindowMode);
             //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
-            
+            cont.RegisterInstance<MainWindowViewModel>(this);
             _eventAggregator = agg;
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
             //var getDirectory = GetDefaultSaveDirectory();
