@@ -196,9 +196,7 @@
                         </Image>
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
-                    <Button Click="Button_Click"># of Instances?</Button>
-                </ListBoxItem>
+                
             </ListBox>
         </StackPanel>
     </Grid>
