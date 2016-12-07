@@ -50,15 +50,15 @@ namespace ZaveViewModel.ViewModels
                 _eventAggregator = eventAggregator;
                 _container = cont;
             }
-            ColorItemList = new ObservableImmutableList<ColorItem>();
+            //ColorItemList = new ObservableImmutableList<ColorItem>();
             
             //ReturnListDel beginColorSet = async () => await SetColorsAsync();
-            ColorItemList = SetColorsAsync().Result;
+            //ColorItemList = SetColorsAsync().Result;
             //beginColorSet.Invoke();
-            ActiveColor = Color.FromArgb(255, 255, 255, 0);
-            eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
+            //ActiveColor = Color.FromArgb(255, 255, 255, 0);
+            //eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
             eventAggregator.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
-            eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Subscribe(SetActiveColor);
+            //eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Subscribe(SetActiveColor);
 
             var vm = _container.Resolve<MainWindowViewModel>() as MainWindowViewModel;
             _suffix = String.Empty;

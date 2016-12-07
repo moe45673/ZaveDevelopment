@@ -31,7 +31,7 @@ namespace ZaveViewModel.ViewModels
             _regionManager = manager;
 
             _eventAgg.GetEvent<ActiveColorUpdatedEvent>().Subscribe(UpdateColor);
-
+            ActiveColor = _container.Resolve<ColorPickerViewModel>().ActiveColor;
 
         }
 
