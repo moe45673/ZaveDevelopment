@@ -33,7 +33,7 @@ namespace ZaveViewModel.ViewModels
             //ReturnListDel beginColorSet = async () => await SetColorsAsync();
             ColorItemList = SetColorsAsync().Result;
             //beginColorSet.Invoke();
-            ActiveColor = Color.FromArgb(255, 255, 255, 0);
+            SetActiveColor(System.Drawing.Color.Yellow);
             _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
         }
 

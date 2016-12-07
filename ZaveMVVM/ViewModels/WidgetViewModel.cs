@@ -36,12 +36,7 @@ namespace ZaveViewModel.ViewModels
 
 
             var win = _container.Resolve<MainWindowViewModel>();
-            if (win.WinMode == WindowMode.WIDGET)
-            {
-                IsActive = true;
-            }
-            else
-                IsActive = false;
+            ChangeIsActive(win.WinMode);
 
 
         }
