@@ -31,8 +31,28 @@ namespace ZaveViewModel.ViewModels
             _regionManager = manager;
 
             _eventAgg.GetEvent<ActiveColorUpdatedEvent>().Subscribe(UpdateColor);
+            _eventAgg.GetEvent<WindowModeChangeEvent>().Subscribe(ChangeIsActive);
             ActiveColor = _container.Resolve<ColorPickerViewModel>().ActiveColor;
 
+
+            var win = _container.Resolve<MainWindowViewModel>();
+            if (win.WinMode == WindowMode.WIDGET)
+            {
+                IsActive = true;
+            }
+            else
+                IsActive = false;
+
+
+        }
+
+        #region Properties
+        private bool _isActive;
+
+        public bool IsActive
+        {
+            get { return this._isActive; }
+            set { SetProperty(ref _isActive, value); }
         }
 
         private Color _activeColor;
@@ -47,11 +67,29 @@ namespace ZaveViewModel.ViewModels
                 SetProperty<Color>(ref _activeColor, value);
             }
         }
+#endregion
+
+
+        #region Event Delegates
+
+        private void ChangeIsActive(WindowMode wm)
+        {
+            if(wm == WindowMode.WIDGET)
+            {
+                IsActive = true;
+            }
+            else
+            {
+                IsActive = false;
+            }
+        }
 
         private void UpdateColor(System.Drawing.Color color)
         {
             ActiveColor = Color.FromArgb(color.A, color.R, color.G, color.B);
         }
+
+        #endregion
 
     }
 }

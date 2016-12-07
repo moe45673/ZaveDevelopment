@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZaveGlobalSettings.Data_Structures;
 using ZaveViewModel.ViewModels;
 
 
@@ -54,17 +55,34 @@ namespace Zave.Views
 
         private void Window_Deactivated(object sender, EventArgs args)
         {
-            var window = (Window)sender;
-            window.Topmost = true;
-            window.Opacity = 0.5;
-            //window.BeginAnimation(Window.OpacityProperty, null);
-                      //window.Activate();
+            //var window = (Window)sender;
+            //try
+            //{
+            //    if (((MainWindowViewModel)((MainWindow)sender).DataContext).WinMode == WindowMode.WIDGET)
+            //    {
+
+
+            //        window.Topmost = true;
+            //        window.Opacity = 0.5;
+            //        window.BeginAnimation(Window.OpacityProperty, null);
+            //        window.Activate();
+            //    }
+            //    else
+            //    {
+            //        window.Topmost = false;
+            //    }
+            //}catch(NullReferenceException nre)
+            //{
+
+            //}
+
         }
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            var window = (Window)sender;
-            window.Opacity = 1;
+            //var window = (Window)sender;
+            //window.Topmost = true;
+            //window.Opacity = 1;
         }
     }
 

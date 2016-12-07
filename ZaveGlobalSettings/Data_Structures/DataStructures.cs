@@ -476,6 +476,8 @@ namespace ZaveGlobalSettings.Data_Structures
 
     public class WindowModeChangeEvent : PubSubEvent<WindowMode> { }
 
+    
+
     public static class InstanceNames
     {
         public const string MainWindowView = "MainWindowView";

@@ -53,7 +53,8 @@ namespace Zave.Controllers
                 case (WindowMode.WIDGET):
                     //var modManager = container.Resolve<IModuleManager>();
                     //modManager.LoadModule("WidgetModule");
-                    WindowModeChange<Views.WidgetView, WidgetViewModel>("WidgetView");                    
+                    WindowModeChange<Views.WidgetView, WidgetViewModel>("WidgetView");  
+                            
                     break;
                 default:                    
                     break;

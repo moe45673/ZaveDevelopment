@@ -10,7 +10,7 @@
              xmlns:converters="clr-namespace:Zave.Converters"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             Height="140" Width="700">
+             Height="140" Width="700" Loaded="UserControl_Loaded" IsKeyboardFocusWithinChanged="UserControl_IsKeyboardFocusWithinChanged" Unloaded="UserControl_Unloaded">
     <UserControl.Resources>
         <converters:ColorConverters x:Key="colorConverter"></converters:ColorConverters>
         <Style x:Key="StartSection_Border" TargetType="{x:Type Border}">
@@ -86,7 +86,7 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
-                <Border Style="{StaticResource TitleBar_Border}" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Border Style="{StaticResource TitleBar_Border}" >
                     <ContentControl x:Name="WidgetTitleBarRegion"
                                prism:RegionManager.RegionName="WidgetTitleBarRegion"/>
                 </Border>
