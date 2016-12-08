@@ -56,18 +56,18 @@ namespace Zave.Views
 
         
 
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            if (window != null)
-            {
-                if (((WidgetViewModel)DataContext).IsActive == false)
-                {
-                    window.Topmost = false;
-                }
-            }
+        //private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        //{
+        //    if (window != null)
+        //    {
+        //        if (((WidgetViewModel)DataContext).IsActive == false)
+        //        {
+        //            window.Topmost = false;
+        //        }
+        //    }
             
 
-        }
+        //}
 
         
 
@@ -86,27 +86,27 @@ namespace Zave.Views
 
         }
 
-        private void UserControl_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (window != null)
-            {
-                //System.Windows.MessageBox.Show("Window Found!");
-                if (((WidgetViewModel)DataContext).IsActive)
-                {
-                    if (window.IsActive == true)
-                    {
-                        window.Opacity = 1;
-                    }
-                    else if (window.IsActive == false)
-                    {
-                        window.Topmost = true;
-                        window.Opacity = 0.5;
-                        window.BeginAnimation(Window.OpacityProperty, null);
-                        //window.Activate();
-                    }
-                }
-            }
-        }
+        //private void UserControl_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    if (window != null)
+        //    {
+        //        //System.Windows.MessageBox.Show("Window Found!");
+        //        if (((WidgetViewModel)DataContext).IsActive)
+        //        {
+        //            if (window.IsActive == true)
+        //            {
+        //                window.Opacity = 1;
+        //            }
+        //            else if (window.IsActive == false)
+        //            {
+        //                window.Topmost = true;
+        //                window.Opacity = 0.5;
+        //                window.BeginAnimation(Window.OpacityProperty, null);
+        //                //window.Activate();
+        //            }
+        //        }
+        //    }
+        //}
 
        
     }

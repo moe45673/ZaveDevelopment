@@ -28,6 +28,7 @@ namespace Zave.Module
             //var viewmodel = _unityContainer.Resolve<ZaveViewModel.ViewModels.MainWindowViewModel>();
             //window.DataContext = viewmodel;
             var window = _unityContainer.Resolve<MainWindow>(InstanceNames.MainWindowView);
+            window.DataContext = _unityContainer.Resolve<MainWindowViewModel>();
             
             _regionManager.RegisterViewWithRegion(RegionNames.MainViewRegion, () => _unityContainer.Resolve<MainContainer>());
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
