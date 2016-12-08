@@ -9,6 +9,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:converters="clr-namespace:Zave.Converters"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              Height="140" Width="700" Loaded="UserControl_Loaded" IsKeyboardFocusWithinChanged="UserControl_IsKeyboardFocusWithinChanged" Unloaded="UserControl_Unloaded">
     <UserControl.Resources>
@@ -101,7 +102,13 @@
                                prism:RegionManager.RegionName="WidgetMainRegion" HorizontalAlignment="Left"/>
                 </Grid>
                 <StackPanel Grid.Row="2">
-                    <Image Source="/Zave;component/media/images/corner-pull-black.png" Height="15" HorizontalAlignment="Right" Margin="2"/>
+                    <Image Source="/Zave;component/media/images/corner-pull-black.png" Height="15" HorizontalAlignment="Right" Margin="2" >
+                        <!--<interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="MouseLeftButtonDown">
+                                <prism:In
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>-->
+                    </Image>
                 </StackPanel>
             </Grid>
         </Border>
