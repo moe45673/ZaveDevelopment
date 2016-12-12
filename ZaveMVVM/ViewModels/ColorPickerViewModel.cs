@@ -14,6 +14,7 @@ using Xceed.Wpf.Toolkit;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveModel.ZDFColors;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -30,8 +31,9 @@ namespace ZaveViewModel.ViewModels
 
             _container.RegisterInstance<ColorPickerViewModel>(this);
 
-            //ReturnListDel beginColorSet = async () => await SetColorsAsync();
-            ColorItemList = SetColorsAsync().Result;
+           
+            SetColorsAsync();
+            
             //beginColorSet.Invoke();
             SetActiveColor(System.Drawing.Color.Yellow);
             _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
@@ -70,31 +72,52 @@ namespace ZaveViewModel.ViewModels
 
 
 
-        async private Task<ObservableImmutableList<ColorItem>> SetColorsAsync()
+        async private Task SetColorsAsync()
         {
-            var items = new ObservableImmutableList<ColorItem>();
+            //var items = new ObservableImmutableList<ColorItem>();
             //var converter = new System.Windows.Media.ColorConverter();
 
+            var items = await SetColorListAsync();
 
-            var query = Enum.GetValues(typeof(AvailableColors))
-                .Cast<AvailableColors>()
-                .Except(new AvailableColors[] { AvailableColors.None }); //remove "None" from equation
-
-            foreach (AvailableColors color in query)
-            {
-                var name = color.ToString();
-                items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(name), name));
-            }
-
-            //await Task.Delay(2000);
-            //ActiveColor = Color.FromArgb(255, 255, 255, 0);
             System.Drawing.Color col = new System.Drawing.Color();
             col = ColorCategory.FromWPFColor(ActiveColor).Color;
             _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(col);
             ColorItemList = new ObservableImmutableList<ColorItem>(items);
             OnPropertyChanged("ColorItemList");
 
-            return items;
+            
+        }
+
+        private async Task<ObservableImmutableList<ColorItem>> SetColorListAsync()
+        {
+            return await Task.Run(() =>
+            {
+                ObservableImmutableList<ColorItem> innerItems = new ObservableImmutableList<ColorItem>();
+                Debug.WriteLine("Started Lambda");
+                var query = Enum.GetValues(typeof(AvailableColors))
+                    .Cast<AvailableColors>()
+                    .Except(new AvailableColors[] { AvailableColors.None }); //remove "None" from equation
+
+                Debug.WriteLine("Got Lambda Query");
+                foreach (AvailableColors color in query)
+                {
+
+                    var name = color.ToString();
+                    innerItems.Add(new ColorItem((Color)ColorConverter.ConvertFromString(name), name));
+                    Debug.Write(name + ", ");
+
+                }
+                Debug.WriteLine("Added");
+                Debug.WriteLine("Finished Lambda ForEach");
+                return innerItems;
+            });
+
+            //Debug.WriteLine("Finished Entire Lambda");
+
+            ////await Task.Delay(2000);
+            ////ActiveColor = Color.FromArgb(255, 255, 255, 0);
+            //System.Drawing.Color col = new System.Drawing.Color();
+            //col = ColorCategory.FromWPFColor(ActiveColor).Color;
         }
 
 

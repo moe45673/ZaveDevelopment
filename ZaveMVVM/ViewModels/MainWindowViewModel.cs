@@ -119,13 +119,13 @@ namespace ZaveViewModel.ViewModels
             _eventAggregator = agg;
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
             //var getDirectory = GetDefaultSaveDirectory();
-            SaveLocation = "";
+            SaveLocation = String.Empty;
             Filename = GuidGenerator.UNSAVEDFILENAME;
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
             SetWindowMode(WindowMode.MAIN);
             _ioService = ioservice;
-            SaveZDFDelegateCommand = new DelegateCommand(SaveZDF);
-            OpenZDFDelegateCommand = new DelegateCommand(OpenZDF);
+            SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDF);
+            OpenZDFDelegateCommand = DelegateCommand.FromAsyncHandler(OpenZDF);
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
             NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
             UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
@@ -184,8 +184,10 @@ namespace ZaveViewModel.ViewModels
             {
                 SaveLocation = value;
                 var name = Path.GetFileName(SaveLocation);
-                _eventAggregator.GetEvent<FilenameChangedEvent>().Publish(Filename);
-                SetProperty(ref _filename, name);
+                SetProperty(ref _filename, name);      
+                _eventAggregator.GetEvent<FilenameChangedEvent>().Publish(_filename);
+
+                //SetProperty(ref _filename, name);
             }
         }
               
@@ -573,22 +575,22 @@ namespace ZaveViewModel.ViewModels
         //    if (res == System.Windows.Forms.DialogResult.OK)
         //        image.Save(dlg.FileName, ImageFormat.Png);
         //}
-        private void SaveZDF()
+        private async Task SaveZDF()
         {
-            if (SaveLocation == null || SaveLocation == "" || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
+            if (SaveLocation == null || SaveLocation == String.Empty || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
             {
                 var filename = _ioService.SaveFileDialogService(getSaveDirectory());
-                SaveLogic(Convert.ToString(filename));
+                await SaveLogic(Convert.ToString(filename));
             }
             else
             {
                 var filename = SaveLocation;
-                SaveLogic(Convert.ToString(filename));
+                await SaveLogic(Convert.ToString(filename));
             }
         }
 
         #region Save Common Logic
-        private void SaveLogic(string filename)
+        private async Task SaveLogic(string filename)
         {
             var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
 
@@ -607,7 +609,7 @@ namespace ZaveViewModel.ViewModels
                             {
 
                                 setIndented(serializer);
-                                serializer.Serialize(wr, activeZDFVM.GetModel());
+                                await Task.Factory.StartNew(() => serializer.Serialize(wr, activeZDFVM.GetModel()));
                                 SaveLocation = filename;
                                 var activeZDF = ZDFSingleton.GetInstance();
                                 activeZDF.Name = filename;
@@ -637,11 +639,11 @@ namespace ZaveViewModel.ViewModels
         #endregion
 
         #region New OPen
-        private void OpenZDF()
+        private async Task OpenZDF()
         {
             //var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
 
-            JsonSerializer serializer = new JsonSerializer();
+            //JsonSerializer serializer = new JsonSerializer();
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
             var filename = _ioService.OpenFileDialogService(getSaveDirectory());
 
@@ -657,22 +659,16 @@ namespace ZaveViewModel.ViewModels
                             try
                             {
                                 JObject jObject = JObject.Load(wr);
-                                //var output = "";
-                                //foreach(JProperty prop in jObject.Properties())
-                                //{
-                                //    output += "PROPERTY 1 EQUALS " + prop.Name + "-" + prop.Value + '\r' + '\n';
-                                //}
 
-                                //System.Windows.Forms.MessageBox.Show(output);
-
-                                //ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.Instance;
 
                                 //activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-                                activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-                                activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
                                 JArray ja = (JArray)jObject["EntryList"]["_items"];
 
-                                activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
+                                await Task.Run(() => activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>()));
+                                activeZdf = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString()));
+                                
+                                activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
+                                
 
                                 //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
                                 //foreach (var item in activeZDF.EntryList)
@@ -687,12 +683,17 @@ namespace ZaveViewModel.ViewModels
                                     ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
                                     ////activeZDF.EntryList.Clear();
                                     ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                                    foreach (var item in activeZdf.EntryList)
+                                    await Task.Run(() =>
                                     {
-                                        //activeZdf.Add(item);
 
-                                        ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
-                                    }
+                                        foreach (var item in activeZdf.EntryList)
+                                        {
+                                            //activeZdf.Add(item);
+
+                                            ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                                        }
+                                    });
+                                    
                                     ////ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
                                     ////ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
 
@@ -816,6 +817,7 @@ namespace ZaveViewModel.ViewModels
             activeZDF.EntryList.Clear();
             MainContainerViewModel.activeZdfUndo.Clear();
             SaveLocation = null;
+            Filename = GuidGenerator.UNSAVEDFILENAME;
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
             _eventAggregator.GetEvent<NewZDFCreatedEvent>().Publish(activeZDF.ID.ToString());
 
