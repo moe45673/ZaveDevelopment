@@ -35,6 +35,8 @@ namespace ZaveViewModel.ViewModels
             _aggregator.GetEvent<ZDFOpenedEvent>().Subscribe(addToMRU);
             _aggregator.GetEvent<ZDFSavedEvent>().Subscribe(addToMRU);
             _aggregator.GetEvent<NewZDFCreatedEvent>().Subscribe(addToMRU);
+
+            //_recentFileList.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(generate)
             ResetListAsync();
 
         }
@@ -60,7 +62,7 @@ namespace ZaveViewModel.ViewModels
                 {
                     _recentFileList.Clear();
                 }
-                _recentFileList = new ObservableImmutableList<string>(MostRecentlyUsedList.GetMostRecentDocs("*.zdf"));
+                RecentFiles = new ObservableImmutableList<string>(MostRecentlyUsedList.GetMostRecentDocs("*.zdf"));
                
                 
 
@@ -71,9 +73,11 @@ namespace ZaveViewModel.ViewModels
         private async Task ResetListAsync()
         {
             await (ResetList());
-            OnPropertyChanged("RecentFiles");
+            
            
         }
+
+        
         
 
 
@@ -96,11 +100,19 @@ namespace ZaveViewModel.ViewModels
                 return new ObservableImmutableList<string>(_recentFileList.Take(MAXLISTSIZE));
 
                         
-             }
-                 
+            }
 
-                    
+            private set
+            {
+                SetProperty(ref _recentFileList, new ObservableImmutableList<string>(MostRecentlyUsedList.GetMostRecentDocs("*.zdf")));
+            }
+
             
+
+
+
+
+
         }
         private ObservableImmutableList<string> _recentFileList;
 
