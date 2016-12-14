@@ -144,9 +144,9 @@ namespace ZaveViewModel.ViewModels
             ser.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
 
-        private void setFileName(object activeZDF)
+        private void setFileName(string activeZDF)
         {
-            Filename = ((ZaveModel.ZDF.ZDFSingleton)activeZDF).Name;
+            Filename = (String)activeZDF;//((ZaveModel.ZDF.ZDFSingleton)activeZDF).Name;
         }
 
         private void SetWindowMode(WindowMode setting)
@@ -613,7 +613,7 @@ namespace ZaveViewModel.ViewModels
                                 SaveLocation = filename;
                                 var activeZDF = ZDFSingleton.GetInstance();
                                 activeZDF.Name = filename;
-                                _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(activeZDF);
+                                _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(activeZDF.Name);
                             }
                             catch (Exception ex)
                             {
@@ -702,7 +702,7 @@ namespace ZaveViewModel.ViewModels
                                     // = Path.GetFileName(filename);
                                     SaveLocation = filename;
                                     activeZdf.Name = filename;
-                                    _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf);
+                                    _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf.Name);
 
                                 }
 

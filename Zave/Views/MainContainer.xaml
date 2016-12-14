@@ -82,7 +82,7 @@
             </Grid>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource ZDFList_Border}">
-            <my:ZDFList></my:ZDFList>
+            <ContentControl x:Name="RecentZDFListRegion" prism:RegionManager.RegionName="RecentZDFListRegion"></ContentControl>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="5" Style="{StaticResource NotificationBar_Border}">
             <my:NotificationBar></my:NotificationBar>

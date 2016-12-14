@@ -138,32 +138,32 @@ namespace ZaveViewModel.ViewModels
         
 
 
-        async private Task<ObservableImmutableList<ColorItem>> SetColorsAsync()
-        {
-            var items = new ObservableImmutableList<ColorItem>();
-            //var converter = new System.Windows.Media.ColorConverter();
+        //async private Task<ObservableImmutableList<ColorItem>> SetColorsAsync()
+        //{
+        //    var items = new ObservableImmutableList<ColorItem>();
+        //    //var converter = new System.Windows.Media.ColorConverter();
 
             
-            var query = Enum.GetValues(typeof(AvailableColors))
-                .Cast<AvailableColors>()
-                .Except(new AvailableColors[] { AvailableColors.None }); //remove "None" from equation
+        //    var query = Enum.GetValues(typeof(AvailableColors))
+        //        .Cast<AvailableColors>()
+        //        .Except(new AvailableColors[] { AvailableColors.None }); //remove "None" from equation
 
-            foreach (AvailableColors color in query)
-            {
-                var name = color.ToString();
-                items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(name), name));
-            }
+        //    foreach (AvailableColors color in query)
+        //    {
+        //        var name = color.ToString();
+        //        items.Add(new ColorItem((Color)ColorConverter.ConvertFromString(name), name));
+        //    }
 
-            //await Task.Delay(2000);
-            //ActiveColor = Color.FromArgb(255, 255, 255, 0);
-            System.Drawing.Color col = new System.Drawing.Color();
-            col = ColorCategory.FromWPFColor(ActiveColor).Color;
-            _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(col);
-            ColorItemList = new ObservableImmutableList<ColorItem>(items);
-            OnPropertyChanged("ColorItemList");
+        //    //await Task.Delay(2000);
+        //    //ActiveColor = Color.FromArgb(255, 255, 255, 0);
+        //    System.Drawing.Color col = new System.Drawing.Color();
+        //    col = ColorCategory.FromWPFColor(ActiveColor).Color;
+        //    _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(col);
+        //    ColorItemList = new ObservableImmutableList<ColorItem>(items);
+        //    OnPropertyChanged("ColorItemList");
 
-            return items;
-        }
+        //    return items;
+        //}
 
 
 

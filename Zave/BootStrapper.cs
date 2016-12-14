@@ -12,6 +12,7 @@ using Prism.Events;
 using Zave.Controllers;
 using ZaveService.ZDFEntry;
 using ZaveGlobalSettings.Data_Structures;
+using System.IO;
 
 namespace Zave
 {
@@ -63,6 +64,7 @@ namespace Zave
             moduleCatalog.AddModule(typeof(ZDFEntryModule));
             moduleCatalog.AddModule(typeof(WidgetModule));
             moduleCatalog.AddModule(typeof(ColorPickerModule));
+            //moduleCatalog.AddModule(typeof(ZDFList));
 
 
 
@@ -86,6 +88,16 @@ namespace Zave
 
 
         }
+
+        /// <summary>
+        /// Child class of ModuleCatalog to dynamically load Modules
+        /// </summary>
+        /// <returns></returns>
+        //protected override IModuleCatalog CreateModuleCatalog()
+        //{
+        //    DynamicDirectoryModuleCatalog catalog = new DynamicDirectoryModuleCatalog(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Module"));
+        //    return catalog;
+        //}
 
         /// <summary>
         /// Overrides the default VMLocator to wire to ViewModel assembly

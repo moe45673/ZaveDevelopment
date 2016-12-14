@@ -12,7 +12,6 @@ using ZaveGlobalSettings.Data_Structures;
 using System.Collections.Immutable;
 using System.Threading;
 using System.Windows.Forms;
-using JetBrains.ReSharper.Psi.Resx.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Prism.Mvvm;

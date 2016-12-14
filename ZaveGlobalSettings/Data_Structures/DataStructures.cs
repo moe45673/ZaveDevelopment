@@ -459,13 +459,18 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
-    public class ZDFOpenedEvent : PubSubEvent<object> { }
+    public class ZDFOpenedEvent : PubSubEvent<string> { }
 
-    public class ZDFSavedEvent : PubSubEvent<object> { }
+    public class ZDFSavedEvent : PubSubEvent<string> { }
 
     public class ZDFExportedEvent : PubSubEvent<object> { }
 
     public class NewZDFCreatedEvent : PubSubEvent<string>
+    {
+
+    }
+
+    public class MRUChangedEvent : PubSubEvent<string>
     {
 
     }

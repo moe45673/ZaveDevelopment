@@ -8,31 +8,37 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:converters="clr-namespace:Zave.Converters"
+             d:DataContext="{d:DesignInstance vm:ZDFListViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
+
+        <converters:FilenameConverters x:Key="filenameConverter"/>
         <Style x:Key="FileList_Container" TargetType="{x:Type ListBox}">
             <Setter Property="BorderBrush" Value="{x:Null}"/>
             <Setter Property="Background" Value="#F0F0F0"/>
         </Style>
     </UserControl.Resources>
     <Canvas>
-        <ListBox Style="{StaticResource FileList_Container}">
+        <ListBox Style="{StaticResource FileList_Container}" ItemsSource="{Binding RecentFiles}" >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            <ListBoxItem>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <Image Source="/Zave;component/media/images/zdf.png"/>
-                    <Label Grid.Row="1" Content="Sample ZDF File 1"/>
+                    <Label Grid.Row="1" Content="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource filenameConverter}}"/>
                 </Grid>
-            </ListBoxItem>
-            <ListBoxItem>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <!--<ListBoxItem>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -81,7 +87,7 @@
                     <Image Source="/Zave;component/media/images/zdf.png"/>
                     <Label Grid.Row="1" Content="Sample ZDF File 6"/>
                 </Grid>
-            </ListBoxItem>
+            </ListBoxItem>-->
         </ListBox>
     </Canvas>
 </UserControl>

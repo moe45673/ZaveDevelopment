@@ -13,7 +13,6 @@ using System.ComponentModel;
 using ZaveModel;
 using ZaveModel.ZDFEntry;
 using System.Windows.Media;
-using JetBrains.Util;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
