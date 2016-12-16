@@ -89,7 +89,7 @@ namespace ZaveViewModel.ViewModels
                 {
                     if(_recentFileList == null)
                     ResetListAsync();
-
+                    return new ObservableImmutableList<string>(_recentFileList.Take(MAXLISTSIZE));
 
                 }
                 catch
