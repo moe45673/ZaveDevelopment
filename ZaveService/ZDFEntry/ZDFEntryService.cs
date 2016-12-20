@@ -7,7 +7,6 @@ using ZaveModel.ZDFEntry;
 using ZaveGlobalSettings.Data_Structures;
 using Prism.Events;
 
-
 namespace ZaveService.ZDFEntry
 {
     

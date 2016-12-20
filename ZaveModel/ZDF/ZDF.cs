@@ -14,10 +14,9 @@ using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using Prism.Mvvm;
 using Prism.Events;
-using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
-
 
 namespace ZaveModel.ZDF
 {
@@ -187,7 +186,7 @@ namespace ZaveModel.ZDF
             }
         }
 
-        public static void Add(Object obj)
+        public static void Add(object obj)
         {
             Instance.Add(obj as ZDFEntry.IZDFEntry);
         }

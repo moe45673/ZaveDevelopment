@@ -28,7 +28,7 @@ using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using System.Windows;
 using System.Windows.Interop;
-using DevExpress.Utils.Drawing.Helpers;
+//using DevExpress.Utils.Drawing.Helpers;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Windows.Controls;
