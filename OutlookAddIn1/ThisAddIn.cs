@@ -32,6 +32,7 @@ namespace OutlookAddIn1
             //    must run when Outlook shuts down, see http://go.microsoft.com/fwlink/?LinkId=506785
         }
 
+
         private void Inspectors_NewInspector(OutlookInterop.Inspector inspector)
         {
             OutlookInterop.MailItem mailItem = inspector.CurrentItem as OutlookInterop.MailItem;
