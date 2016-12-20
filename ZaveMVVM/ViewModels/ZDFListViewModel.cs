@@ -86,17 +86,18 @@ namespace ZaveViewModel.ViewModels
             {
                 try
                 {
-                    if(_recentFileList == null)
-                    ResetListAsync();
+                    if (_recentFileList == null)
+                        ResetListAsync();
 
-
+                    return new ObservableImmutableList<string>(_recentFileList.Take(MAXLISTSIZE));
                 }
                 catch
                 {
                     _recentFileList = new ObservableImmutableList<string>();
                 }
 
-                return new ObservableImmutableList<string>(_recentFileList.Take(MAXLISTSIZE));
+                
+                return new ObservableImmutableList<string>();
 
                         
             }
