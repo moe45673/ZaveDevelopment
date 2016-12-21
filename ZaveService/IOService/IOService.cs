@@ -7,7 +7,6 @@ using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 
-
 namespace ZaveService.IOService
 {
     public interface IIOService

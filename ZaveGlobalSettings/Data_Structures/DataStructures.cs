@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using System.Windows.Threading;
 using Prism.Events;
 
 namespace ZaveGlobalSettings.Data_Structures
@@ -19,7 +12,7 @@ namespace ZaveGlobalSettings.Data_Structures
     /// holds all allowable platforms for Zave to integrate with. Value must be a power of 2
     /// </summary>
     [Flags]
-    public enum SrcType { NONE = 0, WORD = 1, EXCEL = 2 }
+    public enum SrcType { NONE = 0, WORD = 1, EXCEL = 2, OUTLOOK = 3 }
 
     public enum WindowMode { NONE = 0, MAIN = 1, WIDGET = 2 }
 

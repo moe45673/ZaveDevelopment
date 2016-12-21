@@ -31,7 +31,7 @@ using System.Collections.Specialized;
 using System.Drawing.Imaging;
 using System.Windows.Media.Imaging;
 using System.Windows.Interop;
-using DevExpress.Utils.Drawing.Helpers;
+//using DevExpress.Utils.Drawing.Helpers;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Diagnostics;
