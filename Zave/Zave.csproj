@@ -170,6 +170,7 @@
     <Compile Include="Converters\FilenameConverter.cs" />
     <Compile Include="Converters\StringToSourceConverter.cs" />
     <Compile Include="Converters\WindowModeConverter.cs" />
+    <Compile Include="Helpers\FlowDocumentScrollViewerHelper.cs" />
     <Compile Include="Module\ColorPickerModule.cs" />
     <Compile Include="Module\DataServiceModule.cs" />
     <Compile Include="Module\DynamicDirectoryModuleCatalog.cs" />

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Zave.Views"
              xmlns:prism="http://prismlibrary.com/"    
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:helpers="clr-namespace:Zave.Helpers"
              xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:converters="clr-namespace:Zave.Converters"
@@ -15,6 +16,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:ZDFEntryViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
+        <helpers:FlowDocumentScrollViewerHelper x:Key="FlowDocScrollViewHelper"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:ColorConverters x:Key="ColorConverter"/>
         <local:MainWindow x:Key="ZaveShell"/>
@@ -36,12 +38,12 @@
             <Setter Property="FontWeight" Value="DemiBold"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
-        <Style x:Key="docText_Text" TargetType="{x:Type TextBlock}">
+        <Style x:Key="docText_Text" TargetType="{x:Type FlowDocumentScrollViewer}">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontFamily" Value="Open Sans"/>
             <Setter Property="FontWeight" Value="Light"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="LineHeight" Value="20"/>
+            <!--<Setter Property="LineHeight" Value="20"/>-->
         </Style>
         <Style x:Key="docCommentLbl_Text" TargetType="{x:Type Label}">
             <Setter Property="Margin" Value="10"/>
@@ -146,7 +148,17 @@
             <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Text="Created: 2016-07-12 10:38 AM" Style="{StaticResource hiLightHeader_Text}"/>
         </Grid>
         <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
-        <TextBlock x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" TextWrapping="WrapWithOverflow" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource docText_Text}"/>
+        <FlowDocumentScrollViewer x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" Style="{StaticResource docText_Text}">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}"></Run>
+                    <Image Source="http://previews.123rf.com/images/trimbaldi/trimbaldi1309/trimbaldi130900009/23089799-Boom-in-pop-art-Stock-Vector-boom.jpg"></Image>
+                </Paragraph>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+
+
+
 
         <!--<TextBlock x:Name="docIdTxtBx" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" Visibility="Collapsed" />-->
 
