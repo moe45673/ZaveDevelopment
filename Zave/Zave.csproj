@@ -174,7 +174,7 @@
     <Compile Include="Converters\FilenameConverter.cs" />
     <Compile Include="Converters\StringToSourceConverter.cs" />
     <Compile Include="Converters\WindowModeConverter.cs" />
-    <Compile Include="Helpers\FlowDocumentScrollViewerHelper.cs" />
+    <Compile Include="Converters\XamlToFlowDocumentConverter.cs" />
     <Compile Include="Module\ColorPickerModule.cs" />
     <Compile Include="Module\DataServiceModule.cs" />
     <Compile Include="Module\IOModule.cs" />
@@ -346,6 +346,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Helpers\" />
     <Folder Include="ZDFEntry\" />
   </ItemGroup>
   <ItemGroup>

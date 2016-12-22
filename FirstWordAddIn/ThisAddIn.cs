@@ -12,6 +12,7 @@ using WordTools = Microsoft.Office.Tools.Word;
 using FirstWordAddIn.DataStructures;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.ZaveFile;
+using System.Windows.Forms;
 
 
 
@@ -23,6 +24,8 @@ namespace FirstWordAddIn
     
     public partial class ThisAddIn
     {
+
+        RichTextBox rtb;
 
         //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
         //ZDFSingleton activeZDF = ZDFSingleton.Instance;
@@ -37,9 +40,9 @@ namespace FirstWordAddIn
             new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
             ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
-                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);     
-            
-                  
+                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
+
+            rtb = new RichTextBox();
             
         }
         
@@ -71,15 +74,21 @@ namespace FirstWordAddIn
                 if (e.Selection.Text.Length >= 2)
                 {
                     List<SelectionState> _selStateList = new List<SelectionState>();
-                    
+
+                    rtb.Clear();
+                    e.Selection.Copy();
+                    rtb.Paste();
+
                     _selStateList.Add(new SelectionState()
                     {
                         SelectionDocName = e.Selection.Application.ActiveDocument.Name,
-                        SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString(),
-                        SelectionText = e.Selection.Text,
+                        SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString(),                        
+                        SelectionText = rtb.Rtf,
                         SelectionDateModified = DateTime.Now,
                         srcType = SrcType.WORD
                     });
+                    
+                    //System.Windows.Forms.MessageBox.Show(rtb.Rtf);
 
 //#if DEBUG
                     //System.Windows.Forms.MessageBox.Show(default(DateTime).ToString());

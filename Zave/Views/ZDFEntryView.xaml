@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Zave.Views"
              xmlns:prism="http://prismlibrary.com/"    
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:helpers="clr-namespace:Zave.Helpers"
+             prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -15,9 +14,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:ZDFEntryViewModel, IsDesignTimeCreatable=True}">
-    <UserControl.Resources>
-        <helpers:FlowDocumentScrollViewerHelper x:Key="FlowDocScrollViewHelper"/>
+
+    <UserControl.Resources>        
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:FlowDocumentToXamlConverter x:Key="stringToFlowConverter"/>
         <converters:ColorConverters x:Key="ColorConverter"/>
         <local:MainWindow x:Key="ZaveShell"/>
         <Style x:Key="gridEntry" TargetType="{x:Type Grid}">
@@ -148,14 +148,8 @@
             <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Text="Created: 2016-07-12 10:38 AM" Style="{StaticResource hiLightHeader_Text}"/>
         </Grid>
         <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
-        <FlowDocumentScrollViewer x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" Style="{StaticResource docText_Text}">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}"></Run>
-                    <Image Source="http://previews.123rf.com/images/trimbaldi/trimbaldi1309/trimbaldi130900009/23089799-Boom-in-pop-art-Stock-Vector-boom.jpg"></Image>
-                </Paragraph>
-            </FlowDocument>
-        </FlowDocumentScrollViewer>
+        <FlowDocumentScrollViewer x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" Style="{StaticResource docText_Text}" Document="{Binding TxtDocText, Converter={StaticResource stringToFlowConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
 
 
 

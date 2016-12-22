@@ -191,7 +191,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="app.config" />
-    <None Include="OutlookAddIn1_1_TemporaryKey.pfx" />
     <None Include="OutlookAddIn1_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -226,10 +225,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>OutlookAddIn1_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>OutlookAddIn1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1B9A6F811557A0B43EF856BD89D6BE1480AAA0F9</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>D36BF7C5106AC18C7D32A5C965C524E1B1ABE899</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

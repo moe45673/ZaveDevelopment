@@ -91,6 +91,7 @@ namespace ZaveGlobalSettings.Data_Structures
             SelectionDocName = name;
             SelectionPage = page;
             SelectionText = text;
+            
             if (date == default(DateTime))
                 SelectionDateModified = DateTime.Now;
             else
