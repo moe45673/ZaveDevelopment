@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using System.IO;
+using System.Globalization;
 
 namespace Zave.Converters
 {
@@ -28,8 +29,9 @@ namespace Zave.Converters
             try
             {
                 var flowDocument = new FlowDocument();
-                if (value != null)
+                if (!(string.IsNullOrEmpty((string)value)))
                 {
+
                     var xamlText = (string)value;
                     TextRange content = new TextRange(flowDocument.ContentStart, flowDocument.ContentEnd);
                     if (content.CanLoad(DataFormats.Rtf) && string.IsNullOrEmpty(xamlText) == false)
@@ -73,5 +75,26 @@ namespace Zave.Converters
         }
 
         #endregion
+    }
+
+
+    public class RtfToPlainTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string rtfText = (string)value;
+
+            var richTxtBx = new RichTextBox();
+            richTxtBx.Rtf = rtfText;
+            string plainText = richTxtBx.Text;
+
+            return plainText;
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

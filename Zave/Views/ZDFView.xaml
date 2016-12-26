@@ -16,7 +16,7 @@
              d:DataContext="{d:DesignInstance vm:ZDFViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-
+        <converters:RtfToPlainTextConverter x:Key="RtfToPlainTxtConverter"/>
         <converters:ColorConverters x:Key="ColorConverter"/>
 
         <Style x:Key="ActiveEntry">
@@ -118,7 +118,7 @@
                         <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock x:Name="docNameTxtBx" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListView_Item_Title}"/>
 
-                            <TextBlock x:Name="docTextTxtBx1" Text="{Binding TxtDocText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListView_Item_Snippet}"/>
+                            <TextBlock x:Name="docTextTxtBx1" Text="{Binding TxtDocText, Converter={StaticResource RtfToPlainTxtConverter}, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListView_Item_Snippet}"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
