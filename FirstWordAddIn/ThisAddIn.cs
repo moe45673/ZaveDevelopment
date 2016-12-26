@@ -13,6 +13,7 @@ using FirstWordAddIn.DataStructures;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.ZaveFile;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 
 
@@ -64,7 +65,7 @@ namespace FirstWordAddIn
         }
 
 
-        void ThisDocument_SelectionChange(object sender, Microsoft.Office.Tools.Word.SelectionEventArgs e)
+        async void ThisDocument_SelectionChange(object sender, Microsoft.Office.Tools.Word.SelectionEventArgs e)
         {
             try
             {
@@ -87,37 +88,17 @@ namespace FirstWordAddIn
                         SelectionDateModified = DateTime.Now,
                         srcType = SrcType.WORD
                     });
-                    
+
                     //System.Windows.Forms.MessageBox.Show(rtb.Rtf);
 
-//#if DEBUG
-                    //System.Windows.Forms.MessageBox.Show(default(DateTime).ToString());
-//#endif
-                    string json = Newtonsoft.Json.JsonConvert.SerializeObject(_selStateList.ToArray());
-
                     //#if DEBUG
-                    //                    System.Windows.Forms.MessageBox.Show("After Serialization");
+                    //System.Windows.Forms.MessageBox.Show(default(DateTime).ToString());
                     //#endif
-                    //OnWordFired(selState);         
+
                     string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
-                    //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
-                    //System.Windows.Forms.MessageBox.Show(projDir);
 
-
-                    using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
-                    {
-                        try
-                        {
-                            //sw.BaseStream.Seek(0, SeekOrigin.End);
-                            sw.Write(json);
-                            
-                            sw.Close();
-                        }
-                        catch (IOException ex)
-                        {
-                            throw ex;
-                        }
-                    }
+                    WriteToJsonFile(projFile, _selStateList);
+                    
                         
                    
                    
@@ -138,6 +119,40 @@ namespace FirstWordAddIn
             var handler = WordFired;
             if (handler != null)
                 handler(this, new SrcEventArgs(selState));
+        }
+
+        private async Task WriteToJsonFile(string filename, List<SelectionState> selStateList)
+        {
+
+            await Task.Run(() =>
+            {
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(selStateList.ToArray());
+
+                //#if DEBUG
+                //                    System.Windows.Forms.MessageBox.Show("After Serialization");
+                //#endif
+                //OnWordFired(selState);         
+
+                //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
+                //System.Windows.Forms.MessageBox.Show(projDir);
+
+
+                using (StreamWriter sw = StreamWriterFactory.createStreamWriter(filename))
+                {
+                    try
+                    {
+                        //sw.BaseStream.Seek(0, SeekOrigin.End);
+                        sw.Write(json);
+
+                        sw.Close();
+                    }
+                    catch (IOException ex)
+                    {
+                        throw ex;
+                    }
+                }
+            });
+
         }
 
         
