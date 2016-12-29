@@ -27,6 +27,7 @@ using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ZaveService.IOService;
+using ZaveService.JSONService;
 using System.Collections.Specialized;
 using System.Drawing.Imaging;
 using System.Windows.Media.Imaging;
@@ -50,6 +51,7 @@ namespace ZaveViewModel.ViewModels
         public static string SaveLocation = null;
         private WindowMode _winMode;
         private readonly IIOService _ioService;
+        private readonly IJsonService _jsonService;
         public static List<ZdfUndoComments> ZdfUndoComments = new List<ZdfUndoComments>();
         public static List<ZdfUndoComments> RemoveZdundoComments = new List<ZdfUndoComments>();
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
@@ -59,6 +61,7 @@ namespace ZaveViewModel.ViewModels
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
+        public DelegateCommand<string> OpenZDFFromFileDelegateCommand { get; set; }
 
         public DelegateCommand NewZDFDelegateCommand { get; set; }
 
@@ -103,7 +106,7 @@ namespace ZaveViewModel.ViewModels
         //    return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         //}
 
-        public MainWindowViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator agg, IIOService ioservice)
+        public MainWindowViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator agg, IIOService ioservice, IJsonService jsonService)
         {
 
             if (cont == null) throw new ArgumentNullException("container");
@@ -124,8 +127,10 @@ namespace ZaveViewModel.ViewModels
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
             SetWindowMode(WindowMode.MAIN);
             _ioService = ioservice;
+            _jsonService = jsonService;
             SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDF);
             OpenZDFDelegateCommand = DelegateCommand.FromAsyncHandler(OpenZDF);
+            OpenZDFFromFileDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => OpenZDF(x));
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
             NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
             UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
@@ -136,6 +141,89 @@ namespace ZaveViewModel.ViewModels
 
             //_eventAggregator.GetEvent<MainWindowInstantiatedEvent>().Publish(true);
 
+        }
+
+        private async Task OpenZDF(string filename)
+        {
+            ZDFSingleton activeZdf = _container.Resolve<ZDFSingleton>(InstanceNames.ActiveZDF);
+            using (var sr = _ioService.OpenFileService(filename))
+            {
+                try
+                {
+                    using (JsonReader wr = new JsonTextReader(sr))
+                    {
+                        try
+                        {
+                            JObject jObject = JObject.Load(wr);
+
+
+                            //activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
+                            JArray ja = (JArray)jObject["EntryList"]["_items"];
+
+                            await Task.Run(() => activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>()));
+                            activeZdf = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString()));
+
+                            activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
+
+
+                            //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
+                            //foreach (var item in activeZDF.EntryList)
+                            //{
+                            //    activeZDF.Add(item);
+                            //}
+
+
+
+                            if (activeZdf.EntryList.Count > 0)
+                            {
+                                ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+                                ////activeZDF.EntryList.Clear();
+                                ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+                                await Task.Run(() =>
+                                {
+
+                                    foreach (var item in activeZdf.EntryList)
+                                    {
+                                //activeZdf.Add(item);
+
+                                ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                                    }
+                                });
+
+                                ////ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                                ////ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
+
+                                ////List<SelectionState> selState = activeZDF.toSelectionStateList();
+
+                                // = Path.GetFileName(filename);
+                                SaveLocation = filename;
+                                activeZdf.Name = filename;
+                                _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf.Name);
+
+                            }
+
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                        finally
+                        {
+                            wr.Close();
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                }
+                finally
+                {
+                    sr.Close();
+                }
+            }
         }
 
         [Conditional("DEBUG")]
@@ -165,10 +253,10 @@ namespace ZaveViewModel.ViewModels
             }
             else
                 WinMode = WindowMode.MAIN;
-            
-            
+
+
             _eventAggregator.GetEvent<WindowModeChangeEvent>().Publish(WinMode);
-            
+
         }
 
         #region Properties
@@ -184,13 +272,13 @@ namespace ZaveViewModel.ViewModels
             {
                 SaveLocation = value;
                 var name = Path.GetFileName(SaveLocation);
-                SetProperty(ref _filename, name);      
+                SetProperty(ref _filename, name);
                 _eventAggregator.GetEvent<FilenameChangedEvent>().Publish(_filename);
 
                 //SetProperty(ref _filename, name);
             }
         }
-              
+
 
         public WindowMode WinMode
         {
@@ -575,6 +663,11 @@ namespace ZaveViewModel.ViewModels
         //    if (res == System.Windows.Forms.DialogResult.OK)
         //        image.Save(dlg.FileName, ImageFormat.Png);
         //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private async Task SaveZDF()
         {
             if (SaveLocation == null || SaveLocation == String.Empty || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
@@ -639,6 +732,10 @@ namespace ZaveViewModel.ViewModels
         #endregion
 
         #region New OPen
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private async Task OpenZDF()
         {
             //var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
@@ -648,87 +745,13 @@ namespace ZaveViewModel.ViewModels
             var filename = _ioService.OpenFileDialogService(getSaveDirectory());
 
 
-            if (filename != String.Empty) //If the user presses cancel
+            if (filename != String.Empty) //If the user did not press cancel
             {
-                using (var sr = _ioService.OpenFileService(filename))
-                {
-                    try
-                    {
-                        using (JsonReader wr = new JsonTextReader(sr))
-                        {
-                            try
-                            {
-                                JObject jObject = JObject.Load(wr);
 
+                await OpenZDF(filename);
 
-                                //activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-                                JArray ja = (JArray)jObject["EntryList"]["_items"];
-
-                                await Task.Run(() => activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>()));
-                                activeZdf = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString()));
-                                
-                                activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
-                                
-
-                                //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
-                                //foreach (var item in activeZDF.EntryList)
-                                //{
-                                //    activeZDF.Add(item);
-                                //}
-
-
-
-                                if (activeZdf.EntryList.Count > 0)
-                                {
-                                    ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-                                    ////activeZDF.EntryList.Clear();
-                                    ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                                    await Task.Run(() =>
-                                    {
-
-                                        foreach (var item in activeZdf.EntryList)
-                                        {
-                                            //activeZdf.Add(item);
-
-                                            ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
-                                        }
-                                    });
-                                    
-                                    ////ZdfEntries.FirstOrDefault().TxtDocName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
-                                    ////ZdfEntries.Select(w => w.TxtDocName == System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
-
-                                    ////List<SelectionState> selState = activeZDF.toSelectionStateList();
-
-                                    // = Path.GetFileName(filename);
-                                    SaveLocation = filename;
-                                    activeZdf.Name = filename;
-                                    _eventAggregator.GetEvent<ZDFOpenedEvent>().Publish(activeZdf.Name);
-
-                                }
-
-
-
-                            }
-                            catch (Exception ex)
-                            {
-                                throw ex;
-                            }
-                            finally
-                            {
-                                wr.Close();
-                            }
-                        }
-                    }
-
-                    catch (Exception ex)
-                    {
-                    }
-                    finally
-                    {
-                        sr.Close();
-                    }
-                }
             }
+        
         }
         #endregion
 
@@ -799,100 +822,100 @@ namespace ZaveViewModel.ViewModels
 
 
         private void NewZDFEntry()
-        {
-            #region checkin
-            ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
-            ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-            activeZDF.Add(new ZDFEntry());
-            ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-            #endregion
+{
+    #region checkin
+    ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+    ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
+    ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
+    activeZDF.Add(new ZDFEntry());
+    ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
+    #endregion
 
-        }
+}
 
 
-        private void NewZDF()
-        {
-            ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-            activeZDF.EntryList.Clear();
-            MainContainerViewModel.activeZdfUndo.Clear();
-            SaveLocation = null;
-            Filename = GuidGenerator.UNSAVEDFILENAME;
-            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-            _eventAggregator.GetEvent<NewZDFCreatedEvent>().Publish(activeZDF.ID.ToString());
+private void NewZDF()
+{
+    ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
+    activeZDF.EntryList.Clear();
+    MainContainerViewModel.activeZdfUndo.Clear();
+    SaveLocation = null;
+    Filename = GuidGenerator.UNSAVEDFILENAME;
+    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+    _eventAggregator.GetEvent<NewZDFCreatedEvent>().Publish(activeZDF.ID.ToString());
 
-        }
+}
 
-        public static string getSaveDirectory()
-        {
-            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ZDFs";
-        }
+public static string getSaveDirectory()
+{
+    return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ZDFs";
+}
 
-        private string getSaveFileName()
-        {
-            return "\\SaveDoc";
-        }
+private string getSaveFileName()
+{
+    return @"\SaveDoc";
+}
 
-        void SaveAsZdfFile()
-        {
-            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
-            saveFileDialog.DefaultExt = ".ZDF"; // Default file extension
-            saveFileDialog.Filter = "ZDF documents (.ZDF)|*.ZDF"; // Filter files by extension
-            saveFileDialog.FileName = "";
+void SaveAsZdfFile()
+{
+    Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+    saveFileDialog.DefaultExt = ".ZDF"; // Default file extension
+    saveFileDialog.Filter = "ZDF documents (.ZDF)|*.ZDF"; // Filter files by extension
+    saveFileDialog.FileName = "";
 
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                SaveLogic(Convert.ToString(saveFileDialog.FileName));
-            }
-        }
+    if (saveFileDialog.ShowDialog() == true)
+    {
+        ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+        SaveLogic(Convert.ToString(saveFileDialog.FileName));
+    }
+}
     }
 
     internal class NativeMethods
+{
+
+    [DllImport("user32.dll")]
+    public extern static IntPtr GetDesktopWindow();
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetWindowDC(IntPtr hwnd);
+    [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+    public static extern IntPtr GetForegroundWindow();
+    [DllImport("gdi32.dll")]
+    public static extern UInt64 BitBlt(IntPtr hDestDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, System.Int32 dwRop);
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
+    public static Bitmap CaptureActiveWindow()
     {
-
-        [DllImport("user32.dll")]
-        public extern static IntPtr GetDesktopWindow();
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetWindowDC(IntPtr hwnd);
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern IntPtr GetForegroundWindow();
-        [DllImport("gdi32.dll")]
-        public static extern UInt64 BitBlt(IntPtr hDestDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, System.Int32 dwRop);
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
-        public static Bitmap CaptureActiveWindow()
-        {
-            return CaptureWindow(GetForegroundWindow());
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        private struct Rect
-        {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
-        }
-        public static Bitmap CaptureWindow(IntPtr handle)
-        {
-            var rect = new Rect();
-            GetWindowRect(handle, ref rect);
-            var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
-            var result = new Bitmap(bounds.Width, bounds.Height);
-
-            using (var graphics = Graphics.FromImage(result))
-            {
-                graphics.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, bounds.Size);
-            }
-
-            return result;
-        }
+        return CaptureWindow(GetForegroundWindow());
     }
-    public class ZdfUndoComments
+    [StructLayout(LayoutKind.Sequential)]
+    private struct Rect
     {
-        public int ID { get; set; }
-        public IEntryComment Comments { get; set; }
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
     }
+    public static Bitmap CaptureWindow(IntPtr handle)
+    {
+        var rect = new Rect();
+        GetWindowRect(handle, ref rect);
+        var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
+        var result = new Bitmap(bounds.Width, bounds.Height);
+
+        using (var graphics = Graphics.FromImage(result))
+        {
+            graphics.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, bounds.Size);
+        }
+
+        return result;
+    }
+}
+public class ZdfUndoComments
+{
+    public int ID { get; set; }
+    public IEntryComment Comments { get; set; }
+}
 
 }
         #endregion

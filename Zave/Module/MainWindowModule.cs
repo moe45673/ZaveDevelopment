@@ -15,6 +15,7 @@ namespace Zave.Module
 {
     [Module(ModuleName = "MainWindowModule", OnDemand = true)]
     [ModuleDependency("IOModule")]
+    [ModuleDependency("JsonModule")]
     public class MainWindowModule : ModuleBaseClass
     {
         private ZaveController.EventInitSingleton eventInit;
@@ -32,7 +33,7 @@ namespace Zave.Module
             
             _regionManager.RegisterViewWithRegion(RegionNames.MainViewRegion, () => _unityContainer.Resolve<MainContainer>());
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
-            eventInit = ZaveController.EventInitSingleton.GetInstance(_unityContainer.Resolve<IEventAggregator>(), _unityContainer);
+            eventInit = ZaveController.EventInitSingleton.GetInstance(_unityContainer, _unityContainer.Resolve<IEventAggregator>());
             mainWinController = _unityContainer.Resolve<Controllers.MainWindowController>();
             
         }

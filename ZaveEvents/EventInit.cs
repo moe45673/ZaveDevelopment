@@ -74,7 +74,7 @@ namespace ZaveController
 
         }
 
-        public static EventInitSingleton GetInstance(IEventAggregator eventAgg = null, IUnityContainer cont = null)
+        public static EventInitSingleton GetInstance(IUnityContainer cont, IEventAggregator eventAgg = null)
         {
             if (instance._eventAggregator == null && eventAgg != null)
             {
@@ -82,8 +82,11 @@ namespace ZaveController
                 instance._eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Subscribe(instance.SetActiveColor);
                 instance.activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance(eventAgg);
                 instance._container = cont;
+                cont.RegisterInstance<ZDFSingleton>(InstanceNames.ActiveZDF, instance.activeZDF);
                 instance.activeColor = instance._container.Resolve<ColorPickerViewModel>().ActiveColor;
             }
+
+
 
             return Instance;
         }

@@ -481,6 +481,8 @@ namespace ZaveGlobalSettings.Data_Structures
     {
         public const string MainWindowView = "MainWindowView";
         public const string MainWindowViewModel = "MainWindowViewModel";
+        public const string ActiveZDF = "ActiveZDF";
+
     }
 
 }
