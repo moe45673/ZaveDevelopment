@@ -9,6 +9,7 @@ using Prism.Regions;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveService.ZDFEntry;
 using Zave.Module;
+using ZaveModel.ZDFEntry;
 
 namespace Zave.Controllers
 {
@@ -57,7 +58,7 @@ namespace Zave.Controllers
             }
 
             //otherwise, populate view with selected Entry
-            ZaveModel.ZDFEntry.IZDFEntry selectedEntry = this.entryService.getZDFEntry(id);
+            ZaveModel.ZDFEntry.IZDFEntry selectedEntry = this.entryService.getZDFEntry<ZDFEntry>(id);
 
 
             

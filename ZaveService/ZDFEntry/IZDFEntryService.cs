@@ -10,7 +10,7 @@ namespace ZaveService.ZDFEntry
     public interface IZDFEntryService
     {
         int ActiveZDFEntryId { get; set; }
-        IZDFEntry getZDFEntry(string id);
+        T getZDFEntry<T>(string id) where T : IZDFEntry, new();
 
         IZDFEntry getZDFEntry(int id);
     }

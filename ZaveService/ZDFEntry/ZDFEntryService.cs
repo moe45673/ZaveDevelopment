@@ -33,14 +33,15 @@ namespace ZaveService.ZDFEntry
         private int _activeZDFEntryId;
         public int ActiveZDFEntryId { get; set; }
 
-        public IZDFEntry getZDFEntry(string id)
+        public T getZDFEntry<T>(string id) where T : IZDFEntry, new()
         {
-            if (string.IsNullOrEmpty(id)) return new ZaveModel.ZDFEntry.ZDFEntry();
+            if (string.IsNullOrEmpty(id)) return new T();
 
             int idToPass;
             int.TryParse(id, out idToPass);
             //ActiveZDFEntryId = idToPass;
-            return ZaveModel.ZDF.ZDFSingleton.GetInstance().ListEntries().FirstOrDefault(x => x.ID == idToPass);
+            T retValue = (T)ZaveModel.ZDF.ZDFSingleton.GetInstance().ListEntries().FirstOrDefault(x => x.ID == idToPass);
+            return retValue;
         }
 
         public IZDFEntry getZDFEntry(int id)
