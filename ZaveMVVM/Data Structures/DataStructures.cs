@@ -54,7 +54,7 @@ namespace ZaveViewModel.Data_Structures
         public static string SelectedZDFByUser = null;
 
 
-        protected virtual void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        protected void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace ZaveViewModel.Data_Structures
 
         //private string _txtDocId;
 
-        protected virtual void setProperties(int id = 0, string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = null)
+        protected void setProperties(int id = 0, string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = null)
         {
             if (_zdfEntry == null)
             {
@@ -221,7 +221,7 @@ namespace ZaveViewModel.Data_Structures
 
 
 
-        public virtual DelegateCommand<System.Collections.IList> SelectCommentDelegateCommand
+        public DelegateCommand<System.Collections.IList> SelectCommentDelegateCommand
         {
             get; private set;
         }
@@ -229,7 +229,7 @@ namespace ZaveViewModel.Data_Structures
 
 
 
-        protected virtual void SelectComment(System.Collections.IList items)
+        protected void SelectComment(System.Collections.IList items)
         {
             if (items != null)
             {
@@ -249,14 +249,14 @@ namespace ZaveViewModel.Data_Structures
 
         private ZDFCommentItem _editedComment;
 
-        public virtual ZDFCommentItem EditedComment
+        public ZDFCommentItem EditedComment
         {
             get { return this._editedComment; }
             set { SetProperty(ref _editedComment, value); }
         }
 
         private bool _isNotEditing;
-        protected virtual bool IsNotEditing
+        protected bool IsNotEditing
         {
             get { return _isNotEditing; }
             private set { SetProperty(ref _isNotEditing, value); }
@@ -303,7 +303,7 @@ namespace ZaveViewModel.Data_Structures
         }
 
         #region Converters
-        public virtual SelectionState toSelectionState()
+        public SelectionState toSelectionState()
         {
             return _zdfEntry.toSelectionState();
         }
@@ -342,7 +342,7 @@ namespace ZaveViewModel.Data_Structures
         #region Properties
 
         protected String _txtDocName;
-        public virtual String TxtDocName
+        public String TxtDocName
         {
             get { return _zdfEntry.Name; }
             set
@@ -382,7 +382,7 @@ namespace ZaveViewModel.Data_Structures
         }
 
         protected String _txtDocPage;
-        public virtual String TxtDocPage
+        public String TxtDocPage
         {
             get { return _zdfEntry.Page; }
             set
@@ -396,7 +396,7 @@ namespace ZaveViewModel.Data_Structures
         }
 
         protected String _txtDocText;
-        public virtual String TxtDocText
+        public String TxtDocText
         {
             get { return _zdfEntry.Text; }
             set
@@ -411,7 +411,7 @@ namespace ZaveViewModel.Data_Structures
         }
 
         protected String _txtDocLastModified;
-        public virtual String TxtDocLastModified
+        public String TxtDocLastModified
         {
             get
             {
@@ -433,7 +433,7 @@ namespace ZaveViewModel.Data_Structures
         }
 
         protected WPFColor _txtDocColor;
-        public virtual WPFColor TxtDocColor
+        public WPFColor TxtDocColor
         {
             get
             {
@@ -448,7 +448,7 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        public virtual IZDFEntry ZDFEntry
+        public IZDFEntry ZDFEntry
         {
             get { return _zdfEntry; }
             protected set
@@ -461,7 +461,7 @@ namespace ZaveViewModel.Data_Structures
 
         //private readonly object _docCommentsLock;
         protected CommentList _txtDocComments;
-        public virtual CommentList TxtDocComments
+        public CommentList TxtDocComments
         {
             get { return _txtDocComments; }
 
@@ -476,9 +476,9 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        protected bool _canEdit;
+        private bool _canEdit;
 
-        public virtual bool CanEdit
+        public bool CanEdit
         {
             get { return this._canEdit; }
             set { SetProperty(ref _canEdit, value); }
@@ -487,7 +487,7 @@ namespace ZaveViewModel.Data_Structures
 
         private bool _canDelete;
 
-        public virtual bool CanDelete
+        public bool CanDelete
         {
             get { return this._canDelete; }
             set { SetProperty(ref _canDelete, value); }
@@ -496,7 +496,7 @@ namespace ZaveViewModel.Data_Structures
 
         private bool _isEditing;
 
-        public virtual bool IsEditing
+        public bool IsEditing
         {
             get { return this._isEditing; }
             set
@@ -511,7 +511,7 @@ namespace ZaveViewModel.Data_Structures
 
         private bool _canAdd;
 
-        public virtual bool CanAdd
+        public bool CanAdd
         {
             get { return this._canAdd; }
             set

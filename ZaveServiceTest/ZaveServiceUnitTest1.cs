@@ -54,7 +54,7 @@ namespace ZaveServiceTest
         [TestMethod]
         public void GetSpecificEntryFromService()
         {
-            var tempEntry = service.getZDFEntry<ZDFEntry>("3");
+            var tempEntry = service.getZDFEntry("3");
 
             Assert.AreEqual<string>("EntryName", tempEntry.Name);
         }
