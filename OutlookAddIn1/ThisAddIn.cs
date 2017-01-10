@@ -43,8 +43,6 @@ namespace OutlookAddIn1
                 {
                     mailItem.Subject = "This text was added by using code";
                     mailItem.Body = "This text was added by using code";
-
-                    
                 }
             }
         }
