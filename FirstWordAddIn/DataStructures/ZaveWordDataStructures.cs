@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
-using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
+
 using ZaveGlobalSettings.Data_Structures;
 
 namespace FirstWordAddIn.DataStructures
 {
+    using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState<ZaveWordSrcData>;
 
-
-    public class WordEventArgs : ZaveGlobalSettings.Data_Structures.SrcEventArgs
+    public class WordEventArgs : ZaveGlobalSettings.Data_Structures.SrcEventArgs<ZaveWordSrcData>
     {
 
         

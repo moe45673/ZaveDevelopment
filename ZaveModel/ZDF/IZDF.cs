@@ -16,7 +16,7 @@ namespace ZaveModel.ZDF
 
         ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList { get;}
 
-        SelectionStateList toSelectionStateList();
+        //SelectionStateList toSelectionStateList();
         
 
     }

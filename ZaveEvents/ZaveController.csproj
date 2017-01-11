@@ -120,10 +120,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data_Structures\DataStructures.cs" />
     <Compile Include="EventInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZDFSource\SourceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

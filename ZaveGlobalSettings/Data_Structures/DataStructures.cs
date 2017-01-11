@@ -20,40 +20,40 @@ namespace ZaveGlobalSettings.Data_Structures
 
 
 
-    public sealed class SelectionStateList : List<SelectionState>
-    {
-        public List<SelectionState> SelStateList;
+    //public sealed class SelectionStateList : List<SelectionState>
+    //{
+    //    public List<SelectionState> SelStateList;
 
-        private static readonly Lazy<SelectionStateList> lazy = new Lazy<SelectionStateList>(() => new SelectionStateList());
+    //    private static readonly Lazy<SelectionStateList> lazy = new Lazy<SelectionStateList>(() => new SelectionStateList());
 
-        public static SelectionStateList Instance { get { return lazy.Value; } }
+    //    public static SelectionStateList Instance { get { return lazy.Value; } }
 
-        private readonly object _selStateLock = new object();
+    //    private readonly object _selStateLock = new object();
 
-        private SelectionStateList() : base()
-        {
-            SelStateList = new List<SelectionState>();
-        }
-
-
-
-        public void Add(SelectionState selstate)
-        {
-            lock (_selStateLock)
-            {
-                SelStateList.Add(selstate);
-            }
-        }
-
-        public SelectionState Find(int id)
-        {
-            return SelStateList.SingleOrDefault(x => x.ID == id);
-        }
+    //    private SelectionStateList() : base()
+    //    {
+    //        SelStateList = new List<SelectionState>();
+    //    }
 
 
 
+    //    public void Add(SelectionState selstate)
+    //    {
+    //        lock (_selStateLock)
+    //        {
+    //            SelStateList.Add(selstate);
+    //        }
+    //    }
 
-    }
+    //    public SelectionState Find(int id)
+    //    {
+    //        return SelStateList.SingleOrDefault(x => x.ID == id);
+    //    }
+
+
+
+
+    //}
 
     /// <summary>
     /// 
@@ -84,14 +84,16 @@ namespace ZaveGlobalSettings.Data_Structures
     /// <summary>
     /// High Level class that holds all data/metadata from an Entry abstractly
     /// </summary>
-    public class SelectionState
+    public class SelectionState<ZaveSourceData> where ZaveSourceData : IZaveSourceData
     {
 
-        public SelectionState(int id = -1, string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
+        public SelectionState(int id = -1, ZaveSourceData srcData = default(ZaveSourceData), string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.NONE, List<SelectionComment> comments = null)
         {
             ID = id;
-            SelectionDocName = name;
-            SelectionPage = page;
+            if(srcData != null)
+            {
+                SourceData = srcData;
+            }
             SelectionText = text;
 
             if (date == default(DateTime))
@@ -106,11 +108,12 @@ namespace ZaveGlobalSettings.Data_Structures
                 Comments = new List<SelectionComment>();
 
             IsValid = true;
+            
         }
 
         #region properties
 
-        public IZaveSourceData SourceData { get; set; } 
+        public ZaveSourceData SourceData { get; set; } 
 
         public int ID { get; set; }
         public Color Color { get; set; }
@@ -210,96 +213,96 @@ namespace ZaveGlobalSettings.Data_Structures
         }
     }
 
-    public class SrcEventArgs : EventArgs
+    public class SrcEventArgs<T> : EventArgs where T : IZaveSourceData
     {
-        public SelectionState zSrc { get; set; }
+        public SelectionState<T> zSrc { get; set; }
 
-        public SrcEventArgs(SelectionState src)
+        public SrcEventArgs(SelectionState<T> src)
             : base()
         {
             zSrc = src;
         }
     }
 
-    public abstract class SourceFactory : IDisposable
-    {
+    //public abstract class SourceFactory : IDisposable
+    //{
 
 
-        // Track whether Dispose has been called.
-        private bool disposed = false;
+    //    // Track whether Dispose has been called.
+    //    private bool disposed = false;
 
 
-        public SelectionState produceSource(ZaveGlobalSettings.Data_Structures.SelectionState selDat)
-        {
-            SelectionState Src = createSrc(selDat.SelectionDocName, selDat.SelectionPage, selDat.SelectionText);
+    //    public SelectionState produceSource(ZaveGlobalSettings.Data_Structures.SelectionState selDat)
+    //    {
+    //        SelectionState Src = createSrc(selDat.SelectionDocName, selDat.SelectionPage, selDat.SelectionText);
 
-            return Src;
-        }
+    //        return Src;
+    //    }
 
-        protected abstract SelectionState createSrc(string name, string page, string text);
-
-
-
-        // Implement IDisposable.
-        // Do not make this method virtual.
-        // A derived class should not be able to override this method.
-        public void Dispose()
-        {
-            Dispose(true);
-            // This object will be cleaned up by the Dispose method.
-            // Therefore, you should call GC.SupressFinalize to
-            // take this object off the finalization queue
-            // and prevent finalization code for this object
-            // from executing a second time.
-            GC.SuppressFinalize(this);
-        }
-
-        // Dispose(bool disposing) executes in two distinct scenarios.
-        // If disposing equals true, the method has been called directly
-        // or indirectly by a user's code. Managed and unmanaged resources
-        // can be disposed.
-        // If disposing equals false, the method has been called by the
-        // runtime from inside the finalizer and you should not reference
-        // other objects. Only unmanaged resources can be disposed.
-        protected virtual void Dispose(bool disposing)
-        {
-            // Check to see if Dispose has already been called.
-            if (!this.disposed)
-            {
-                // If disposing equals true, dispose all managed
-                // and unmanaged resources.
-                if (disposing)
-                {
-                    // Dispose managed resources.
-
-                }
+    //    protected abstract SelectionState createSrc(string name, string page, string text);
 
 
 
-                // Note disposing has been done.
-                disposed = true;
+    //    // Implement IDisposable.
+    //    // Do not make this method virtual.
+    //    // A derived class should not be able to override this method.
+    //    public void Dispose()
+    //    {
+    //        Dispose(true);
+    //        // This object will be cleaned up by the Dispose method.
+    //        // Therefore, you should call GC.SupressFinalize to
+    //        // take this object off the finalization queue
+    //        // and prevent finalization code for this object
+    //        // from executing a second time.
+    //        GC.SuppressFinalize(this);
+    //    }
 
-            }
-        }
+    //    // Dispose(bool disposing) executes in two distinct scenarios.
+    //    // If disposing equals true, the method has been called directly
+    //    // or indirectly by a user's code. Managed and unmanaged resources
+    //    // can be disposed.
+    //    // If disposing equals false, the method has been called by the
+    //    // runtime from inside the finalizer and you should not reference
+    //    // other objects. Only unmanaged resources can be disposed.
+    //    protected virtual void Dispose(bool disposing)
+    //    {
+    //        // Check to see if Dispose has already been called.
+    //        if (!this.disposed)
+    //        {
+    //            // If disposing equals true, dispose all managed
+    //            // and unmanaged resources.
+    //            if (disposing)
+    //            {
+    //                // Dispose managed resources.
 
-        // Use interop to call the method necessary
-        // to clean up the unmanaged resource.
-        //[System.Runtime.InteropServices.DllImport("Kernel32")]
-        //private extern static Boolean CloseHandle(IntPtr handle);
+    //            }
 
-        // Use C# destructor syntax for finalization code.
-        // This destructor will run only if the Dispose method
-        // does not get called.
-        // It gives your base class the opportunity to finalize.
-        // Do not provide destructors in types derived from this class.
-        ~SourceFactory()
-        {
-            // Do not re-create Dispose clean-up code here.
-            // Calling Dispose(false) is optimal in terms of
-            // readability and maintainability.
-            Dispose(false);
-        }
-    }
+
+
+    //            // Note disposing has been done.
+    //            disposed = true;
+
+    //        }
+    //    }
+
+    //    // Use interop to call the method necessary
+    //    // to clean up the unmanaged resource.
+    //    //[System.Runtime.InteropServices.DllImport("Kernel32")]
+    //    //private extern static Boolean CloseHandle(IntPtr handle);
+
+    //    // Use C# destructor syntax for finalization code.
+    //    // This destructor will run only if the Dispose method
+    //    // does not get called.
+    //    // It gives your base class the opportunity to finalize.
+    //    // Do not provide destructors in types derived from this class.
+    //    ~SourceFactory()
+    //    {
+    //        // Do not re-create Dispose clean-up code here.
+    //        // Calling Dispose(false) is optimal in terms of
+    //        // readability and maintainability.
+    //        Dispose(false);
+    //    }
+    //}
 
 
     public class SelectionStateError

@@ -31,7 +31,7 @@ namespace FirstWordAddIn
         //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
         //ZDFSingleton activeZDF = ZDFSingleton.Instance;
 
-        public static event EventHandler<SrcEventArgs> WordFired;
+        public static event EventHandler<SrcEventArgs<ZaveWordSrcData>> WordFired;
 
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
@@ -74,20 +74,21 @@ namespace FirstWordAddIn
                 
                 if (e.Selection.Text.Length >= 2)
                 {
-                    List<SelectionState> _selStateList = new List<SelectionState>();
+                    List<SelectionState<ZaveWordSrcData>> _selStateList = new List<SelectionState<ZaveWordSrcData>>();
 
                     rtb.Clear();
                     e.Selection.Copy();
                     rtb.Paste();
 
-                    _selStateList.Add(new SelectionState()
-                    {
-                        SelectionDocName = e.Selection.Application.ActiveDocument.Name,
-                        SelectionPage = e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString(),                        
-                        SelectionText = rtb.Rtf,
-                        SelectionDateModified = DateTime.Now,
-                        srcType = SrcType.WORD
-                    });
+                    var selState = new SelectionState<ZaveWordSrcData>();
+                    selState.SourceData.Add(SrcDataCategories.TITLE, "Filename", vstoDoc.Name);
+                    selState.SourceData.Add(SrcDataCategories.METADATA2, "Page", e.Selection.Information[WordInterop.WdInformation.wdActiveEndAdjustedPageNumber].ToString());
+                    selState.SelectionText = rtb.Rtf;
+                    selState.SelectionDateModified = DateTime.Now;
+                    selState.srcType = SrcType.WORD;
+
+
+                    _selStateList.Add(selState);
 
                     //System.Windows.Forms.MessageBox.Show(rtb.Rtf);
 
@@ -97,7 +98,7 @@ namespace FirstWordAddIn
 
                     string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
 
-                    WriteToJsonFile(projFile, _selStateList);
+                    WriteToJsonFileAsync(projFile, _selStateList);
                     
                         
                    
@@ -114,14 +115,14 @@ namespace FirstWordAddIn
             
         }
 
-        public void OnWordFired(SelectionState selState)
+        public void OnWordFired(SelectionState<ZaveWordSrcData> selState)
         {
             var handler = WordFired;
             if (handler != null)
-                handler(this, new SrcEventArgs(selState));
+                handler(this, new SrcEventArgs<ZaveWordSrcData>(selState));
         }
 
-        private async Task WriteToJsonFile(string filename, List<SelectionState> selStateList)
+        private async Task WriteToJsonFileAsync(string filename, List<SelectionState<ZaveWordSrcData>> selStateList)
         {
 
             await Task.Run(() =>
@@ -171,5 +172,41 @@ namespace FirstWordAddIn
         }
         
         #endregion
+    }
+
+    public class ZaveWordSrcData : IZaveSourceData
+    {
+
+        
+
+        public Dictionary<SrcDataCategories, Dictionary<string, string>> DataCategories
+        {
+            get;  set;
+        }
+
+        public Dictionary<string, string> GetMetaDataByCategory(SrcDataCategories data)
+        {
+            Dictionary<string, string> retValue;
+            
+            DataCategories.TryGetValue(data, out retValue);
+
+
+            return retValue;           
+
+        }
+
+        public bool Add(SrcDataCategories src, string key, string val)
+        {
+            Dictionary<string, string> inner;
+            var exists = DataCategories.TryGetValue(src, out inner);
+            inner.Add(key, val);
+            if (!exists)
+            {
+                DataCategories.Add(src, inner);
+            }
+
+            return exists;
+            
+        }
     }
 }

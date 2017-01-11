@@ -148,21 +148,21 @@ namespace ZaveModel.ZDF
             }
         }
 
-        public SelectionStateList toSelectionStateList()
-        {
-            SelectionStateList selStateList = SelectionStateList.Instance;
+        //public SelectionStateList toSelectionStateList()
+        //{
+        //    SelectionStateList selStateList = SelectionStateList.Instance;
 
-            selStateList.Clear();
+        //    selStateList.Clear();
 
-            foreach (var item in EntryList)
-            {
-                selStateList.Add(item.toSelectionState());
-            }
+        //    foreach (var item in EntryList)
+        //    {
+        //        selStateList.Add(item.toSelectionState());
+        //    }
 
-            return selStateList;
+        //    return selStateList;
 
 
-        }
+        //}
 
         public IEnumerable<IZDFEntry> ListEntries()
         {
