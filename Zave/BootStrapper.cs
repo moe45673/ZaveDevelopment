@@ -47,6 +47,10 @@ namespace Zave
             //ZaveApp.Current.MainWindow = Shell as Window;
 
             var window = Shell as Window;
+            //using (var memStream = new MemoryStream(Properties.Resources.marker_cursor2))
+            //{
+            window.Cursor = new System.Windows.Input.Cursor(@"C:\Users\Moshe\Documents\Visual Studio 2015\Projects\Zave\Zave\media\images\marker-cursor2.cur");
+            //}
             window.Show();
             
         }

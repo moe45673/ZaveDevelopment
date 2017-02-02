@@ -94,6 +94,7 @@ namespace Zave
             bs.Run(e);
             
             
+            
 
             //var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
             //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));//
