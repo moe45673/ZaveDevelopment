@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using Prism.Events;
+using System.Windows.Forms;
 
 namespace ZaveGlobalSettings.Data_Structures
 {
@@ -197,6 +198,7 @@ namespace ZaveGlobalSettings.Data_Structures
 //    }
 
 
+
     public class ModelEventArgs : EventArgs
     {
         public ModelEventArgs(string description)
@@ -217,6 +219,26 @@ namespace ZaveGlobalSettings.Data_Structures
         {
             get;
             private set;
+        }
+    }
+
+    public class MouseMessageFilter : IMessageFilter
+    {
+        public static event MouseEventHandler MouseMove = delegate { };
+        const int WM_MOUSEMOVE = 0x0200;
+
+        public bool PreFilterMessage(ref Message m)
+        {
+
+            if (m.Msg == WM_MOUSEMOVE)
+            {
+
+                Point mousePosition = Control.MousePosition;
+
+                MouseMove(null, new MouseEventArgs(
+                    MouseButtons.None, 0, mousePosition.X, mousePosition.Y, 0));
+            }
+            return false;
         }
     }
 
