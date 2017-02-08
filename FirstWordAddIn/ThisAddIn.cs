@@ -35,7 +35,7 @@ namespace FirstWordAddIn
 
 
         RichTextBox rtb;
-
+        IZaveLowLevelHook llHook;
         //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
         //ZDFSingleton activeZDF = ZDFSingleton.Instance;
 
@@ -55,8 +55,11 @@ namespace FirstWordAddIn
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            CursorHook.Init();
-            CursorHook.Start();
+            //TODO
+            llHook = new ZaveCursorHook();
+
+            llHook.Init();
+            llHook.Start();
             //MouseHook.MouseAction += new EventHandler(Captured);
             //only start listening for the event when a document is opened or created
             this.Application.DocumentOpen +=
@@ -86,8 +89,8 @@ namespace FirstWordAddIn
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            CursorHook.Stop();
-            CursorHook.Dispose(); 
+            llHook.Stop();
+            llHook.Dispose(); 
         }
         
         /// <summary>
@@ -120,8 +123,8 @@ namespace FirstWordAddIn
 
         
 
-        private void Activated(WordInterop.Document Doc, WordInterop.Window Wn) { CursorHook.Start(); }
-        private void Deactivated(WordInterop.Document Doc, WordInterop.Window Wn) { CursorHook.Stop(); }
+        private void Activated(WordInterop.Document Doc, WordInterop.Window Wn) { llHook.Start(); }
+        private void Deactivated(WordInterop.Document Doc, WordInterop.Window Wn) { llHook.Stop(); }
 
 
         async void ThisDocument_SelectionChange(object sender, Microsoft.Office.Tools.Word.SelectionEventArgs e)

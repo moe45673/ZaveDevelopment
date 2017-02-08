@@ -12,23 +12,33 @@ namespace ZaveGlobalSettings.ZaveResources
     class ZaveResources
     {
     }
-    public static class CursorHook
+
+    public interface IZaveLowLevelHook
+    {
+        void Init();
+        void Start();
+        void Stop();
+        void Dispose();
+
+    }
+
+    public class ZaveCursorHook : IZaveLowLevelHook
 
     {
 
 
-        private static IntPtr ptr_IBeam = IntPtr.Zero;
+        //private static IntPtr ptr_IBeam = IntPtr.Zero;
 
 
-        private static IntPtr programCursor = IntPtr.Zero;
-        private static IntPtr systemCursor = IntPtr.Zero;
-        private static Cursor ZaveCursor = null;
+        private IntPtr programCursor = IntPtr.Zero;
+        private IntPtr systemCursor = IntPtr.Zero;
+        private Cursor ZaveCursor = null;
 
-        private static Cursor DefaultCursor = null;
+        private Cursor DefaultCursor = null;
         //private static GCHandle ptr_IBeamConst = GCHandle.Alloc(PTR_OCR_IBEAM.ToInt32(), GCHandleType.Pinned);
 
 
-        public static void Init()
+        public void Init()
         {
 
             //programCursor = Marshal.AllocHGlobal(resourceCursor.marker_cursor2.Length);
@@ -43,7 +53,7 @@ namespace ZaveGlobalSettings.ZaveResources
 
         }
 
-        public static void Start()
+        public void Start()
         {
             programCursor = ZaveCursor.CopyHandle();
             SetSystemCursor(programCursor, UNS_OCR_IBEAM);
@@ -51,7 +61,7 @@ namespace ZaveGlobalSettings.ZaveResources
         }
 
 
-        public static void Stop()
+        public void Stop()
         {
             systemCursor = DefaultCursor.CopyHandle();
             SetSystemCursor(systemCursor, UNS_OCR_IBEAM);
@@ -59,14 +69,14 @@ namespace ZaveGlobalSettings.ZaveResources
 
         }
 
-        public static void Dispose()
+        public void Dispose()
         {
 
         }
 
         private const int OCR_IBEAM = 32513;
         private const uint UNS_OCR_IBEAM = OCR_IBEAM;
-        private static IntPtr PTR_OCR_IBEAM = new IntPtr(OCR_IBEAM);
+        private IntPtr PTR_OCR_IBEAM = new IntPtr(OCR_IBEAM);
 
 
 
