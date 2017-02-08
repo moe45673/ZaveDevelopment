@@ -44,7 +44,7 @@ namespace ZaveGlobalSettings.ZaveResources
             //}
 
             var cross_i = Properties.Resources.marker_cursor2;
-            ZaveCursor = cross_i.CursorFromArrayManaged(0);
+            ZaveCursor = cross_i.CursorFromArray(0);
             DefaultCursor = new Cursor(Cursors.IBeam.CopyHandle());
 
 
@@ -69,7 +69,7 @@ namespace ZaveGlobalSettings.ZaveResources
 
         public void Dispose()
         {
-
+            Stop();
         }
 
         private const int OCR_IBEAM = 32513;
@@ -129,7 +129,7 @@ namespace ZaveGlobalSettings.ZaveResources
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr CreateIconFromResource(IntPtr pbIconBits, int dwResSize, bool fIcon, int dwVer);
-        public static Cursor CursorFromArrayManaged(this byte[] data, int imageIndex)
+        public static Cursor CursorFromArray(this byte[] data, int imageIndex)
         {
             GCHandle handle = GCHandle.Alloc(data, GCHandleType.Pinned);
 
