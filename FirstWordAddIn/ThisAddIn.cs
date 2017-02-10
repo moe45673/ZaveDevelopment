@@ -24,7 +24,7 @@ using ZaveGlobalSettings.ZaveResources;
 namespace FirstWordAddIn
 {
     
-    using resourceCursor = ZaveGlobalSettings.Properties.Resources;
+    
 
     
 
@@ -55,11 +55,20 @@ namespace FirstWordAddIn
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            //TODO
+            //TODO Build a factory of some kind
             llHook = new ZaveCursorHook();
+            try
+            {
+                
 
-            llHook.Init();
-            llHook.Start();
+                llHook.Init();
+                llHook.Start();
+            }
+            catch(Exception ex)
+            {
+                llHook.Dispose();
+                throw ex;
+            }
             //MouseHook.MouseAction += new EventHandler(Captured);
             //only start listening for the event when a document is opened or created
             this.Application.DocumentOpen +=
@@ -89,7 +98,7 @@ namespace FirstWordAddIn
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            llHook.Stop();
+            
             llHook.Dispose(); 
         }
         
@@ -102,28 +111,20 @@ namespace FirstWordAddIn
 
             WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(this.Application.ActiveDocument);
             vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
-            //WordInterop.Application app = vstoDoc.Application;
-            //WordInterop.WdCursorType oldCursor = app.System.Cursor;
-            //WordInterop.Range range = vstoDoc.Range(ref missing, ref missing);
-
-            //try
-            //{
-            //    app.System.Cursor = WordInterop.WdCursorType.wdCursorWait;
-            //    Random r = new Random();
-            //    for (int i = 1; i < 1000; i++)
-            //    {
-            //        range.Text = range.Text + r.NextDouble().ToString();
-            //    }
-            //}
-            //finally
-            //{
-            //    app.System.Cursor = oldCursor;
-            //}
+            
         }
 
         
 
-        private void Activated(WordInterop.Document Doc, WordInterop.Window Wn) { llHook.Start(); }
+        private void Activated(WordInterop.Document Doc, WordInterop.Window Wn) {
+            try {
+                llHook.Start();
+            }catch(Exception ex)
+            {
+                llHook.Dispose();
+                throw ex;
+            }
+        }
         private void Deactivated(WordInterop.Document Doc, WordInterop.Window Wn) { llHook.Stop(); }
 
 
@@ -150,8 +151,7 @@ namespace FirstWordAddIn
                         SelectionDateModified = DateTime.Now,
                         srcType = SrcType.WORD
                     });
-
-                    //System.Windows.Forms.MessageBox.Show(rtb.Rtf);
+                    
 
                     //#if DEBUG
                     //System.Windows.Forms.MessageBox.Show(default(DateTime).ToString());
@@ -171,7 +171,7 @@ namespace FirstWordAddIn
             
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.GetType().ToString() + '\n' + ex.Message);
+                System.Windows.Forms.MessageBox.Show("Unable to Write to Zave" + '\n' + ex.Message);
             }
             
         }

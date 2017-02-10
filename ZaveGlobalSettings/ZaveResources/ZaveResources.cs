@@ -129,6 +129,7 @@ namespace ZaveGlobalSettings.ZaveResources
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr CreateIconFromResource(IntPtr pbIconBits, int dwResSize, bool fIcon, int dwVer);
+
         public static Cursor CursorFromArray(this byte[] data, int imageIndex)
         {
             GCHandle handle = GCHandle.Alloc(data, GCHandleType.Pinned);
