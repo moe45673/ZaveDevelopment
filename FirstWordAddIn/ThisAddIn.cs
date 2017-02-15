@@ -153,9 +153,7 @@ namespace FirstWordAddIn
                     });
                     
 
-                    //#if DEBUG
-                    //System.Windows.Forms.MessageBox.Show(default(DateTime).ToString());
-                    //#endif
+                    
 
                     string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
 

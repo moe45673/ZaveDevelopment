@@ -18,7 +18,7 @@ using Microsoft.Practices.Unity;
 using ZaveController;
 using ZaveGlobalSettings.Data_Structures;
 using System.Drawing;
-
+using System.Threading.Tasks;
 
 namespace Zave
 {
@@ -84,7 +84,7 @@ namespace Zave
             }
         }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
 
             var txt = "";
@@ -100,33 +100,49 @@ namespace Zave
             //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));//
             //eventInit = EventInitSingleton.GetInstance(eventAgg, bs.Container);
             string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
+            string broadcastFile = Path.GetTempPath() + GuidGenerator.getGuid() + "broadcaster";
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
-            using (StreamWriter sw = StreamWriterFactory.createStreamWriter(projFile))
-            {
-                try
-                {
-                    sw.Write("[]");
-                    
-                }
-                catch (IOException ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    sw.Close();
-                }
-            }
+            CreateFileAsync(projFile);
+            CreateFileAsync(broadcastFile);
             
 
             
 
         }
 
+        private async void CreateFileAsync(string filename)
+        {
+            await CreateFile(filename);
+        }
+
+        private async Task CreateFile(string filename)
+        {
+            await Task.Run(() =>
+            {
+                using (StreamWriter sw = StreamWriterFactory.createStreamWriter(filename))
+                {
+                    try
+                    {
+                        sw.Write("[]");
+
+                    }
+                    catch (IOException ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        sw.Close();
+                    }
+                }
+            });
+        }
         
 
         
 
     }//end App
+
+   
 
 }//end namespace ZaveProject
