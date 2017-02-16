@@ -167,7 +167,7 @@ namespace ZaveController
                | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             // Only watch text files.
 
-            watcher.Filter = GuidGenerator.getGuid();
+            watcher.Filter = APIFileNames.SourceToZave;
 
 
             // Add event handlers.

@@ -57,31 +57,12 @@ namespace Zave
             //if(eventInit != null)
             //    eventInit.Dispose();
 
-            string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
+            string projFile = System.IO.Path.GetTempPath() + APIFileNames.SourceToZave;
+            string broadcastFile = Path.GetTempPath() + APIFileNames.ZaveToSource;
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
-
-            int maxAttempts = 20;
-            int retryMilliseconds = 100;
+            DeleteFileAsync(projFile);
+            DeleteFileAsync(broadcastFile);
             
-            for (int attempts = 0; attempts <= maxAttempts; attempts++)
-            {
-                try
-                {
-                    File.Delete(projFile);
-
-                }
-                catch (IOException iox)
-                {
-                    if (attempts == maxAttempts)
-                    {
-                        throw iox;
-                    }
-                    System.Threading.Thread.Sleep(retryMilliseconds);
-                    
-                }
-                
-               
-            }
         }
 
         private async void Application_Startup(object sender, StartupEventArgs e)
@@ -99,8 +80,8 @@ namespace Zave
             //var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
             //var activeZDF = bs.Container.Resolve(typeof(ZaveModel.ZDF.ZDFSingleton));//
             //eventInit = EventInitSingleton.GetInstance(eventAgg, bs.Container);
-            string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
-            string broadcastFile = Path.GetTempPath() + GuidGenerator.getGuid() + "broadcaster";
+            string projFile = System.IO.Path.GetTempPath() + APIFileNames.SourceToZave;
+            string broadcastFile = Path.GetTempPath() + APIFileNames.ZaveToSource;
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
             CreateFileAsync(projFile);
             CreateFileAsync(broadcastFile);
@@ -110,12 +91,8 @@ namespace Zave
 
         }
 
-        private async void CreateFileAsync(string filename)
-        {
-            await CreateFile(filename);
-        }
 
-        private async Task CreateFile(string filename)
+        private async Task CreateFileAsync(string filename)
         {
             await Task.Run(() =>
             {
@@ -134,6 +111,35 @@ namespace Zave
                     {
                         sw.Close();
                     }
+                }
+            });
+        }
+
+        private async Task DeleteFileAsync(string filename)
+        {
+            await Task.Run(() =>
+            {
+                int maxAttempts = 20;
+                int retryMilliseconds = 100;
+
+                for (int attempts = 0; attempts <= maxAttempts; attempts++)
+                {
+                    try
+                    {
+                        File.Delete(filename);
+
+                    }
+                    catch (IOException iox)
+                    {
+                        if (attempts == maxAttempts)
+                        {
+                            throw iox;
+                        }
+                        System.Threading.Thread.Sleep(retryMilliseconds);
+
+                    }
+
+
                 }
             });
         }

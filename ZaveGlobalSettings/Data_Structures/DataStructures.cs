@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using Prism.Events;
 using System.Windows.Forms;
+using ZaveGlobalSettings.ZaveFile;
 
 namespace ZaveGlobalSettings.Data_Structures
 {
@@ -505,8 +506,18 @@ namespace ZaveGlobalSettings.Data_Structures
         public const string MainWindowViewModel = "MainWindowViewModel";
         public const string ActiveZDF = "ActiveZDF";
         
+    }
 
+    public static class APIFileNames
+    {
+        public static readonly string SourceToZave = GuidGenerator.getGuid() + "1";
+        public static readonly string ZaveToSource = GuidGenerator.getGuid() + "2";
+    }
 
+    public abstract class WatcherFactory 
+    {
+        public Component Watcher { get; set; }
+        protected abstract Component createWatcher();
     }
 
 }

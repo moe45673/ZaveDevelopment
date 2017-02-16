@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using ZaveGlobalSettings.ZaveResources;
+using ZaveGlobalSettings.Data_Structures.AddInInterface;
 
 
 
@@ -32,8 +33,64 @@ namespace FirstWordAddIn
 
     public partial class ThisAddIn
     {
+        private Boolean _isEnabled;
+        private Boolean isEnabled {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                _isEnabled = value;
+                if(value == false)
+                {
+                    ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument -=
+                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
 
+                    this.Application.DocumentOpen -=
+            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
+                    this.Application.WindowActivate -= new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
+
+                    if(llHook != null)
+                    {
+                        llHook.Dispose();
+                    }
+
+                }
+                else
+                {
+                    ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument -=
+                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
+
+                    this.Application.DocumentOpen -=
+            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
+
+                    this.Application.WindowDeactivate -= new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
+
+                    this.Application.WindowActivate -= new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
+                    ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
+                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
+
+                    this.Application.DocumentOpen +=
+            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
+
+                    this.Application.WindowActivate += new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
+
+                    this.Application.WindowDeactivate += new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
+
+                    if (llHook != null)
+                    {
+                        llHook.Init();
+
+                        
+                    }
+
+                    WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(this.Application.ActiveDocument);
+                    vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
+                }
+            }
+        }
         RichTextBox rtb;
         IZaveLowLevelHook llHook;
         //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
@@ -55,30 +112,38 @@ namespace FirstWordAddIn
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            //TODO Build a factory of some kind
             llHook = new ZaveCursorHook();
-            try
-            {
-                
+            isEnabled = true;
+            //TODO Build a factory of some kind
+            
+            
+                //try
+                //{
 
-                llHook.Init();
-                llHook.Start();
-            }
-            catch(Exception ex)
-            {
-                llHook.Dispose();
-                throw ex;
-            }
+
+                //    llHook.Init();
+                //    llHook.Start();
+                //}
+                //catch (Exception ex)
+                //{
+                //    llHook.Dispose();
+                //    throw ex;
+                //}
+            
             //MouseHook.MouseAction += new EventHandler(Captured);
             //only start listening for the event when a document is opened or created
+            this.Application.DocumentOpen -=
+            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
             this.Application.DocumentOpen +=
             new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
+            ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument -=
+                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
             ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
                 new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
 
-            this.Application.WindowDeactivate += new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
-            this.Application.WindowActivate += new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
+            this.Application.WindowDeactivate -= new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
+            this.Application.WindowActivate -= new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
 
 
             rtb = new RichTextBox();
@@ -111,7 +176,7 @@ namespace FirstWordAddIn
 
             WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(this.Application.ActiveDocument);
             vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
-            
+
         }
 
         
@@ -135,7 +200,7 @@ namespace FirstWordAddIn
                 WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(Application.ActiveDocument);
                 //_selStateList = new List<SelectionState>();
                 
-                if (e.Selection.Text.Length >= 2)
+                if (e.Selection.Text.Length >= 2 && isEnabled)
                 {
                     List<SelectionState> _selStateList = new List<SelectionState>();
 
@@ -155,9 +220,9 @@ namespace FirstWordAddIn
 
                     
 
-                    string projFile = System.IO.Path.GetTempPath() + GuidGenerator.getGuid();
+                    string projFile = System.IO.Path.GetTempPath() + APIFileNames.SourceToZave;
 
-                    WriteToJsonFile(projFile, _selStateList);
+                    WriteToJsonFileAsync(projFile, _selStateList);
                     
                         
                    
@@ -181,7 +246,7 @@ namespace FirstWordAddIn
         //        handler(this, new SrcEventArgs(selState));
         //}
 
-        private async Task WriteToJsonFile(string filename, List<SelectionState> selStateList)
+        private async Task WriteToJsonFileAsync(string filename, List<SelectionState> selStateList)
         {
 
             await Task.Run(() =>

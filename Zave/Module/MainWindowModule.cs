@@ -50,11 +50,11 @@ namespace Zave.Module
         public const string ControlBarRegion = "ControlBarRegion";
         public const string MainViewRegion = "MainViewRegion";
         public const string WidgetMainRegion = "WidgetMainRegion";
-        public static string MenuRegion = "MenuRegion";
-        public static string ZaveMainColorPicker = "ZaveMainColorPicker";
-        public static string ZaveWidgetColorPicker = "ZaveWidgetColorPicker";
-        public static string MainTitleBarRegion = "MainTitleBarRegion";
-        public static string WidgetTitleBarRegion = "WidgetTitleBarRegion";
+        public const string MenuRegion = "MenuRegion";
+        public const string ZaveMainColorPicker = "ZaveMainColorPicker";
+        public const string ZaveWidgetColorPicker = "ZaveWidgetColorPicker";
+        public const string MainTitleBarRegion = "MainTitleBarRegion";
+        public const string WidgetTitleBarRegion = "WidgetTitleBarRegion";
 
         
     }
