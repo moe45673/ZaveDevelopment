@@ -22,6 +22,7 @@ using ZaveGlobalSettings.Data_Structures.AddInInterface;
 
 //using ZaveSrc = ZaveGlobalSettings.Data_Structures.SelectionState;
 
+ 
 namespace FirstWordAddIn
 {
     
@@ -30,69 +31,69 @@ namespace FirstWordAddIn
     
 
 
-
+    
     public partial class ThisAddIn
     {
-        private Boolean _isEnabled;
-        private Boolean isEnabled {
-            get
-            {
-                return _isEnabled;
-            }
-            set
-            {
-                _isEnabled = value;
-                if(value == false)
-                {
-                    ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument -=
-                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
+        //private Boolean _isEnabled;
+        //private Boolean isEnabled {
+        //    get
+        //    {
+        //        return _isEnabled;
+        //    }
+        //    set
+        //    {
+                
+        //        if(value == false)
+        //        {
+        //            ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument -=
+        //        new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
 
-                    this.Application.DocumentOpen -=
-            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
+        //            this.Application.DocumentOpen -=
+        //    new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
-                    this.Application.WindowActivate -= new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
+        //            this.Application.WindowActivate -= new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
 
-                    if(llHook != null)
-                    {
-                        llHook.Dispose();
-                    }
+        //            if(llHook != null)
+        //            {
+        //                llHook.Dispose();
+        //            }
 
-                }
-                else
-                {
-                    ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument -=
-                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
+        //        }
+        //        else
+        //        {
+        //            ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument -=
+        //        new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
 
-                    this.Application.DocumentOpen -=
-            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
+        //            this.Application.DocumentOpen -=
+        //    new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
-                    this.Application.WindowDeactivate -= new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
+        //            this.Application.WindowDeactivate -= new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
 
-                    this.Application.WindowActivate -= new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
-                    ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
-                new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
+        //            this.Application.WindowActivate -= new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
+        //            ((WordInterop.ApplicationEvents4_Event)this.Application).NewDocument +=
+        //        new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
 
-                    this.Application.DocumentOpen +=
-            new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
+        //            this.Application.DocumentOpen +=
+        //    new WordInterop.ApplicationEvents4_DocumentOpenEventHandler(DocumentSelectionChange);
 
-                    this.Application.WindowActivate += new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
+        //            this.Application.WindowActivate += new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
 
-                    this.Application.WindowDeactivate += new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
+        //            this.Application.WindowDeactivate += new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
 
-                    if (llHook != null)
-                    {
-                        llHook.Init();
+        //            if (llHook != null)
+        //            {
+        //                llHook.Init();
 
                         
-                    }
+        //            }
 
-                    WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(this.Application.ActiveDocument);
-                    vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
-                }
-            }
-        }
+        //            WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(this.Application.ActiveDocument);
+        //            vstoDoc.SelectionChange += new Microsoft.Office.Tools.Word.SelectionEventHandler(ThisDocument_SelectionChange);
+        //        }
+        //    }
+        //}
         RichTextBox rtb;
-        IZaveLowLevelHook llHook;
+        IZaveAddIn zaveComm;
         //Running under ZaveSourceAdapter, listener for all highlights from all possible sources
         //ZDFSingleton activeZDF = ZDFSingleton.Instance;
 
@@ -112,8 +113,8 @@ namespace FirstWordAddIn
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            llHook = new ZaveCursorHook();
-            isEnabled = true;
+
+            zaveComm = new ZaveComm();
             //TODO Build a factory of some kind
             
             
@@ -143,7 +144,9 @@ namespace FirstWordAddIn
                 new WordInterop.ApplicationEvents4_NewDocumentEventHandler(DocumentSelectionChange);
 
             this.Application.WindowDeactivate -= new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
+            this.Application.WindowDeactivate += new WordInterop.ApplicationEvents4_WindowDeactivateEventHandler(Deactivated);
             this.Application.WindowActivate -= new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
+            this.Application.WindowActivate += new WordInterop.ApplicationEvents4_WindowActivateEventHandler(Activated);
 
 
             rtb = new RichTextBox();
@@ -152,19 +155,11 @@ namespace FirstWordAddIn
 
         }
 
-        
-        
-        
-        
-
-
-
-
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            
-            llHook.Dispose(); 
+
+            zaveComm.Dispose();
         }
         
         /// <summary>
@@ -183,24 +178,24 @@ namespace FirstWordAddIn
 
         private void Activated(WordInterop.Document Doc, WordInterop.Window Wn) {
             try {
-                llHook.Start();
+                zaveComm.Start();
             }catch(Exception ex)
             {
-                llHook.Dispose();
+                zaveComm.Dispose();
                 throw ex;
             }
         }
-        private void Deactivated(WordInterop.Document Doc, WordInterop.Window Wn) { llHook.Stop(); }
+        private void Deactivated(WordInterop.Document Doc, WordInterop.Window Wn) { zaveComm.Stop(); }
 
 
-        async void ThisDocument_SelectionChange(object sender, Microsoft.Office.Tools.Word.SelectionEventArgs e)
+        private void ThisDocument_SelectionChange(object sender, Microsoft.Office.Tools.Word.SelectionEventArgs e)
         {
             try
             {
-                WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(Application.ActiveDocument);
+                //WordTools.Document vstoDoc = Globals.Factory.GetVstoObject(Application.ActiveDocument);
                 //_selStateList = new List<SelectionState>();
                 
-                if (e.Selection.Text.Length >= 2 && isEnabled)
+                if (e.Selection.Text.Length >= 2)
                 {
                     List<SelectionState> _selStateList = new List<SelectionState>();
 
@@ -296,5 +291,69 @@ namespace FirstWordAddIn
         }
         
         #endregion
+    }
+
+    
+    class ZaveComm : IZaveAddIn
+    {
+
+        private IZaveLowLevelHook llHook;
+        public bool isEnabled
+        {
+            get
+            {
+                
+            }
+
+            set
+            {
+                
+            }
+        }
+
+        public ZaveComm()
+        {
+            llHook = new ZaveCursorHook();
+
+            try
+            {
+
+
+                llHook.Init();
+                llHook.Start();
+            }
+            catch (Exception ex)
+            {
+                llHook.Dispose();
+                throw ex;
+            }
+        }
+
+        public void Start()
+        {
+            try
+            {
+                llHook.Start();
+            }
+            catch
+            {
+                llHook.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            llHook.Dispose();
+        }
+
+        public void SelectionChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public void Stop()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

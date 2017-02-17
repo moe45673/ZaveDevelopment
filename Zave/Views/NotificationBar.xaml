@@ -22,6 +22,6 @@
     </UserControl.Resources>
 
     <Grid x:Name="NotificationBar_Grid" Grid.Row="1" Grid.Column="1" Style="{StaticResource NotificationBar_Grid}">
-        <TextBlock x:Name="StatusTxtBx" Text="Saved!" Style="{StaticResource Status_Txt}"></TextBlock>
+        <!--<TextBlock x:Name="StatusTxtBx" Text="Saved!" Style="{StaticResource Status_Txt}"></TextBlock>-->
     </Grid>
 </UserControl>

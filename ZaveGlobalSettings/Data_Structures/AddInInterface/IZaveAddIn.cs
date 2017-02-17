@@ -11,6 +11,8 @@ namespace ZaveGlobalSettings.Data_Structures.AddInInterface
 
         Boolean isEnabled { get; set; }
 
-
+        void Dispose();
+        void Start();
+        void Stop();
     }
 }
