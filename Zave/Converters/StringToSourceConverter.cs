@@ -74,7 +74,8 @@ namespace Zave.Converters
 
                 ImageSourceConverter conv = new ImageSourceConverter();
                 int suffixPos = ((String)parameter).Length - 4;
-                var returnValue = ((String)parameter).Insert(suffixPos, values[1].ToString());
+                var returnValue = ((String)parameter);
+                //var returnValue = ((String)parameter).Insert(suffixPos, values[1].ToString());
                 returnValue = Path.Combine(values[0].ToString(), returnValue);                
                 ImageSource imgsrc = conv.ConvertFromString(returnValue) as ImageSource;
                 return imgsrc;

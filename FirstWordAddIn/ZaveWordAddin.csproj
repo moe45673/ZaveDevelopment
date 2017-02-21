@@ -269,6 +269,7 @@
     </Compile>
     <AppDesigner Include="Properties\" />
     <None Include="ZaveWordAddin_3_TemporaryKey.pfx" />
+    <None Include="ZaveWordAddin_4_TemporaryKey.pfx" />
     <None Include="ZaveWordAddin_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -285,10 +286,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ZaveWordAddin_3_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>ZaveWordAddin_4_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>802EA59E42885DA38F6B75044D53FDCCC4F25E65</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>B280DF2365135B6D4C842F28B72AA63116C4E0D2</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
