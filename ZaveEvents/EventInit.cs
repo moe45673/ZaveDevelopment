@@ -55,6 +55,10 @@ namespace ZaveController
 
             //CreateFileWatcher(Path.GetTempPath());
             CreateFileWatcher(Path.GetTempPath());
+            using(var sw = ZaveGlobalSettings.ZaveFile.StreamWriterFactory.createStreamWriter(Path.GetTempPath() + APIFileNames.ZaveToSource))
+            {
+                sw.WriteLine("Written!");
+            }
             lastRead = DateTime.MinValue;
             //System.Drawing.Color startupColor = ColorCategory.FromWPFColor(setStartupColor()).Color;
             //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();

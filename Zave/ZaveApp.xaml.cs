@@ -60,8 +60,8 @@ namespace Zave
             string projFile = System.IO.Path.GetTempPath() + APIFileNames.SourceToZave;
             string broadcastFile = Path.GetTempPath() + APIFileNames.ZaveToSource;
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
-            DeleteFileAsync(projFile);
-            DeleteFileAsync(broadcastFile);
+            DeleteFile(projFile);
+            DeleteFile(broadcastFile);
             
         }
 
@@ -115,10 +115,9 @@ namespace Zave
             });
         }
 
-        private async Task DeleteFileAsync(string filename)
+        private void DeleteFile(string filename)
         {
-            await Task.Run(() =>
-            {
+            
                 int maxAttempts = 20;
                 int retryMilliseconds = 100;
 
@@ -141,7 +140,7 @@ namespace Zave
 
 
                 }
-            });
+            
         }
         
 

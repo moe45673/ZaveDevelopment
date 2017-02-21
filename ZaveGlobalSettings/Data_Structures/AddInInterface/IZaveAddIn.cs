@@ -9,10 +9,19 @@ namespace ZaveGlobalSettings.Data_Structures.AddInInterface
     public interface IZaveAddIn
     {
 
-        Boolean isEnabled { get; set; }
+        IZaveAddInState CurrentState { get; set; }
+        
 
+        
+
+    }
+
+    public interface IZaveAddInState
+    {
         void Dispose();
         void Start();
         void Stop();
+        void SelectionChanged<SelStateArgs>(object sender, SelStateArgs e);
+        
     }
 }
