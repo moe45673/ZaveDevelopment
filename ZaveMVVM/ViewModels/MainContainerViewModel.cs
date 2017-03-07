@@ -36,12 +36,30 @@ using Novacode;
 
 namespace ZaveViewModel.ViewModels
 {
+    abstract class ZDFAbstractComparer : IComparer<IZDFEntry>
+    {
+        private IZDFEntry A;
+        private IZDFEntry B;
+
+        public ZDFAbstractComparer()
+        {
+            A = new ZDFEntry();
+            B = new ZDFEntry();
+        }
+
+        public abstract int Compare(IZDFEntry x, IZDFEntry y);
+        
+        
+    }
     class ColorComparer : IComparer<IZDFEntry>
     {
+
         public int Compare(IZDFEntry x, IZDFEntry y)
         {
             return x.HColor.CompareTo(y.HColor);
         }
+
+
     }
 
     public class MainContainerViewModel : BindableBase

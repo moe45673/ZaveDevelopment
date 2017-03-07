@@ -19,6 +19,7 @@ using ZaveController;
 using ZaveGlobalSettings.Data_Structures;
 using System.Drawing;
 using System.Threading.Tasks;
+using ZaveService.IOService;
 
 namespace Zave
 {
@@ -60,8 +61,8 @@ namespace Zave
             string projFile = System.IO.Path.GetTempPath() + APIFileNames.SourceToZave;
             string broadcastFile = Path.GetTempPath() + APIFileNames.ZaveToSource;
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
-            DeleteFile(projFile);
-            DeleteFile(broadcastFile);
+            IOService.DeleteFile(projFile);
+            IOService.DeleteFile(broadcastFile);
             
         }
 
@@ -83,8 +84,8 @@ namespace Zave
             string projFile = System.IO.Path.GetTempPath() + APIFileNames.SourceToZave;
             string broadcastFile = Path.GetTempPath() + APIFileNames.ZaveToSource;
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
-            CreateFileAsync(projFile);
-            CreateFileAsync(broadcastFile);
+            IOService.CreateFileAsync(projFile);
+            IOService.CreateFileAsync(broadcastFile);
             
 
             
@@ -92,56 +93,6 @@ namespace Zave
         }
 
 
-        private async Task CreateFileAsync(string filename)
-        {
-            await Task.Run(() =>
-            {
-                using (StreamWriter sw = StreamWriterFactory.createStreamWriter(filename))
-                {
-                    try
-                    {
-                        sw.Write("[]");
-
-                    }
-                    catch (IOException ex)
-                    {
-                        throw ex;
-                    }
-                    finally
-                    {
-                        sw.Close();
-                    }
-                }
-            });
-        }
-
-        private void DeleteFile(string filename)
-        {
-            
-                int maxAttempts = 20;
-                int retryMilliseconds = 100;
-
-                for (int attempts = 0; attempts <= maxAttempts; attempts++)
-                {
-                    try
-                    {
-                        File.Delete(filename);
-
-                    }
-                    catch (IOException iox)
-                    {
-                        if (attempts == maxAttempts)
-                        {
-                            throw iox;
-                        }
-                        System.Threading.Thread.Sleep(retryMilliseconds);
-
-                    }
-
-
-                }
-            
-        }
         
 
         

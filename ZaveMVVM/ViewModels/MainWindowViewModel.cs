@@ -19,7 +19,7 @@ using ZaveModel.ZDF;
 using System.ComponentModel;
 using System.Windows.Data;
 using Microsoft.Practices.Unity;
-using Novacode;
+//using Novacode;
 using System.Windows.Forms;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using System.Drawing;
@@ -36,6 +36,10 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Diagnostics;
+using Microsoft.Office.Interop.Word;
+using Microsoft.Office.Tools.Word;
+using Word = Microsoft.Office.Tools.Word;
+using Task = System.Threading.Tasks.Task;
 
 
 //using GalaSoft.MvvmLight.CommandWpf;
@@ -136,6 +140,7 @@ namespace ZaveViewModel.ViewModels
             UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
             RedoZDFDelegateCommand = new DelegateCommand(RedoZDF);
             ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
+            //ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
             ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
             SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
 
@@ -184,9 +189,9 @@ namespace ZaveViewModel.ViewModels
 
                                     foreach (var item in activeZdf.EntryList)
                                     {
-                                //activeZdf.Add(item);
+                                        //activeZdf.Add(item);
 
-                                ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                                        ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
                                     }
                                 });
 
@@ -285,71 +290,270 @@ namespace ZaveViewModel.ViewModels
             get { return _winMode; }
             set { SetProperty(ref _winMode, value); }
         }
-        #endregion 
+        #endregion
 
         #region Delegate Implementation
+
+        //private async Task ExportZDF(string source)
         private async Task ExportZDF(string source)
         {
 
             var activeZDF = ZDFSingleton.GetInstance();
+            var entries = activeZDF.EntryList.ToList();
+
+            //TODO make the sorting method up to the User when exporting a doc
+            var comp = new ColorComparer();
+            entries.Sort(comp);
+            
+            IZDFEntry lastEntry = default(ZDFEntry);
+            var WordApp = new Microsoft.Office.Interop.Word.Application();
+            if (WordApp.Documents.Count == 0) {
+                WordApp.Visible = false;
+            }
+            //WordApp.Activate();
+
             switch (source)
             {
+
                 case "WORD":
-                    await Task.Run(() =>
+                    try
                     {
+                        IOService.DeleteFile(Path.GetTempPath() + APIFileNames.ZaveToSource);
+                        await Task.Factory.StartNew(() =>
+                        {
+                        var exportfilename = createExportFileName("docx");
                         try
                         {
 
-                            var exportfilename = createExportFileName();
-                            using (DocX doc = DocX.Load(exportfilename))
+
+
+                            //TODO Better way to delete the file?
+                            if (File.Exists(exportfilename))
+                            {
+                                for (int i = 0; i < 20; i++)
+                                {
+                                    try
+                                    {
+                                        File.Delete(exportfilename);
+                                        System.Threading.Thread.Sleep(50);
+                                        break;
+                                    }
+                                    catch (IOException ioex)
+                                    {
+                                        Console.WriteLine(ioex.Message);
+                                    }
+                                }
+
+                            }
+                            //try
+                            //{
+                            //    using (DocX newDoc = DocX.Create(exportfilename))
+                            //        newDoc.Save();
+                            //}
+                            //catch (IOException ioex)
+                            //{
+
+                            //    throw ioex;
+                            //}
+
+                            object exportfilenameObject = exportfilename;
+                            var wordDoc = WordApp.Documents.Add();
+           
+                            //wordDoc.Activate();
+                            wordDoc.SaveAs2(ref exportfilenameObject);
+                                wordDoc.Activate();
+
+
+                            foreach (var entry in entries)
 
                             {
+                                object start = wordDoc.Content.Start;
+                                object end = wordDoc.Content.End -1;
+                                    object end2 = wordDoc.Content.End;
+                                var rng = wordDoc.Range(ref end, ref end2);
+                                    string bmName = "ZDFEntry" + entry.ID.ToString();
+                                    var para = wordDoc.Content.Paragraphs.Add();
 
-                                var entries = activeZDF.EntryList.ToList();
-                                var comp = new ColorComparer();
-                                entries.Sort(comp);
-                                var lastColor = default(System.Drawing.Color);
+                                    //using (DocX doc = DocX.Load(exportfilename))
+                                    //{
 
-                                foreach (var entry in entries)
+                                    //var thisColor = entry.HColor.Color;
 
-                                {
-
-                                    var thisColor = entry.HColor.Color;
-
-                                    if (!thisColor.Equals(lastColor))
+                                    if (entry.Equals(entries.ElementAt(0)) || (lastEntry != null && (!(comp.Compare(entry, lastEntry) == 0))))
                                     {
+                                        addColorHeadingToWordDoc(wordDoc, entry, para.Range.Start as object, para.Range.End as object, bmName + "_color");
+                                    }
 
-                                        Table t = doc.InsertTable(1, 1);
-                                        Row r = t.Rows.ElementAt(0);
-                                        Cell c = r.Cells.ElementAt(0);
-                                        c.Shading = thisColor;
+                                //else if ()
+                                //    {
+                                //        addColorHeadingToWordDoc(wordDoc, entry, para.Range.Start as object, para.Range.End as object, bmName + "_color");
 
+
+
+
+                                    //}
+
+                                //var p = doc.InsertBookmark(bmName);
+                                //doc.Save();
+                                //}
+
+
+                                //WordApp.Activate();
+                                //var bm = wordDoc.Bookmarks.Add(bmName);
+
+                                //var bmList = wordDoc.Bookmarks as List<Microsoft.Office.Interop.Word.Bookmark>;
+
+                                // = bmList.Find(x => x.Name == bmName);
+
+                                //var rng = bm.Range;
+                                    System.Windows.Forms.RichTextBox rb = new System.Windows.Forms.RichTextBox();
+                                    //var toolDoc = wordDoc as Word.Document;
+
+                                    wordDoc.Content.SetRange(0, 0);
+
+                                    
+                                    //para.Range.FormattedText.Paste();
+                                    
+                                    //var rtfControl = toolDoc.Controls.AddRichTextContentControl(bmName + "rtf" + entry.ID.ToString());
+                                    rb.Rtf = entry.Text;
+                                    //cc.BuildingBlockType = WdBuildingBlockTypes.wdTypeAutoText;
+                                    //cc.set_DefaultTextStyle()
+                                    if (rb.Rtf.Last() == Environment.NewLine.ToCharArray().First())
+                                    {
+                                        rb.Rtf.Remove(rb.Rtf.Count() - 1);
+                                    }
+                                    System.Windows.Forms.Clipboard.SetText(rb.Rtf, System.Windows.Forms.TextDataFormat.Rtf);
+                                    
+                                    para.Range.FormattedText.Paste();
+                                    
+                                    para.Range.Text += Environment.NewLine;
+                                    
+                                    //rtfControl.Text = rb.Rtf;
+                                    //
+                                    //rng.Paste();
+
+                                    //if ((entries.IndexOf(entry) == (entries.Count - 1)))
+                                    //{
+                                    //    addColorHeadingToWordDoc(wordDoc, entry, end, end2, bmName + "_color");
+                                    //}
+
+                                    //wordDoc.Save();
+
+
+
+
+                                //var p = doc.InsertParagraph();
+                                //var rtb = new System.Windows.Forms.RichTextBox();                                    
+                                //rtb.Rtf = entry.Text;
+
+                                //p.
+
+
+
+
+                                lastEntry = entry;
+                                }
+                                wordDoc.Close(WdSaveOptions.wdSaveChanges);
+
+                                if (wordDoc != null)
+                                {
+                                    Marshal.ReleaseComObject(wordDoc);
+                                }
+                                wordDoc = null;
+
+                                _eventAggregator.GetEvent<ZDFExportedEvent>().Publish(exportfilename);
+                            }
+
+
+
+
+                            catch (IOException ioex)
+                            {
+                                System.Windows.Forms.MessageBox.Show("Unable to create export file. If file is currently open, please close and try again.", "FILE NOT EXPORTED", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                            }
+
+                            finally
+                            {
+
+                                IOService.CreateFileAsync(Path.GetTempPath() + APIFileNames.ZaveToSource);
+                                //WordApp.Documents.Close(WdSaveOptions.wdPromptToSaveChanges);
+                                if (WordApp.Visible.Equals(false))
+                                {
+                                    WordApp.Quit();
+
+                                    //if (WordApp.Documents != null)
+                                    //{
+                                    //    Marshal.ReleaseComObject(WordApp.Documents);
+                                    //}
+                                    if (WordApp != null)
+                                    {
+                                        Marshal.ReleaseComObject(WordApp);
                                     }
 
 
-                                    Paragraph p = doc.InsertParagraph();
 
-                                    p.InsertText(entry.Text + Environment.NewLine);
-
-                                    lastColor = thisColor;
+                                    WordApp = null;
+                                    
                                 }
-
-                                doc.Save();
-                                _eventAggregator.GetEvent<ZDFExportedEvent>().Publish(exportfilename);
+                                GC.Collect();
                             }
-                        }
-                        catch (IOException ioex)
-                        {
-                            System.Windows.Forms.MessageBox.Show("Unable to create export file. If file is currently open, please close and try again.", "FILE NOT EXPORTED", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                        }
 
-                    });
+                        }
+                        , CancellationToken.None
+                        , TaskCreationOptions.None
+                        , TaskScheduler.FromCurrentSynchronizationContext()
+                        );
+
+                        //t.Wait();
+                    }
+                    catch(AggregateException aggex)
+                    {
+                        string ExceptionMessage = "";
+                        foreach(var ex in aggex.InnerExceptions)
+                        {
+                            ExceptionMessage += ex.Message + Environment.NewLine;
+                        }
+                        System.Windows.Forms.MessageBox.Show(ExceptionMessage);
+                    }
+                    
                     break;
             }
+
+            
         }
 
+        private void addColorHeadingToWordDoc(Microsoft.Office.Interop.Word.Document wordDoc, IZDFEntry entry, object rngStart, object rngEnd, string bmName)
+        {
+            var colorRng = wordDoc.Range(ref rngStart, ref rngEnd);
+            //var colorRng = colorBM.Range;
+            //colorRng.InsertAlignmentTab((int)WdAlignmentTabAlignment.wdCenter);
+            Table tab = wordDoc.Tables.Add(colorRng, 2, 3);
 
-        private string createExportFileName()
+            foreach (Row row in tab.Rows)
+            {
+
+                foreach (Cell c in row.Cells)
+                {
+                    if (c.ColumnIndex == 1 && c.RowIndex == 1)
+                    {
+                        c.Range.Shading.BackgroundPatternColor = ConvertColortoWdColor(entry.HColor.Color);
+                        c.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                        c.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                    }
+                }
+                
+            }
+            
+        }
+
+        
+
+        /// <summary>
+        /// Creates a filename for the ZDF export
+        /// </summary>
+        /// <param name="extension">extension of the desired format to export to</param>
+        /// <returns>exportfilename as a string</returns>
+        private string createExportFileName(String extension = "")
         {
             var activeZDF = ZDFSingleton.GetInstance();
             var str1 = getSaveDirectory() + "\\ExportedFiles";
@@ -358,38 +562,17 @@ namespace ZaveViewModel.ViewModels
                 Directory.CreateDirectory(str1);
             }
 
+            var exportFileName = "Export";
 
-            var str2 = Path.Combine(str1, Path.GetFileNameWithoutExtension(activeZDF.Name) + "Export.docx");
-
-            //Better way to delete the file?
-            if (File.Exists(str2))
+            if (!extension.Equals(""))
             {
-                for (int i = 0; i < 20; i++)
-                {
-                    try
-                    {
-                        File.Delete(str2);
-                        System.Threading.Thread.Sleep(50);
-                        break;
-                    }
-                    catch (IOException ioex)
-                    {
-                        Console.WriteLine(ioex.Message);
-                    }
-                }
-
+                exportFileName += "." + extension;
             }
-            try
-            {
-                using (DocX newDoc = DocX.Create(str2))
-                    newDoc.Save();
 
-            }
-            catch (IOException ioex)
-            {
+            var str2 = Path.Combine(str1, Path.GetFileNameWithoutExtension(activeZDF.Name) + exportFileName);
 
-                throw ioex;
-            }
+
+
             return str2;
         }
 
@@ -751,7 +934,7 @@ namespace ZaveViewModel.ViewModels
                 await OpenZDF(filename);
 
             }
-        
+
         }
         #endregion
 
@@ -820,108 +1003,114 @@ namespace ZaveViewModel.ViewModels
         //}
         #endregion
 
+       
+
+        private WdColor ConvertColortoWdColor(System.Drawing.Color c)
+        {
+            return (WdColor)(c.R + 0x100 * c.G + 0x10000 * c.B);
+        }
+
 
         private void NewZDFEntry()
-{
-    #region checkin
-    ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
-    ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
-    ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-    activeZDF.Add(new ZDFEntry());
-    ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-    #endregion
+        {
+            #region checkin
+            ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+            ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
+            ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
+            activeZDF.Add(new ZDFEntry());
+            ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
+            #endregion
 
-}
+        }
 
 
-private void NewZDF()
-{
-    ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
-    activeZDF.EntryList.Clear();
-    MainContainerViewModel.activeZdfUndo.Clear();
-    SaveLocation = null;
-    Filename = GuidGenerator.UNSAVEDFILENAME;
-    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-    _eventAggregator.GetEvent<NewZDFCreatedEvent>().Publish(activeZDF.ID.ToString());
+        private void NewZDF()
+        {
+            ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
+            activeZDF.EntryList.Clear();
+            MainContainerViewModel.activeZdfUndo.Clear();
+            SaveLocation = null;
+            Filename = GuidGenerator.UNSAVEDFILENAME;
+            new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+            _eventAggregator.GetEvent<NewZDFCreatedEvent>().Publish(activeZDF.ID.ToString());
 
-}
+        }
 
-public static string getSaveDirectory()
-{
-    return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ZDFs";
-}
+        public static string getSaveDirectory()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ZDFs";
+        }
 
-private string getSaveFileName()
-{
-    return @"\SaveDoc";
-}
+        private string getSaveFileName()
+        {
+            return @"\SaveDoc";
+        }
 
-void SaveAsZdfFile()
-{
-    Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
-    saveFileDialog.DefaultExt = ".ZDF"; // Default file extension
-    saveFileDialog.Filter = "ZDF documents (.ZDF)|*.ZDF"; // Filter files by extension
-    saveFileDialog.FileName = "";
+        void SaveAsZdfFile()
+        {
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+            saveFileDialog.DefaultExt = ".ZDF"; // Default file extension
+            saveFileDialog.Filter = "ZDF documents (.ZDF)|*.ZDF"; // Filter files by extension
+            saveFileDialog.FileName = "";
 
-    if (saveFileDialog.ShowDialog() == true)
-    {
-        ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-        SaveLogic(Convert.ToString(saveFileDialog.FileName));
-    }
-}
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
+                SaveLogic(Convert.ToString(saveFileDialog.FileName));
+            }
+        }
     }
 
     internal class NativeMethods
-{
+    {
 
-    [DllImport("user32.dll")]
-    public extern static IntPtr GetDesktopWindow();
-    [DllImport("user32.dll")]
-    public static extern IntPtr GetWindowDC(IntPtr hwnd);
-    [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-    public static extern IntPtr GetForegroundWindow();
-    [DllImport("gdi32.dll")]
-    public static extern UInt64 BitBlt(IntPtr hDestDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, System.Int32 dwRop);
-    [DllImport("user32.dll")]
-    private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
-    public static Bitmap CaptureActiveWindow()
-    {
-        return CaptureWindow(GetForegroundWindow());
-    }
-    [StructLayout(LayoutKind.Sequential)]
-    private struct Rect
-    {
-        public int Left;
-        public int Top;
-        public int Right;
-        public int Bottom;
-    }
-    public static Bitmap CaptureWindow(IntPtr handle)
-    {
-        var rect = new Rect();
-        GetWindowRect(handle, ref rect);
-        var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
-        var result = new Bitmap(bounds.Width, bounds.Height);
-
-        using (var graphics = Graphics.FromImage(result))
+        [DllImport("user32.dll")]
+        public extern static IntPtr GetDesktopWindow();
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindowDC(IntPtr hwnd);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern IntPtr GetForegroundWindow();
+        [DllImport("gdi32.dll")]
+        public static extern UInt64 BitBlt(IntPtr hDestDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, System.Int32 dwRop);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
+        public static Bitmap CaptureActiveWindow()
         {
-            graphics.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, bounds.Size);
+            return CaptureWindow(GetForegroundWindow());
         }
+        [StructLayout(LayoutKind.Sequential)]
+        private struct Rect
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+        public static Bitmap CaptureWindow(IntPtr handle)
+        {
+            var rect = new Rect();
+            GetWindowRect(handle, ref rect);
+            var bounds = new System.Drawing.Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
+            var result = new Bitmap(bounds.Width, bounds.Height);
 
-        return result;
+            using (var graphics = Graphics.FromImage(result))
+            {
+                graphics.CopyFromScreen(new System.Drawing.Point(bounds.Left, bounds.Top), System.Drawing.Point.Empty, bounds.Size);
+            }
+
+            return result;
+        }
     }
-}
-public class ZdfUndoComments
-{
-    public int ID { get; set; }
-    public IEntryComment Comments { get; set; }
-}
+    public class ZdfUndoComments
+    {
+        public int ID { get; set; }
+        public IEntryComment Comments { get; set; }
+    }
 
 }
-        #endregion
+#endregion
 
 
 
 
 
-        
