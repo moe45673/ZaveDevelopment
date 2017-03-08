@@ -54,9 +54,9 @@
         <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="CloseButton_Click">
             <Image Source="/Zave;component/media/images/close.png" Style="{StaticResource TitleBar_Button_Image}"/>
         </Button>
-        <Button x:Name="MaxButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MaxButton_Click">
+        <!--<Button x:Name="MaxButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MaxButton_Click">
             <Image Source="/Zave;component/media/images/maximize.png"  Style="{StaticResource TitleBar_Button_Image}" />
-        </Button>
+        </Button>-->
         <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MinButton_Click">
             <Image Source="/Zave;component/media/images/minimize.png"  Style="{StaticResource TitleBar_Button_Image}" VerticalAlignment="Bottom"/>
         </Button>
