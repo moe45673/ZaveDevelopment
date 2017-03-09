@@ -51,19 +51,19 @@
         </Border>
 
         <Border Grid.Column="2"
-                Background="#F2CB1D"
+                Background="#FFFF00"
                 Style="{StaticResource CommonColors_Border}"/>
 
         <Border Grid.Column="3"
-                Background="#25D8F9"
+                Background="#ADD8E6"
                 Style="{StaticResource CommonColors_Border}"/>
 
         <Border Grid.Column="4"
-                Background="#E35395"
+                Background="#90EE90"
                 Style="{StaticResource CommonColors_Border}"/>
 
         <Border Grid.Column="5"
-                Background="#FF22C131"
+                Background="#FF00FF"
                 Style="{StaticResource CommonColors_Border}"/>
 
         <StackPanel Grid.Column="0" Style="{StaticResource ColorPicker_Section}">
