@@ -15,6 +15,7 @@ using ZaveGlobalSettings.Data_Structures;
 using ZaveModel.ZDFColors;
 using System.Windows.Media;
 using System.Diagnostics;
+using Prism.Commands;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -23,6 +24,10 @@ namespace ZaveViewModel.ViewModels
 
         private IEventAggregator _eventAggregator;
         private IUnityContainer _container;
+
+
+        public DelegateCommand<string> SetActiveColorCommand { get; set; }
+
         public ColorPickerViewModel(IUnityContainer cont, IRegionManager rmanage, IEventAggregator agg)
         {
             _container = cont;
@@ -30,7 +35,7 @@ namespace ZaveViewModel.ViewModels
             ColorItemList = new ObservableImmutableList<ColorItem>();
 
             _container.RegisterInstance<ColorPickerViewModel>(this);
-
+            SetActiveColorCommand = new DelegateCommand<string>(SetActiveColor);
            
             SetColorsAsync();
             
@@ -42,6 +47,13 @@ namespace ZaveViewModel.ViewModels
         private void SetActiveColor(System.Drawing.Color col)
         {
             ActiveColor = Color.FromArgb(col.A, col.R, col.G, col.B);
+        }
+
+        private void SetActiveColor(string hexValue)
+        {
+            System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml(hexValue);
+            SetActiveColor(col);
+            
         }
 
         private Color _activeColor;

@@ -9,6 +9,8 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:si="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:converters="clr-namespace:Zave.Converters"     
              mc:Ignorable="d" 
@@ -26,6 +28,106 @@
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="CornerRadius" Value="5"/>
         </Style>
+        <Style x:Key="CommonColors_Button" TargetType="Button">
+            <Style.Resources>
+                <Color x:Key="ColorEmpty" >#00000000</Color>
+                <Color x:Key="ColorFull" >#FFFFFFFF</Color>
+            </Style.Resources>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <!--<Setter Property="CornerRadius" Value="5"/>-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="8" BorderBrush="Black" BorderThickness="0.25">
+                                <Border.Background>
+                                    <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform CenterX="0.5" CenterY="0.5" 
+                                   ScaleX="1.5" ScaleY="1.5"/>
+                                                <TranslateTransform X="0.02" Y="0.3"/>
+                                            </TransformGroup>
+                                        </RadialGradientBrush.RelativeTransform>
+                                        <GradientStop Offset="1" Color="{DynamicResource ColorFull}"/>
+                                        
+                                    </RadialGradientBrush>
+                                </Border.Background>
+
+                                <ContentPresenter HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         TextElement.FontWeight="Bold"></ContentPresenter>
+                            </Border>
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                            <RadialGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                                                    <TranslateTransform X="0.02" Y="0.3"/>
+                                                </TransformGroup>
+                                            </RadialGradientBrush.RelativeTransform>
+                                            <GradientStop Color="{DynamicResource ColorEmpty}" Offset="1"/>
+                                            <GradientStop Color="{DynamicResource ColorFull}" Offset="0.7"/>
+                                        </RadialGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF33962B"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="QuickColor1_Button" TargetType="{x:Type Button}" 
+    BasedOn="{StaticResource CommonColors_Button}">
+            <Style.Resources>
+                <Color x:Key="ColorFull">#FFFFFF00</Color>
+                <Color x:Key="ColorEmpty">#00FFFF00</Color>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="QuickColor2_Button" TargetType="{x:Type Button}" 
+    BasedOn="{StaticResource CommonColors_Button}">
+            <Style.Resources>
+                <Color x:Key="ColorFull">#FFADD8E6</Color>
+                <Color x:Key="ColorEmpty">#00ADD8E6</Color>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="QuickColor3_Button" TargetType="{x:Type Button}" 
+    BasedOn="{StaticResource CommonColors_Button}">
+            <Style.Resources>
+                <Color x:Key="ColorFull">#FF90EE90</Color>
+                <Color x:Key="ColorEmpty">#0090EE90</Color>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="QuickColor4_Button" TargetType="{x:Type Button}" 
+    BasedOn="{StaticResource CommonColors_Button}">
+            <Style.Resources>
+                <Color x:Key="ColorFull">#FFFF00FF</Color>
+                <Color x:Key="ColorEmpty">#00FF00FF</Color>
+            </Style.Resources>
+        </Style>
+        
+        
+
+
         <Style x:Key="FirstCommonColor_Border" TargetType="Border">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -51,20 +153,32 @@
         </Border>
 
         <Border Grid.Column="2"
-                Background="#FFFF00"
-                Style="{StaticResource CommonColors_Border}"/>
+                Style="{StaticResource CommonColors_Border}">
+            <Button Background="#FFFF00" BorderThickness="0" Style="{DynamicResource QuickColor1_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#FFFF00"/>
+
+            <!--<interactivity:Interaction.Triggers>
+                    <interactivity:EventTrigger EventName="MouseEnter">
+                        <prism:InvokeCommandAction Command="{Binding SetActiveColorCommand}" CommandParameter="#FFFF00" />
+                    </interactivity:EventTrigger>
+                </interactivity:Interaction.Triggers>--><!--
+            </Button>-->
+        </Border>
 
         <Border Grid.Column="3"
-                Background="#ADD8E6"
-                Style="{StaticResource CommonColors_Border}"/>
+                
+                Style="{StaticResource CommonColors_Border}">
+            <Button Background="#ADD8E6" BorderThickness="0" Style="{DynamicResource QuickColor2_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#ADD8E6"/>
+            </Border>
 
         <Border Grid.Column="4"
-                Background="#90EE90"
-                Style="{StaticResource CommonColors_Border}"/>
+                Style="{StaticResource CommonColors_Border}">
+            <Button Background="#90EE90" BorderThickness="0" Style="{DynamicResource QuickColor3_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#90EE90"/>
+        </Border>
 
         <Border Grid.Column="5"
-                Background="#FF00FF"
-                Style="{StaticResource CommonColors_Border}"/>
+                Style="{StaticResource CommonColors_Border}">
+            <Button Background="#FF00FF" BorderThickness="0" Style="{DynamicResource QuickColor4_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#FF00FF" />
+        </Border>
 
         <StackPanel Grid.Column="0" Style="{StaticResource ColorPicker_Section}">
             <xctk:ColorPicker Name="ClrPcker_Background" VerticalAlignment="Center" AvailableColorsSortingMode="HueSaturationBrightness" IsManipulationEnabled="True" AvailableColors="{Binding ColorItemList, Converter={StaticResource CollectionConverter}}" ShowStandardColors="False" ShowRecentColors="True" ShowAdvancedButton="False" SelectedColor="{Binding ActiveColor}" />
