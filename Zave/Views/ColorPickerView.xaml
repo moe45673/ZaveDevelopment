@@ -41,7 +41,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid x:Name="grid">
-                            <Border x:Name="border" CornerRadius="8" BorderBrush="Black" BorderThickness="0.25">
+                            <Border x:Name="border" CornerRadius="8" BorderBrush="Black" BorderThickness="0">
                                 <Border.Background>
                                     <RadialGradientBrush GradientOrigin="0.496,1.052">
                                         <RadialGradientBrush.RelativeTransform>
@@ -75,13 +75,13 @@
                                                 </TransformGroup>
                                             </RadialGradientBrush.RelativeTransform>
                                             <GradientStop Color="{DynamicResource ColorEmpty}" Offset="1"/>
-                                            <GradientStop Color="{DynamicResource ColorFull}" Offset="0.7"/>
+                                            <GradientStop Color="{DynamicResource ColorFull}" Offset="0.66666666"/>
                                         </RadialGradientBrush>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" TargetName="border" Value="#FF33962B"/>
+                                <Setter Property="BorderThickness" TargetName="border" Value="1"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
@@ -155,17 +155,9 @@
         <Border Grid.Column="2"
                 Style="{StaticResource CommonColors_Border}">
             <Button Background="#FFFF00" BorderThickness="0" Style="{DynamicResource QuickColor1_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#FFFF00"/>
-
-            <!--<interactivity:Interaction.Triggers>
-                    <interactivity:EventTrigger EventName="MouseEnter">
-                        <prism:InvokeCommandAction Command="{Binding SetActiveColorCommand}" CommandParameter="#FFFF00" />
-                    </interactivity:EventTrigger>
-                </interactivity:Interaction.Triggers>--><!--
-            </Button>-->
         </Border>
 
-        <Border Grid.Column="3"
-                
+        <Border Grid.Column="3"                
                 Style="{StaticResource CommonColors_Border}">
             <Button Background="#ADD8E6" BorderThickness="0" Style="{DynamicResource QuickColor2_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#ADD8E6"/>
             </Border>

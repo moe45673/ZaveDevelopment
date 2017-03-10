@@ -111,7 +111,7 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding NewZDFDelegateCommand}"  Style="{StaticResource Main_Button}">
+                    <Button Command="{Binding NewZDFDelegateCommand}"  Style="{StaticResource Main_Button}" ToolTip="New">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="new.png">
@@ -123,7 +123,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding OpenZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
+                    <Button Command="{Binding OpenZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="Load">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="open.png">
@@ -135,7 +135,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding SaveZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
+                    <Button Command="{Binding SaveZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="Save">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="save.png">
@@ -147,7 +147,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding UndoZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
+                    <Button Command="{Binding UndoZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="Undo">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="undo.png">
@@ -159,7 +159,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding RedoZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
+                    <Button Command="{Binding RedoZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="Redo">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="redo.png">
@@ -171,7 +171,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding ScreenshotZDFDelegateCommand}"   Style="{StaticResource Main_Button}">
+                    <Button Command="{Binding ScreenshotZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="ScreenShot">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="screenshot.png">
@@ -185,7 +185,7 @@
                 </ListBoxItem>
 
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding SwitchWindowModeDelegateCommand}" Style="{StaticResource Main_Button}">
+                    <Button Command="{Binding SwitchWindowModeDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="Switch View">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="switch.png">
