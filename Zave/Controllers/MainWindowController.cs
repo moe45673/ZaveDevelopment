@@ -47,14 +47,14 @@ namespace Zave.Controllers
                 
             
                 case (WindowMode.MAIN):
-                    WindowModeChange<Views.MainContainer, MainContainerViewModel>("MainContainer");
-                    
+                    WindowModeChange<Views.MainContainer, MainContainerViewModel>(InstanceNames.MainContainerView);
+
                     break;
                 case (WindowMode.WIDGET):
                     //var modManager = container.Resolve<IModuleManager>();
                     //modManager.LoadModule("WidgetModule");
-                    WindowModeChange<Views.WidgetView, WidgetViewModel>("WidgetView");  
-                            
+                    WindowModeChange<Views.WidgetView, WidgetViewModel>(InstanceNames.WidgetView);
+
                     break;
                 default:                    
                     break;
@@ -71,11 +71,13 @@ namespace Zave.Controllers
             if (mviewRegion == null) return;
 
 
-            regionManager.RequestNavigate(mviewRegion.Name, new Uri(uri, UriKind.Relative));         
+            regionManager.RequestNavigate(mviewRegion.Name, new Uri(uri, UriKind.Relative));
+            //regionManager.RegisterViewWithRegion(uri, () => container.Resolve<ViewType>());
 
-            
-            
-           
+
+
+
+
 
         }
 

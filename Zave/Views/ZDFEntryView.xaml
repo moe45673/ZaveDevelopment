@@ -145,7 +145,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="docPgNmbrTxtBx" Grid.Row="0" Grid.Column="0" Text="{Binding TxtDocPage, StringFormat='Page: {0}',UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource hiLightHeader_Text}"/>
             <TextBlock x:Name="docLastModdedTxtBx1" Grid.Row="0" Grid.Column="1" Text="{Binding TxtDocLastModified, StringFormat='Modified: {0}',UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource hiLightHeader_Text}"/>
-            <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Text="Created: 2016-07-12 10:38 AM" Style="{StaticResource hiLightHeader_Text}"/>
+            <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Style="{StaticResource hiLightHeader_Text}"/>
         </Grid>
         <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
         <FlowDocumentScrollViewer x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" Style="{StaticResource docText_Text}" Document="{Binding TxtDocText, Converter={StaticResource stringToFlowConverter}, UpdateSourceTrigger=PropertyChanged}"/>

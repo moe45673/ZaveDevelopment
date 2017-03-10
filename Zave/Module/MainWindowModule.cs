@@ -30,12 +30,12 @@ namespace Zave.Module
             //window.DataContext = viewmodel;
             var window = _unityContainer.Resolve<MainWindow>(InstanceNames.MainWindowView);
             window.DataContext = _unityContainer.Resolve<MainWindowViewModel>();
-            
-            _regionManager.RegisterViewWithRegion(RegionNames.MainViewRegion, () => _unityContainer.Resolve<MainContainer>());
+            var startingView = _unityContainer.Resolve<WidgetView>();
+            var altView = _unityContainer.Resolve<MainContainer>();
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
             eventInit = ZaveController.EventInitSingleton.GetInstance(_unityContainer, _unityContainer.Resolve<IEventAggregator>());
             mainWinController = _unityContainer.Resolve<Controllers.MainWindowController>();
-            
+
         }
     }
 
@@ -56,6 +56,12 @@ namespace Zave.Module
         public const string MainTitleBarRegion = "MainTitleBarRegion";
         public const string WidgetTitleBarRegion = "WidgetTitleBarRegion";
 
+
+    }
+
+    public static class ViewNames
+    {
+        public const string MainWindowView = "MainWindowView";
         
     }
 

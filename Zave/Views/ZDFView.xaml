@@ -126,7 +126,7 @@
                                 </Grid.ColumnDefinitions>
                             <TextBlock x:Name="docCommentTxtBx" Text="{Binding TxtDocComments.Count, Mode=OneWay, StringFormat='Comments ({0})'}" Style="{StaticResource ListView_Item_Comments}">
                             </TextBlock>
-                            <TextBlock x:Name="docTimeTxtBx" Text="{Binding TxtDocID}" Grid.Column="1" Style="{StaticResource ListView_Item_Time}"></TextBlock>
+                            <TextBlock x:Name="docTimeTxtBx" TextTrimming="WordEllipsis" Text="{Binding TxtDocLastModified}" Grid.Column="1" Style="{StaticResource ListView_Item_Time}" />
                         </Grid>
                         </StackPanel>
                     </Border>

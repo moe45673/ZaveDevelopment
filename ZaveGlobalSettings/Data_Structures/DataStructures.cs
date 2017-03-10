@@ -505,7 +505,10 @@ namespace ZaveGlobalSettings.Data_Structures
         public const string MainWindowView = "MainWindowView";
         public const string MainWindowViewModel = "MainWindowViewModel";
         public const string ActiveZDF = "ActiveZDF";
-        
+        public const string MainContainerView = "MainContainerView";
+        public const string WidgetView = "WidgetView";
+
+
     }
 
     public static class APIFileNames

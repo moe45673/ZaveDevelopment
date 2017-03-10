@@ -125,7 +125,7 @@ namespace ZaveViewModel.ViewModels
             SaveLocation = String.Empty;
             Filename = GuidGenerator.UNSAVEDFILENAME;
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
-            SetWindowMode(WindowMode.MAIN);
+            
             _ioService = ioservice;
             _jsonService = jsonService;
             SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDF);
@@ -138,6 +138,7 @@ namespace ZaveViewModel.ViewModels
             ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
             ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
             SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
+            SetWindowMode(WindowMode.WIDGET);
 
             //_eventAggregator.GetEvent<MainWindowInstantiatedEvent>().Publish(true);
 

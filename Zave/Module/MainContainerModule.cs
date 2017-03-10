@@ -7,11 +7,13 @@ using Prism.Events;
 using Zave.Views;
 using ZaveViewModel.ViewModels;
 using ZaveService.ZDFEntry;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {
     [ModuleDependency("DataServiceModule")]
     [ModuleDependency("MainWindowModule")]
+    [ModuleDependency("ControlBarModule")]
     public class MainContainerModule : ModuleBaseClass
     {
 
@@ -23,7 +25,7 @@ namespace Zave.Module
         public override void Initialize()
         {
             //var controlbar = _unityContainer.Resolve<ControlBar>();
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), "MainContainerView");
+            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), InstanceNames.MainContainerView);
             //IRegion controlbarRegion = _regionManager.Regions[RegionNames.ControlBarRegion];
             //controlbarRegion.Add(controlbar);
             _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>("ControlBarView"));

@@ -11,6 +11,7 @@ using ZaveModel.ZDF;
 using ZaveViewModel.ViewModels;
 using ZaveModel.ZDFEntry;
 using Prism.Modularity;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {
@@ -28,7 +29,7 @@ namespace Zave.Module
         public override void Initialize()
         {
 
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(WidgetView), "WidgetView");
+            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(WidgetView), InstanceNames.WidgetView);
 
             //var view = _unityContainer.Resolve<WidgetView>();
             //_regionManager.Regions.Add(RegionNames.WidgetMainRegion);
@@ -57,6 +58,13 @@ namespace Zave.Module
             _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>("ControlBarView"));
             _regionManager.RegisterViewWithRegion(RegionNames.ZaveWidgetColorPicker, () => _unityContainer.Resolve<ColorPickerView>("ColorPickerView"));
             _regionManager.RegisterViewWithRegion(RegionNames.WidgetTitleBarRegion, () => _unityContainer.Resolve<TitleBar>());
+
+            IRegion mviewRegion = _regionManager.Regions[RegionNames.MainViewRegion];
+
+            if (mviewRegion == null) return;
+
+
+            _regionManager.RequestNavigate(RegionNames.MainViewRegion, new Uri(InstanceNames.WidgetView, UriKind.Relative));
             //var controlbar = _unityContainer.Resolve<ControlBar>();
             //_regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>());
 
