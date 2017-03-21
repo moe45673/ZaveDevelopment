@@ -121,4 +121,7 @@
   <data name="marker_cursor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\marker-cursor2.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="zave_cursor3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\zave-cursor3.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

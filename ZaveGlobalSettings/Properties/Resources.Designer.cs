@@ -69,5 +69,15 @@ namespace ZaveGlobalSettings.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] zave_cursor3 {
+            get {
+                object obj = ResourceManager.GetObject("zave_cursor3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

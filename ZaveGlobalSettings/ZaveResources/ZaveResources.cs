@@ -43,7 +43,7 @@ namespace ZaveGlobalSettings.ZaveResources
             //    ZaveCursor = new Cursor(ms);
             //}
 
-            var cross_i = Properties.Resources.marker_cursor2;
+            var cross_i = Properties.Resources.zave_cursor3;
             ZaveCursor = cross_i.CursorFromArray(0);
             DefaultCursor = new Cursor(Cursors.IBeam.CopyHandle());
 
