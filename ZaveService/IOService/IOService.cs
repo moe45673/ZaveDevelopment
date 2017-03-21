@@ -60,5 +60,58 @@ namespace ZaveService.IOService
             }
             return String.Empty;
         }
+
+        public static async Task CreateFileAsync(string filename)
+        {
+            await Task.Run(() =>
+            {
+                using (StreamWriter sw = ZaveGlobalSettings.ZaveFile.StreamWriterFactory.createStreamWriter(filename))
+                {
+                    try
+                    {
+                        sw.Write("[]");
+
+                    }
+                    catch (IOException ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        sw.Close();
+                    }
+                }
+            });
+        }
+
+        public static void DeleteFile(string filename)
+        {
+
+            int maxAttempts = 20;
+            int retryMilliseconds = 100;
+
+            for (int attempts = 0; attempts <= maxAttempts; attempts++)
+            {
+                try
+                {
+                    File.Delete(filename);
+
+                }
+                catch (IOException iox)
+                {
+                    if (attempts == maxAttempts)
+                    {
+                        throw iox;
+                    }
+                    System.Threading.Thread.Sleep(retryMilliseconds);
+
+                }
+
+
+            }
+
+        }
     }
+
+    
 }
