@@ -10,8 +10,10 @@ using ZaveService.ZDFEntry;
 
 namespace Zave.Module
 {
-    [ModuleDependency("MainContainerModule")]
-    [ModuleDependency("WidgetModule")]
+    //[ModuleDependency("MainContainerModule")]
+    //[ModuleDependency("WidgetModule")]
+    [Module(ModuleName = "ColorPickerModule")]
+    [ModuleDependency("AppSettingsModule")]
     public class ColorPickerModule : ModuleBaseClass
     {
         public ColorPickerModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry) { }

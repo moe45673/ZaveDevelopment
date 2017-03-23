@@ -507,6 +507,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public const string ActiveZDF = "ActiveZDF";
         public const string MainContainerView = "MainContainerView";
         public const string WidgetView = "WidgetView";
+        public const string AppSettings = "AppSettings";
 
 
     }
@@ -521,6 +522,11 @@ namespace ZaveGlobalSettings.Data_Structures
     {
         public Component Watcher { get; set; }
         protected abstract Component createWatcher();
+    }
+
+    public interface IConfigProvider
+    {
+        Color ActiveColor { get; set; }
     }
 
 }

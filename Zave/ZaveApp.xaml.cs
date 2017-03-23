@@ -20,6 +20,7 @@ using ZaveGlobalSettings.Data_Structures;
 using System.Drawing;
 using System.Threading.Tasks;
 using ZaveService.IOService;
+using Zave.Properties;
 
 namespace Zave
 {
@@ -63,6 +64,7 @@ namespace Zave
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
             IOService.DeleteFile(projFile);
             IOService.DeleteFile(broadcastFile);
+            Settings.Default.Save();
             
         }
 

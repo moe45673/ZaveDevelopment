@@ -19,6 +19,7 @@ namespace Zave.Module
     [ModuleDependency("DataServiceModule")]
     [ModuleDependency("ControlBarModule")]
     [ModuleDependency("MainWindowModule")]
+    [ModuleDependency("AppSettingsModule")]
 
     public class WidgetModule : ModuleBaseClass
     {

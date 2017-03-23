@@ -36,6 +36,9 @@ namespace Zave.Views
             
 
         }
+
+        
+
         public static readonly DependencyProperty HeightProperty = 
             DependencyProperty.Register
             (
@@ -85,6 +88,31 @@ namespace Zave.Views
             var window = (Window)sender;
             window.Topmost = true;
             window.Opacity = 1;
+        }
+
+        //private void Window_LocationChanged(object sender, EventArgs e)
+        //{
+        //    MoveIntoView();
+        //}
+
+        //private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        //{
+        //    MoveIntoView();
+        //}
+
+        //private void Window_SourceUpdated(object sender, DataTransferEventArgs e)
+        //{
+        //    MoveIntoView();
+        //}
+
+        private void Window_LayoutUpdated(object sender, EventArgs e)
+        {
+            Zave.Controllers.ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(this);
+        }
+
+        private void Window_LocationChanged(object sender, EventArgs e)
+        {
+            Zave.Controllers.ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(this);
         }
     }
 

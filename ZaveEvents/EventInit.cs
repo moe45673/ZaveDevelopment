@@ -24,6 +24,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 
 
+
 //using ZaveMo
 
 namespace ZaveController
@@ -55,10 +56,10 @@ namespace ZaveController
 
             //CreateFileWatcher(Path.GetTempPath());
             CreateFileWatcher(Path.GetTempPath());
-            using(var sw = ZaveGlobalSettings.ZaveFile.StreamWriterFactory.createStreamWriter(Path.GetTempPath() + APIFileNames.ZaveToSource))
-            {
-                sw.WriteLine("Written!");
-            }
+            //using(var sw = ZaveGlobalSettings.ZaveFile.StreamWriterFactory.createStreamWriter(Path.GetTempPath() + APIFileNames.ZaveToSource))
+            //{
+            //    sw.WriteLine("Written!");
+            //}
             lastRead = DateTime.MinValue;
             //System.Drawing.Color startupColor = ColorCategory.FromWPFColor(setStartupColor()).Color;
             //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
@@ -95,10 +96,10 @@ namespace ZaveController
             return Instance;
         }
 
-        private WPFColor setStartupColor()
-        {
-            return System.Windows.Media.Colors.Yellow;
-        }
+        //private WPFColor setStartupColor()
+        //{
+        //    return new WPFColor();
+        //}
 
         private WPFColor activeColor;
         public void SetActiveColor(System.Drawing.Color color)

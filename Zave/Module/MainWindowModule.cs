@@ -16,6 +16,8 @@ namespace Zave.Module
     [Module(ModuleName = "MainWindowModule", OnDemand = true)]
     [ModuleDependency("IOModule")]
     [ModuleDependency("JsonModule")]
+    [ModuleDependency("ColorPickerModule")]
+    [ModuleDependency("AppSettingsModule")]
     public class MainWindowModule : ModuleBaseClass
     {
         private ZaveController.EventInitSingleton eventInit;
@@ -30,11 +32,14 @@ namespace Zave.Module
             //window.DataContext = viewmodel;
             var window = _unityContainer.Resolve<MainWindow>(InstanceNames.MainWindowView);
             window.DataContext = _unityContainer.Resolve<MainWindowViewModel>();
-            var startingView = _unityContainer.Resolve<WidgetView>();
-            var altView = _unityContainer.Resolve<MainContainer>();
+            
+            //var startingView = _unityContainer.Resolve<WidgetView>();
+            //var altView = _unityContainer.Resolve<MainContainer>();
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
             eventInit = ZaveController.EventInitSingleton.GetInstance(_unityContainer, _unityContainer.Resolve<IEventAggregator>());
             mainWinController = _unityContainer.Resolve<Controllers.MainWindowController>();
+
+            
 
         }
     }

@@ -192,6 +192,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\AppSettingsController.cs" />
     <Compile Include="Controllers\MainWindowController.cs" />
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ColorConverters.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Converters\StringToSourceConverter.cs" />
     <Compile Include="Converters\WindowModeConverter.cs" />
     <Compile Include="Converters\XamlToFlowDocumentConverter.cs" />
+    <Compile Include="Module\AppSettingsModule.cs" />
     <Compile Include="Module\ColorPickerModule.cs" />
     <Compile Include="Module\DataServiceModule.cs" />
     <Compile Include="Module\IOModule.cs" />
@@ -211,6 +213,7 @@
     <Compile Include="Module\WidgetModule.cs" />
     <Compile Include="Module\ZDFEntryModule.cs" />
     <Compile Include="Module\ZDFModule.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Views\ColorPickerView.xaml.cs">
       <DependentUpon>ColorPickerView.xaml</DependentUpon>
     </Compile>

@@ -82,6 +82,7 @@ namespace Zave
             
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
             moduleCatalog.AddModule(typeof(IOModule));
+            moduleCatalog.AddModule(typeof(ApplicationSettingsModule));
             moduleCatalog.AddModule(typeof(JsonModule));
             moduleCatalog.AddModule(typeof(DataServiceModule));
             moduleCatalog.AddModule(typeof(MainWindowModule));
@@ -90,6 +91,7 @@ namespace Zave
             moduleCatalog.AddModule(typeof(ZDFEntryModule));
             moduleCatalog.AddModule(typeof(WidgetModule));
             moduleCatalog.AddModule(typeof(ColorPickerModule));
+            
             
             //moduleCatalog.AddModule(typeof(ZDFList));
 

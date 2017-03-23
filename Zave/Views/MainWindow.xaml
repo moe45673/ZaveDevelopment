@@ -16,8 +16,8 @@
         xmlns:zaveDialogs="clr-namespace:ZaveViewModel.Data_Structures.ZaveDialogs;assembly=ZaveViewModel"
         mc:Ignorable="d"
         zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"   
-        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" AllowsTransparency="True" Background="Transparent" WindowStyle="None" 
-        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}" ResizeMode="NoResize" SnapsToDevicePixels="False" Deactivated="Window_Deactivated" Activated="Window_Activated">
+        Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" Background="Transparent" AllowsTransparency="True" WindowStyle="None" 
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}" ResizeMode="NoResize" SnapsToDevicePixels="False" Deactivated="Window_Deactivated" Activated="Window_Activated" LayoutUpdated="Window_LayoutUpdated" LocationChanged="Window_LocationChanged">
 
     <Window.Resources>
 
@@ -36,8 +36,10 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <!--<Border Style="{StaticResource TitleBar_Border}">
-            --><!--<ContentControl x:Name="TitleBarRegion"
-                               prism:RegionManager.RegionName="TitleBarRegion"/>--><!--
+            -->
+        <!--<ContentControl x:Name="TitleBarRegion"
+                               prism:RegionManager.RegionName="TitleBarRegion"/>-->
+        <!--
         </Border>-->
         <ContentControl x:Name="MainViewRegion"
                                prism:RegionManager.RegionName="MainViewRegion"/>
