@@ -106,7 +106,7 @@ namespace Zave.Controllers
         private void NavigationCompleted(NavigationResult result)
         {
             var uc = container.Resolve<MainWindow>(InstanceNames.MainWindowView);
-            uc.Dispatcher.Invoke(() => ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(uc), DispatcherPriority.Loaded);
+            uc.Dispatcher.InvokeAsync(() => ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(uc), DispatcherPriority.Loaded);
         }
 
 
