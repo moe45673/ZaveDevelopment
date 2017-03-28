@@ -14,6 +14,7 @@ namespace Zave.Module
     [ModuleDependency("DataServiceModule")]
     [ModuleDependency("MainWindowModule")]
     [ModuleDependency("ControlBarModule")]
+    [ModuleDependency("AppSettingsModule")]
     public class MainContainerModule : ModuleBaseClass
     {
 

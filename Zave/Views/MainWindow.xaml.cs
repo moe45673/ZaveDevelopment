@@ -110,10 +110,10 @@ namespace Zave.Views
             Zave.Controllers.ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(this);
         }
 
-        private void Window_LocationChanged(object sender, EventArgs e)
-        {
-            Zave.Controllers.ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(this);
-        }
+        //private void Window_LocationChanged(object sender, EventArgs e)
+        //{
+        //    Zave.Controllers.ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(this);
+        //}
     }
 
     

@@ -15,6 +15,8 @@ using Zave.Views;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace Zave.Controllers
 {
@@ -23,7 +25,7 @@ namespace Zave.Controllers
         private readonly IUnityContainer container;
         private readonly IRegionManager regionManager;
         private readonly IEventAggregator eventAggregator;
-
+        
         
 
         public MainWindowController(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
@@ -31,9 +33,8 @@ namespace Zave.Controllers
             if (container == null) throw new ArgumentNullException("container");
             if (regionManager == null) throw new ArgumentNullException("regionManager");
             if (eventAggregator == null) throw new ArgumentNullException("eventAggregator");
-            
 
-
+           
             this.container = container;
             this.regionManager = regionManager;
             this.eventAggregator = eventAggregator;
@@ -63,23 +64,38 @@ namespace Zave.Controllers
                 default:                    
                     break;
             }
+
+            //uc = container.Resolve<MainWindow>(InstanceNames.MainWindowView);
+            //ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(uc);
+
         }
 
-        private void WindowModeChange<ViewType, ViewModelType>(string uri) 
-            where ViewType : System.Windows.Controls.UserControl 
+        private void WindowModeChange<ViewType, ViewModelType>(string uri)
+            where ViewType : System.Windows.Controls.UserControl
             where ViewModelType : BindableBase
-        { 
+        {
 
-        IRegion mviewRegion = regionManager.Regions[RegionNames.MainViewRegion];
+            IRegion mviewRegion = regionManager.Regions[RegionNames.MainViewRegion];
 
             if (mviewRegion == null) return;
 
+            
+            mviewRegion.RequestNavigate(new Uri(uri, UriKind.Relative), (x =>
+            {
 
-            regionManager.RequestNavigate(mviewRegion.Name, new Uri(uri, UriKind.Relative));
-            //regionManager.RegisterViewWithRegion(uri, () => container.Resolve<ViewType>());
-            var uc = container.Resolve<MainWindow>(InstanceNames.MainWindowView);
+                var uc = container.Resolve<MainWindow>(InstanceNames.MainWindowView);
+                uc.Dispatcher.Invoke(() => ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(uc), DispatcherPriority.Loaded);
+
+            }));
 
             
+            
+            
+
+
+            //regionManager.RegisterViewWithRegion(uri, () => container.Resolve<ViewType>());
+            //var uc = mviewRegion.ActiveViews.
+
 
 
 
@@ -87,7 +103,13 @@ namespace Zave.Controllers
 
         }
 
-        
+        private void NavigationCompleted(NavigationResult result)
+        {
+            var uc = container.Resolve<MainWindow>(InstanceNames.MainWindowView);
+            uc.Dispatcher.Invoke(() => ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(uc), DispatcherPriority.Loaded);
+        }
+
+
 
     }
     public static class ShiftWindowOntoScreenHelper
