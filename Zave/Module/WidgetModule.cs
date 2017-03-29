@@ -20,6 +20,7 @@ namespace Zave.Module
     [ModuleDependency("ControlBarModule")]
     [ModuleDependency("MainWindowModule")]
     [ModuleDependency("AppSettingsModule")]
+    //[ModuleDependency("MainContainerModule")]
 
     public class WidgetModule : ModuleBaseClass
     {

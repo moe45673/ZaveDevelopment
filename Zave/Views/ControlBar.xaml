@@ -12,9 +12,9 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:converters="clr-namespace:Zave.Converters"             
              mc:Ignorable="d"             
-             d:DesignHeight="300" d:DesignWidth="300">    
-    <UserControl.Resources>        
-        <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>        
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:AvailableColorCollectionConverter x:Key="CollectionConverter"/>
         <converters:StringToSourceConverter x:Key="strToSrcConvert"/>
         <converters:StringsToSourceConverter x:Key="stringsToSrcConvert"/>
 
@@ -26,7 +26,7 @@
         </Style>
         <Style x:Key="ControlBar_Container" TargetType="{x:Type StackPanel}">
             <Setter Property="Orientation" Value="Horizontal"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
         <Style x:Key="ColourSelector_Container" TargetType="{x:Type StackPanel}">
@@ -39,14 +39,17 @@
             <Setter Property="Width" Value="25"></Setter>
         </Style>
         <Style TargetType="{x:Type ListBox}">
-            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Width" Value="300"/>
+            <!--<Setter Property="HorizontalContentAlignment" Value="Stretch"/>-->
+
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
                         <Border BorderBrush="{TemplateBinding Border.BorderBrush}" BorderThickness="0" Name="Bd" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True" Padding="0">
-                            <!--<ScrollViewer Focusable="False" Padding="{TemplateBinding Control.Padding}">-->
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-                            <!--</ScrollViewer>-->
+                            
+                            <ScrollViewer Focusable="False" Padding="{TemplateBinding Control.Padding}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                            </ScrollViewer>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -58,7 +61,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Name="ButtonBorder" Padding="5" SnapsToDevicePixels="true" Background="Transparent" CornerRadius="5">
+                        <Border Name="ButtonBorder" Padding="0" SnapsToDevicePixels="true" Background="Transparent" CornerRadius="5">
                             <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -77,6 +80,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border Name="Border" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+
                             <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -89,16 +93,16 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
+
     <!--<TextBlock   Text="[Zave Controls]" FontSize="72" FontFamily="Franklin Gothic Heavy" Opacity="0.8" VerticalAlignment="Center">
             <TextBlock.Effect>
                 <DropShadowEffect Color="#FFF3FF00"/>
             </TextBlock.Effect>
         </TextBlock>-->
-        <Grid x:Name="gridEntry">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+    <Grid x:Name="gridEntry" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <!--<ColumnDefinition Width="120" />-->
@@ -111,7 +115,7 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding NewZDFDelegateCommand}"  Style="{StaticResource Main_Button}" ToolTip="New">
+                    <Button Command="{Binding NewZDFDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="New">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="new.png">
@@ -123,7 +127,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding OpenZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="Load">
+                    <Button Command="{Binding OpenZDFDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="Load">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="open.png">
@@ -135,7 +139,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding SaveZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="Save">
+                    <Button Command="{Binding SaveZDFDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="Save">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="save.png">
@@ -147,7 +151,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding UndoZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="Undo">
+                    <Button Command="{Binding UndoZDFDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="Undo">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="undo.png">
@@ -159,7 +163,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding RedoZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="Redo">
+                    <Button Command="{Binding RedoZDFDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="Redo">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="redo.png">
@@ -171,7 +175,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding ScreenshotZDFDelegateCommand}"   Style="{StaticResource Main_Button}" ToolTip="ScreenShot">
+                    <Button Command="{Binding ScreenshotZDFDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="ScreenShot">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="screenshot.png">
@@ -184,7 +188,7 @@
                     </Button>
                 </ListBoxItem>
 
-                <ListBoxItem Style="{StaticResource MainButton_Container}">
+                <!--<ListBoxItem Style="{StaticResource MainButton_Container}">
                     <Button Command="{Binding SwitchWindowModeDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="Switch View">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
@@ -195,8 +199,8 @@
                             </Image.Source>
                         </Image>
                     </Button>
-                </ListBoxItem>
-                
+                </ListBoxItem>-->
+
             </ListBox>
         </StackPanel>
     </Grid>

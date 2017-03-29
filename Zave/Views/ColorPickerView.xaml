@@ -23,8 +23,11 @@
             <Setter Property="Margin" Value="5 0 5 0"/>
         </Style>
         <Style x:Key="CommonColors_Border" TargetType="Border">
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="1"/>
+            <!--<Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="25"/>-->
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="CornerRadius" Value="5"/>
         </Style>
@@ -33,8 +36,9 @@
                 <Color x:Key="ColorEmpty" >#00000000</Color>
                 <Color x:Key="ColorFull" >#FFFFFFFF</Color>
             </Style.Resources>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Width" Value="25"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <!--<Setter Property="Width" Value="25"/>-->
             <Setter Property="BorderBrush" Value="Transparent"/>
             <!--<Setter Property="CornerRadius" Value="5"/>-->
             <Setter Property="Template">
@@ -135,12 +139,12 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70"/>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="1"

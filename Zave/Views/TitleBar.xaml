@@ -51,14 +51,17 @@
         </Style>
     </UserControl.Resources>
     <DockPanel Grid.Row="0" Grid.Column="0"  x:Name="TitleBar_Structure" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" LastChildFill="True">
-        <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="CloseButton_Click">
+        <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="CloseButton_Click"  ToolTip="Exit">
             <Image Source="/Zave;component/media/images/close.png" Style="{StaticResource TitleBar_Button_Image}"/>
         </Button>
         <!--<Button x:Name="MaxButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MaxButton_Click">
             <Image Source="/Zave;component/media/images/maximize.png"  Style="{StaticResource TitleBar_Button_Image}" />
         </Button>-->
-        <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MinButton_Click">
+        <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Click="MinButton_Click"  ToolTip="Minimize">
             <Image Source="/Zave;component/media/images/minimize.png"  Style="{StaticResource TitleBar_Button_Image}" VerticalAlignment="Bottom"/>
+        </Button>
+        <Button x:Name="SwitchButton" DockPanel.Dock="Right" Style="{StaticResource TitleBar_Button}" Command="{Binding SwitchWindowModeDelegateCommand}"  ToolTip="Switch View">
+            <Image Source="/Zave;component/media/images/switch.png"  Style="{StaticResource TitleBar_Button_Image}" VerticalAlignment="Bottom"/>
         </Button>
         <Grid DockPanel.Dock="Left">
             <Grid.RowDefinitions>

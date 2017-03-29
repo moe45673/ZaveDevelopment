@@ -8,6 +8,7 @@ using Prism.Regions;
 using Prism.Events;
 using Microsoft.Practices.Unity;
 using ZaveGlobalSettings.Data_Structures;
+using Prism.Commands;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -19,6 +20,7 @@ namespace ZaveViewModel.ViewModels
         private IEventAggregator _eventAgg;
         private IRegionManager _regionMan;
         private IUnityContainer _container;
+        public DelegateCommand SwitchWindowModeDelegateCommand { get; set; }
 
         public TitleBarViewModel(IEventAggregator eventAgg, IRegionManager regionMan, IUnityContainer container)
         {
@@ -33,6 +35,8 @@ namespace ZaveViewModel.ViewModels
             mainWinVM = _container.Resolve<MainWindowViewModel>();
 
             Filename = mainWinVM.Filename;
+            var vm = _container.Resolve<MainWindowViewModel>() as MainWindowViewModel;
+            SwitchWindowModeDelegateCommand = vm.SwitchWindowModeCommand;
         }
 
         private MainWindowViewModel mainWinVM;

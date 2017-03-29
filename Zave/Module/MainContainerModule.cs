@@ -11,6 +11,7 @@ using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {
+    [Module(ModuleName="MainContainerModule")]
     [ModuleDependency("DataServiceModule")]
     [ModuleDependency("MainWindowModule")]
     [ModuleDependency("ControlBarModule")]
@@ -38,6 +39,8 @@ namespace Zave.Module
             //_regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => controlbar);
             _regionManager.RegisterViewWithRegion(RegionNames.MenuRegion, () => _unityContainer.Resolve<Menu>());
             //_unityContainer.RegisterType<IZDFEntryService, ZDFEntryService>();
+
+
 
             //_mainContainerController = _unityContainer.Resolve<Controllers.MainContainerController>();
 
