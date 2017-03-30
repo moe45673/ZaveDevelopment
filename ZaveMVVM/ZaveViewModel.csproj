@@ -48,6 +48,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ModalInputDialogViewModel.cs" />
+    <Compile Include="ViewModels\NotificationBarViewModel.cs" />
     <Compile Include="ViewModels\TestDialogViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\WidgetViewModel.cs" />

@@ -508,6 +508,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public const string MainContainerView = "MainContainerView";
         public const string WidgetView = "WidgetView";
         public const string AppSettings = "AppSettings";
+        public const string ExportedToWord = "ZDF has been exported to your ZDFs Folder";
 
 
     }

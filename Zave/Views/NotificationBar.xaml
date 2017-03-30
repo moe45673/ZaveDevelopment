@@ -18,10 +18,20 @@
         <Style x:Key="Status_Txt" TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" To="1.0" />
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:2" From="1.0" To="0.0" BeginTime="0:0:5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
     <Grid x:Name="NotificationBar_Grid" Grid.Row="1" Grid.Column="1" Style="{StaticResource NotificationBar_Grid}">
-        <!--<TextBlock x:Name="StatusTxtBx" Text="Saved!" Style="{StaticResource Status_Txt}"></TextBlock>-->
+        <TextBlock x:Name="StatusTxtBx" Text="{Binding NotificationText, NotifyOnTargetUpdated=True}" Style="{StaticResource Status_Txt}"></TextBlock>
     </Grid>
 </UserControl>

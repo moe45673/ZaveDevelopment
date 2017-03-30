@@ -45,7 +45,7 @@
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
-                        <Border BorderBrush="{TemplateBinding Border.BorderBrush}" BorderThickness="0" Name="Bd" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True" Padding="0">
+                        <Border BorderBrush="{TemplateBinding Border.BorderBrush}" BorderThickness="0" Name="Bd" Background="Transparent" SnapsToDevicePixels="True" Padding="0">
                             
                             <ScrollViewer Focusable="False" Padding="{TemplateBinding Control.Padding}">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
