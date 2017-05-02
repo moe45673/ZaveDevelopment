@@ -498,7 +498,9 @@ namespace ZaveGlobalSettings.Data_Structures
 
     public class WindowModeChangeEvent : PubSubEvent<WindowMode> { }
 
-    
+    public class WindowModeChangedEvent : PubSubEvent<bool> { }
+
+
 
     public static class InstanceNames
     {

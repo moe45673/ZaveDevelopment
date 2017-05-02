@@ -31,6 +31,7 @@ namespace Zave.Module
             //var viewmodel = _unityContainer.Resolve<ZaveViewModel.ViewModels.MainWindowViewModel>();
             //window.DataContext = viewmodel;
             var window = _unityContainer.Resolve<MainWindow>(InstanceNames.MainWindowView);
+            //System.Windows.Forms.MessageBox.Show("Hooray!");
             window.DataContext = _unityContainer.Resolve<MainWindowViewModel>();
             
             //var startingView = _unityContainer.Resolve<WidgetView>();

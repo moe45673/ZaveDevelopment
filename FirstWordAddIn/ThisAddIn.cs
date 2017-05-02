@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Xml.Linq;
-//using System.Text.RegularExpressions;
-using System.ComponentModel;
 using WordInterop = Microsoft.Office.Interop.Word;
-using Office = Microsoft.Office.Core;
 using WordTools = Microsoft.Office.Tools.Word;
-using FirstWordAddIn.DataStructures;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveGlobalSettings.ZaveFile;
 using System.Windows.Forms;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
 using ZaveGlobalSettings.ZaveResources;
 using ZaveGlobalSettings.Data_Structures.AddInInterface;
 

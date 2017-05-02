@@ -25,21 +25,21 @@ namespace Zave.Views
     public partial class MainWindow : Window
     {
 
-        
+
         /// <summary>
         /// initializes MainWindow and creates a property reference to itself
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-            
-            
+
+
 
         }
 
-        
 
-        public static readonly DependencyProperty HeightProperty = 
+
+        public static readonly DependencyProperty HeightProperty =
             DependencyProperty.Register
             (
                 "DynamicHeight", typeof(int), typeof(MainWindow)
@@ -62,19 +62,22 @@ namespace Zave.Views
             var window = (Window)sender;
             try
             {
-                if (((MainWindowViewModel)((MainWindow)sender).DataContext).WinMode == WindowMode.WIDGET)
-                {
+                //if (((MainWindowViewModel)((MainWindow)sender).DataContext).WinMode == WindowMode.WIDGET)
+                //{
+                WindowMode? assignable = WindowMode.WIDGET;
+                var vm = this.DataContext as MainWindowViewModel;
+                if ((vm != null) && (vm.SwitchSpecificWindowModeCommand.CanExecute(assignable)))
+                    vm.SwitchSpecificWindowModeCommand.Execute(assignable);
 
-
-                    window.Topmost = true;
+                window.Topmost = true;
                     window.Opacity = 0.5;
                     window.BeginAnimation(Window.OpacityProperty, null);
                     window.Activate();
-                }
-                else
-                {
-                    window.Topmost = false;
-                }
+                //}
+                //else
+                //{
+                //    window.Topmost = false;
+                //}
             }
             catch (NullReferenceException nre)
             {
@@ -110,11 +113,26 @@ namespace Zave.Views
             Zave.Controllers.ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(this);
         }
 
+        private void Window_LostFocus(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Window_LostFocus(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        //private void MainViewRegion_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    
+        //}
+
         //private void Window_LocationChanged(object sender, EventArgs e)
         //{
         //    Zave.Controllers.ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(this);
         //}
     }
 
-    
+
 }

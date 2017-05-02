@@ -80,11 +80,18 @@ namespace Zave.Controllers
             if (mviewRegion == null) return;
 
             
+
+            
             mviewRegion.RequestNavigate(new Uri(uri, UriKind.Relative), (x =>
             {
 
                 var uc = container.Resolve<MainWindow>(InstanceNames.MainWindowView);
                 uc.Dispatcher.Invoke(() => ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(uc), DispatcherPriority.Loaded);
+
+                if (x.Result == true)
+                {
+                    eventAggregator.GetEvent<WindowModeChangedEvent>().Publish(true);
+                }
 
             }));
 

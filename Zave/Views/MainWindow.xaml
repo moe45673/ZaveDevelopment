@@ -17,7 +17,7 @@
         mc:Ignorable="d"
         zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"   
         Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" Background="Transparent" AllowsTransparency="True" WindowStyle="None" 
-        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}" ResizeMode="NoResize" SnapsToDevicePixels="False" Deactivated="Window_Deactivated" Activated="Window_Activated">
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}" ResizeMode="NoResize" SnapsToDevicePixels="False" Deactivated="Window_Deactivated" Activated="Window_Activated" LostMouseCapture="Window_LostFocus">
 
     <Window.Resources>
 
@@ -42,7 +42,7 @@
         <!--
         </Border>-->
         <ContentControl x:Name="MainViewRegion"
-                               prism:RegionManager.RegionName="MainViewRegion"/>
+                               prism:RegionManager.RegionName="MainViewRegion" />
     </Grid>
 
 </Window>

@@ -60,12 +60,18 @@ namespace ZaveViewModel.ViewModels
         public static List<ZdfUndoComments> RemoveZdundoComments = new List<ZdfUndoComments>();
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
 
+        private TaskCompletionSource<bool> _WindowModeChangeResult = null;
+
         #region Delegate Properties
         public DelegateCommand SwitchWindowModeCommand { get; set; }
+
+        public DelegateCommand<WindowMode?> SwitchSpecificWindowModeCommand { get; set; }
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
         public DelegateCommand<string> OpenZDFFromFileDelegateCommand { get; set; }
+
+
 
         public DelegateCommand NewZDFDelegateCommand { get; set; }
 
@@ -120,16 +126,18 @@ namespace ZaveViewModel.ViewModels
             _container = cont;
             _regionManager = regionManager;
             SwitchWindowModeCommand = new DelegateCommand(SwitchWindowMode);
+            SwitchSpecificWindowModeCommand = new DelegateCommand<WindowMode?>(SwitchWindowMode);
             //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
             cont.RegisterInstance<MainWindowViewModel>(this);
             _eventAggregator = agg;
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
+            _eventAggregator.GetEvent<WindowModeChangedEvent>().Subscribe(SwitchWindowMode);
             //var getDirectory = GetDefaultSaveDirectory();
             SaveLocation = String.Empty;
             Filename = GuidGenerator.UNSAVEDFILENAME;
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
-            
+            _WindowModeChangeResult = new TaskCompletionSource<bool>();
             _ioService = ioservice;
             _jsonService = jsonService;
             SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDF);
@@ -144,6 +152,8 @@ namespace ZaveViewModel.ViewModels
             ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
             SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
             SetWindowMode(WindowMode.WIDGET);
+
+
 
             //_eventAggregator.GetEvent<MainWindowInstantiatedEvent>().Publish(true);
 
@@ -250,19 +260,50 @@ namespace ZaveViewModel.ViewModels
 
         private void SwitchWindowMode()
         {
+
+
             int intMode = (int)WinMode;
             intMode++;
-            var tempWinMode = (WindowMode)intMode;
-            if (Enum.IsDefined(typeof(WindowMode), tempWinMode))
+            var tempwinmode = ((WindowMode?)intMode);
+            SwitchWindowMode(tempwinmode);
+
+        }
+
+        private void SwitchWindowMode(WindowMode? wm)
+        {
+            if (wm != null)
             {
-                WinMode = tempWinMode;
+                var assignable = ((WindowMode)wm);
+                VerifyWindowMode(ref assignable);
+
+
+                _eventAggregator.GetEvent<WindowModeChangeEvent>().Publish(assignable);
+
+                Task.WhenAny(_WindowModeChangeResult.Task, Task.Delay(15000));
+                if (_WindowModeChangeResult.Task.IsCompleted)
+                {
+                    WinMode = assignable;
+                }
             }
             else
-                WinMode = WindowMode.MAIN;
+            {
+                System.Windows.Forms.MessageBox.Show("Terribly Sorry About That.", "Switch Window Operation Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void VerifyWindowMode(ref WindowMode wm)
+        {
+            if (!(Enum.IsDefined(typeof(WindowMode), wm)))
+                wm = WindowMode.MAIN;
 
 
-            _eventAggregator.GetEvent<WindowModeChangeEvent>().Publish(WinMode);
+        }
 
+
+
+        private void SwitchWindowMode(bool result)
+        {
+            _WindowModeChangeResult?.TrySetResult(result);
         }
 
         #region Properties
@@ -305,10 +346,11 @@ namespace ZaveViewModel.ViewModels
             //TODO make the sorting method up to the User when exporting a doc
             var comp = new ColorComparer();
             entries.Sort(comp);
-            
+
             IZDFEntry lastEntry = default(ZDFEntry);
             var WordApp = new Microsoft.Office.Interop.Word.Application();
-            if (WordApp.Documents.Count == 0) {
+            if (WordApp.Documents.Count == 0)
+            {
                 WordApp.Visible = false;
             }
             //WordApp.Activate();
@@ -322,56 +364,56 @@ namespace ZaveViewModel.ViewModels
                         IOService.DeleteFile(Path.GetTempPath() + APIFileNames.ZaveToSource);
                         await Task.Factory.StartNew(() =>
                         {
-                        var exportfilename = createExportFileName("docx");
-                        try
-                        {
-
-
-
-                            //TODO Better way to delete the file?
-                            if (File.Exists(exportfilename))
+                            var exportfilename = createExportFileName("docx");
+                            try
                             {
-                                for (int i = 0; i < 20; i++)
+
+
+
+                                //TODO Better way to delete the file?
+                                if (File.Exists(exportfilename))
                                 {
-                                    try
+                                    for (int i = 0; i < 20; i++)
                                     {
-                                        File.Delete(exportfilename);
-                                        System.Threading.Thread.Sleep(50);
-                                        break;
+                                        try
+                                        {
+                                            File.Delete(exportfilename);
+                                            System.Threading.Thread.Sleep(50);
+                                            break;
+                                        }
+                                        catch (IOException ioex)
+                                        {
+                                            Console.WriteLine(ioex.Message);
+                                        }
                                     }
-                                    catch (IOException ioex)
-                                    {
-                                        Console.WriteLine(ioex.Message);
-                                    }
+
                                 }
+                                //try
+                                //{
+                                //    using (DocX newDoc = DocX.Create(exportfilename))
+                                //        newDoc.Save();
+                                //}
+                                //catch (IOException ioex)
+                                //{
 
-                            }
-                            //try
-                            //{
-                            //    using (DocX newDoc = DocX.Create(exportfilename))
-                            //        newDoc.Save();
-                            //}
-                            //catch (IOException ioex)
-                            //{
+                                //    throw ioex;
+                                //}
 
-                            //    throw ioex;
-                            //}
+                                object exportfilenameObject = exportfilename;
+                                var wordDoc = WordApp.Documents.Add();
 
-                            object exportfilenameObject = exportfilename;
-                            var wordDoc = WordApp.Documents.Add();
-           
-                            //wordDoc.Activate();
-                            wordDoc.SaveAs2(ref exportfilenameObject);
+                                //wordDoc.Activate();
+                                wordDoc.SaveAs2(ref exportfilenameObject);
                                 wordDoc.Activate();
 
 
-                            foreach (var entry in entries)
+                                foreach (var entry in entries)
 
-                            {
-                                object start = wordDoc.Content.Start;
-                                object end = wordDoc.Content.End -1;
+                                {
+                                    object start = wordDoc.Content.Start;
+                                    object end = wordDoc.Content.End - 1;
                                     object end2 = wordDoc.Content.End;
-                                var rng = wordDoc.Range(ref end, ref end2);
+                                    var rng = wordDoc.Range(ref end, ref end2);
                                     string bmName = "ZDFEntry" + entry.ID.ToString();
                                     var para = wordDoc.Content.Paragraphs.Add();
 
@@ -385,36 +427,36 @@ namespace ZaveViewModel.ViewModels
                                         addColorHeadingToWordDoc(wordDoc, entry, para.Range.Start as object, para.Range.End as object, bmName + "_color");
                                     }
 
-                                //else if ()
-                                //    {
-                                //        addColorHeadingToWordDoc(wordDoc, entry, para.Range.Start as object, para.Range.End as object, bmName + "_color");
+                                    //else if ()
+                                    //    {
+                                    //        addColorHeadingToWordDoc(wordDoc, entry, para.Range.Start as object, para.Range.End as object, bmName + "_color");
 
 
 
 
                                     //}
 
-                                //var p = doc.InsertBookmark(bmName);
-                                //doc.Save();
-                                //}
+                                    //var p = doc.InsertBookmark(bmName);
+                                    //doc.Save();
+                                    //}
 
 
-                                //WordApp.Activate();
-                                //var bm = wordDoc.Bookmarks.Add(bmName);
+                                    //WordApp.Activate();
+                                    //var bm = wordDoc.Bookmarks.Add(bmName);
 
-                                //var bmList = wordDoc.Bookmarks as List<Microsoft.Office.Interop.Word.Bookmark>;
+                                    //var bmList = wordDoc.Bookmarks as List<Microsoft.Office.Interop.Word.Bookmark>;
 
-                                // = bmList.Find(x => x.Name == bmName);
+                                    // = bmList.Find(x => x.Name == bmName);
 
-                                //var rng = bm.Range;
+                                    //var rng = bm.Range;
                                     System.Windows.Forms.RichTextBox rb = new System.Windows.Forms.RichTextBox();
                                     //var toolDoc = wordDoc as Word.Document;
 
                                     wordDoc.Content.SetRange(0, 0);
 
-                                    
+
                                     //para.Range.FormattedText.Paste();
-                                    
+
                                     //var rtfControl = toolDoc.Controls.AddRichTextContentControl(bmName + "rtf" + entry.ID.ToString());
                                     rb.Rtf = entry.Text;
                                     //cc.BuildingBlockType = WdBuildingBlockTypes.wdTypeAutoText;
@@ -424,11 +466,11 @@ namespace ZaveViewModel.ViewModels
                                         rb.Rtf.Remove(rb.Rtf.Count() - 1);
                                     }
                                     System.Windows.Forms.Clipboard.SetText(rb.Rtf, System.Windows.Forms.TextDataFormat.Rtf);
-                                    
+
                                     para.Range.FormattedText.Paste();
-                                    
+
                                     para.Range.Text += Environment.NewLine;
-                                    
+
                                     //rtfControl.Text = rb.Rtf;
                                     //
                                     //rng.Paste();
@@ -443,16 +485,16 @@ namespace ZaveViewModel.ViewModels
 
 
 
-                                //var p = doc.InsertParagraph();
-                                //var rtb = new System.Windows.Forms.RichTextBox();                                    
-                                //rtb.Rtf = entry.Text;
+                                    //var p = doc.InsertParagraph();
+                                    //var rtb = new System.Windows.Forms.RichTextBox();                                    
+                                    //rtb.Rtf = entry.Text;
 
-                                //p.
-
-
+                                    //p.
 
 
-                                lastEntry = entry;
+
+
+                                    lastEntry = entry;
                                 }
                                 wordDoc.Close(WdSaveOptions.wdSaveChanges);
 
@@ -494,7 +536,7 @@ namespace ZaveViewModel.ViewModels
 
 
                                     WordApp = null;
-                                    
+
                                 }
                                 GC.Collect();
                             }
@@ -507,20 +549,20 @@ namespace ZaveViewModel.ViewModels
 
                         //t.Wait();
                     }
-                    catch(AggregateException aggex)
+                    catch (AggregateException aggex)
                     {
                         string ExceptionMessage = "";
-                        foreach(var ex in aggex.InnerExceptions)
+                        foreach (var ex in aggex.InnerExceptions)
                         {
                             ExceptionMessage += ex.Message + Environment.NewLine;
                         }
                         System.Windows.Forms.MessageBox.Show(ExceptionMessage);
                     }
-                    
+
                     break;
             }
 
-            
+
         }
 
         private void addColorHeadingToWordDoc(Microsoft.Office.Interop.Word.Document wordDoc, IZDFEntry entry, object rngStart, object rngEnd, string bmName)
@@ -542,12 +584,12 @@ namespace ZaveViewModel.ViewModels
                         c.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                     }
                 }
-                
+
             }
-            
+
         }
 
-        
+
 
         /// <summary>
         /// Creates a filename for the ZDF export
@@ -1004,7 +1046,7 @@ namespace ZaveViewModel.ViewModels
         //}
         #endregion
 
-       
+
 
         private WdColor ConvertColortoWdColor(System.Drawing.Color c)
         {
