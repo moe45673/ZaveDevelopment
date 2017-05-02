@@ -64,6 +64,8 @@ namespace Zave.Views
             {
                 //if (((MainWindowViewModel)((MainWindow)sender).DataContext).WinMode == WindowMode.WIDGET)
                 //{
+
+                //todo Need to put the following logic into the viewmodel so that it can be used with User Settings
                 WindowMode? assignable = WindowMode.WIDGET;
                 var vm = this.DataContext as MainWindowViewModel;
                 if ((vm != null) && (vm.SwitchSpecificWindowModeCommand.CanExecute(assignable)))
