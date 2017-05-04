@@ -33,10 +33,10 @@ namespace ZaveViewModel.ViewModels
 
             _eventAgg.GetEvent<FilenameChangedEvent>().Subscribe(SetFileName);
 
-            mainWinVM = _container.Resolve<MainWindowViewModel>();
+            var vm = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel) as MainWindowViewModel;
 
-            Filename = mainWinVM.Filename;
-            var vm = _container.Resolve<MainWindowViewModel>() as MainWindowViewModel;
+            Filename = vm.Filename;
+            
             SwitchWindowModeDelegateCommand = vm.SwitchWindowModeCommand;
            ConfirmUnsavedChangesCommand =  vm.ConfirmUnsavedChangesCommand;
         }
@@ -68,7 +68,7 @@ namespace ZaveViewModel.ViewModels
 
         private void SetFileName(object instantiate)
         {
-            mainWinVM = _container.Resolve<MainWindowViewModel>();
+            mainWinVM = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel);
             SetFileName(mainWinVM.Filename);
         }
     }

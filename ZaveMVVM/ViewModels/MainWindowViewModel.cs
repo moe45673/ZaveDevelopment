@@ -281,7 +281,7 @@ namespace ZaveViewModel.ViewModels
             _WindowModeChangeResult?.TrySetResult(result);
         }
 
-        private void CheckForUns
+        //private void CheckForUns
 
         #region Properties
         private ObservableCollection<IDialogViewModel> _dialogs = new ObservableCollection<IDialogViewModel>();
