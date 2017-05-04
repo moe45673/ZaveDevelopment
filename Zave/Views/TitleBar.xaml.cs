@@ -53,6 +53,7 @@ namespace Zave.Views
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            ((TitleBarViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
             Application.Current.Shutdown();
         }
 
