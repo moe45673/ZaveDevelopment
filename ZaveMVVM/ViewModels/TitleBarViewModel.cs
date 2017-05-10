@@ -9,6 +9,8 @@ using Prism.Events;
 using Microsoft.Practices.Unity;
 using ZaveGlobalSettings.Data_Structures;
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
+using Prism.Interactivity;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -33,12 +35,12 @@ namespace ZaveViewModel.ViewModels
 
             _eventAgg.GetEvent<FilenameChangedEvent>().Subscribe(SetFileName);
 
-            var vm = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel) as MainWindowViewModel;
+            mainWinVM = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel) as MainWindowViewModel;
 
-            Filename = vm.Filename;
+            Filename = mainWinVM.Filename;
             
-            SwitchWindowModeDelegateCommand = vm.SwitchWindowModeCommand;
-           ConfirmUnsavedChangesCommand =  vm.ConfirmUnsavedChangesCommand;
+            SwitchWindowModeDelegateCommand = mainWinVM.SwitchWindowModeCommand;
+           ConfirmUnsavedChangesCommand =  mainWinVM.ConfirmUnsavedChangesCommand;
         }
 
         private MainWindowViewModel mainWinVM;

@@ -34,6 +34,7 @@ namespace Zave.Module
             //System.Windows.Forms.MessageBox.Show("Hooray!");
             window.DataContext = _unityContainer.Resolve<MainWindowViewModel>();
 
+            //_unityContainer.RegisterInstance<MainWindow>(InstanceNames.MainWindowView, window);
             _unityContainer.RegisterInstance<MainWindowViewModel>(InstanceNames.MainWindowViewModel, ((MainWindowViewModel)window.DataContext));
             
             //var startingView = _unityContainer.Resolve<WidgetView>();
