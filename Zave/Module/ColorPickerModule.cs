@@ -7,6 +7,7 @@ using Prism.Events;
 using Zave.Views;
 using ZaveViewModel.ViewModels;
 using ZaveService.ZDFEntry;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {
@@ -21,8 +22,8 @@ namespace Zave.Module
         //private ZaveController.EventInitSingleton eventInit;
         public override void Initialize()
         {
-            
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ColorPickerView), "ColorPickerView");
+            var instance = _unityContainer.Resolve<ColorPickerView>();
+            UnityContainerExtensions.RegisterInstance<ColorPickerView>(_unityContainer, InstanceNames.ColorPickerView, instance);
             
 
 

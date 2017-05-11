@@ -40,8 +40,8 @@ namespace Zave.Module
             //var startingView = _unityContainer.Resolve<WidgetView>();
             //var altView = _unityContainer.Resolve<MainContainer>();
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
-            eventInit = ZaveController.EventInitSingleton.GetInstance(_unityContainer, _unityContainer.Resolve<IEventAggregator>());
-            mainWinController = _unityContainer.Resolve<Controllers.MainWindowController>();
+            ZaveController.EventInitSingleton.GetInstance(_unityContainer, _unityContainer.Resolve<IEventAggregator>());
+            _unityContainer.Resolve<Controllers.MainWindowController>();
 
             
 

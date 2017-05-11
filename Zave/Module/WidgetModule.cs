@@ -57,8 +57,8 @@ namespace Zave.Module
             //        i++;
             //    }
             //}
-            _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>("ControlBarView"));
-            _regionManager.RegisterViewWithRegion(RegionNames.ZaveWidgetColorPicker, () => _unityContainer.Resolve<ColorPickerView>("ColorPickerView"));
+            _regionManager.RegisterViewWithRegion(RegionNames.WidgetMainRegion, () => _unityContainer.Resolve<ControlBar>(InstanceNames.ControlBarView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ZaveWidgetColorPicker, () => _unityContainer.Resolve<ColorPickerView>());
             _regionManager.RegisterViewWithRegion(RegionNames.WidgetTitleBarRegion, () => _unityContainer.Resolve<TitleBar>());
 
             IRegion mviewRegion = _regionManager.Regions[RegionNames.MainViewRegion];

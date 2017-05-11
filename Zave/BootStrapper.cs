@@ -31,7 +31,7 @@ namespace Zave
         /// 
         ///
         /// </summary>
-        /// <returns></returns>
+        /// <returns>MainWindow as Shell object</returns>
         //Called Before Modules are initialized
         protected override DependencyObject CreateShell()
         {
@@ -58,17 +58,17 @@ namespace Zave
             
         }
 
+        /// <summary>
+        /// Overloaded method to allow ZDFs to open from double-click
+        /// </summary>
+        /// <param name="e">Command Line Arguments</param>
         public void Run(StartupEventArgs e)
         {
             base.Run();
             if (e.Args.Length > 0)
             {
                 var baseVM = Container.Resolve<MainWindow>(InstanceNames.MainWindowView).DataContext as MainWindowViewModel;
-                var command = baseVM.OpenZDFFromFileDelegateCommand;
-                //Task.Factory.StartNew(async () => await command.Execute());
-                //var commAction = new Prism.Interactivity.InvokeCommandAction();
-                //commAction.Command = command;
-                //commAction.CommandParameter = e.Args[0];
+                var command = baseVM.OpenZDFFromFileDelegateCommand;                
                 command.Execute(e.Args[0]);
             }
             
@@ -77,7 +77,7 @@ namespace Zave
 
 
         /// <summary>
-        /// 4
+        /// 
         /// </summary>
         protected override void ConfigureModuleCatalog()
         {
