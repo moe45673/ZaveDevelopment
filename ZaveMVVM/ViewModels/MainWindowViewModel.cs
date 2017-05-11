@@ -281,17 +281,28 @@ namespace ZaveViewModel.ViewModels
             _WindowModeChangeResult?.TrySetResult(result);
         }
 
+        private bool CheckForUnsavedChanges()
+        {
+            bool result = false;
+            //TODO Make a more accurate check for unsaved changes, using isDirty flags and the like
+            if (Filename == GuidGenerator.UNSAVEDFILENAME || String.IsNullOrEmpty(Filename))
+                result = true;
+
+            return result;
+        }
+
         //private void CheckForUns
 
-#region Debug Region
-[Conditional("DEBUG")]
-            void WriteToDebugConsole(string msg){
+        #region Debug Region
+        [Conditional("DEBUG")]
+        void WriteToDebugConsole(string msg)
+        {
             Console.WriteLine(msg);
-            }
+        }
 
-#endregion
+        #endregion
 
-#region Properties
+        #region Properties
         private ObservableCollection<IDialogViewModel> _dialogs = new ObservableCollection<IDialogViewModel>();
         public ObservableCollection<IDialogViewModel> Dialogs { get { return _dialogs; } }
         public String Filename
@@ -317,31 +328,37 @@ namespace ZaveViewModel.ViewModels
             get { return _winMode; }
             set { SetProperty(ref _winMode, value); }
         }
-#endregion
+        #endregion
 
-#region Delegate Implementation
+        #region Delegate Implementation
 
         private void ConfirmUnsavedChanges()
         {
             WriteToDebugConsole("Before Raising ConfirmUnsaved");
             try
             {
-                
-                ConfirmationRequest.Raise(ZaveGlobalSettings.Data_Structures.ZaveMessageBoxes.ConfirmUnsavedChanges,
-                    c =>
-                    {
-
-                        if (c.Confirmed)
+                if (CheckForUnsavedChanges())
+                {
+                    ConfirmationRequest.Raise(ZaveGlobalSettings.Data_Structures.ZaveMessageBoxes.ConfirmUnsavedChanges,
+                        c =>
                         {
-                            SaveZDF();
-                            WriteToDebugConsole("Confirming Unsaved Changes!!!!!!!!");
+
+                            if (c.Confirmed)
+                            {
+                                SaveZDF();
+                                WriteToDebugConsole("Confirming Unsaved Changes!!!!!!!!");
+                            }
+
+
                         }
-
-
-                    }
-                );
+                    );
+                }
+                else
+                {
+                    SaveZDF();
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 WriteToDebugConsole(ex.Message);
             }
@@ -668,7 +685,7 @@ namespace ZaveViewModel.ViewModels
         private void UndoZDF()
         {
 
-#region MyCode2
+            #region MyCode2
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
 
             ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
@@ -723,12 +740,12 @@ namespace ZaveViewModel.ViewModels
                     ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
                 }
             }
-#endregion
+            #endregion
         }
 
         private void RedoZDF()
         {
-#region MyCode2
+            #region MyCode2
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
             ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
 
@@ -819,7 +836,7 @@ namespace ZaveViewModel.ViewModels
             //    }
             //}
 
-#endregion
+            #endregion
         }
 
         private void ScreenshotZDF()
@@ -872,7 +889,7 @@ namespace ZaveViewModel.ViewModels
                 //}
             }
             catch { }
-#region MyCode2
+            #region MyCode2
             //int ix, iy, iw, ih;
             //ix = Convert.ToInt32(x);
             //iy = Convert.ToInt32(y);
@@ -890,7 +907,7 @@ namespace ZaveViewModel.ViewModels
             //DialogResult res = dlg.ShowDialog();
             //if (res == System.Windows.Forms.DialogResult.OK)
             //    image.Save(dlg.FileName, ImageFormat.Png);
-#endregion
+            #endregion
         }
 
         //public void SaveScreen(double x, double y, double width, double height)
@@ -954,7 +971,7 @@ namespace ZaveViewModel.ViewModels
             }
         }
 
-#region Save Common Logic
+        #region Save Common Logic
         private async Task SaveLogic(string filename)
         {
             var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
@@ -1001,9 +1018,9 @@ namespace ZaveViewModel.ViewModels
                 }
             }
         }
-#endregion
+        #endregion
 
-#region New OPen
+        #region New OPen
         /// <summary>
         /// 
         /// </summary>
@@ -1025,9 +1042,9 @@ namespace ZaveViewModel.ViewModels
             }
 
         }
-#endregion
+        #endregion
 
-#region Old Open
+        #region Old Open
         //private void OpenZDF()
         //{
         //    //var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
@@ -1090,7 +1107,7 @@ namespace ZaveViewModel.ViewModels
         //        }
         //    }
         //}
-#endregion
+        #endregion
 
 
 
@@ -1102,13 +1119,13 @@ namespace ZaveViewModel.ViewModels
 
         private void NewZDFEntry()
         {
-#region checkin
+            #region checkin
             ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
             ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
             activeZDF.Add(new ZDFEntry());
             ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
-#endregion
+            #endregion
 
         }
 
