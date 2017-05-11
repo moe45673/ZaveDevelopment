@@ -39,7 +39,10 @@ namespace ZaveViewModel.ViewModels
            
             SetColorsAsync();
             var settings = _container.Resolve<IConfigProvider>();
-            //beginColorSet.Invoke();
+
+            //TODO Make this possible to change in settings
+            settings.ActiveColor = System.Drawing.Color.FromArgb(255, 255, 255, 0);
+
             SetActiveColor(settings.ActiveColor);
             _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
         }
