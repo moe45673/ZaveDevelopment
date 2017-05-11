@@ -125,6 +125,26 @@ namespace Zave.Views
 
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+           
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
+        }
+
         //private void MainViewRegion_LostFocus(object sender, RoutedEventArgs e)
         //{
         //    
