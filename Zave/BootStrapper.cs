@@ -56,6 +56,7 @@ namespace Zave
             //}
             window.Show();
             
+            
         }
 
         /// <summary>
@@ -71,6 +72,8 @@ namespace Zave
                 var command = baseVM.OpenZDFFromFileDelegateCommand;                
                 command.Execute(e.Args[0]);
             }
+            var agg = Container.Resolve<IEventAggregator>();
+            agg.GetEvent<MainWindowInstantiatedEvent>().Publish(true);
             
         }
 

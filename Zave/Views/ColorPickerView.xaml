@@ -161,17 +161,17 @@
             <Button Background="#FFFF00" BorderThickness="0" Style="{DynamicResource QuickColor1_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#FFFF00"/>
         </Border>
 
-        <Border Grid.Column="3"                
+        <Border Grid.Column="5"                
                 Style="{StaticResource CommonColors_Border}">
             <Button Background="#ADD8E6" BorderThickness="0" Style="{DynamicResource QuickColor2_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#ADD8E6"/>
             </Border>
 
-        <Border Grid.Column="4"
+        <Border Grid.Column="3"
                 Style="{StaticResource CommonColors_Border}">
             <Button Background="#90EE90" BorderThickness="0" Style="{DynamicResource QuickColor3_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#90EE90"/>
         </Border>
 
-        <Border Grid.Column="5"
+        <Border Grid.Column="4"
                 Style="{StaticResource CommonColors_Border}">
             <Button Background="#FF00FF" BorderThickness="0" Style="{DynamicResource QuickColor4_Button}" Command="{Binding SetActiveColorCommand}" CommandParameter="#FF00FF" />
         </Border>

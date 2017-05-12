@@ -57,12 +57,12 @@ namespace ZaveViewModel.ViewModels
             //beginColorSet.Invoke();
             //ActiveColor = Color.FromArgb(255, 255, 255, 0);
             //eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorCategory.FromWPFColor(ActiveColor).Color);
-            eventAggregator.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
+            //eventAggregator.GetEvent<WindowModeChangeEvent>().Subscribe(setSuffix);
             //eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Subscribe(SetActiveColor);
 
             var vm = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel) as MainWindowViewModel;
             
-            setSuffix(vm.WinMode);
+            //setSuffix(vm.WinMode);
             SaveZDFDelegateCommand = vm.SaveZDFDelegateCommand;
             OpenZDFDelegateCommand = vm.OpenZDFDelegateCommand;
             NewZDFDelegateCommand = vm.NewZDFDelegateCommand;

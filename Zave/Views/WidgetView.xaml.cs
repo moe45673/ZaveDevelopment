@@ -74,12 +74,13 @@ namespace Zave.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             window = Window.GetWindow(this);
+            
 
-            Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(
-                () =>
-                {
-                    WidgetTitleBarRegion.Focus();
-                }));
+            //Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(
+            //    () =>
+            //    {
+            //        WidgetTitleBarRegion.Focus();
+            //    }));
             
 
             

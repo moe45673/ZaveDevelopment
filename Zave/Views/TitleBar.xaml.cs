@@ -47,20 +47,20 @@ namespace Zave.Views
             base.OnMouseLeftButtonDown(e);
             var mainWin = Window.GetWindow(this);
             if (e.LeftButton == MouseButtonState.Pressed)
+            {
                 mainWin.DragMove();
+                ((TitleBarViewModel)DataContext).SnapToCorner = false;
+            }
 
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            ((TitleBarViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
-            Application.Current.Shutdown();
+            //((TitleBarViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
+            ((MainWindow)Application.Current.MainWindow).Close();
         }
 
-        private void MaxButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        
 
         private void MinButton_Click(object sender, RoutedEventArgs e)
         {

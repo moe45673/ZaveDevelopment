@@ -127,7 +127,7 @@
                     </Button>
                 </ListBoxItem>
                 <ListBoxItem Style="{StaticResource MainButton_Container}">
-                    <Button Command="{Binding OpenZDFDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="Load">
+                    <Button Command="{Binding OpenZDFDelegateCommand}" Style="{StaticResource Main_Button}" ToolTip="Open">
                         <Image Style="{StaticResource ColourSelector_Container_Image}">
                             <Image.Source>
                                 <MultiBinding Converter="{StaticResource stringsToSrcConvert}" ConverterParameter="open.png">

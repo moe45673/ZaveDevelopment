@@ -57,6 +57,8 @@ namespace Zave.Views
             }
         }
 
+        
+
         private void Window_Deactivated(object sender, EventArgs args)
         {
             var window = (Window)sender;
@@ -68,7 +70,7 @@ namespace Zave.Views
                 //todo Need to put the following logic into the viewmodel so that it can be used with User Settings
                 WindowMode? assignable = WindowMode.WIDGET;
                 var vm = this.DataContext as MainWindowViewModel;
-                if ((vm != null) && (vm.SwitchSpecificWindowModeCommand.CanExecute(assignable)))
+                if ((vm != null) && (vm.WinMode != WindowMode.WIDGET) && (vm.SwitchSpecificWindowModeCommand.CanExecute(assignable)))
                     vm.SwitchSpecificWindowModeCommand.Execute(assignable);
 
                 window.Topmost = true;
@@ -122,6 +124,29 @@ namespace Zave.Views
 
         private void Window_LostFocus(object sender, MouseEventArgs e)
         {
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+           
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //e.Cancel = true;
+            Dispatcher.Invoke(() => ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute().Wait());
+            
 
         }
 

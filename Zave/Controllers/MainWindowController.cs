@@ -20,13 +20,15 @@ using System.Windows.Threading;
 
 namespace Zave.Controllers
 {
+    public enum DesiredCorner { TOP_LEFT, BOTTOM_LEFT, TOP_RIGHT, BOTTOM_RIGHT }
+
     public class MainWindowController
     {
         private readonly IUnityContainer container;
         private readonly IRegionManager regionManager;
         private readonly IEventAggregator eventAggregator;
-        
-        
+
+
 
         public MainWindowController(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
         {
@@ -34,23 +36,40 @@ namespace Zave.Controllers
             if (regionManager == null) throw new ArgumentNullException("regionManager");
             if (eventAggregator == null) throw new ArgumentNullException("eventAggregator");
 
-           
+
             this.container = container;
             this.regionManager = regionManager;
             this.eventAggregator = eventAggregator;
-            
+
 
             eventAggregator.GetEvent<WindowModeChangeEvent>().Subscribe(WindowModeChangeAbstract, true);
+            eventAggregator.GetEvent<MainWindowInstantiatedEvent>().Subscribe(InstantiateMainWindow);
         }
 
-        private void WindowModeChangeAbstract(WindowMode winMode) {
+        
+        private void InstantiateMainWindow(object success)
+        {
+
+            if (((bool)success) == true)
+            {
+                var uc = container.Resolve<MainWindow>(InstanceNames.MainWindowView);
+                ShiftWindowOntoScreenHelper.ShiftWindowOntoDesiredCorner(uc, DesiredCorner.BOTTOM_RIGHT);
+                var winMode = ((MainWindowViewModel)uc.DataContext).WinMode;
+                WindowModeChangeAbstract(winMode);
+
+
+            }
+        }
+
+        private void WindowModeChangeAbstract(WindowMode winMode)
+        {
 
             //var main = container.Resolve<MainWindowViewModel>();
 
             switch (winMode)
             {
-                
-            
+
+
                 case (WindowMode.MAIN):
                     WindowModeChange<Views.MainContainer, MainContainerViewModel>(InstanceNames.MainContainerView);
 
@@ -61,7 +80,7 @@ namespace Zave.Controllers
                     WindowModeChange<Views.WidgetView, WidgetViewModel>(InstanceNames.WidgetView);
 
                     break;
-                default:                    
+                default:
                     break;
             }
 
@@ -79,9 +98,9 @@ namespace Zave.Controllers
 
             if (mviewRegion == null) return;
 
-            
 
-            
+
+
             mviewRegion.RequestNavigate(new Uri(uri, UriKind.Relative), (x =>
             {
 
@@ -90,14 +109,18 @@ namespace Zave.Controllers
 
                 if (x.Result == true)
                 {
+                    if (uri.Equals(InstanceNames.WidgetView) && ((MainWindowViewModel)uc.DataContext).SnapToCorner == true)
+                    {
+                        ShiftWindowOntoScreenHelper.ShiftWindowOntoDesiredCorner(uc, DesiredCorner.BOTTOM_RIGHT);
+                    }
                     eventAggregator.GetEvent<WindowModeChangedEvent>().Publish(true);
                 }
 
             }));
 
-            
-            
-            
+
+
+
 
 
             //regionManager.RegisterViewWithRegion(uri, () => container.Resolve<ViewType>());
@@ -109,6 +132,8 @@ namespace Zave.Controllers
 
 
         }
+
+        
 
         private void NavigationCompleted(NavigationResult result)
         {
@@ -148,6 +173,92 @@ namespace Zave.Controllers
             {
                 window.Top = SystemParameters.VirtualScreenHeight + SystemParameters.VirtualScreenTop - window.Height;
             }
+
+            // Shift window away from taskbar.
+            {
+                var taskBarLocation = GetTaskBarLocationPerScreen();
+
+                // If taskbar is set to "auto-hide", then this list will be empty, and we will do nothing.
+                foreach (var taskBar in taskBarLocation)
+                {
+                    Rectangle windowRect = new Rectangle((int)window.Left, (int)window.Top, (int)window.Width, (int)window.Height);
+
+                    // Keep on shifting the window out of the way.
+                    int avoidInfiniteLoopCounter = 25;
+                    while (windowRect.IntersectsWith(taskBar))
+                    {
+                        avoidInfiniteLoopCounter--;
+                        if (avoidInfiniteLoopCounter == 0)
+                        {
+                            break;
+                        }
+
+                        // Our window is covering the task bar. Shift it away.
+                        var intersection = Rectangle.Intersect(taskBar, windowRect);
+
+                        if (intersection.Width < window.Width
+                            // This next one is a rare corner case. Handles situation where taskbar is big enough to
+                            // completely contain the status window.
+                            || taskBar.Contains(windowRect))
+                        {
+                            if (taskBar.Left == 0)
+                            {
+                                // Task bar is on the left. Push away to the right.
+                                window.Left = window.Left + intersection.Width;
+                            }
+                            else
+                            {
+                                // Task bar is on the right. Push away to the left.
+                                window.Left = window.Left - intersection.Width;
+                            }
+                        }
+
+                        if (intersection.Height < window.Height
+                            // This next one is a rare corner case. Handles situation where taskbar is big enough to
+                            // completely contain the status window.
+                            || taskBar.Contains(windowRect))
+                        {
+                            if (taskBar.Top == 0)
+                            {
+                                // Task bar is on the top. Push down.
+                                window.Top = window.Top + intersection.Height;
+                            }
+                            else
+                            {
+                                // Task bar is on the bottom. Push up.
+                                window.Top = window.Top - intersection.Height;
+                            }
+                        }
+
+                        windowRect = new Rectangle((int)window.Left, (int)window.Top, (int)window.Width, (int)window.Height);
+                    }
+                }
+            }
+        }
+
+        public static void ShiftWindowOntoDesiredCorner(Window window, DesiredCorner dc)
+        {
+            //// Note that "window.BringIntoView()" does not work.                            
+            //if (window.Top < SystemParameters.VirtualScreenTop)
+            //{
+            //    window.Top = SystemParameters.VirtualScreenTop;
+            //}
+
+            //if (window.Left < SystemParameters.VirtualScreenLeft)
+            //{
+            //    window.Left = SystemParameters.VirtualScreenLeft;
+            //}
+
+            if (dc == DesiredCorner.BOTTOM_RIGHT)
+            {
+                window.Left = SystemParameters.VirtualScreenWidth + SystemParameters.VirtualScreenLeft - window.Width;
+                window.Top = SystemParameters.VirtualScreenHeight + SystemParameters.VirtualScreenTop - window.Height;
+            }
+
+            //if (window.Top + window.Height > SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight)
+            //{
+            //    window.Top = SystemParameters.VirtualScreenHeight + SystemParameters.VirtualScreenTop - window.Height;
+            //}
 
             // Shift window away from taskbar.
             {

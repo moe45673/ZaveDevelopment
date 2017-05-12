@@ -11,7 +11,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
-             Height="84" Width="420" Loaded="UserControl_Loaded">
+             Height="84" Width="420">
     <UserControl.Resources>
         <converters:ColorConverters x:Key="colorConverter"></converters:ColorConverters>
         <Style x:Key="StartSection_Border" TargetType="{x:Type Border}">
