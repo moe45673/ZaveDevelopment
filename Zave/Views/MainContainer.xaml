@@ -45,7 +45,7 @@
     </UserControl.Resources>
     <Grid Style="{StaticResource MainContainer}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
@@ -92,7 +92,7 @@
             <ScrollViewer>
                 <ContentControl x:Name="ZDFEntryListRegion"
                                prism:RegionManager.RegionName="ZDFEntryListRegion"
-                               Style="{StaticResource Region_Container}" />
+                               Style="{StaticResource Region_Container}"/>
             </ScrollViewer>
         </Border>
         <Border Grid.Column="3" Grid.Row="3">
