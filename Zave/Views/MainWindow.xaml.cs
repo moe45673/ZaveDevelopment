@@ -68,7 +68,7 @@ namespace Zave.Views
                 //todo Need to put the following logic into the viewmodel so that it can be used with User Settings
                 WindowMode? assignable = WindowMode.WIDGET;
                 var vm = this.DataContext as MainWindowViewModel;
-                if ((vm != null) && (vm.SwitchSpecificWindowModeCommand.CanExecute(assignable)))
+                if ((vm != null) && (vm.WinMode != WindowMode.WIDGET) && (vm.SwitchSpecificWindowModeCommand.CanExecute(assignable)))
                     vm.SwitchSpecificWindowModeCommand.Execute(assignable);
 
                 window.Topmost = true;
@@ -140,9 +140,10 @@ namespace Zave.Views
             
         }
 
-        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
+            await ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
+
         }
 
         //private void MainViewRegion_LostFocus(object sender, RoutedEventArgs e)

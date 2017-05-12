@@ -144,7 +144,7 @@ namespace ZaveViewModel.ViewModels
             _WindowModeChangeResult = new TaskCompletionSource<bool>();
             _ioService = ioservice;
             _jsonService = jsonService;
-            SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDF);
+            SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDFAsync);
             OpenZDFDelegateCommand = DelegateCommand.FromAsyncHandler(OpenZDF);
             OpenZDFFromFileDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => OpenZDF(x));
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
@@ -957,7 +957,7 @@ namespace ZaveViewModel.ViewModels
         /// 
         /// </summary>
         /// <returns></returns>
-        private async Task SaveZDF()
+        private async Task SaveZDFAsync()
         {
             if (SaveLocation == null || SaveLocation == String.Empty || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
             {
@@ -968,6 +968,20 @@ namespace ZaveViewModel.ViewModels
             {
                 var filename = SaveLocation;
                 await SaveLogic(Convert.ToString(filename));
+            }
+        }
+
+        private void SaveZDF()
+        {
+            if (SaveLocation == null || SaveLocation == String.Empty || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
+            {
+                var filename = _ioService.SaveFileDialogService(getSaveDirectory());
+                SaveLogic(Convert.ToString(filename));
+            }
+            else
+            {
+                var filename = SaveLocation;
+                SaveLogic(Convert.ToString(filename));
             }
         }
 

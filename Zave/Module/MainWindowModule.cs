@@ -10,6 +10,7 @@ using Prism.Events;
 using Prism.Modularity;
 using ZaveGlobalSettings.Data_Structures;
 using ZaveViewModel.ViewModels;
+using Zave.Controllers;
 
 namespace Zave.Module
 {
@@ -21,15 +22,20 @@ namespace Zave.Module
     public class MainWindowModule : ModuleBaseClass
     {
         private ZaveController.EventInitSingleton eventInit;
+        private IEventAggregator _agg;
         private Zave.Controllers.MainWindowController mainWinController;
 
-        public MainWindowModule(IUnityContainer cont, IRegionManager reg) : base(cont, reg) { }
+        public MainWindowModule(IUnityContainer cont, IRegionManager reg, IEventAggregator agg) : base(cont, reg) {
+
+            _agg = agg;
+        }
 
         public override void Initialize()
         {
             //_unityContainer.RegisterInstance<MainWindow>(_unityContainer.Resolve<MainWindow>());
             //var viewmodel = _unityContainer.Resolve<ZaveViewModel.ViewModels.MainWindowViewModel>();
             //window.DataContext = viewmodel;
+           
             var window = _unityContainer.Resolve<MainWindow>(InstanceNames.MainWindowView);
             //System.Windows.Forms.MessageBox.Show("Hooray!");
             window.DataContext = _unityContainer.Resolve<MainWindowViewModel>();
@@ -41,7 +47,11 @@ namespace Zave.Module
             //var altView = _unityContainer.Resolve<MainContainer>();
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
             ZaveController.EventInitSingleton.GetInstance(_unityContainer, _unityContainer.Resolve<IEventAggregator>());
-            _unityContainer.Resolve<Controllers.MainWindowController>();
+            var controller = _unityContainer.Resolve<Controllers.MainWindowController>();
+            //if (((MainWindowViewModel)window.DataContext).WinMode == WindowMode.WIDGET) {
+            //    ShiftWindowOntoScreenHelper.ShiftWindowOntoScreen(window);
+            //    ShiftWindowOntoScreenHelper.ShiftWindowOntoDesiredCorner(window, DesiredCorner.BOTTOM_RIGHT);
+            //}
 
             
 
