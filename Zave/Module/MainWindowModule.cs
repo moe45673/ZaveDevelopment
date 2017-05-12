@@ -33,12 +33,15 @@ namespace Zave.Module
             var window = _unityContainer.Resolve<MainWindow>(InstanceNames.MainWindowView);
             //System.Windows.Forms.MessageBox.Show("Hooray!");
             window.DataContext = _unityContainer.Resolve<MainWindowViewModel>();
+
+            //_unityContainer.RegisterInstance<MainWindow>(InstanceNames.MainWindowView, window);
+            _unityContainer.RegisterInstance<MainWindowViewModel>(InstanceNames.MainWindowViewModel, ((MainWindowViewModel)window.DataContext));
             
             //var startingView = _unityContainer.Resolve<WidgetView>();
             //var altView = _unityContainer.Resolve<MainContainer>();
             //UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(Views.MainWindow), "MainWindow");
-            eventInit = ZaveController.EventInitSingleton.GetInstance(_unityContainer, _unityContainer.Resolve<IEventAggregator>());
-            mainWinController = _unityContainer.Resolve<Controllers.MainWindowController>();
+            ZaveController.EventInitSingleton.GetInstance(_unityContainer, _unityContainer.Resolve<IEventAggregator>());
+            _unityContainer.Resolve<Controllers.MainWindowController>();
 
             
 

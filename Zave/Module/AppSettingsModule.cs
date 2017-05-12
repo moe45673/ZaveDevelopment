@@ -14,19 +14,20 @@ namespace Zave.Module
     [Module(ModuleName = "AppSettingsModule")]
     public class ApplicationSettingsModule : ModuleBaseClass
     {
-        Controllers.AppSettingsController settingsController;
+        //Controllers.AppSettingsController settingsController;
         Prism.Events.IEventAggregator _eventAgg;
         public ApplicationSettingsModule(IUnityContainer cont, IRegionManager registry, IEventAggregator eventAgg) : base(cont, registry)
         {
             _eventAgg = eventAgg;
-            settingsController = new Controllers.AppSettingsController(_eventAgg);
+            //settingsController = 
         }
 
         //private ZaveController.EventInitSingleton eventInit;
         public override void Initialize()
         {
+            var controller = _unityContainer.Resolve<Controllers.AppSettingsController>();
             _unityContainer.RegisterType<IConfigProvider, Controllers.AppSettingsController>();
-            UnityContainerExtensions.RegisterInstance<IConfigProvider>(_unityContainer, InstanceNames.AppSettings, settingsController);
+            UnityContainerExtensions.RegisterInstance<IConfigProvider>(_unityContainer, InstanceNames.AppSettings, controller);
 
 
 

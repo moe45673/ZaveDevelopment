@@ -11,11 +11,13 @@ using ZaveModel.ZDF;
 using ZaveViewModel.ViewModels;
 using ZaveModel.ZDFEntry;
 using Prism.Modularity;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {
     [Module(ModuleName = "ControlBarModule", OnDemand = true)]
     [ModuleDependency("IOModule")]
+    
     
     public class ControlBarModule : ModuleBaseClass
     {
@@ -25,8 +27,8 @@ namespace Zave.Module
 
         public override void Initialize()
         {
-
-            UnityContainerExtensions.RegisterType<ControlBar>(_unityContainer, "ControlBarView");
+            var instance = _unityContainer.Resolve<ControlBar>();
+            UnityContainerExtensions.RegisterInstance<ControlBar>(_unityContainer, InstanceNames.ControlBarView, instance);
             //_regionManager.RegisterViewWithRegion(RegionNames.ZDFEntryListRegion, () => _unityContainer.Resolve<ZDFView>());
             //_unityContainer.RegisterType<Controllers.ZDFEntryController>();
 

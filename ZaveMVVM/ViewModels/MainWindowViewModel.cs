@@ -38,6 +38,7 @@ using System.Windows.Controls;
 using System.Diagnostics;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools.Word;
+using Prism.Interactivity.InteractionRequest;
 using Word = Microsoft.Office.Tools.Word;
 using Task = System.Threading.Tasks.Task;
 
@@ -61,6 +62,7 @@ namespace ZaveViewModel.ViewModels
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
 
         private TaskCompletionSource<bool> _WindowModeChangeResult = null;
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; }
 
         #region Delegate Properties
         public DelegateCommand SwitchWindowModeCommand { get; set; }
@@ -86,6 +88,8 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand<String> ExportZDFDelegateCommand { get; set; }
 
         public DelegateCommand SaveASZDFDelegateCommand { get; set; }
+
+        public DelegateCommand ConfirmUnsavedChangesCommand { get; set; }
 
         #endregion
 
@@ -129,7 +133,7 @@ namespace ZaveViewModel.ViewModels
             SwitchSpecificWindowModeCommand = new DelegateCommand<WindowMode?>(SwitchWindowMode);
             //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
-            cont.RegisterInstance<MainWindowViewModel>(this);
+            //cont.RegisterInstance<MainWindowViewModel>(this);
             _eventAggregator = agg;
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
             _eventAggregator.GetEvent<WindowModeChangedEvent>().Subscribe(SwitchWindowMode);
@@ -146,11 +150,13 @@ namespace ZaveViewModel.ViewModels
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
             NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
             UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
+            ConfirmUnsavedChangesCommand = new DelegateCommand(ConfirmUnsavedChanges);
             RedoZDFDelegateCommand = new DelegateCommand(RedoZDF);
             ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
             //ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
             ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
             SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
+            ConfirmationRequest = new InteractionRequest<IConfirmation>();
             SetWindowMode(WindowMode.WIDGET);
 
 
@@ -258,6 +264,108 @@ namespace ZaveViewModel.ViewModels
             WinMode = setting;
         }
 
+
+
+        private void VerifyWindowMode(ref WindowMode wm)
+        {
+            if (!(Enum.IsDefined(typeof(WindowMode), wm)))
+                wm = WindowMode.MAIN;
+
+
+        }
+
+
+
+        private void SwitchWindowMode(bool result)
+        {
+            _WindowModeChangeResult.TrySetResult(result);
+        }
+
+        private bool CheckForUnsavedChanges()
+        {
+            bool result = false;
+            //TODO Make a more accurate check for unsaved changes, using isDirty flags and the like
+            if (Filename == GuidGenerator.UNSAVEDFILENAME || String.IsNullOrEmpty(Filename))
+                result = true;
+
+            return result;
+        }
+
+        //private void CheckForUns
+
+        #region Debug Region
+        [Conditional("DEBUG")]
+        void WriteToDebugConsole(string msg)
+        {
+            Console.WriteLine(msg);
+        }
+
+        #endregion
+
+        #region Properties
+        private ObservableCollection<IDialogViewModel> _dialogs = new ObservableCollection<IDialogViewModel>();
+        public ObservableCollection<IDialogViewModel> Dialogs { get { return _dialogs; } }
+        public String Filename
+        {
+            get
+            {
+                return _filename;
+            }
+            set
+            {
+                SaveLocation = value;
+                var name = Path.GetFileName(SaveLocation);
+                SetProperty(ref _filename, name);
+                _eventAggregator.GetEvent<FilenameChangedEvent>().Publish(_filename);
+
+                //SetProperty(ref _filename, name);
+            }
+        }
+
+
+        public WindowMode WinMode
+        {
+            get { return _winMode; }
+            set { SetProperty(ref _winMode, value); }
+        }
+        #endregion
+
+        #region Delegate Implementation
+
+        private void ConfirmUnsavedChanges()
+        {
+            WriteToDebugConsole("Before Raising ConfirmUnsaved");
+            try
+            {
+                if (CheckForUnsavedChanges())
+                {
+                    ConfirmationRequest.Raise(ZaveGlobalSettings.Data_Structures.ZaveMessageBoxes.ConfirmUnsavedChanges,
+                        c =>
+                        {
+
+                            if (c.Confirmed)
+                            {
+                                SaveZDF();
+                                WriteToDebugConsole("Confirming Unsaved Changes!!!!!!!!");
+                            }
+
+
+                        }
+                    );
+                }
+                else
+                {
+                    SaveZDF();
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteToDebugConsole(ex.Message);
+            }
+            WriteToDebugConsole("After Raising ConfirmUnsaved");
+        }
+
+        //private async Task ExportZDF(string source)
         private void SwitchWindowMode()
         {
 
@@ -291,52 +399,7 @@ namespace ZaveViewModel.ViewModels
             }
         }
 
-        private void VerifyWindowMode(ref WindowMode wm)
-        {
-            if (!(Enum.IsDefined(typeof(WindowMode), wm)))
-                wm = WindowMode.MAIN;
 
-
-        }
-
-
-
-        private void SwitchWindowMode(bool result)
-        {
-            _WindowModeChangeResult.TrySetResult(result);
-        }
-
-        #region Properties
-        private ObservableCollection<IDialogViewModel> _dialogs = new ObservableCollection<IDialogViewModel>();
-        public ObservableCollection<IDialogViewModel> Dialogs { get { return _dialogs; } }
-        public String Filename
-        {
-            get
-            {
-                return _filename;
-            }
-            set
-            {
-                SaveLocation = value;
-                var name = Path.GetFileName(SaveLocation);
-                SetProperty(ref _filename, name);
-                _eventAggregator.GetEvent<FilenameChangedEvent>().Publish(_filename);
-
-                //SetProperty(ref _filename, name);
-            }
-        }
-
-
-        public WindowMode WinMode
-        {
-            get { return _winMode; }
-            set { SetProperty(ref _winMode, value); }
-        }
-        #endregion
-
-        #region Delegate Implementation
-
-        //private async Task ExportZDF(string source)
         private async Task ExportZDF(string source)
         {
 

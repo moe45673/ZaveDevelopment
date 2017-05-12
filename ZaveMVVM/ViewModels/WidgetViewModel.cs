@@ -35,7 +35,7 @@ namespace ZaveViewModel.ViewModels
             ActiveColor = _container.Resolve<ColorPickerViewModel>().ActiveColor;
 
 
-            var win = _container.Resolve<MainWindowViewModel>();
+            var win = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel);
             ChangeIsActive(win.WinMode);
 
 

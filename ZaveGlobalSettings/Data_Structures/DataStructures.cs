@@ -7,6 +7,7 @@ using System.Linq;
 using Prism.Events;
 using System.Windows.Forms;
 using ZaveGlobalSettings.ZaveFile;
+using Prism.Interactivity.InteractionRequest;
 
 namespace ZaveGlobalSettings.Data_Structures
 {
@@ -510,9 +511,17 @@ namespace ZaveGlobalSettings.Data_Structures
         public const string MainContainerView = "MainContainerView";
         public const string WidgetView = "WidgetView";
         public const string AppSettings = "AppSettings";
+        public const string ColorPickerView = "ColorPickerView";
+        public const string ControlBarView = "ControlBarView";
         public const string ExportedToWord = "ZDF has been exported to your ZDFs Folder";
 
 
+    }
+
+    public struct ZaveMessageBoxes
+    {
+        public static IConfirmation ConfirmUnsavedChanges = new Confirmation { Content = "You have unsaved changes. Would you first like to save these?", Title = "Save Unsaved Changes?" };
+            
     }
 
     public static class APIFileNames

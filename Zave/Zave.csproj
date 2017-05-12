@@ -203,6 +203,7 @@
     <Compile Include="Converters\XamlToFlowDocumentConverter.cs" />
     <Compile Include="Module\AppSettingsModule.cs" />
     <Compile Include="Module\ColorPickerModule.cs" />
+    <Compile Include="Module\ControlBarModule.cs" />
     <Compile Include="Module\DataServiceModule.cs" />
     <Compile Include="Module\IOModule.cs" />
     <Compile Include="Module\JsonModule.cs" />

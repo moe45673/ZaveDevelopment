@@ -9,6 +9,8 @@ using Prism.Events;
 using Microsoft.Practices.Unity;
 using ZaveGlobalSettings.Data_Structures;
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
+using Prism.Interactivity;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -21,6 +23,7 @@ namespace ZaveViewModel.ViewModels
         private IRegionManager _regionMan;
         private IUnityContainer _container;
         public DelegateCommand SwitchWindowModeDelegateCommand { get; set; }
+        public DelegateCommand ConfirmUnsavedChangesCommand { get; set; }
 
         public TitleBarViewModel(IEventAggregator eventAgg, IRegionManager regionMan, IUnityContainer container)
         {
@@ -32,11 +35,12 @@ namespace ZaveViewModel.ViewModels
 
             _eventAgg.GetEvent<FilenameChangedEvent>().Subscribe(SetFileName);
 
-            mainWinVM = _container.Resolve<MainWindowViewModel>();
+            mainWinVM = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel) as MainWindowViewModel;
 
             Filename = mainWinVM.Filename;
-            var vm = _container.Resolve<MainWindowViewModel>() as MainWindowViewModel;
-            SwitchWindowModeDelegateCommand = vm.SwitchWindowModeCommand;
+            
+            SwitchWindowModeDelegateCommand = mainWinVM.SwitchWindowModeCommand;
+           ConfirmUnsavedChangesCommand =  mainWinVM.ConfirmUnsavedChangesCommand;
         }
 
         private MainWindowViewModel mainWinVM;
@@ -66,7 +70,7 @@ namespace ZaveViewModel.ViewModels
 
         private void SetFileName(object instantiate)
         {
-            mainWinVM = _container.Resolve<MainWindowViewModel>();
+            mainWinVM = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel);
             SetFileName(mainWinVM.Filename);
         }
     }

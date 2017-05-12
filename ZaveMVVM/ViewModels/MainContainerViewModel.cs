@@ -155,14 +155,14 @@ namespace ZaveViewModel.ViewModels
         }
 
 
-        #region Code moved to MainWindowViewModel
+        
         [Conditional("DEBUG")]
         private void setIndented(JsonSerializer ser)
         {
             ser.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
-        
 
+        #region Code moved to MainWindowViewModel
         //private async Task ExportZDF(string source)
         //{
 
@@ -198,7 +198,7 @@ namespace ZaveViewModel.ViewModels
         //                                Row r = t.Rows.ElementAt(0);
         //                                Cell c = r.Cells.ElementAt(0);
         //                                c.Shading = thisColor;
-                                    
+
         //                            }
 
 
@@ -258,11 +258,11 @@ namespace ZaveViewModel.ViewModels
         //    {
         //        using (DocX newDoc = DocX.Create(str2))
         //            newDoc.Save();
-                
+
         //    }
         //    catch(IOException ioex)
         //    {
-                
+
         //        throw ioex;
         //    }
         //    return str2;
@@ -270,7 +270,7 @@ namespace ZaveViewModel.ViewModels
 
         //private void UndoZDF()
         //{
-            
+
         //    #region MyCode2
         //    ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
 
@@ -326,7 +326,7 @@ namespace ZaveViewModel.ViewModels
         //            ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
         //        }
         //    }
-            //#endregion
+        //#endregion
         //}
 
         //private void RedoZDF()

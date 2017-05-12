@@ -28,13 +28,16 @@ namespace Zave
 
         /// <summary>
         /// Sets Prism Shell to MainWindow class
+        /// 
+        ///
         /// </summary>
-        /// <returns></returns>
+        /// <returns>MainWindow as Shell object</returns>
+        //Called Before Modules are initialized
         protected override DependencyObject CreateShell()
         {
-            var window = UnityContainerExtensions.Resolve<MainWindow>(Container);
-            Container.RegisterInstance<MainWindow>(InstanceNames.MainWindowView, window);
-            
+            var window = Container.Resolve<MainWindow>();
+            Container.RegisterInstance(InstanceNames.MainWindowView, window);
+
 
             return window;
         }
@@ -46,7 +49,7 @@ namespace Zave
         {
             //ZaveApp.Current.MainWindow = Shell as Window;
 
-            var window = Shell as Window;
+            var window = Shell as MainWindow;
             //using (var memStream = new MemoryStream(Properties.Resources.marker_cursor2))
             //{
             //window.Cursor = new System.Windows.Input.Cursor(@"C:\Users\Moshe\Documents\Visual Studio 2015\Projects\Zave\ZaveGlobalSettings\Resources\marker-cursor2.cur");
@@ -55,17 +58,17 @@ namespace Zave
             
         }
 
+        /// <summary>
+        /// Overloaded method to allow ZDFs to open from double-click
+        /// </summary>
+        /// <param name="e">Command Line Arguments</param>
         public void Run(StartupEventArgs e)
         {
             base.Run();
             if (e.Args.Length > 0)
             {
                 var baseVM = Container.Resolve<MainWindow>(InstanceNames.MainWindowView).DataContext as MainWindowViewModel;
-                var command = baseVM.OpenZDFFromFileDelegateCommand;
-                //Task.Factory.StartNew(async () => await command.Execute());
-                //var commAction = new Prism.Interactivity.InvokeCommandAction();
-                //commAction.Command = command;
-                //commAction.CommandParameter = e.Args[0];
+                var command = baseVM.OpenZDFFromFileDelegateCommand;                
                 command.Execute(e.Args[0]);
             }
             
@@ -74,7 +77,7 @@ namespace Zave
 
 
         /// <summary>
-        /// 4
+        /// 
         /// </summary>
         protected override void ConfigureModuleCatalog()
         {
