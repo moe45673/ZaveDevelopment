@@ -32,65 +32,15 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid  Style="{StaticResource FileList_Container_Item}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Zave;component/media/images/zdf.png"/>
-                    <Label Grid.Row="1" Content="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource filenameConverter}}"/>
-                </Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Zave;component/media/images/zdf.png"/>
+                        <Label Grid.Row="1" Content="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource filenameConverter}}"/>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <!--<ListBoxItem>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Zave;component/media/images/zdf.png"/>
-                    <Label Grid.Row="1" Content="Sample ZDF File 2"/>
-                </Grid>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Zave;component/media/images/zdf.png"/>
-                    <Label Grid.Row="1" Content="Sample ZDF File 3"/>
-                </Grid>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Zave;component/media/images/zdf.png"/>
-                    <Label Grid.Row="1" Content="Sample ZDF File 4"/>
-                </Grid>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Zave;component/media/images/zdf.png"/>
-                    <Label Grid.Row="1" Content="Sample ZDF File 5"/>
-                </Grid>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Zave;component/media/images/zdf.png"/>
-                    <Label Grid.Row="1" Content="Sample ZDF File 6"/>
-                </Grid>
-            </ListBoxItem>-->
         </ListBox>
     </Canvas>
 </UserControl>
