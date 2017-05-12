@@ -126,15 +126,22 @@ namespace ZaveViewModel.ViewModels
             if (cont == null) throw new ArgumentNullException("container");
             if (regionManager == null) throw new ArgumentNullException("regionManager");
             if (agg == null) throw new ArgumentNullException("eventAggregator");
+            if(ioservice == null) throw new ArgumentNullException("ioService");
+            if(jsonService == null) throw new ArgumentNullException("jsonService");
 
             _container = cont;
             _regionManager = regionManager;
+            _eventAggregator = agg;
+            _ioService = ioservice;
+            _jsonService = jsonService;
+
+
             SwitchWindowModeCommand = new DelegateCommand(SwitchWindowMode);
             SwitchSpecificWindowModeCommand = new DelegateCommand<WindowMode?>(SwitchWindowMode);
             //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
             //cont.RegisterInstance<MainWindowViewModel>(this);
-            _eventAggregator = agg;
+            
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
             _eventAggregator.GetEvent<WindowModeChangedEvent>().Subscribe(SwitchWindowMode);
             //var getDirectory = GetDefaultSaveDirectory();
@@ -142,8 +149,7 @@ namespace ZaveViewModel.ViewModels
             Filename = GuidGenerator.UNSAVEDFILENAME;
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
             _WindowModeChangeResult = new TaskCompletionSource<bool>();
-            _ioService = ioservice;
-            _jsonService = jsonService;
+            
             SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDFAsync);
             OpenZDFDelegateCommand = DelegateCommand.FromAsyncHandler(OpenZDF);
             OpenZDFFromFileDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => OpenZDF(x));
@@ -157,12 +163,21 @@ namespace ZaveViewModel.ViewModels
             ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
             SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
             ConfirmationRequest = new InteractionRequest<IConfirmation>();
-            SetWindowMode(WindowMode.WIDGET);
+            //var startupWinMode = new Nullable<WindowMode>(GetStartupWinMode());
+            //SwitchWindowMode(startupWinMode);
+            WinMode = GetStartupWinMode();
+            _snapToCorner = true;
 
 
 
-            //_eventAggregator.GetEvent<MainWindowInstantiatedEvent>().Publish(true);
+            
 
+        }
+
+        private WindowMode GetStartupWinMode()
+        {
+            //TODO Make this configurable by the user settings
+            return WindowMode.WIDGET;
         }
 
         private async Task OpenZDF(string filename)
@@ -319,6 +334,36 @@ namespace ZaveViewModel.ViewModels
                 _eventAggregator.GetEvent<FilenameChangedEvent>().Publish(_filename);
 
                 //SetProperty(ref _filename, name);
+            }
+        }
+
+        private bool AllowedToChangeSnappingCornerValue()
+        {
+            bool verified = false;
+
+            if(_snapToCorner == true && WinMode == WindowMode.WIDGET)
+            {
+                verified = true;
+            }
+
+            if(_snapToCorner == false && WinMode == WindowMode.WIDGET)
+            {
+                verified = true;
+            }
+
+            return verified;
+
+        }
+
+        private bool _snapToCorner;
+        public bool SnapToCorner
+        {
+            get
+            { return _snapToCorner; }
+            set
+            {
+                if(AllowedToChangeSnappingCornerValue())
+                SetProperty(ref _snapToCorner, value);
             }
         }
 

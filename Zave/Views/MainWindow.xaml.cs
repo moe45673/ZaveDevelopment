@@ -57,6 +57,8 @@ namespace Zave.Views
             }
         }
 
+        
+
         private void Window_Deactivated(object sender, EventArgs args)
         {
             var window = (Window)sender;
@@ -140,9 +142,9 @@ namespace Zave.Views
             
         }
 
-        private async void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            await ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
+            ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
 
         }
 

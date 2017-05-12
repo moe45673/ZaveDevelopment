@@ -62,6 +62,20 @@ namespace ZaveViewModel.ViewModels
             }
         }
 
+        private bool _snapToCorner;
+        public bool SnapToCorner
+        {
+            get
+            {
+                return _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel).SnapToCorner;
+            }
+            set
+            {
+                var vm = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel);
+                vm.SnapToCorner = value;
+                SetProperty(ref _snapToCorner, vm.SnapToCorner);
+            }
+        }
 
         private void SetFileName(string newName)
         {

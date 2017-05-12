@@ -43,9 +43,23 @@ namespace Zave.Controllers
 
 
             eventAggregator.GetEvent<WindowModeChangeEvent>().Subscribe(WindowModeChangeAbstract, true);
+            eventAggregator.GetEvent<MainWindowInstantiatedEvent>().Subscribe(InstantiateMainWindow);
         }
 
         
+        private void InstantiateMainWindow(object success)
+        {
+
+            if (((bool)success) == true)
+            {
+                var uc = container.Resolve<MainWindow>(InstanceNames.MainWindowView);
+                ShiftWindowOntoScreenHelper.ShiftWindowOntoDesiredCorner(uc, DesiredCorner.BOTTOM_RIGHT);
+                var winMode = ((MainWindowViewModel)uc.DataContext).WinMode;
+                WindowModeChangeAbstract(winMode);
+
+
+            }
+        }
 
         private void WindowModeChangeAbstract(WindowMode winMode)
         {
@@ -95,7 +109,7 @@ namespace Zave.Controllers
 
                 if (x.Result == true)
                 {
-                    if (uri.Equals(InstanceNames.WidgetView))
+                    if (uri.Equals(InstanceNames.WidgetView) && ((MainWindowViewModel)uc.DataContext).SnapToCorner == true)
                     {
                         ShiftWindowOntoScreenHelper.ShiftWindowOntoDesiredCorner(uc, DesiredCorner.BOTTOM_RIGHT);
                     }
@@ -118,6 +132,8 @@ namespace Zave.Controllers
 
 
         }
+
+        
 
         private void NavigationCompleted(NavigationResult result)
         {

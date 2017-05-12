@@ -36,6 +36,7 @@ namespace ZaveViewModel.ViewModels
 
 
             var win = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel);
+            
             ChangeIsActive(win.WinMode);
 
 
@@ -49,6 +50,8 @@ namespace ZaveViewModel.ViewModels
             get { return this._isActive; }
             set { SetProperty(ref _isActive, value); }
         }
+
+        
 
         private Color _activeColor;
         public Color ActiveColor {

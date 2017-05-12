@@ -47,7 +47,10 @@ namespace Zave.Views
             base.OnMouseLeftButtonDown(e);
             var mainWin = Window.GetWindow(this);
             if (e.LeftButton == MouseButtonState.Pressed)
+            {
                 mainWin.DragMove();
+                ((TitleBarViewModel)DataContext).SnapToCorner = false;
+            }
 
         }
 
