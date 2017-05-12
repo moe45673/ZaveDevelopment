@@ -144,7 +144,9 @@ namespace Zave.Views
 
         private void Window_Closing_1(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute();
+            //e.Cancel = true;
+            Dispatcher.Invoke(() => ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute().Wait());
+            
 
         }
 

@@ -1007,12 +1007,12 @@ namespace ZaveViewModel.ViewModels
             if (SaveLocation == null || SaveLocation == String.Empty || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
             {
                 var filename = _ioService.SaveFileDialogService(getSaveDirectory());
-                await SaveLogic(Convert.ToString(filename));
+                await SaveLogicAsync(Convert.ToString(filename));
             }
             else
             {
                 var filename = SaveLocation;
-                await SaveLogic(Convert.ToString(filename));
+                await SaveLogicAsync(Convert.ToString(filename));
             }
         }
 
@@ -1031,7 +1031,54 @@ namespace ZaveViewModel.ViewModels
         }
 
         #region Save Common Logic
-        private async Task SaveLogic(string filename)
+        private void SaveLogic(string filename)
+        {
+            var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
+
+            JsonSerializer serializer = new JsonSerializer();
+
+            if (filename != String.Empty)
+            {
+
+                using (var sw = _ioService.SaveFileService(filename))
+                {
+                    try
+                    {
+                        using (JsonWriter wr = new JsonTextWriter(sw))
+                        {
+                            try
+                            {
+
+                                setIndented(serializer);
+                                serializer.Serialize(wr, activeZDFVM.GetModel());
+                                SaveLocation = filename;
+                                var activeZDF = ZDFSingleton.GetInstance();
+                                activeZDF.Name = filename;
+                                _eventAggregator.GetEvent<ZDFSavedEvent>().Publish(activeZDF.Name);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw ex;
+                            }
+                            finally
+                            {
+                                wr.Close();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Windows.Forms.MessageBox.Show("Save File Error!");
+                    }
+                    finally
+                    {
+                        sw.Close();
+                    }
+                }
+            }
+        }
+
+        private async Task SaveLogicAsync(string filename)
         {
             var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
 
@@ -1221,7 +1268,7 @@ namespace ZaveViewModel.ViewModels
             if (saveFileDialog.ShowDialog() == true)
             {
                 ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-                SaveLogic(Convert.ToString(saveFileDialog.FileName));
+                SaveLogicAsync(Convert.ToString(saveFileDialog.FileName));
             }
         }
     }
