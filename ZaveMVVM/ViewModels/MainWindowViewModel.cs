@@ -303,7 +303,7 @@ namespace ZaveViewModel.ViewModels
 
         private void SwitchWindowMode(bool result)
         {
-            _WindowModeChangeResult?.TrySetResult(result);
+            _WindowModeChangeResult.TrySetResult(result);
         }
 
         #region Properties
