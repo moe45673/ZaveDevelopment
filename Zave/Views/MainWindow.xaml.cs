@@ -39,7 +39,7 @@ namespace Zave.Views
 
 
 
-        public static readonly DependencyProperty HeightProperty =
+        public static readonly new DependencyProperty HeightProperty =
             DependencyProperty.Register
             (
                 "DynamicHeight", typeof(int), typeof(MainWindow)
@@ -64,24 +64,24 @@ namespace Zave.Views
             var window = (Window)sender;
             try
             {
-                //if (((MainWindowViewModel)((MainWindow)sender).DataContext).WinMode == WindowMode.WIDGET)
-                //{
+                if (((MainWindowViewModel)((MainWindow)sender).DataContext).WinMode == WindowMode.WIDGET)
+                {
 
-                //todo Need to put the following logic into the viewmodel so that it can be used with User Settings
-                WindowMode? assignable = WindowMode.WIDGET;
-                var vm = this.DataContext as MainWindowViewModel;
-                if ((vm != null) && (vm.WinMode != WindowMode.WIDGET) && (vm.SwitchSpecificWindowModeCommand.CanExecute(assignable)))
-                    vm.SwitchSpecificWindowModeCommand.Execute(assignable);
+                    //todo Need to put the following logic into the viewmodel so that it can be used with User Settings
+                    //WindowMode? assignable = WindowMode.WIDGET;
+                    //var vm = this.DataContext as MainWindowViewModel;
+                    //if ((vm != null) && (vm.WinMode != WindowMode.WIDGET) && (vm.SwitchSpecificWindowModeCommand.CanExecute(assignable)))
+                    //    vm.SwitchSpecificWindowModeCommand.Execute(assignable);
 
-                window.Topmost = true;
+                    window.Topmost = true;
                     window.Opacity = 0.5;
                     window.BeginAnimation(Window.OpacityProperty, null);
                     window.Activate();
-                //}
-                //else
-                //{
-                //    window.Topmost = false;
-                //}
+                }
+                else
+                {
+                    window.Topmost = false;
+                }
             }
             catch (NullReferenceException nre)
             {

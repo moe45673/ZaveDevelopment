@@ -15,19 +15,29 @@ using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Module(ModuleName = "WidgetModule")]
     [ModuleDependency("DataServiceModule")]
     [ModuleDependency("ControlBarModule")]
     [ModuleDependency("MainWindowModule")]
     [ModuleDependency("AppSettingsModule")]
     //[ModuleDependency("MainContainerModule")]
-
     public class WidgetModule : ModuleBaseClass
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cont"></param>
+        /// <param name="registry"></param>
         public WidgetModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Initialize()
         {
 

@@ -22,6 +22,10 @@ namespace Zave.Views
     /// </summary>
     public partial class WidgetControls : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cont"></param>
         public WidgetControls(IUnityContainer cont)
         {
 

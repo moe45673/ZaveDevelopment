@@ -76,7 +76,7 @@ namespace ZaveViewModel.ViewModels
         //public static string SaveLocation = null;
         //public static List<ZdfUndoComments> ZdfUndoComments = new List<ZdfUndoComments>();
         //public static List<ZdfUndoComments> RemoveZdundoComments = new List<ZdfUndoComments>();
-        public event PropertyChangedEventHandler PropertyChanged = null;
+        //public event PropertyChangedEventHandler PropertyChanged = null;
 
 
         //public DelegateCommand SaveZDFDelegateCommand { get; set; }

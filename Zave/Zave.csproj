@@ -49,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Zave.XML</DocumentationFile>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <NoWarn>CS1591;</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

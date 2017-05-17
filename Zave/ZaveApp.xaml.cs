@@ -52,7 +52,9 @@ namespace Zave
         }
 
         
-
+        /// <summary>
+        /// 
+        /// </summary>
         ~ZaveApp()
         {
 
@@ -71,7 +73,7 @@ namespace Zave
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
 
-            var txt = "";
+            //var txt = "";
             
             var bs = new BootStrapper();
             
@@ -86,8 +88,8 @@ namespace Zave
             string projFile = System.IO.Path.GetTempPath() + APIFileNames.SourceToZave;
             string broadcastFile = Path.GetTempPath() + APIFileNames.ZaveToSource;
             //string projFile = System.IO.Path.GetTempPath() + "ZavePrototype";
-            IOService.CreateFileAsync(projFile);
-            IOService.CreateFileAsync(broadcastFile);
+            await IOService.CreateFileAsync(projFile);
+            await IOService.CreateFileAsync(broadcastFile);
             
 
             

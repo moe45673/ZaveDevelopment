@@ -32,8 +32,8 @@ namespace ZaveModel.ZDF
         private static ZDFSingleton instance;
         [JsonIgnore]
         private static readonly object syncRoot = new Object();
-        [JsonIgnore]
-        private static int _iDTracker;
+        //[JsonIgnore]
+        //private static int _iDTracker;
         [JsonIgnore]
         private static int _entryIDTracker;
         [JsonIgnore]

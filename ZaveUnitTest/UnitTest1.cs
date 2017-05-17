@@ -11,8 +11,8 @@ namespace ZaveUnitTest
         [TestMethod]
         public void AppSettingsIConfigTest()
         {
-            var 
-            var settingsModule = new ApplicationSettingsModule()
+            //var 
+            //var settingsModule = new ApplicationSettingsModule()
 
         }
     }

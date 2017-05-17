@@ -20,6 +20,9 @@ namespace Zave.Views
     /// </summary>
     public partial class ZDFView : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ZDFView()
         {
             InitializeComponent();

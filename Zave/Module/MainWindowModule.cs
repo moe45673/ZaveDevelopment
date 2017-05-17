@@ -21,10 +21,16 @@ namespace Zave.Module
     [ModuleDependency("AppSettingsModule")]
     public class MainWindowModule : ModuleBaseClass
     {
-        private ZaveController.EventInitSingleton eventInit;
+        //private ZaveController.EventInitSingleton eventInit;
         private IEventAggregator _agg;
-        private Zave.Controllers.MainWindowController mainWinController;
+        //private Zave.Controllers.MainWindowController mainWinController;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cont"></param>
+        /// <param name="reg"></param>
+        /// <param name="agg"></param>
         public MainWindowModule(IUnityContainer cont, IRegionManager reg, IEventAggregator agg) : base(cont, reg) {
 
             _agg = agg;
@@ -63,6 +69,7 @@ namespace Zave.Module
     /// </summary>
     public static class RegionNames
     {
+
         public const string RecentZDFListRegion = "RecentZDFListRegion";
         public const string ZDFEntryListRegion = "ZDFEntryListRegion";
         public const string ZDFEntryDetailRegion = "ZDFEntryDetailRegion";
@@ -78,11 +85,7 @@ namespace Zave.Module
 
     }
 
-    public static class ViewNames
-    {
-        public const string MainWindowView = "MainWindowView";
-        
-    }
+
 
    
 }

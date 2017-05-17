@@ -12,6 +12,9 @@ using Zave.Module;
 
 namespace Zave.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ZDFEntryController
     {
         private readonly IUnityContainer container;
@@ -19,6 +22,13 @@ namespace Zave.Controllers
         private readonly IEventAggregator eventAggregator;
         private readonly IZDFEntryService entryService;
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="regionManager"></param>
+        /// <param name="eventAggregator"></param>
+        /// <param name="entryService"></param>
         public ZDFEntryController(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator, IZDFEntryService entryService)
         {
             if (container == null) throw new ArgumentNullException("container");

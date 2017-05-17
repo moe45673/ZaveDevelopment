@@ -144,6 +144,9 @@ namespace Zave.Controllers
 
 
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ShiftWindowOntoScreenHelper
     {
         /// <summary>
@@ -236,6 +239,11 @@ namespace Zave.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="window"></param>
+        /// <param name="dc"></param>
         public static void ShiftWindowOntoDesiredCorner(Window window, DesiredCorner dc)
         {
             //// Note that "window.BringIntoView()" does not work.                            

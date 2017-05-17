@@ -14,14 +14,25 @@ using Prism.Modularity;
 
 namespace Zave.Module
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Module(ModuleName="ZDFModule")]
     [ModuleDependency("DataServiceModule")]
     public class ZDFModule : ModuleBaseClass
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cont"></param>
+        /// <param name="registry"></param>
         public ZDFModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Initialize()
         {
             

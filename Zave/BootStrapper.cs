@@ -24,7 +24,7 @@ namespace Zave
     public class BootStrapper : UnityBootstrapper
     {
 
-        StartupEventArgs startup;
+        //StartupEventArgs startup;
 
         /// <summary>
         /// Sets Prism Shell to MainWindow class
@@ -124,10 +124,10 @@ namespace Zave
 
         }
 
-        /// <summary>
-        /// Child class of ModuleCatalog to dynamically load Modules
-        /// </summary>
-        /// <returns></returns>
+        ///// <summary>
+        ///// Child class of ModuleCatalog to dynamically load Modules
+        ///// </summary>
+        ///// <returns></returns>
         //protected override IModuleCatalog CreateModuleCatalog()
         //{
         //    DynamicDirectoryModuleCatalog catalog = new DynamicDirectoryModuleCatalog(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Module"));

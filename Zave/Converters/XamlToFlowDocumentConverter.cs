@@ -49,7 +49,7 @@ namespace Zave.Converters
                 // Set return value
                 return flowDocument;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -79,36 +79,54 @@ namespace Zave.Converters
         #endregion
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class RtfToPlainTextConverter : IValueConverter
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string plainText = "";
-            
-                string rtfText = (string)value;
-                if (RichTextBoxExtensions.IsRtf(rtfText))
-                {
-                    var richTxtBx = new RichTextBox();
-                    richTxtBx.Rtf = rtfText;
-                    var indices = richTxtBx.Rtf.AllIndexesOf(@"\pict");
-                    //foreach(int i in indices)
-                    //{
-                    //    MessageBox.Show(System.Convert.ToString(i) +  "\n");
-                    //}
 
-                    plainText = richTxtBx.Text;
-                }
-            
-                else
-                {
-                    plainText = (string)value;
-                }
+            string rtfText = (string)value;
+            if (RichTextBoxExtensions.IsRtf(rtfText))
+            {
+                var richTxtBx = new RichTextBox();
+                richTxtBx.Rtf = rtfText;
+                var indices = richTxtBx.Rtf.AllIndexesOf(@"\pict");
+                //foreach(int i in indices)
+                //{
+                //    MessageBox.Show(System.Convert.ToString(i) +  "\n");
+                //}
+
+                plainText = richTxtBx.Text;
+            }
+
+            else
+            {
+                plainText = (string)value;
+            }
 
             return plainText;
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
@@ -134,6 +152,9 @@ namespace System
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static class RichTextBoxExtensions
     {
         //public static void SetTextOrRtf(this RichTextBox richTextBox, IEnumerable<string> texts)
@@ -167,6 +188,11 @@ namespace System
         //    }
         //}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static bool IsRtf(this string text)
         {
             // Adapted from http://stackoverflow.com/questions/22502924/how-to-determine-text-format-in-c-sharp

@@ -19,6 +19,9 @@ namespace Zave.Views
     /// </summary>
     public partial class TestDialog : Window
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public TestDialog()
         {
             InitializeComponent();
