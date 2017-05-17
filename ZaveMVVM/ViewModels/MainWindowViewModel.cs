@@ -53,7 +53,7 @@ namespace ZaveViewModel.ViewModels
         private readonly IUnityContainer _container;
         private readonly IEventAggregator _eventAggregator;
         private string _filename;
-        public static string SaveLocation = null;
+        public string SaveLocation;
         private WindowMode _winMode;
         private readonly IIOService _ioService;
         private readonly IJsonService _jsonService;
@@ -126,8 +126,8 @@ namespace ZaveViewModel.ViewModels
             if (cont == null) throw new ArgumentNullException("container");
             if (regionManager == null) throw new ArgumentNullException("regionManager");
             if (agg == null) throw new ArgumentNullException("eventAggregator");
-            if(ioservice == null) throw new ArgumentNullException("ioService");
-            if(jsonService == null) throw new ArgumentNullException("jsonService");
+            if (ioservice == null) throw new ArgumentNullException("ioService");
+            if (jsonService == null) throw new ArgumentNullException("jsonService");
 
             _container = cont;
             _regionManager = regionManager;
@@ -141,15 +141,18 @@ namespace ZaveViewModel.ViewModels
             //Dialogs.Add(new ModalInputDialogViewModel());
             cont.RegisterInstance(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList", Dialogs);
             //cont.RegisterInstance<MainWindowViewModel>(this);
-            
+
             _eventAggregator.GetEvent<ZDFSavedEvent>().Subscribe(setFileName);
             _eventAggregator.GetEvent<WindowModeChangedEvent>().Subscribe(SwitchWindowMode);
             //var getDirectory = GetDefaultSaveDirectory();
-            SaveLocation = String.Empty;
+
+            //if (SaveLocation == null)
+                SaveLocation = String.Empty;
+
             Filename = GuidGenerator.UNSAVEDFILENAME;
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
             _WindowModeChangeResult = new TaskCompletionSource<bool>();
-            
+
             SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDFAsync);
             OpenZDFDelegateCommand = DelegateCommand.FromAsyncHandler(OpenZDF);
             OpenZDFFromFileDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => OpenZDF(x));
@@ -170,7 +173,7 @@ namespace ZaveViewModel.ViewModels
 
 
 
-            
+
 
         }
 
@@ -341,12 +344,12 @@ namespace ZaveViewModel.ViewModels
         {
             bool verified = false;
 
-            if(_snapToCorner == true && WinMode == WindowMode.WIDGET)
+            if (_snapToCorner == true && WinMode == WindowMode.WIDGET)
             {
                 verified = true;
             }
 
-            if(_snapToCorner == false && WinMode == WindowMode.WIDGET)
+            if (_snapToCorner == false && WinMode == WindowMode.WIDGET)
             {
                 verified = true;
             }
@@ -362,8 +365,8 @@ namespace ZaveViewModel.ViewModels
             { return _snapToCorner; }
             set
             {
-                if(AllowedToChangeSnappingCornerValue())
-                SetProperty(ref _snapToCorner, value);
+                if (AllowedToChangeSnappingCornerValue())
+                    SetProperty(ref _snapToCorner, value);
             }
         }
 
@@ -393,6 +396,7 @@ namespace ZaveViewModel.ViewModels
                                 SaveZDF();
                                 WriteToDebugConsole("Confirming Unsaved Changes!!!!!!!!");
                             }
+
 
 
                         }
@@ -1241,7 +1245,7 @@ namespace ZaveViewModel.ViewModels
             ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
             activeZDF.EntryList.Clear();
             MainContainerViewModel.activeZdfUndo.Clear();
-            SaveLocation = null;
+            SaveLocation = getSaveDirectory();
             Filename = GuidGenerator.UNSAVEDFILENAME;
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
             _eventAggregator.GetEvent<NewZDFCreatedEvent>().Publish(activeZDF.ID.ToString());

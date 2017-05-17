@@ -89,7 +89,7 @@ namespace Zave.Views
             }
 
         }
-
+        
         private void Window_Activated(object sender, EventArgs e)
         {
             var window = (Window)sender;

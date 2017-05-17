@@ -96,17 +96,17 @@ namespace ZaveViewModel.ViewModels
 
         //public DelegateCommand SaveASZDFDelegateCommand { get; set; }
 
-        public string SaveLocation
-        {
-            get
-            {
-                return MainWindowViewModel.SaveLocation;
-            }
-            set
-            {
-                MainWindowViewModel.SaveLocation = value;
-            }
-        }
+        //public string SaveLocation
+        //{
+        //    get
+        //    {
+        //        return MainWindowViewModel.SaveLocation;
+        //    }
+        //    set
+        //    {
+        //        MainWindowViewModel.SaveLocation = value;
+        //    }
+        //}
 
         public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
         {
@@ -603,15 +603,15 @@ namespace ZaveViewModel.ViewModels
 
        
 
-        public static string getSaveDirectory()
-        {
-            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ZDFs";
-        }
+        //public static string getSaveDirectory()
+        //{
+        //    return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ZDFs";
+        //}
 
-        private string getSaveFileName()
-        {
-            return "\\SaveDoc";
-        }
+        //private string getSaveFileName()
+        //{
+        //    return "\\SaveDoc";
+        //}
 
        
     }

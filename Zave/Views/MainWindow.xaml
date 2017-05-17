@@ -22,11 +22,15 @@
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}" ResizeMode="NoResize" SnapsToDevicePixels="False" Deactivated="Window_Deactivated" Activated="Window_Activated" LostMouseCapture="Window_LostFocus" Closed="Window_Closed" Unloaded="Window_Unloaded" Closing="Window_Closing_1" >
 
     <i:Interaction.Triggers>
-       
-            <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
-                <prism:PopupWindowAction IsModal="True"/>
-            </prism:InteractionRequestTrigger>
-     
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <!--<prism:PopupWindowAction.WindowContent>
+                    <view:ModalInputDialog></view:ModalInputDialog>
+                </prism:PopupWindowAction.WindowContent>-->
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
     </i:Interaction.Triggers>
 
     <Window.Resources>
