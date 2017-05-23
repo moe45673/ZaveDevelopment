@@ -33,9 +33,10 @@ namespace Zave
     {
 
 
-
+        //private Views.MainWindow win;
+        //private bool mRequestClose = false;
         //public EventInitSingleton eventInit;
-       
+
 
         /// <summary>
         /// Runs Init() Method
@@ -78,8 +79,9 @@ namespace Zave
             var bs = new BootStrapper();
             
             bs.Run(e);
-            
-            
+
+           // win = new Views.MainWindow();
+
             
 
             //var eventAgg = bs.Container.Resolve(typeof(IEventAggregator)) as EventAggregator;
@@ -96,11 +98,7 @@ namespace Zave
 
         }
 
-
-        
-
-        
-
+       
     }//end App
 
    

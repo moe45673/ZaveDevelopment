@@ -476,7 +476,7 @@ namespace ZaveViewModel.ViewModels
                         IOService.DeleteFile(Path.GetTempPath() + APIFileNames.ZaveToSource);
                         await Task.Factory.StartNew(() =>
                         {
-                            var exportfilename = createExportFileName("docx");
+                            var exportfilename = createExportFileName("rtf");
                             try
                             {
 
@@ -515,7 +515,10 @@ namespace ZaveViewModel.ViewModels
                                 var wordDoc = WordApp.Documents.Add();
 
                                 //wordDoc.Activate();
-                                wordDoc.SaveAs2(ref exportfilenameObject);
+                                var wdform = new WdSaveFormat();
+                                wdform = WdSaveFormat.wdFormatRTF;
+                                Object wdformObj = wdform;
+                                wordDoc.SaveAs2(ref exportfilenameObject, ref wdformObj);
                                 wordDoc.Activate();
 
 
@@ -570,7 +573,13 @@ namespace ZaveViewModel.ViewModels
                                     //para.Range.FormattedText.Paste();
 
                                     //var rtfControl = toolDoc.Controls.AddRichTextContentControl(bmName + "rtf" + entry.ID.ToString());
-                                    rb.Rtf = entry.Text;
+                                    if(entry.Text.TrimStart().StartsWith(@"{\rtf1", StringComparison.Ordinal))
+                                        rb.Rtf = entry.Text;
+                                    else
+                                    {
+                                        rb.Text = entry.Text;
+
+                                    }
                                     //cc.BuildingBlockType = WdBuildingBlockTypes.wdTypeAutoText;
                                     //cc.set_DefaultTextStyle()
                                     if (rb.Rtf.Last() == Environment.NewLine.ToCharArray().First())
