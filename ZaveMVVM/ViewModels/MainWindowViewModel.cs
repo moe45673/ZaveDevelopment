@@ -448,10 +448,8 @@ namespace ZaveViewModel.ViewModels
             }
         }
 
-
-        private async Task ExportZDF(string source)
+        private async Task ExportZDFAsync(string source)
         {
-
             var activeZDF = ZDFSingleton.GetInstance();
             var entries = activeZDF.EntryList.ToList();
 
@@ -460,22 +458,23 @@ namespace ZaveViewModel.ViewModels
             entries.Sort(comp);
 
             IZDFEntry lastEntry = default(ZDFEntry);
-            var WordApp = new Microsoft.Office.Interop.Word.Application();
-            if (WordApp.Documents.Count == 0)
+            await Task.Factory.StartNew(() =>
             {
-                WordApp.Visible = false;
-            }
-            //WordApp.Activate();
+                var WordApp = new Microsoft.Office.Interop.Word.Application();
+                if (WordApp.Documents.Count == 0)
+                {
+                    WordApp.Visible = false;
+                }
+                //WordApp.Activate();
 
-            switch (source)
-            {
+                switch (source)
+                {
 
-                case "WORD":
-                    try
-                    {
-                        IOService.DeleteFile(Path.GetTempPath() + APIFileNames.ZaveToSource);
-                        await Task.Factory.StartNew(() =>
+                    case "WORD":
+                        try
                         {
+                            IOService.DeleteFile(Path.GetTempPath() + APIFileNames.ZaveToSource);
+
                             var exportfilename = createExportFileName("rtf");
                             try
                             {
@@ -573,7 +572,7 @@ namespace ZaveViewModel.ViewModels
                                     //para.Range.FormattedText.Paste();
 
                                     //var rtfControl = toolDoc.Controls.AddRichTextContentControl(bmName + "rtf" + entry.ID.ToString());
-                                    if(entry.Text.TrimStart().StartsWith(@"{\rtf1", StringComparison.Ordinal))
+                                    if (entry.Text.TrimStart().StartsWith(@"{\rtf1", StringComparison.Ordinal))
                                         rb.Rtf = entry.Text;
                                     else
                                     {
@@ -662,26 +661,36 @@ namespace ZaveViewModel.ViewModels
                                 GC.Collect();
                             }
 
+
+
+                            //t.Wait();
                         }
+                        catch (AggregateException aggex)
+                        {
+                            string ExceptionMessage = "";
+                            foreach (var ex in aggex.InnerExceptions)
+                            {
+                                ExceptionMessage += ex.Message + Environment.NewLine;
+                            }
+                            System.Windows.Forms.MessageBox.Show(ExceptionMessage);
+                        }
+
+                        break;
+                }
+            }
                         , CancellationToken.None
                         , TaskCreationOptions.None
                         , TaskScheduler.FromCurrentSynchronizationContext()
                         );
+        }
 
-                        //t.Wait();
-                    }
-                    catch (AggregateException aggex)
-                    {
-                        string ExceptionMessage = "";
-                        foreach (var ex in aggex.InnerExceptions)
-                        {
-                            ExceptionMessage += ex.Message + Environment.NewLine;
-                        }
-                        System.Windows.Forms.MessageBox.Show(ExceptionMessage);
-                    }
 
-                    break;
-            }
+        private async Task ExportZDF(string source)
+        {
+
+            
+
+            ExportZDFAsync(source);
 
 
         }
