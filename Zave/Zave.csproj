@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ZDFEntryController.cs" />
     <Compile Include="Converters\FilenameConverter.cs" />
     <Compile Include="Converters\StringToSourceConverter.cs" />
+    <Compile Include="Converters\TextColorConverter.cs" />
     <Compile Include="Converters\WindowModeConverter.cs" />
     <Compile Include="Converters\XamlToFlowDocumentConverter.cs" />
     <Compile Include="Module\AppSettingsModule.cs" />

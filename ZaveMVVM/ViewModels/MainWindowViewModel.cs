@@ -679,6 +679,39 @@ namespace ZaveViewModel.ViewModels
                             {
                                 ;
                             }
+                            finally
+                            {
+                                IOService.CreateFileAsync(Path.GetTempPath() + APIFileNames.ZaveToSource);
+
+                                if (WordApp.Visible.Equals(false))
+                                {
+                                    try
+                                    {
+                                        if (WordApp.Documents.Count > 0)
+                                            WordApp.Documents.Close(WdSaveOptions.wdSaveChanges);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        ;
+                                    }
+                                    WordApp.Quit();
+
+                                    //if (WordApp.Documents != null)
+                                    //{
+                                    //    Marshal.ReleaseComObject(WordApp.Documents);
+                                    //}
+                                    if (WordApp != null)
+                                    {
+                                        Marshal.ReleaseComObject(WordApp);
+                                    }
+
+
+
+                                    WordApp = null;
+
+                                }
+                                GC.Collect();
+                            }
 
 
 
@@ -701,36 +734,7 @@ namespace ZaveViewModel.ViewModels
                         }
                         finally
                         {
-                            IOService.CreateFileAsync(Path.GetTempPath() + APIFileNames.ZaveToSource);
-
-                            if (WordApp.Visible.Equals(false))
-                            {
-                                try
-                                {
-                                    if (WordApp.Documents.Count > 0)
-                                        WordApp.Documents.Close(WdSaveOptions.wdSaveChanges);
-                                }
-                                catch (Exception ex)
-                                {
-                                    ;
-                                }
-                                WordApp.Quit();
-
-                                //if (WordApp.Documents != null)
-                                //{
-                                //    Marshal.ReleaseComObject(WordApp.Documents);
-                                //}
-                                if (WordApp != null)
-                                {
-                                    Marshal.ReleaseComObject(WordApp);
-                                }
-
-
-
-                                WordApp = null;
-
-                            }
-                            GC.Collect();
+                            
                         }
 
                         break;
