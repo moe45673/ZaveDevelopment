@@ -60,6 +60,7 @@ namespace ZaveViewModel.ViewModels
         public static List<ZdfUndoComments> ZdfUndoComments = new List<ZdfUndoComments>();
         public static List<ZdfUndoComments> RemoveZdundoComments = new List<ZdfUndoComments>();
         public static List<IZDFEntry> activeZdfUndo = new List<IZDFEntry>();
+        private readonly TaskScheduler currsync;
 
         private TaskCompletionSource<bool> _WindowModeChangeResult = null;
         public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; }
@@ -147,7 +148,7 @@ namespace ZaveViewModel.ViewModels
             //var getDirectory = GetDefaultSaveDirectory();
 
             //if (SaveLocation == null)
-                SaveLocation = String.Empty;
+            SaveLocation = String.Empty;
 
             Filename = GuidGenerator.UNSAVEDFILENAME;
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
@@ -163,13 +164,14 @@ namespace ZaveViewModel.ViewModels
             RedoZDFDelegateCommand = new DelegateCommand(RedoZDF);
             ScreenshotZDFDelegateCommand = new DelegateCommand(ScreenshotZDF);
             //ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
-            ExportZDFDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => ExportZDF(x));
+            ExportZDFDelegateCommand = new DelegateCommand<string>(ExportZDF);
             SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
             ConfirmationRequest = new InteractionRequest<IConfirmation>();
             //var startupWinMode = new Nullable<WindowMode>(GetStartupWinMode());
             //SwitchWindowMode(startupWinMode);
             WinMode = GetStartupWinMode();
             _snapToCorner = true;
+            currsync = TaskScheduler.FromCurrentSynchronizationContext();
 
 
 
@@ -201,7 +203,7 @@ namespace ZaveViewModel.ViewModels
                             JArray ja = (JArray)jObject["EntryList"]["_items"];
 
                             await Task.Run(() => activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>()));
-                            activeZdf = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString()));
+                            activeZdf = await Task.Run(() => JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString()));
 
                             activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
 
@@ -460,11 +462,7 @@ namespace ZaveViewModel.ViewModels
             IZDFEntry lastEntry = default(ZDFEntry);
             await Task.Factory.StartNew(() =>
             {
-                var WordApp = new Microsoft.Office.Interop.Word.Application();
-                if (WordApp.Documents.Count == 0)
-                {
-                    WordApp.Visible = false;
-                }
+               
                 //WordApp.Activate();
 
                 switch (source)
@@ -473,9 +471,21 @@ namespace ZaveViewModel.ViewModels
                     case "WORD":
                         try
                         {
+                            Type wordType = Type.GetTypeFromProgID("Word.Application");
+
+                            var WordApp = Activator.CreateInstance(wordType) as Microsoft.Office.Interop.Word.Application;
+
+                            //var fileconvs = ((_Application)WordApp).FileConverters;
+
+
+                            if (WordApp.Documents.Count == 0)
+                            {
+                                WordApp.Visible = false;
+                                WordApp.ScreenUpdating = false;
+                            }
                             IOService.DeleteFile(Path.GetTempPath() + APIFileNames.ZaveToSource);
 
-                            var exportfilename = createExportFileName("rtf");
+                            var exportfilename = createExportFileName("docx");
                             try
                             {
 
@@ -513,11 +523,36 @@ namespace ZaveViewModel.ViewModels
                                 object exportfilenameObject = exportfilename;
                                 var wordDoc = WordApp.Documents.Add();
 
-                                //wordDoc.Activate();
+                                // wordDoc.Activate();
                                 var wdform = new WdSaveFormat();
-                                wdform = WdSaveFormat.wdFormatRTF;
+                                wdform = WdSaveFormat.wdFormatDocument;
                                 Object wdformObj = wdform;
-                                wordDoc.SaveAs2(ref exportfilenameObject, ref wdformObj);
+                                //Object fileconvsinit = WordApp.FileConverters;
+                                //var fileconvsobj = Marshal.CreateWrapperOfType(fileconvsinit, typeof(FileConverters));
+                                //FileConverters fileconvs = fileconvsobj as FileConverters;
+                                //if (WordApp != null)
+                                //{
+                                //    fileconvs = Marshal.CreateWrapperOfType<FileConverters, FileConverters>(WordApp.FileConverters);
+                                //}
+                                //foreach (FileConverter fc in fileconvs)
+                                //{
+                                //    try
+                                //    {
+                                //        //Console.WriteLine("FileConverter SaveFormat Int: " + fc.SaveFormat);
+                                //        Console.WriteLine("FileConverter Name: " + fc.Name);
+                                //        Console.WriteLine("FileConverter FormatName: " + fc.FormatName + '\n');
+                                //    }
+                                //    catch
+                                //    {
+                                //        ;
+                                //    }
+
+
+
+                                //}
+
+
+                                wordDoc.SaveAs2(ref exportfilenameObject);
                                 wordDoc.Activate();
 
 
@@ -585,7 +620,9 @@ namespace ZaveViewModel.ViewModels
                                     {
                                         rb.Rtf.Remove(rb.Rtf.Count() - 1);
                                     }
+
                                     System.Windows.Forms.Clipboard.SetText(rb.Rtf, System.Windows.Forms.TextDataFormat.Rtf);
+
 
                                     para.Range.FormattedText.Paste();
 
@@ -634,32 +671,16 @@ namespace ZaveViewModel.ViewModels
                             {
                                 System.Windows.Forms.MessageBox.Show("Unable to create export file. If file is currently open, please close and try again.", "FILE NOT EXPORTED", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                             }
-
-                            finally
+                            catch (COMException cex)
                             {
-
-                                IOService.CreateFileAsync(Path.GetTempPath() + APIFileNames.ZaveToSource);
-                                //WordApp.Documents.Close(WdSaveOptions.wdPromptToSaveChanges);
-                                if (WordApp.Visible.Equals(false))
-                                {
-                                    WordApp.Quit();
-
-                                    //if (WordApp.Documents != null)
-                                    //{
-                                    //    Marshal.ReleaseComObject(WordApp.Documents);
-                                    //}
-                                    if (WordApp != null)
-                                    {
-                                        Marshal.ReleaseComObject(WordApp);
-                                    }
-
-
-
-                                    WordApp = null;
-
-                                }
-                                GC.Collect();
+                                Console.WriteLine(cex.Message);
                             }
+                            catch (Exception ex)
+                            {
+                                ;
+                            }
+
+
 
 
 
@@ -674,23 +695,57 @@ namespace ZaveViewModel.ViewModels
                             }
                             System.Windows.Forms.MessageBox.Show(ExceptionMessage);
                         }
+                        catch (Exception ex)
+                        {
+                            ;
+                        }
+                        finally
+                        {
+                            IOService.CreateFileAsync(Path.GetTempPath() + APIFileNames.ZaveToSource);
+
+                            if (WordApp.Visible.Equals(false))
+                            {
+                                try
+                                {
+                                    if (WordApp.Documents.Count > 0)
+                                        WordApp.Documents.Close(WdSaveOptions.wdSaveChanges);
+                                }
+                                catch (Exception ex)
+                                {
+                                    ;
+                                }
+                                WordApp.Quit();
+
+                                //if (WordApp.Documents != null)
+                                //{
+                                //    Marshal.ReleaseComObject(WordApp.Documents);
+                                //}
+                                if (WordApp != null)
+                                {
+                                    Marshal.ReleaseComObject(WordApp);
+                                }
+
+
+
+                                WordApp = null;
+
+                            }
+                            GC.Collect();
+                        }
 
                         break;
                 }
-            }
-                        , CancellationToken.None
-                        , TaskCreationOptions.None
-                        , TaskScheduler.FromCurrentSynchronizationContext()
-                        );
+            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
 
-        private async Task ExportZDF(string source)
+        private void ExportZDF(string source)
         {
 
-            
+
 
             ExportZDFAsync(source);
+
 
 
         }
