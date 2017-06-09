@@ -41,6 +41,7 @@
     <Compile Include="IOService\IOService.cs" />
     <Compile Include="JSONService\JsonService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZaveColor\IZaveColorService.cs" />
     <Compile Include="ZDFEntry\IZDFEntryService.cs" />
     <Compile Include="ZDFEntry\ZDFEntryService.cs" />
   </ItemGroup>
