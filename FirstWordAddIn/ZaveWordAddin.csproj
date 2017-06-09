@@ -47,6 +47,8 @@
     <FriendlyName>ZaveWordAddIn</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -279,6 +281,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <!--<Error Condition="!Exists('..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets'))" />-->
     <!--<Error Condition="!Exists('..\packages\JetBrains.Platform.Core.Text.105.0.20160522.80211\build\JetBrains.Platform.Core.Text.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Core.Text.105.0.20160522.80211\build\JetBrains.Platform.Core.Text.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Platform.Core.Ide.105.0.20160522.80211\build\JetBrains.Platform.Core.Ide.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Core.Ide.105.0.20160522.80211\build\JetBrains.Platform.Core.Ide.Targets'))" />
@@ -299,4 +302,5 @@
     <!--<Error Condition="!Exists('..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets'))" />-->
   </Target>
   <Import Project="..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets" Condition="Exists('..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>
