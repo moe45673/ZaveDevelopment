@@ -277,13 +277,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+  <!--<Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <!--<Error Condition="!Exists('..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets'))" />-->
-    <!--<Error Condition="!Exists('..\packages\JetBrains.Platform.Core.Text.105.0.20160522.80211\build\JetBrains.Platform.Core.Text.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Core.Text.105.0.20160522.80211\build\JetBrains.Platform.Core.Text.Targets'))" />
+    --><!--<Error Condition="!Exists('..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Core.Shell.105.0.20160520.92915\build\JetBrains.Platform.Core.Shell.Targets'))" />--><!--
+    --><!--<Error Condition="!Exists('..\packages\JetBrains.Platform.Core.Text.105.0.20160522.80211\build\JetBrains.Platform.Core.Text.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Core.Text.105.0.20160522.80211\build\JetBrains.Platform.Core.Text.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Platform.Core.Ide.105.0.20160522.80211\build\JetBrains.Platform.Core.Ide.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Core.Ide.105.0.20160522.80211\build\JetBrains.Platform.Core.Ide.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Platform.Symbols.105.0.20160522.80211\build\JetBrains.Platform.Symbols.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Symbols.105.0.20160522.80211\build\JetBrains.Platform.Symbols.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Platform.Tests.Framework.105.0.20160522.80211\build\JetBrains.Platform.Tests.Framework.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Platform.Tests.Framework.105.0.20160522.80211\build\JetBrains.Platform.Tests.Framework.Targets'))" />
@@ -298,9 +298,9 @@
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.src.105.0.20160523.140224\build\JetBrains.Psi.Features.src.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.src.105.0.20160523.140224\build\JetBrains.Psi.Features.src.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.test.Framework.105.0.20160523.140224\build\JetBrains.Psi.Features.test.Framework.Targets'))" />
     <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.VisualStudio.105.0.20160523.140224\build\JetBrains.Psi.Features.VisualStudio.Targets'))" />
-    <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.SolutionBuilder.105.0.20160523.140224\build\JetBrains.Psi.Features.SolutionBuilder.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.SolutionBuilder.105.0.20160523.140224\build\JetBrains.Psi.Features.SolutionBuilder.Targets'))" />-->
-    <!--<Error Condition="!Exists('..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets'))" />-->
-  </Target>
+    <Error Condition="!Exists('..\packages\JetBrains.Psi.Features.SolutionBuilder.105.0.20160523.140224\build\JetBrains.Psi.Features.SolutionBuilder.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.SolutionBuilder.105.0.20160523.140224\build\JetBrains.Psi.Features.SolutionBuilder.Targets'))" />--><!--
+    --><!--<Error Condition="!Exists('..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JetBrains.Psi.Features.Cpp.Src.105.0.20160523.141910\build\JetBrains.Psi.Features.Cpp.Src.Targets'))" />--><!--
+  </Target>-->
   <Import Project="..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets" Condition="Exists('..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>
