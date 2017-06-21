@@ -314,6 +314,10 @@ namespace ZaveViewModel.Data_Structures
             get; private set;
         }
 
+        public virtual DelegateCommand<string> DeleteEntryDelegateCommand
+        {
+            get; set;
+        }
         //public DelegateCommand<string> DeleteEntryDelegateCommand { virtual get; virtual set; }
 
         protected virtual void DeleteEntry(string id)

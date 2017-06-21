@@ -950,7 +950,7 @@ namespace ZaveViewModel.ViewModels
                 else
                 {
                     activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
-                    ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(_container, activeZdfUndo.LastOrDefault() as ZDFEntry));
                     activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
                     //return;
                 }
@@ -961,7 +961,7 @@ namespace ZaveViewModel.ViewModels
                 if (activeZdfUndo.Count > 0)
                 {
                     activeZdf.EntryList.Add(activeZdfUndo.LastOrDefault());
-                    ZdfEntries.Add(new ZdfEntryItemViewModel(activeZdfUndo.LastOrDefault() as ZDFEntry));
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(_container, activeZdfUndo.LastOrDefault() as ZDFEntry));
                     activeZdfUndo.RemoveAt(activeZdfUndo.Count - 1);
                     //return;
                 }
@@ -1344,7 +1344,7 @@ namespace ZaveViewModel.ViewModels
             ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
             ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
             activeZDF.Add(new ZDFEntry());
-            ZdfEntries.Add(new ZdfEntryItemViewModel(entry as ZDFEntry));
+            ZdfEntries.Add(new ZdfEntryItemViewModel(_container, entry as ZDFEntry));
             #endregion
 
         }

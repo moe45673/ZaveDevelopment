@@ -67,7 +67,7 @@ namespace ZaveViewModel.ViewModels
             {
                 foreach (var entry in zdf.EntryList)
                 {
-                    var item = new ZdfEntryItemViewModel(entry as ZDFEntry);
+                    var item = new ZdfEntryItemViewModel(_container, entry as ZDFEntry);
                     
                     ZdfEntries.Add(item);
                 }
@@ -112,7 +112,7 @@ namespace ZaveViewModel.ViewModels
                         var addlist = ZdfEntries.ToList(); //create temp list to add item to and then sort
 
 
-                        addlist.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
+                        addlist.Add(new ZdfEntryItemViewModel(_container, tempEntry as ZDFEntry));
 
                         addlist = ZDFSorting.EntrySort(addlist, activeSort);                        
                         ZdfEntries.Clear();
@@ -235,7 +235,7 @@ namespace ZaveViewModel.ViewModels
             if (_activeZdf.EntryList.Any<IZDFEntry>())
             {
                 foreach (var item in _activeZdf.EntryList)
-                    ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                    ZdfEntries.Add(new ZdfEntryItemViewModel(_container, item as ZDFEntry));
 
             }
 
@@ -308,9 +308,10 @@ namespace ZaveViewModel.ViewModels
        
         
 
-        public ZdfEntryItemViewModel(ZDFEntry zdfEntry) : base(zdfEntry)
+        public ZdfEntryItemViewModel(IUnityContainer cont, ZDFEntry zdfEntry) : base(zdfEntry)
         {
-            
+            var mainWinVM = cont.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel);
+            DeleteEntryDelegateCommand = mainWinVM.DeleteZDFEntryCommand;
 
         }
 

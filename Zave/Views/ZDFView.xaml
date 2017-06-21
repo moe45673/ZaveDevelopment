@@ -110,7 +110,12 @@
 
         <DataTemplate x:Key="EntryListTemplate">
             <Border Style="{StaticResource ListView_Border}" BorderBrush="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}">
-                <StackPanel Style="{StaticResource ListView_Item}" >
+                <StackPanel Style="{StaticResource ListView_Item}" Tag="{Binding DataContext, RelativeSource={RelativeSource Self}}">
+                    <StackPanel.ContextMenu>
+                        <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                            <MenuItem Header="Delete" Command="{Binding DeleteEntryDelegateCommand}" CommandParameter="{Binding TxtDocID}"/>
+                        </ContextMenu>
+                    </StackPanel.ContextMenu>
                     <TextBlock x:Name="docIDTxtBx" Visibility="Collapsed" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock x:Name="docNameTxtBx" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListView_Item_Title}"/>
 
@@ -132,14 +137,14 @@
 
 
     <ListView ItemsSource="{Binding ZdfEntries}" ItemTemplate="{StaticResource EntryListTemplate}" Name="LV_EntryList" PresentationTraceSources.TraceLevel="High" AutomationProperties.AutomationId="EntryList">
-        
+
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="SelectionChanged">
                 <prism:InvokeCommandAction Command="{Binding SelectItemDelegateCommand}" CommandParameter="{Binding ElementName=LV_EntryList, Path=SelectedItems}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
-		
-       
+        
+
     </ListView>
 
 </UserControl>

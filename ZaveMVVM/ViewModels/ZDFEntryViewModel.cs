@@ -49,7 +49,7 @@ namespace ZaveViewModel.ViewModels
         public InteractionRequest<CommentInputDialogViewModel> CommentDialogRequest { get; set; }
         public DelegateCommand AddCommentDelegateCommand { get; set; }
 
-        public DelegateCommand<string> DeleteEntryDelegateCommand { get; set; }
+        public override DelegateCommand<string> DeleteEntryDelegateCommand { get; set; }
 
         
 
