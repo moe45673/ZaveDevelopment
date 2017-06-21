@@ -68,6 +68,8 @@ namespace ZaveViewModel.ViewModels
         #region Delegate Properties
         public DelegateCommand SwitchWindowModeCommand { get; set; }
 
+        public DelegateCommand<string> DeleteZDFEntryCommand { get; set; }
+
         public DelegateCommand<WindowMode?> SwitchSpecificWindowModeCommand { get; set; }
 
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
@@ -167,6 +169,7 @@ namespace ZaveViewModel.ViewModels
             ExportZDFDelegateCommand = new DelegateCommand<string>(ExportZDF);
             SaveASZDFDelegateCommand = new DelegateCommand(SaveAsZdfFile);
             ConfirmationRequest = new InteractionRequest<IConfirmation>();
+            DeleteZDFEntryCommand = new DelegateCommand<string>(DeleteZDFEntry);
             //var startupWinMode = new Nullable<WindowMode>(GetStartupWinMode());
             //SwitchWindowMode(startupWinMode);
             WinMode = GetStartupWinMode();
@@ -177,6 +180,22 @@ namespace ZaveViewModel.ViewModels
 
 
 
+        }
+
+        private void DeleteZDFEntry(string entryIdAsStr)
+        {
+            IZDF activeZDF = ZDFSingleton.GetInstance();
+
+            int entryId = int.Parse(entryIdAsStr);
+            var entry = activeZDF.EntryList.First(x => { return entryId == x.ID; });
+            if (activeZDF.EntryList.Remove(entry))
+            {
+                _eventAggregator.GetEvent<EntryDeletedEvent>().Publish(entry);
+            }
+            else
+            {
+                throw new ZaveOperationFailedException("Unable to Delete the Desired Entry");
+            }
         }
 
         private WindowMode GetStartupWinMode()
@@ -462,7 +481,7 @@ namespace ZaveViewModel.ViewModels
             IZDFEntry lastEntry = default(ZDFEntry);
             await Task.Factory.StartNew(() =>
             {
-               
+
                 //WordApp.Activate();
 
                 switch (source)
@@ -734,7 +753,7 @@ namespace ZaveViewModel.ViewModels
                         }
                         finally
                         {
-                            
+
                         }
 
                         break;

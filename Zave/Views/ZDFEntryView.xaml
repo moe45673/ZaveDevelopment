@@ -17,11 +17,17 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:ZDFEntryViewModel, IsDesignTimeCreatable=True}">
 
-    <UserControl.Resources>        
+    <UserControl.Resources>
+        
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:StringToSourceConverter x:Key="strToSrcConverter"/>
         <converters:FlowDocumentToXamlConverter x:Key="stringToFlowConverter"/>
         <converters:ColorConverters x:Key="ColorConverter"/>
         <converters:CommentCollectionConverter x:Key="CommentConverter"/>
+
+
+        <Image x:Key="DeleteButtonImage" Source="{Binding ConverterParameter=Delete.png, Converter={StaticResource strToSrcConverter}, Mode=OneWay, Source={StaticResource ImageURIRoot}}" />
+
         <local:MainWindow x:Key="ZaveShell"/>
         <Style x:Key="gridEntry" TargetType="{x:Type Grid}">
             <Setter Property="Margin" Value="0"/>
@@ -165,7 +171,7 @@
             <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Style="{StaticResource hiLightHeader_Text}"/>
         </Grid>
         <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
-        <Button x:Name="deleteEntryBtn" Grid.Row="2" Grid.Column="2" />
+        <Button x:Name="deleteEntryBtn" Grid.Row="2" Grid.Column="2"  Content="{DynamicResource DeleteButtonImage}" Style="{StaticResource Comment_Button_Delete}" />
         <FlowDocumentScrollViewer x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" Style="{StaticResource docText_Text}" Document="{Binding TxtDocText, Converter={StaticResource stringToFlowConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
 
@@ -181,13 +187,7 @@
             </Grid.ColumnDefinitions>
             <Label x:Name="docCommentLbl" Grid.Row="0" Grid.Column="0" Content="Comments" Style="{StaticResource docCommentLbl_Text}"/>
             <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource CommentHeader_StackPanel_Right}">
-                <Button Name="MainAddButton" Content="Add" Style="{StaticResource CommentHeader_Button_Action}" Command="{Binding AddCommentDelegateCommand}"> 
-                <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
-                </Button>
+                <Button Name="MainAddButton" Content="Add" Style="{StaticResource CommentHeader_Button_Action}" Command="{Binding AddCommentDelegateCommand}"/>
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="5" Grid.Column="1" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">

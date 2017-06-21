@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using ZaveGlobalSettings.ZaveFile;
 using Prism.Interactivity.InteractionRequest;
 using WPFColor = System.Windows.Media.Color;
+using System.Runtime.Serialization;
 
 namespace ZaveGlobalSettings.Data_Structures
 {
@@ -502,6 +503,29 @@ namespace ZaveGlobalSettings.Data_Structures
 
     public class WindowModeChangedEvent : PubSubEvent<bool> { }
 
+    public class ZaveOperationFailedException : Exception
+    {
+        public ZaveOperationFailedException() : base()
+        {
+
+        }
+
+        public ZaveOperationFailedException(string message) : base(message)
+        {
+
+        }
+
+        public ZaveOperationFailedException(String message, Exception innerException) : base(message, innerException)
+        {
+
+        }
+
+        protected ZaveOperationFailedException(SerializationInfo info, StreamingContext context) : base(info, context)
+
+        {
+
+        }
+    }
 
 
     public static class InstanceNames

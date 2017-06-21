@@ -30,7 +30,7 @@ namespace Zave.Converters
 
             if (parameter is string)
             {
-                var returnValue = string.Format(parameter.ToString(), value);
+                var returnValue = string.Concat(value, parameter.ToString());
                 ImageSource imgsrc = conv.ConvertFromString(returnValue) as ImageSource;
                 return imgsrc;
             }

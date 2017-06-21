@@ -109,14 +109,14 @@ namespace ZaveViewModel.ViewModels
                         int index = (e.NewItems.SyncRoot as Array).Length - 1;
                         var tempEntry = (e.NewItems.SyncRoot as Array).GetValue(index); //get new entry
 
-                        var list = ZdfEntries.ToList(); //create temp list to add item to and then sort
+                        var addlist = ZdfEntries.ToList(); //create temp list to add item to and then sort
 
 
-                        list.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
+                        addlist.Add(new ZdfEntryItemViewModel(tempEntry as ZDFEntry));
 
-                        list = ZDFSorting.EntrySort(list, activeSort);                        
+                        addlist = ZDFSorting.EntrySort(addlist, activeSort);                        
                         ZdfEntries.Clear();
-                        ZdfEntries.AddRange(list);
+                        ZdfEntries.AddRange(addlist);
                         //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
                         break;
 
@@ -124,6 +124,13 @@ namespace ZaveViewModel.ViewModels
                         break;
 
                     case NotifyCollectionChangedAction.Remove:
+                        var removelist = ZdfEntries.ToList();
+                        var itemRemoved = new ZdfEntryItemViewModel(e.OldItems[0] as ZDFEntry);
+                        removelist.Remove(itemRemoved);
+                        removelist = ZDFSorting.EntrySort(removelist, activeSort);
+                        ZdfEntries.Clear();
+                        ZdfEntries.AddRange(removelist);
+
                         break;
 
                     case NotifyCollectionChangedAction.Replace:
@@ -158,6 +165,11 @@ namespace ZaveViewModel.ViewModels
         
             CreateEntryList();
 
+        }
+
+        private void modelEntryRemoved(object entry)
+        {
+            ModelCollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, entry));
         }
 
        
@@ -253,6 +265,7 @@ namespace ZaveViewModel.ViewModels
 
       
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(modelOpened);
+            _eventAggregator.GetEvent<EntryDeletedEvent>().Subscribe(modelEntryRemoved);
          
 
         }
