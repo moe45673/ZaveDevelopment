@@ -49,7 +49,13 @@ namespace ZaveViewModel.ViewModels
         public InteractionRequest<CommentInputDialogViewModel> CommentDialogRequest { get; set; }
         public DelegateCommand AddCommentDelegateCommand { get; set; }
 
+        public DelegateCommand<string> DeleteEntryDelegateCommand { get; set; }
+
+        
+
         protected CommentInputDialogViewModel _commentDlg;
+
+        
 
         public ZDFEntryViewModel(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, IZDFEntryService entryService) : base(new ZaveModel.ZDFEntry.ZDFEntry())
         {
@@ -67,6 +73,7 @@ namespace ZaveViewModel.ViewModels
                 _commentDlg = new CommentInputDialogViewModel();
                 CommentDialogRequest = new InteractionRequest<CommentInputDialogViewModel>();
                 AddCommentDelegateCommand = new DelegateCommand(AddComment);
+                DeleteEntryDelegateCommand = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel).DeleteZDFEntryCommand;
                 _entryService = entryService;
                 _zdfEntry = _entryService.getZDFEntry(entryService.ActiveZDFEntryId);
                 //_zdfEntry.Comments.CollectionChanged += base.ModelCollectionChanged;
@@ -87,7 +94,12 @@ namespace ZaveViewModel.ViewModels
         }
 
 
-        
+        protected override void DeleteEntry(string id)
+        {
+            //System.Windows.MessageBox.Show("Child!");
+            //var mainWinVM = _container.Resolve(typeof(MainWindowViewModel), InstanceNames.MainConViewModel);
+
+        }
 
         public CommentInputDialogViewModel CommentDlg
         {
@@ -136,7 +148,7 @@ namespace ZaveViewModel.ViewModels
         {
             get
             {
-                return _txtDocID;
+                return String.Format("{0}", _zdfEntry.ID);
             }
             protected set
             {

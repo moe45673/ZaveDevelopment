@@ -185,17 +185,31 @@ namespace ZaveViewModel.ViewModels
         private void DeleteZDFEntry(string entryIdAsStr)
         {
             IZDF activeZDF = ZDFSingleton.GetInstance();
+            ConfirmationRequest.Raise(ZaveGlobalSettings.Data_Structures.ZaveMessageBoxes.ConfirmDeleteCommand,
+                        c =>
+                        {
 
-            int entryId = int.Parse(entryIdAsStr);
-            var entry = activeZDF.EntryList.First(x => { return entryId == x.ID; });
-            if (activeZDF.EntryList.Remove(entry))
-            {
-                _eventAggregator.GetEvent<EntryDeletedEvent>().Publish(entry);
-            }
-            else
-            {
-                throw new ZaveOperationFailedException("Unable to Delete the Desired Entry");
-            }
+                            if (c.Confirmed)
+                            {
+                                int entryId = int.Parse(entryIdAsStr);
+                                var entry = activeZDF.EntryList.First(x => { return entryId == x.ID; });
+                                if (activeZDF.EntryList.Remove(entry))
+                                {
+                                    _eventAggregator.GetEvent<EntryDeletedEvent>().Publish(entry);
+                                }
+                                else
+                                {
+                                    throw new ZaveOperationFailedException("Unable to Delete the Desired Entry");
+                                }
+                            }
+
+
+
+                        }
+                    );
+
+            
+            
         }
 
         private WindowMode GetStartupWinMode()
@@ -237,7 +251,7 @@ namespace ZaveViewModel.ViewModels
 
                             if (activeZdf.EntryList.Count > 0)
                             {
-                                ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+                                ObservableImmutableList<IZDFEntry> ZdfEntries = new ObservableImmutableList<IZDFEntry>();
                                 ////activeZDF.EntryList.Clear();
                                 ZaveModel.ZDF.ZDFSingleton activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
                                 await Task.Run(() =>
@@ -247,7 +261,7 @@ namespace ZaveViewModel.ViewModels
                                     {
                                         //activeZdf.Add(item);
 
-                                        ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                                        ZdfEntries.Add(item as IZDFEntry);
                                     }
                                 });
 
@@ -833,7 +847,7 @@ namespace ZaveViewModel.ViewModels
             #region MyCode2
             ZDFSingleton activeZdf = ZDFSingleton.GetInstance();
 
-            ObservableImmutableList<ZdfEntryItemViewModel> ZdfEntries = new ObservableImmutableList<ZdfEntryItemViewModel>();
+            ObservableImmutableList<IZDFEntry> ZdfEntries = new ObservableImmutableList<IZDFEntry>();
             var zdfEntryList = new List<ZDFEntry>();
             if (activeZdf.EntryList.Count > 0)
             {
@@ -844,7 +858,7 @@ namespace ZaveViewModel.ViewModels
                 {
                     if (((ZDFEntry)undoitem).Comments != null && ((ZDFEntry)undoitem).Comments.Count > 0)
                     {
-                        ZdfEntries.Add(new ZdfEntryItemViewModel(undoitem as ZDFEntry));
+                        ZdfEntries.Add(undoitem as ZDFEntry);
                         var commentID = ((ZDFEntry)undoitem).Comments.LastOrDefault().CommentID;
                         var commentObject = ((ZDFEntry)undoitem).Comments.FirstOrDefault(a => a.CommentID == commentID);
                         ((ZDFEntry)undoitem).Comments.Remove(commentObject);
@@ -865,7 +879,7 @@ namespace ZaveViewModel.ViewModels
                     else
                     {
                         activeZdfUndo.Add(undoitem);
-                        ZdfEntries.Add(new ZdfEntryItemViewModel(undoitem as ZDFEntry));
+                        ZdfEntries.Add(undoitem as ZDFEntry);
                     }
 
 
@@ -882,7 +896,7 @@ namespace ZaveViewModel.ViewModels
                 foreach (var item in filter.ToList())
                 {
                     activeZdf.Add(item);
-                    ZdfEntries.Add(new ZdfEntryItemViewModel(item as ZDFEntry));
+                    ZdfEntries.Add(item as ZDFEntry);
                 }
             }
             #endregion

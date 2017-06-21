@@ -124,12 +124,12 @@ namespace ZaveViewModel.ViewModels
                         break;
 
                     case NotifyCollectionChangedAction.Remove:
-                        var removelist = ZdfEntries.ToList();
-                        var itemRemoved = new ZdfEntryItemViewModel(e.OldItems[0] as ZDFEntry);
-                        removelist.Remove(itemRemoved);
-                        removelist = ZDFSorting.EntrySort(removelist, activeSort);
-                        ZdfEntries.Clear();
-                        ZdfEntries.AddRange(removelist);
+                        //var removelist = ZdfEntries.ToList();
+                        //var itemRemoved = new ZdfEntryItemViewModel(e.OldItems[0] as ZDFEntry);
+                        //removelist.Remove(itemRemoved);
+                        //removelist = ZDFSorting.EntrySort(removelist, activeSort);
+                        //ZdfEntries.Clear();
+                        //ZdfEntries.AddRange(removelist);
 
                         break;
 
@@ -170,6 +170,7 @@ namespace ZaveViewModel.ViewModels
         private void modelEntryRemoved(object entry)
         {
             ModelCollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, entry));
+            CreateEntryList();
         }
 
        

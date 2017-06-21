@@ -627,6 +627,7 @@ namespace ZaveGlobalSettings.Data_Structures
     public struct ZaveMessageBoxes
     {
         public static IConfirmation ConfirmUnsavedChanges = new Confirmation { Content = "You have unsaved changes. Would you first like to save these?", Title = "Save Unsaved Changes?" };
+        public static IConfirmation ConfirmDeleteCommand = new Confirmation { Content = "Are you sure you want to delete this ZDFEntry?", Title = "Confirm Deletion Process" };
 
     }
 

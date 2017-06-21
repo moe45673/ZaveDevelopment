@@ -210,7 +210,7 @@ namespace ZaveViewModel.Data_Structures
                 throw new NullReferenceException("No ZDFEntryItemViewModel referenced!");
             }
 
-            _txtDocID = id.ToString();
+            TxtDocID = id.ToString();
             TxtDocName = name;
             TxtDocPage = page;
             TxtDocText = txt;
@@ -229,8 +229,9 @@ namespace ZaveViewModel.Data_Structures
             //}
             OnPropertyChanged("TxtDocComments");
 
-            //_editedComment = new ZaveCommentViewModel(null);
 
+            //_editedComment = new ZaveCommentViewModel(null);
+            //DeleteEntryDelegateCommand = new DelegateCommand<string>(DeleteEntry);
             SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SelectComment);
             //AddCommentDelegateCommand = new DelegateCommand(AddComment).ObservesCanExecute(p => CanAdd);
             EditCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(EditComment).ObservesCanExecute(p => CanEdit);
@@ -313,7 +314,12 @@ namespace ZaveViewModel.Data_Structures
             get; private set;
         }
 
+        //public DelegateCommand<string> DeleteEntryDelegateCommand { virtual get; virtual set; }
 
+        protected virtual void DeleteEntry(string id)
+        {
+            System.Windows.MessageBox.Show("Parent!");
+        }
 
 
         protected void SelectComment(System.Collections.IList items)
@@ -427,7 +433,7 @@ namespace ZaveViewModel.Data_Structures
             return tempList;
         }
 
-        public void OnNavigatedTo(NavigationContext navigationContext)
+        public virtual void OnNavigatedTo(NavigationContext navigationContext)
         {
             _zdfEntry = (ZDFEntry)navigationContext.Parameters[InstanceNames.ZDFEntry];
             try
@@ -440,12 +446,12 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public virtual bool IsNavigationTarget(NavigationContext navigationContext)
         {
             return true;
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        public virtual void OnNavigatedFrom(NavigationContext navigationContext)
         {
             
         }

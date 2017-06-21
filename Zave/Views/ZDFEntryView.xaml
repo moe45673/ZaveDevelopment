@@ -159,7 +159,7 @@
         </Grid.ColumnDefinitions>
 
         <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}"></Canvas>
-        <Label x:Name="docIdLbl" Grid.Row="0" Grid.Column="0" Content="Document ID" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"  />
+        <TextBlock x:Name="docIdLbl" Grid.Row="0" Grid.Column="0" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible"  />
         <Grid x:Name="hiLightHeader" Grid.Row="1" Grid.Column="1" Style="{StaticResource hiLightHeader}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -171,7 +171,7 @@
             <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Style="{StaticResource hiLightHeader_Text}"/>
         </Grid>
         <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
-        <Button x:Name="deleteEntryBtn" Grid.Row="2" Grid.Column="2"  Content="{DynamicResource DeleteButtonImage}" Style="{StaticResource Comment_Button_Delete}" />
+        <Button x:Name="deleteEntryBtn" Grid.Row="2" Grid.Column="2"  Content="{DynamicResource DeleteButtonImage}" Style="{StaticResource Comment_Button_Delete}" Command="{Binding DeleteEntryDelegateCommand}" CommandParameter="{Binding TxtDocID}"/>
         <FlowDocumentScrollViewer x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" Style="{StaticResource docText_Text}" Document="{Binding TxtDocText, Converter={StaticResource stringToFlowConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
 
