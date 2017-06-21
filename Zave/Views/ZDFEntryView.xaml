@@ -159,7 +159,7 @@
         </Grid.ColumnDefinitions>
 
         <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Background="{Binding TxtDocColor, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}"></Canvas>
-        <TextBlock x:Name="docIdLbl" Grid.Row="0" Grid.Column="0" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible"  />
+        <TextBlock x:Name="docIdLbl" Grid.Row="0" Grid.Column="0" Text="{Binding TxtDocID, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"  />
         <Grid x:Name="hiLightHeader" Grid.Row="1" Grid.Column="1" Style="{StaticResource hiLightHeader}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
