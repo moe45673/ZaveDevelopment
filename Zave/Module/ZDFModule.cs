@@ -11,6 +11,7 @@ using ZaveModel.ZDF;
 using ZaveViewModel.ViewModels;
 using ZaveModel.ZDFEntry;
 using Prism.Modularity;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {

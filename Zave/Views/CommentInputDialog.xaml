@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Zave.Views.ModalInputDialog"
+﻿<UserControl x:Class="Zave.Views.CommentInputDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -54,25 +54,30 @@
     </UserControl.Resources>
     
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <TextBox Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="False" Grid.Row="0" Grid.Column="0" Style="{StaticResource Comment_TxtField}" />
+        <ContentControl 
+            x:Name="CommentUserInput"
+            HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
 
-
-            <Grid Grid.Row="0" Grid.Column="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Button Content="Save" Name="SaveButton" IsDefault="True" Command="{Binding SaveCommentDelegateCommand}" Grid.Row="0" Style="{StaticResource Comment_Save_Btn}"/>
-                <Button Content="Cancel" Command="{Binding CancelCommentDelegateCommand}" IsCancel="True" Grid.Row="1" Style="{StaticResource Comment_Cancel_Btn}"/>
+                <TextBox Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" AcceptsReturn="False" Grid.Row="0" Grid.Column="0" Style="{StaticResource Comment_TxtField}" />
+
+
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Button Content="Save" Name="SaveButton" IsDefault="True" Command="{Binding SaveCommentDelegateCommand}" Grid.Row="0" Style="{StaticResource Comment_Save_Btn}"/>
+                    <Button Content="Cancel" Command="{Binding CancelCommentDelegateCommand}" IsCancel="True" Grid.Row="1" Style="{StaticResource Comment_Cancel_Btn}"/>
+                </Grid>
             </Grid>
-        </Grid>
+        </ContentControl>
     </Grid>
 </UserControl>

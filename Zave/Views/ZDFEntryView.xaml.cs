@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZaveViewModel.ViewModels;
 
 namespace Zave.Views
 {
@@ -28,6 +29,7 @@ namespace Zave.Views
         {
             InitializeComponent();
         }
-        
+
+ 
     }
 }

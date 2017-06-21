@@ -155,31 +155,12 @@ namespace ZaveViewModel.ViewModels
 
         private void modelOpened(object zdf)
         {
-            //var jObject = zdf as JObject;
-            //_activeZdf = JsonConvert.DeserializeObject<ZaveModel.ZDF.ZDFSingleton>(jObject.ToString());
-            //_activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
-            //JArray ja = (JArray)jObject["EntryList"]["_items"];
-
-            ////activeZdf.EntryList = new ObservableImmutableList<IZDFEntry>(ja.ToObject<List<ZDFEntry>>());
-
-            //foreach (var item in (ja.ToObject<List<ZDFEntry>>()))
-            //{
-            //    _activeZdf.EntryList.Add(item);
-            //}
+        
             CreateEntryList();
 
         }
 
-        //private void ViewPropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //    if (e.PropertyName == "TxtDocID")
-        //    {
-        //        _activeZdfEntry = ZDFEntries.SingleOrDefault(x => x.TxtDocID == sender.ID as ZDFEntryViewModel);
-        //    }
-        //}
-
-        //private DelegateCommand<System.Collections.IList> _selectItemDelegateCommand;
-
+       
         /// <summary>
         /// Relay command associated with the selection of an item in the observablecollection
         /// </summary>
@@ -204,61 +185,22 @@ namespace ZaveViewModel.ViewModels
                 id = ZdfEntries.FirstOrDefault(x => x.TxtDocID == entryItems.First<ZdfEntryItemViewModel>().TxtDocID).TxtDocID;
                 
 
-                //SelectionState selstate = ZDFEntries.FirstOrDefault(x => x.TxtDocID == id.First<ZDFEntryViewModel>().TxtDocID).toSelectionState();
-                
+               
             }
 
             _eventAggregator.GetEvent<EntrySelectedEvent>().Publish(id);
 
-            //return await Task.FromResult(1);
+            
         }
 
-        //public void UpdateGui(SelectionState selState)
-        //{
-        //    TxtDocName = selState.SelectionDocName;
-        //    TxtDocPage = selState.SelectionPage;
-        //    TxtDocText = selState.SelectionText;
-        //    TxtDocLastModified = selState.SelectionDateModified.ToShortDateString() + " " + selState.SelectionDateModified.ToShortTimeString();
-        //    //System.Windows.Forms.MessageBox.Show(TxtDocText);
-        //}
-
-        //public ICommand SaveZDFEntryCommand
-        //{
-        //    get
-        //    {
-        //        if (_saveZDFEntryCommand == null)
-        //        {
-        //            _saveZDFEntryCommand = new RelayCommand(
-        //                param => SaveZDFEntry(),
-        //                param => (zdfEntry != null)
-        //            );
-        //        }
-        //        return _saveZDFEntryCommand;
-        //    }
-        //}
+       
 
         private void SaveZdfEntry()
         {
 
         }
 
-        //public ZDFEntryViewModel(ZaveModel.ZDF.IZDF zdf, IZDFEntry zdfEntry = null) : base()
-        //{
-
-
-
-        //   ActiveZDF = zdf;
-        //    if (this.zdfEntry != null)
-        //    {
-        //        ActiveZDF.Add(zdfEntry);
-        //        this.zdfEntry = zdfEntry;
-        //    }
-
-        //    else
-        //        this.zdfEntry = activeZDF.EntryList[activeZDF.EntryList.Count - 1];
-
-
-        //}
+       
 
         private void CreateEntryList()
         {
@@ -275,10 +217,7 @@ namespace ZaveViewModel.ViewModels
                 _zdfEntries.Clear();
                 
             }
-            //DateTime date = DateTime.Now;
-            //SelectionState selState1 = new SelectionState(0, "ExampleDoc1.doc", "32", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dapibus dolor quis tincidunt. Curabitur leo dui, blandit in consequat eget, luctus ac magna. Quisque leo neque, tincidunt eu ultricies fringilla, convallis eu odio. Vestibulum fringilla mauris id ipsum lobortis, ac accumsan nisi tristique. Sed cursus varius neque eu bibendum. Nam fringilla diam eget turpis pharetra, ac congue urna auctor. Phasellus feugiat, purus ac venenatis varius, risus nisl porta lectus, nec pharetra ipsum velit congue massa. Pellentesque tempus vehicula elit, dictum venenatis mi hendrerit sed. Etiam et diam elementum, tristique est eget, aliquam massa. In id auctor augue. Integer accumsan ante ut ligula pellentesque dictum.\nSed augue dui, faucibus ac neque eget, euismod dignissim mi.Nullam nec varius nulla.In ut enim elit.Sed in leo non nisi ultrices lacinia.Mauris eleifend lectus purus, eget blandit ante suscipit vel.Nunc hendrerit nisl et nunc sodales volutpat.Proin quis metus quam.Proin eget felis tortor.Fusce eget imperdiet velit.\nDuis porta molestie dui, eget facilisis massa venenatis ac.Integer in condimentum est, at iaculis enim.Duis tempus efficitur est, eget sollicitudin turpis.Suspendisse leo velit, aliquet tristique quam id, vulputate tempus purus.Phasellus aliquam aliquet neque at tincidunt.Nam vulputate consequat nulla eu bibendum.Suspendisse auctor, sapien mollis laoreet lacinia, eros velit fermentum purus, non dictum odio tellus vitae diam.Sed enim risus, aliquam sit amet tristique in, interdum in augue.Nunc viverra pulvinar elit eget venenatis.Sed laoreet neque sed nibh fringilla scelerisque.Proin vestibulum rhoncus elit, vel convallis ligula pellen", date.AddMinutes(360), System.Drawing.Color.Red, SrcType.WORD, new List<object>());
-            //SelectionState selState2 = new SelectionState(1, "ExampleDoc2.doc", "33", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dapibus dolor quis tincidunt. Curabitur leo dui, blandit in consequat eget, luctus ac magna. Quisque leo neque, tincidunt eu ultricies fringilla, convallis eu odio. Vestibulum fringilla mauris id ipsum lobortis, ac accumsan nisi tristique. Sed cursus varius neque eu bibendum. Nam fringilla diam eget turpis pharetra, ac congue urna auctor. Phasellus feugiat, purus ac venenatis varius, risus nisl porta lectus, nec pharetra ipsum velit congue massa. Pellentesque tempus vehicula elit, dictum venenatis mi hendrerit sed. Etiam et diam elementum, tristique est eget, aliquam massa. In id auctor augue. Integer accumsan ante ut ligula pellentesque dictum.\nSed augue dui, faucibus ac neque eget, euismod dignissim mi.Nullam nec varius nulla.In ut enim elit.Sed in leo non nisi ultrices lacinia.Mauris eleifend lectus purus, eget blandit ante suscipit vel.Nunc hendrerit nisl et nunc sodales volutpat.Proin quis metus quam.Proin eget felis tortor.Fusce eget imperdiet velit.\nDuis porta molestie dui, eget facilisis massa venenatis ac.Integer in condimentum est, at iaculis enim.Duis tempus efficitur est, eget sollicitudin turpis.Suspendisse leo velit, aliquet tristique quam id, vulputate tempus purus.Phasellus aliquam aliquet neque at tincidunt.Nam vulputate consequat nulla eu bibendum.Suspendisse auctor, sapien mollis laoreet lacinia, eros velit fermentum purus, non dictum odio tellus vitae diam.Sed enim risus, aliquam sit amet tristique in, interdum in augue.Nunc viverra pulvinar elit eget venenatis.Sed laoreet neque sed nibh fringilla scelerisque.Proin vestibulum rhoncus elit, vel convallis ligula pellen", date.AddMinutes(360), System.Drawing.Color.Yellow, SrcType.WORD, new List<object>());
-            
+           
             
             if (_activeZdf.EntryList.Any<IZDFEntry>())
             {
@@ -287,15 +226,10 @@ namespace ZaveViewModel.ViewModels
 
             }
 
-            //ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState1)));
-            //ZdfEntries.Add(new ZdfEntryItemViewModel(new ZDFEntry(selState2)));
-            
-
-            //System.Windows.Forms.MessageBox.Show(" Done1");
+           
         }
 
-        //private SynchronizationContext context;
-
+   
         public ZDFViewModel(IEventAggregator eventAggregator, IUnityContainer container, IZDFEntryService entryService)
         {
 
@@ -312,23 +246,14 @@ namespace ZaveViewModel.ViewModels
 
             _activeZdf = ZDFSingleton.GetInstance(_eventAggregator);
 
-            //MessageBox.Show(Thread.CurrentThread.ManagedThreadId.ToString());
-            //if (activeZDF.EntryList.Count != 0)
-            //_activeZdfEntry = new ZDFEntryViewModel(activeZDF.EntryList[0]);
+         
             _zdfEntriesLock = new Object();
             CreateEntryList();
             getActiveSort();
 
-            //_activeZdf.EntryList.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
+      
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(modelOpened);
-            //_activeZdfEntry.PropertyChanged += new PropertyChangedEventHandler(ViewPropertyChanged);
-
-            //zdfEntry.Source.SelectionDateModified = null;
-            //System.Windows.Forms.MessageBox.Show("ViewModelOpened!");
-
-
-            //activeZDF.Add(zdfEntry);
-
+         
 
         }
 
@@ -384,6 +309,7 @@ namespace ZaveViewModel.ViewModels
         {
             throw new NotImplementedException();
         }
+
     }
 
     

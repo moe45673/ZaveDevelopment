@@ -118,7 +118,7 @@ namespace Zave
 
             
 
-            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialog), "ModalInputDialog");
+            UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(CommentInputDialog), "ModalInputDialog");
             //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialogViewModel), "ModalInputDialogViewModel");
 
 

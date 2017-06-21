@@ -96,6 +96,12 @@ namespace ZaveModel.ZDFEntry {
 
         }
 
+        public EntryComment(IEntryComment newComm) : this(newComm.CommentText, newComm.Author.Name)
+        {
+
+        }
+        
+
         
 
         [JsonIgnore]

@@ -8,17 +8,17 @@ using Prism.Events;
 using Prism.Mvvm;
 using Prism.Properties;
 using Prism.Common;
-
+using Prism.Interactivity.InteractionRequest;
 
 namespace ZaveViewModel.ViewModels
 {
-    public class ModalInputDialogViewModel : BindableBase, IUserDialogViewModel
+    public class CommentInputDialogViewModel : BindableBase, IConfirmation, IInteractionRequestAware, IDialogViewModel
     {
         string originalValue;
         
         //private Object _sender;
 
-        public ModalInputDialogViewModel()
+        public CommentInputDialogViewModel()
         {
             //toReturn = fromSender;
             SaveCommentDelegateCommand = new DelegateCommand(SaveComment);
@@ -31,6 +31,16 @@ namespace ZaveViewModel.ViewModels
             //    sender.Close();
             //};
         }
+
+        public bool Confirmed { get; set; }
+
+        public string Title { get; set; }
+
+        public object Content { get; set; }
+
+        public INotification Notification { get; set; }
+
+        public Action FinishInteraction { get; set; }
 
 
         private Object result;
@@ -57,8 +67,9 @@ namespace ZaveViewModel.ViewModels
             try
             {
 
-                Close();
-                
+                this.Confirmed = true;
+                this.FinishInteraction();
+
             }
             catch (NullReferenceException nre)
             {
@@ -88,35 +99,35 @@ namespace ZaveViewModel.ViewModels
         public DelegateCommand CancelCommentDelegateCommand { get; private set; }
         protected void CancelComment()
         {
-            
-            CommentText = originalValue;
-            Close();
+
+            this.Confirmed = false;
+            this.FinishInteraction();
         }
 
-        public event EventHandler DialogClosing;
+        //public event EventHandler DialogClosing;
 
-        public virtual void RequestClose()
-        {
-            if (this.OnCloseRequest != null)
-                this.OnCloseRequest(this);
-            else
-                Close();
-        }
+        //public virtual void RequestClose()
+        //{
+        //    if (this.OnCloseRequest != null)
+        //        this.OnCloseRequest(this);
+        //    else
+        //        Close();
+        //}
 
-        public Action<ModalInputDialogViewModel> OnCloseRequest { get; set; }
+        //public Action<ModalInputDialogViewModel> OnCloseRequest { get; set; }
 
-        public void Close()
-        {
-            if (this.DialogClosing != null)
-            {                
-                this.DialogClosing(this, new EventArgs());
-            }
-        }
+        //public void Close()
+        //{
+        //    if (this.DialogClosing != null)
+        //    {                
+        //        this.DialogClosing(this, new EventArgs());
+        //    }
+        //}
 
-        public void Show()
-        {
-            originalValue = CommentText;
-        }
+        //public void Show()
+        //{
+        //    originalValue = CommentText;
+        //}
 
 
     }

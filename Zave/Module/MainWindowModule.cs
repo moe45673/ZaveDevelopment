@@ -67,23 +67,7 @@ namespace Zave.Module
     /// <summary>
     /// 
     /// </summary>
-    public static class RegionNames
-    {
-
-        public const string RecentZDFListRegion = "RecentZDFListRegion";
-        public const string ZDFEntryListRegion = "ZDFEntryListRegion";
-        public const string ZDFEntryDetailRegion = "ZDFEntryDetailRegion";
-        public const string ControlBarRegion = "ControlBarRegion";
-        public const string MainViewRegion = "MainViewRegion";
-        public const string WidgetMainRegion = "WidgetMainRegion";
-        public const string MenuRegion = "MenuRegion";
-        public const string ZaveMainColorPicker = "ZaveMainColorPicker";
-        public const string ZaveWidgetColorPicker = "ZaveWidgetColorPicker";
-        public const string MainTitleBarRegion = "MainTitleBarRegion";
-        public const string WidgetTitleBarRegion = "WidgetTitleBarRegion";
-
-
-    }
+    
 
 
 

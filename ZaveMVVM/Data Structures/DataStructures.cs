@@ -20,8 +20,9 @@ using Newtonsoft.Json;
 
 namespace ZaveViewModel.Data_Structures
 {
+    using Prism.Regions;
     using System.Windows.Threading;
-    using CommentList = ObservableImmutableList<ZDFCommentItem>;
+    using CommentList = ObservableImmutableList<IEntryComment>;
 
     using selStateCommentList = List<SelectionComment>;
 
@@ -45,8 +46,94 @@ namespace ZaveViewModel.Data_Structures
         }
     }
 
+    public abstract class ZaveCommentItem : BindableBase
+    {
+        protected ZaveCommentItem(IEntryComment modelComment = null, string text = default(string), string author = default(string), int id = 0)
+        {
+            _modelComment = modelComment;
+            _commentText = text;
+            _commentAuthor = author;
+        }
+
+        public ZaveCommentItem(IEntryComment comment = default(EntryComment))
+        {
+            _commentAuthor = "";
+            _commentText = "Testing";
+            _modelComment = comment;
+            if (comment != null)
+            {
+                _commentID = comment.CommentID;
+                _modelComment = comment;
+            }
+            else
+            {
+
+                _modelComment = new EntryComment();
+                _commentID = -1;
+            }
+            ((EntryComment)_modelComment).PropertyChanged += ZDFCommentItem_PropertyChanged;
+
+        }
+
+        protected void ZDFCommentItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            IEntryComment temp = sender as IEntryComment;
+            if (e.PropertyName == "CommentText")
+            {
+                this.CommentText = temp.CommentText;
+            }
+            if (e.PropertyName == "Author")
+            {
+                CommentAuthor = (string)temp.Author;
+            }
+        }
+
+        protected IEntryComment _modelComment;
+
+
+        protected int _commentID;
+
+        public int CommentID
+        {
+            get { return _modelComment.CommentID; }
+            private set { SetProperty(ref _commentID, value); }
+        }
+
+        protected String _commentText;
+
+        public String CommentText
+        {
+            get { return _modelComment.CommentText; }
+            set
+            {
+                _modelComment.CommentText = value;
+                SetProperty(ref _commentText, value);
+            }
+        }
+
+        public IEntryComment ModelComment
+        {
+            get { return _modelComment; }
+            private set { SetProperty(ref _modelComment, value); }
+        }
+
+        protected String _commentAuthor;
+
+        public String CommentAuthor
+        {
+            get { return (string)_modelComment.Author; }
+            set
+            {
+                _modelComment.Author.Name = value;
+                SetProperty(ref _commentAuthor, value);
+            }
+        }
+
+
+    }
+
     [JsonObject(MemberSerialization.OptIn)]
-    public abstract class ZDFEntryItem : BindableBase
+    public abstract class ZDFEntryItem : BindableBase, INavigationAware
     {
 
         protected IZDFEntry _zdfEntry;
@@ -68,9 +155,9 @@ namespace ZaveViewModel.Data_Structures
                         var listSend = ((IEnumerable<IEntryComment>)sender).ToList<IEntryComment>();
                         var tempComment = listSend.LastOrDefault();
 
-                        var newComment = new ZDFCommentItem(tempComment);
+                        var newComment = new EntryComment(tempComment);
 
-                        var tempList = new ObservableImmutableList<ZDFCommentItem>();
+                        var tempList = new ObservableImmutableList<ZaveCommentViewModel>();
                         tempList.Add(newComment);
 
                         TxtDocComments.DoAdd(x => newComment);
@@ -142,10 +229,10 @@ namespace ZaveViewModel.Data_Structures
             //}
             OnPropertyChanged("TxtDocComments");
 
-            _editedComment = new ZDFCommentItem(null);
+            //_editedComment = new ZaveCommentViewModel(null);
 
             SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SelectComment);
-            AddCommentDelegateCommand = new DelegateCommand(AddComment).ObservesCanExecute(p => CanAdd);
+            //AddCommentDelegateCommand = new DelegateCommand(AddComment).ObservesCanExecute(p => CanAdd);
             EditCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(EditComment).ObservesCanExecute(p => CanEdit);
 
 
@@ -233,7 +320,7 @@ namespace ZaveViewModel.Data_Structures
         {
             if (items != null)
             {
-                EditedComment = items.Cast<ZDFCommentItem>().ToList<ZDFCommentItem>().FirstOrDefault();
+                //EditedComment = items.Cast<ZaveCommentViewModel>().ToList<ZaveCommentViewModel>().FirstOrDefault();
 
                 CanDelete = true;
                 CanEdit = true;
@@ -247,13 +334,13 @@ namespace ZaveViewModel.Data_Structures
 
         }
 
-        private ZDFCommentItem _editedComment;
+        //private ZaveCommentViewModel _editedComment;
 
-        public ZDFCommentItem EditedComment
-        {
-            get { return this._editedComment; }
-            set { SetProperty(ref _editedComment, value); }
-        }
+        //public ZaveCommentViewModel EditedComment
+        //{
+        //    get { return this._editedComment; }
+        //    set { SetProperty(ref _editedComment, value); }
+        //}
 
         private bool _isNotEditing;
         protected bool IsNotEditing
@@ -262,13 +349,16 @@ namespace ZaveViewModel.Data_Structures
             private set { SetProperty(ref _isNotEditing, value); }
         }
 
-        public virtual DelegateCommand AddCommentDelegateCommand
-        {
-            get;
-            protected set;
-        }
+        //public virtual DelegateCommand AddCommentDelegateCommand
+        //{
+        //    get;
+        //    protected set;
+        //}
 
-        protected abstract void AddComment();
+        protected virtual void AddComment()
+        {
+            ;
+        }
 
         public virtual DelegateCommand<System.Collections.IList> EditCommentDelegateCommand
         {
@@ -318,7 +408,7 @@ namespace ZaveViewModel.Data_Structures
 
             foreach (var comment in list)
             {
-                var tempComment = new ZDFCommentItem(comment);
+                var tempComment = new EntryComment(comment.Text, comment.Author);
                 tempList.Add(tempComment);
             }
             return tempList;
@@ -330,11 +420,34 @@ namespace ZaveViewModel.Data_Structures
             var tempList = new CommentList();
             foreach (var comment in zComments)
             {
-                var tempComment = new ZDFCommentItem(comment);
+                var tempComment = new EntryComment(comment);
                 tempList.Add(tempComment);
             }
 
             return tempList;
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            _zdfEntry = (ZDFEntry)navigationContext.Parameters[InstanceNames.ZDFEntry];
+            try
+            {
+                setProperties(_zdfEntry);
+            }
+            catch (NullReferenceException nre)
+            {
+                throw nre;
+            }
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            
         }
 
         #endregion
@@ -556,125 +669,7 @@ namespace ZaveViewModel.Data_Structures
         #endregion 
     }
 
-    public class ZDFCommentItem : BindableBase
-    {
-
-
-
-        private ZDFCommentItem(IEntryComment modelComment = null, string text = default(string), string author = default(string), int id = 0)
-        {
-            _modelComment = modelComment;
-            _commentText = text;
-            _commentAuthor = author;
-        }
-
-        public static ZDFCommentItem ItemFactory(ref IEntryComment modelComment, string text = default(string), string author = default(string))
-        {
-
-
-            var item = new ZDFCommentItem(modelComment, text, author, modelComment.CommentID);
-
-            return item;
-        }
-
-        public ZDFCommentItem(IEntryComment comment = default(EntryComment))
-        {
-            _commentAuthor = "";
-            _commentText = "Testing";
-            _modelComment = comment;
-            if (comment != null)
-            {
-                _commentID = comment.CommentID;
-                _modelComment = comment;
-            }
-            else
-            {
-
-                _modelComment = new EntryComment();
-                _commentID = -1;
-            }
-            ((EntryComment)_modelComment).PropertyChanged += ZDFCommentItem_PropertyChanged;
-
-        }
-
-        public ZDFCommentItem(SelectionComment comment)
-        {
-            ModelComment.Author.Name = comment.Author;
-            //ModelComment.CommentID = comment.ID;
-            ModelComment.CommentText = comment.Text;
-        }
-
-        private void ZDFCommentItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            IEntryComment temp = sender as IEntryComment;
-            if (e.PropertyName == "CommentText")
-            {
-                this.CommentText = temp.CommentText;
-            }
-            if (e.PropertyName == "Author")
-            {
-                CommentAuthor = (string)temp.Author;
-            }
-        }
-
-        //public static ZDFCommentItem fromObject(Object<Object, String, String> obj = default(Object<Object, String, String>))
-        //{
-
-        //    return new ZDFCommentItem(obj.FirstProp as ModelComment.EntryComment, obj.SecondProp, obj.ThirdProp);
-        //}
-
-        public static explicit operator ZDFCommentItem(EntryComment comment)
-        {
-            return new ZDFCommentItem(comment);
-        }
-
-        public static explicit operator EntryComment(ZDFCommentItem commItem)
-        {
-            return new EntryComment(commItem.CommentText, commItem.CommentAuthor);
-        }
-
-
-        protected IEntryComment _modelComment;
-
-
-        private int _commentID;
-
-        public int CommentID
-        {
-            get { return _modelComment.CommentID; }
-            private set { SetProperty(ref _commentID, value); }
-        }
-
-        private String _commentText;
-
-        public String CommentText
-        {
-            get { return _modelComment.CommentText; }
-            set
-            {
-                _modelComment.CommentText = value;
-                SetProperty(ref _commentText, value);
-            }
-        }
-
-        public IEntryComment ModelComment
-        {
-            get { return _modelComment; }
-            private set { SetProperty(ref _modelComment, value); }
-        }
-
-        private String _commentAuthor;
-
-        public String CommentAuthor
-        {
-            get { return (string)_modelComment.Author; }
-            set
-            {
-                _modelComment.Author.Name = value;
-                SetProperty(ref _commentAuthor, value);
-            }
-        }
-    }
+    
 
 
 

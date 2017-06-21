@@ -37,7 +37,7 @@ namespace ZaveGlobalSettings.Data_Structures
             SelStateList = new List<SelectionState>();
         }
 
-        
+
 
         public new void Add(SelectionState selstate)
         {
@@ -52,10 +52,10 @@ namespace ZaveGlobalSettings.Data_Structures
             return SelStateList.SingleOrDefault(x => x.ID == id);
         }
 
-        
 
-        
-    }    
+
+
+    }
 
     /// <summary>
     /// 
@@ -64,18 +64,18 @@ namespace ZaveGlobalSettings.Data_Structures
     [Flags]
     public enum AvailableColors
     {
-        None, YELLOW, LIGHTBLUE, LIGHTGREEN=4, FUCHSIA=8, BLACK=16, AQUA=32, LIME=64,  WHITE=128, NAVY=256, TEAL=512, PURPLE=1024, MAROON=2048, OLIVE=4096, GRAY=8192, SILVER=16384, RED=32768
+        None, YELLOW, LIGHTBLUE, LIGHTGREEN = 4, FUCHSIA = 8, BLACK = 16, AQUA = 32, LIME = 64, WHITE = 128, NAVY = 256, TEAL = 512, PURPLE = 1024, MAROON = 2048, OLIVE = 4096, GRAY = 8192, SILVER = 16384, RED = 32768
     }
 
-//public struct AvailableColors
-//{
-//    public static Dictionary<string, string> getColors()
-//    {
-//        Dictionary<string, string> temp = new Dictionary<string, string>();
+    //public struct AvailableColors
+    //{
+    //    public static Dictionary<string, string> getColors()
+    //    {
+    //        Dictionary<string, string> temp = new Dictionary<string, string>();
 
-//    }
+    //    }
 
-//}
+    //}
     public struct SelectionComment
     {
         public int ID;
@@ -88,14 +88,14 @@ namespace ZaveGlobalSettings.Data_Structures
     /// </summary>
     public class SelectionState
     {
-        
+
         public SelectionState(int id = -1, string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
         {
             ID = id;
             SelectionDocName = name;
             SelectionPage = page;
             SelectionText = text;
-            
+
             if (date == default(DateTime))
                 SelectionDateModified = DateTime.Now;
             else
@@ -140,7 +140,7 @@ namespace ZaveGlobalSettings.Data_Structures
             ErrorCollection.Add(error);
         }
 
-        
+
     }
 
     public class Object<T1, T2, T3>
@@ -163,42 +163,42 @@ namespace ZaveGlobalSettings.Data_Structures
         public T3 ThirdProp { get; set; }
     }
 
-//    public static class FileChecker
-//    {
+    //    public static class FileChecker
+    //    {
 
-//        private const int NumberOfRetries = 20;
-//        private const int DelayOnRetry = 50;
+    //        private const int NumberOfRetries = 20;
+    //        private const int DelayOnRetry = 50;
 
-//        public delegate void StreamChecker(string filepath);
-//        private Object obj;
-
-
+    //        public delegate void StreamChecker(string filepath);
+    //        private Object obj;
 
 
-//        public static void checkFile(Object stream, string filepath){
 
 
-//        for (int i=1; i <= NumberOfRetries; ++i) {
-//            try {
-//                // Do stuff with file
-//                if (stream is StreamWriter)
-//                    stream = new StreamWriter(filepath);
-//                else if (stream is StreamReader)
-//                {
-//                    stream = new StreamReader(filepath);
-//                }
-//                break; // When done we can break loop
-//            }
-//            catch (IOException e) {
-//                // You may check error code to filter some exceptions, not every error
-//                // can be recovered.
-//                if (i == NumberOfRetries) // Last one, (re)throw exception and exit
-//                    throw;
+    //        public static void checkFile(Object stream, string filepath){
 
-//                Thread.Sleep(DelayOnRetry);
-//            }
-//        }
-//    }
+
+    //        for (int i=1; i <= NumberOfRetries; ++i) {
+    //            try {
+    //                // Do stuff with file
+    //                if (stream is StreamWriter)
+    //                    stream = new StreamWriter(filepath);
+    //                else if (stream is StreamReader)
+    //                {
+    //                    stream = new StreamReader(filepath);
+    //                }
+    //                break; // When done we can break loop
+    //            }
+    //            catch (IOException e) {
+    //                // You may check error code to filter some exceptions, not every error
+    //                // can be recovered.
+    //                if (i == NumberOfRetries) // Last one, (re)throw exception and exit
+    //                    throw;
+
+    //                Thread.Sleep(DelayOnRetry);
+    //            }
+    //        }
+    //    }
 
 
 
@@ -349,9 +349,9 @@ namespace ZaveGlobalSettings.Data_Structures
         }
     }
 
-    
 
-        
+
+
 
 
     public abstract class ObservableObject : INotifyPropertyChanged
@@ -370,16 +370,16 @@ namespace ZaveGlobalSettings.Data_Structures
         protected virtual void OnPropertyChanged(string propertyName)
         {
             this.VerifyPropertyName(propertyName);
-//#if DEBUG
-//            MessageBox.Show("Time is " + propertyName);
-//#endif
-            
+            //#if DEBUG
+            //            MessageBox.Show("Time is " + propertyName);
+            //#endif
+
             var handler = this.PropertyChanged;
             if (handler != null)
             {
-//#if DEBUG
-//                MessageBox.Show("Event Fired!");
-//#endif
+                //#if DEBUG
+                //                MessageBox.Show("Event Fired!");
+                //#endif
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }
@@ -515,14 +515,95 @@ namespace ZaveGlobalSettings.Data_Structures
         public const string ColorPickerView = "ColorPickerView";
         public const string ControlBarView = "ControlBarView";
         public const string ExportedToWord = "ZDF has been exported to your ZDFs Folder";
+        public const string ZDFEntry = "ZDFEntry";
+    }
 
+    public class RegionNames
+    {
+        public static string RecentZDFListRegion
+        {
+            get
+            {
+                return "RecentZDFListRegion";
+            }
+        }
+        public static string ZDFEntryListRegion
+        {
+            get
+            {
+                return "ZDFEntryListRegion";
+            }
+        }
+        public static string ZDFEntryDetailRegion
+        {
+            get
+            {
+                return "ZDFEntryDetailRegion";
+            }
+        }
+        public static string ControlBarRegion
+        {
+            get
+            {
+                return "ControlBarRegion";
+            }
+        }
+        public static string MainViewRegion
+        {
+            get
+            {
+                return "MainViewRegion";
+            }
+        }
+        public static string WidgetMainRegion
+        {
+            get
+            {
+                return "WidgetMainRegion";
+            }
+        }
+        public static string MenuRegion
+        {
+            get
+            {
+                return "MenuRegion";
+            }
+        }
+        public static string ZaveMainColorPicker
+        {
+            get
+            {
+                return "ZaveMainColorPicker";
+            }
+        }
 
+        public static string ZaveWidgetColorPicker
+        {
+            get
+            {
+                return "ZaveWidgetColorPicker";
+            }
+        }
+        public static string MainTitleBarRegion
+        {
+            get
+            {
+                return "MainTitleBarRegion";
+            }
+        }
+        public static string WidgetTitleBarRegion
+        {
+            get
+            {
+                return "WidgetTitleBarRegion";
+            }
+        }
     }
 
     public struct ZaveMessageBoxes
     {
         public static IConfirmation ConfirmUnsavedChanges = new Confirmation { Content = "You have unsaved changes. Would you first like to save these?", Title = "Save Unsaved Changes?" };
-            
+
     }
 
     public static class APIFileNames
@@ -531,7 +612,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public static readonly string ZaveToSource = GuidGenerator.getGuid() + "2";
     }
 
-    public abstract class WatcherFactory 
+    public abstract class WatcherFactory
     {
         public Component Watcher { get; set; }
         protected abstract Component createWatcher();
@@ -545,18 +626,18 @@ namespace ZaveGlobalSettings.Data_Structures
     public static class ColorHelper
     {
 
-        private static readonly float[] grayscaleValues = { 0.299F, 0.587F, 0.114F};
+        private static readonly float[] grayscaleValues = { 0.299F, 0.587F, 0.114F };
         public static Color ToGrayscaleARGB(Color col)
         {
             int grayscale = (int)((col.R * grayscaleValues[0]) + (col.G * grayscaleValues[1]) + (col.B * grayscaleValues[2]));
-           return Color.FromArgb(col.A, grayscale, grayscale, grayscale);
-                        
+            return Color.FromArgb(col.A, grayscale, grayscale, grayscale);
+
         }
 
         public static WPFColor toWPFColor(Color col)
         {
             return WPFColor.FromArgb(col.A, col.R, col.G, col.B);
-            
+
         }
 
         public static Color FromWPFColor(WPFColor wCol)
@@ -588,7 +669,7 @@ namespace ZaveGlobalSettings.Data_Structures
         {
             ColorConverter converter = new ColorConverter();
             var col = (Color)converter.ConvertFromString(str);
-            
+
             return col;
 
         }

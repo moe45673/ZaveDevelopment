@@ -1,4 +1,5 @@
 ﻿
+using Prism.Interactivity.InteractionRequest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ZaveViewModel.ViewModels
 {
-	public interface IDialogViewModel
+	public interface IDialogViewModel : INotification
 	{
 	}
 }

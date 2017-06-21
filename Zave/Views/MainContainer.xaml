@@ -4,16 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Zave.Views"
-             xmlns:my="clr-namespace:Zave.Views"
-             
+             xmlns:modules="clr-namespace:Zave.Module"
+             xmlns:global="clr-namespace:ZaveGlobalSettings.Data_Structures;assembly=ZaveGlobalSettings"
+             xmlns:my="clr-namespace:Zave.Views"             
+             xmlns:Sys="clr-namespace:System;assembly=mscorlib"
              xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:converter="clr-namespace:Zave.Converters"
              mc:Ignorable="d" 
              Height="600" Width="800"
              d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
+        <converter:StringToSourceConverter x:Key="strToSrcConverter"/>
+        <global:RegionNames x:Key="RegionNames"/>
+                            
         <Style x:Key="Section_Border" TargetType="Border">
             <Setter Property="BorderThickness" Value="0"></Setter>
             <Setter Property="Margin" Value="0"></Setter>
@@ -32,6 +38,10 @@
             <Setter Property="BorderThickness" Value="0"></Setter>
         </Style>
         <Style x:Key="Region_Container" TargetType="ContentControl">
+            <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+        </Style>
+        <Style x:Key="Region_ItemsContainer" TargetType="ItemsControl">
             <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
         </Style>
@@ -78,11 +88,11 @@
                                prism:RegionManager.RegionName="ControlBarRegion"
                                Style="{StaticResource Region_Container}" />
                 <ContentControl Grid.Column="1" x:Name="ZaveMainColorPicker"
-                               prism:RegionManager.RegionName="ZaveMainColorPicker" />
+                               prism:RegionManager.RegionName="{Binding ZaveMainColorPicker, Source={StaticResource RegionNames}}" />
             </Grid>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource ZDFList_Border}">
-            <ContentControl x:Name="RecentZDFListRegion" prism:RegionManager.RegionName="RecentZDFListRegion"></ContentControl>
+            <ContentControl x:Name="RecentZDFListRegion" prism:RegionManager.RegionName="{Binding RecentZDFListRegion, Source={StaticResource RegionNames}}"></ContentControl>
         </Border>
         <Border Grid.ColumnSpan="3" Grid.Row="5" Style="{StaticResource NotificationBar_Border}">
             <my:NotificationBar></my:NotificationBar>
@@ -90,9 +100,10 @@
         <GridSplitter Grid.Column="1" Grid.Row="3" Width="5" HorizontalAlignment="Stretch" />
         <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource ListItem_Container}">
             <ScrollViewer>
-                <ContentControl x:Name="ZDFEntryListRegion"
-                               prism:RegionManager.RegionName="ZDFEntryListRegion"
-                               Style="{StaticResource Region_Container}"/>
+                <ItemsControl x:Name="ZDFEntryListRegion"
+                               prism:RegionManager.RegionName="{Binding ZDFEntryListRegion, Source={StaticResource RegionNames}}"
+                               
+                               Style="{StaticResource Region_ItemsContainer}"/>
             </ScrollViewer>
         </Border>
         <Border Grid.Column="3" Grid.Row="3">

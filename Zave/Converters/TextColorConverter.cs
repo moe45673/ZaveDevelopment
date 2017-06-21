@@ -15,14 +15,21 @@ namespace Zave.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Color col = ((SolidColorBrush)value).Color;
-            var grayCol = ColorHelper.ToGrayscaleARGB(ColorHelper.FromWPFColor(col));
-            if (isDarkBackground(grayCol))
+            try
             {
-                return new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                
+                Color col = ((SolidColorBrush)value).Color;
+                var grayCol = ColorHelper.ToGrayscaleARGB(ColorHelper.FromWPFColor(col));
+                if (isDarkBackground(grayCol))
+                {
+                    return new SolidColorBrush(Color.FromRgb(255, 255, 255));
+
+                }
+                else
+                {
+                    return new SolidColorBrush(Color.FromRgb(00, 00, 00));
+                }
             }
-            else
+            catch(NullReferenceException nre)
             {
                 return new SolidColorBrush(Color.FromRgb(00, 00, 00));
             }

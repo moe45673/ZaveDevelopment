@@ -17,9 +17,9 @@ namespace Zave.Views
     /// <summary>
     /// Interaction logic for ModalInputDialog.xaml
     /// </summary>
-    public partial class ModalInputDialog : UserControl
+    public partial class CommentInputDialog : UserControl
     {
-        public ModalInputDialog()
+        public CommentInputDialog()
         {
             InitializeComponent();
         }
