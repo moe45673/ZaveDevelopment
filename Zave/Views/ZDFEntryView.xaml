@@ -171,7 +171,7 @@
             <TextBlock x:Name="docCreatedTxtBx1" Grid.Row="0" Grid.Column="2" Style="{StaticResource hiLightHeader_Text}"/>
         </Grid>
         <TextBlock x:Name="docNameTxtBx" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding TxtDocName, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource docName_Text}"/>
-        <Button x:Name="deleteEntryBtn" Grid.Row="2" Grid.Column="2"  Content="{DynamicResource DeleteButtonImage}" Style="{StaticResource Comment_Button_Delete}" Command="{Binding DeleteEntryDelegateCommand}" CommandParameter="{Binding TxtDocID}"/>
+        <Button x:Name="deleteEntryBtn" Grid.Row="2" Grid.Column="2"  Content="{DynamicResource DeleteButtonImage}" ToolTip="Delete" Style="{StaticResource Comment_Button_Delete}" Command="{Binding DeleteEntryDelegateCommand}" CommandParameter="{Binding TxtDocID}"/>
         <FlowDocumentScrollViewer x:Name="docTextTxtBx1" Grid.Row="3" Grid.Column="1" Style="{StaticResource docText_Text}" Document="{Binding TxtDocText, Converter={StaticResource stringToFlowConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
 
