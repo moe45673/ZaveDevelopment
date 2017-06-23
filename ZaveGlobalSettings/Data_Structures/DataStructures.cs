@@ -627,8 +627,14 @@ namespace ZaveGlobalSettings.Data_Structures
     public struct ZaveMessageBoxes
     {
         public static IConfirmation ConfirmUnsavedChanges = new Confirmation { Content = "You have unsaved changes. Would you first like to save these?", Title = "Save Unsaved Changes?" };
-        public static IConfirmation ConfirmDeleteCommand = new Confirmation { Content = "Are you sure you want to delete this ZDFEntry?", Title = "Confirm Deletion Process" };
+        public static IConfirmation ConfirmDeleteEntryCommand = new Confirmation { Content = "Are you sure you want to delete this ZDFEntry?", Title = "Confirm Deletion Process" };
+        public static IConfirmation ConfirmNavigateAwayFromFormCommand = new Confirmation { Content = "Are you sure you want to leave this window? Your changes will not be saved.", Title = "Confirm Exiting Popup" };
 
+    }
+
+    public struct ZaveNavigationParameters
+    {
+        public static readonly string CommentText = "CommentText";
     }
 
     public static class APIFileNames

@@ -48,6 +48,7 @@ namespace ZaveViewModel.ViewModels
 
         public InteractionRequest<CommentInputDialogViewModel> CommentDialogRequest { get; set; }
         public DelegateCommand AddCommentDelegateCommand { get; set; }
+        public DelegateCommand EditCommentDelegateCommand { get; set; }
 
         public override DelegateCommand<string> DeleteEntryDelegateCommand { get; set; }
 
@@ -73,6 +74,7 @@ namespace ZaveViewModel.ViewModels
                 _commentDlg = new CommentInputDialogViewModel();
                 CommentDialogRequest = new InteractionRequest<CommentInputDialogViewModel>();
                 AddCommentDelegateCommand = new DelegateCommand(AddComment);
+                //EditCommentDelegateCommand = new DelegateCommand<ICollection<ZaveCommentItem>>(EditComment);
                 DeleteEntryDelegateCommand = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel).DeleteZDFEntryCommand;
                 _entryService = entryService;
                 _zdfEntry = _entryService.getZDFEntry(entryService.ActiveZDFEntryId);
@@ -223,10 +225,11 @@ namespace ZaveViewModel.ViewModels
         //    }
         //}
 
-        protected override void EditComment(IList commentList)
+        protected void EditComment(ICollection<ZaveCommentItem> commentList)
         {
             try
             {
+                //var comment = commentList.
                 var vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
                 var dlg = new CommentInputDialogViewModel();
                 vm.Clear();
@@ -249,6 +252,11 @@ namespace ZaveViewModel.ViewModels
         }
 
         private void Dlg_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void EditComment(IList commentList)
         {
             throw new NotImplementedException();
         }

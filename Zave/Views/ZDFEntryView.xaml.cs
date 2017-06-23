@@ -28,6 +28,7 @@ namespace Zave.Views
         public ZDFEntryView()
         {
             InitializeComponent();
+            
         }
 
  

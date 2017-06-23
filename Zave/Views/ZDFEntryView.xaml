@@ -219,11 +219,12 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <StackPanel>
+                                
                                 <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Txt}"/>
                                 <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Author}"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
-                                <Button Name="EditButton" Content="Edit"  Style="{StaticResource CommentHeader_Button_Action}" IsEnabled="False" >
+                                <Button Name="EditButton" Content="Edit"  Style="{StaticResource CommentHeader_Button_Action}" IsEnabled="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" >
 
                                     <!--<interactivity:Interaction.Triggers>
                                         <interactivity:EventTrigger EventName="Click">

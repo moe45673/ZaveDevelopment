@@ -185,7 +185,7 @@ namespace ZaveViewModel.ViewModels
         private void DeleteZDFEntry(string entryIdAsStr)
         {
             IZDF activeZDF = ZDFSingleton.GetInstance();
-            ConfirmationRequest.Raise(ZaveGlobalSettings.Data_Structures.ZaveMessageBoxes.ConfirmDeleteCommand,
+            ConfirmationRequest.Raise(ZaveGlobalSettings.Data_Structures.ZaveMessageBoxes.ConfirmDeleteEntryCommand,
                         c =>
                         {
 

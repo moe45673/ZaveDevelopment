@@ -194,6 +194,7 @@
     </ApplicationDefinition>
     <Compile Include="Controllers\AppSettingsController.cs" />
     <Compile Include="Controllers\MainWindowController.cs" />
+    <Compile Include="Converters\ActiveListItemToBooleanConverter.cs" />
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ColorConverters.cs" />
     <Compile Include="Controllers\ZDFEntryController.cs" />

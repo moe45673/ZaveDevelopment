@@ -9,12 +9,16 @@ using Prism.Mvvm;
 using Prism.Properties;
 using Prism.Common;
 using Prism.Interactivity.InteractionRequest;
+using Prism.Regions;
+using ZaveViewModel.Data_Structures;
+using ZaveGlobalSettings.Data_Structures;
 
 namespace ZaveViewModel.ViewModels
 {
-    public class CommentInputDialogViewModel : BindableBase, IConfirmation, IInteractionRequestAware, IDialogViewModel
+    public class CommentInputDialogViewModel : BindableBase, IConfirmation, IInteractionRequestAware, IDialogViewModel, IConfirmNavigationRequest
     {
         string originalValue;
+        IEditingItemState editingState;
         
         //private Object _sender;
 
@@ -24,6 +28,7 @@ namespace ZaveViewModel.ViewModels
             SaveCommentDelegateCommand = new DelegateCommand(SaveComment);
             CancelCommentDelegateCommand = new DelegateCommand(CancelComment);
             _commentText = "";
+            editingState = new EditingItemState();
 
             //OnCloseRequest = (sender) =>
             //{
@@ -66,7 +71,7 @@ namespace ZaveViewModel.ViewModels
             
             try
             {
-
+                editingState = new FinishedEditingItemState();
                 this.Confirmed = true;
                 this.FinishInteraction();
 
@@ -102,6 +107,31 @@ namespace ZaveViewModel.ViewModels
 
             this.Confirmed = false;
             this.FinishInteraction();
+        }
+
+        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            editingState.ConfirmNavigationRequest(navigationContext, continuationCallback);
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            var paramaters = navigationContext.Parameters;
+            if (paramaters.Any())
+            {
+                CommentText = paramaters[ZaveNavigationParameters.CommentText] as string;
+                
+            }
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
         }
 
         //public event EventHandler DialogClosing;

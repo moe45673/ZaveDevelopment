@@ -7,6 +7,9 @@ using System.Windows.Input;
 using ZaveModel.ZDFEntry;
 using Prism.Mvvm;
 using Prism.Commands;
+using Prism;
+using Prism.Regions;
+using Prism.Interactivity.InteractionRequest;
 using System.Collections.Specialized;
 using Microsoft.Practices.Unity;
 using ZaveGlobalSettings.Data_Structures;
@@ -20,11 +23,137 @@ using Newtonsoft.Json;
 
 namespace ZaveViewModel.Data_Structures
 {
+    using Prism;
     using Prism.Regions;
     using System.Windows.Threading;
     using CommentList = ObservableImmutableList<IEntryComment>;
 
     using selStateCommentList = List<SelectionComment>;
+
+    #region Form Editing States
+    public interface IEditingItemState: IConfirmNavigationRequest
+    {
+       InteractionRequest<IConfirmation> ConfirmExitInteractionRequest { get; }
+    }
+
+    public class EditingItemState : IEditingItemState
+    {
+        protected InteractionRequest<IConfirmation> _confirmExitInteractionRequest;
+
+        public EditingItemState()
+        {
+            _confirmExitInteractionRequest = new InteractionRequest<IConfirmation>();
+        }
+
+        public InteractionRequest<IConfirmation> ConfirmExitInteractionRequest
+        {
+            get
+            {
+                return _confirmExitInteractionRequest;
+            }
+
+            private set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            this._confirmExitInteractionRequest.Raise(
+                    new Confirmation { Content = ZaveMessageBoxes.ConfirmNavigateAwayFromFormCommand.Content, Title = ZaveMessageBoxes.ConfirmNavigateAwayFromFormCommand.Title },
+                    c => { continuationCallback(c.Confirmed); });
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class FinishingEditingItemState : IEditingItemState
+    {
+
+        protected InteractionRequest<IConfirmation> _confirmExitInteractionRequest;
+
+        public InteractionRequest<IConfirmation> ConfirmExitInteractionRequest
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class FinishedEditingItemState : IEditingItemState
+    {
+
+        protected InteractionRequest<IConfirmation> _confirmExitInteractionRequest;
+
+        public FinishedEditingItemState()
+        {
+            _confirmExitInteractionRequest = new InteractionRequest<IConfirmation>();
+        }
+
+        public InteractionRequest<IConfirmation> ConfirmExitInteractionRequest
+        {
+            get
+            {
+                return _confirmExitInteractionRequest;
+            }
+        }
+
+        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            continuationCallback(true);
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    #endregion
 
     public class ZDFSorting
     {
@@ -46,7 +175,7 @@ namespace ZaveViewModel.Data_Structures
         }
     }
 
-    public abstract class ZaveCommentItem : BindableBase
+    public abstract class ZaveCommentItem : BindableBase, INavigationAware, IActiveAware
     {
         protected ZaveCommentItem(IEntryComment modelComment = null, string text = default(string), string author = default(string), int id = 0)
         {
@@ -88,6 +217,22 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            IsActive = true;
+            
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            IsActive = false;
+        }
+
         protected IEntryComment _modelComment;
 
 
@@ -119,6 +264,15 @@ namespace ZaveViewModel.Data_Structures
 
         protected String _commentAuthor;
 
+        public event EventHandler IsActiveChanged;
+
+        protected virtual void OnIsActiveChanged()
+        {
+            var handler = IsActiveChanged;
+            if (handler != null)
+                handler(this, EventArgs.Empty);
+        }
+
         public String CommentAuthor
         {
             get { return (string)_modelComment.Author; }
@@ -129,7 +283,22 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
+        private bool _isActive;
+        public bool IsActive
+        {
+            get
+            {
+                return _isActive;
+            }
 
+            set
+            {
+                if(SetProperty(ref _isActive, value))
+                {
+                    OnIsActiveChanged();
+                }
+            }
+        }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
