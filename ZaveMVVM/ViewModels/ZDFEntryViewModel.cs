@@ -26,6 +26,7 @@ using System.Collections;
 using ZaveModel.ZDF;
 using ZaveService.ZDFEntry;
 using Prism.Interactivity.InteractionRequest;
+using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 
 //using Zave
 
@@ -48,15 +49,15 @@ namespace ZaveViewModel.ViewModels
 
         public InteractionRequest<CommentInputDialogViewModel> CommentDialogRequest { get; set; }
         public DelegateCommand AddCommentDelegateCommand { get; set; }
-        public DelegateCommand EditCommentDelegateCommand { get; set; }
+        public DelegateCommand<Object> EditCommentDelegateCommand { get; set; }
 
         public override DelegateCommand<string> DeleteEntryDelegateCommand { get; set; }
 
-        
+
 
         protected CommentInputDialogViewModel _commentDlg;
 
-        
+
 
         public ZDFEntryViewModel(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, IZDFEntryService entryService) : base(new ZaveModel.ZDFEntry.ZDFEntry())
         {
@@ -71,28 +72,29 @@ namespace ZaveViewModel.ViewModels
                 //_eventAggregator.GetEvent<EntrySelectedEvent>().Subscribe(EventSetProperties);
                 _regionManager = regionManager;
                 _container = container;
-                _commentDlg = new CommentInputDialogViewModel();
+                _commentDlg = new CommentInputDialogViewModel(_container);
                 CommentDialogRequest = new InteractionRequest<CommentInputDialogViewModel>();
                 AddCommentDelegateCommand = new DelegateCommand(AddComment);
+                EditCommentDelegateCommand = new DelegateCommand<Object>(EditComment);
                 //EditCommentDelegateCommand = new DelegateCommand<ICollection<ZaveCommentItem>>(EditComment);
                 DeleteEntryDelegateCommand = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel).DeleteZDFEntryCommand;
                 _entryService = entryService;
                 _zdfEntry = _entryService.getZDFEntry(entryService.ActiveZDFEntryId);
                 //_zdfEntry.Comments.CollectionChanged += base.ModelCollectionChanged;
             }
-           
+
             try
             {
                 setProperties(_zdfEntry.ID, _zdfEntry.Name, _zdfEntry.Page, _zdfEntry.Text, _zdfEntry.DateModified, _zdfEntry.HColor.Color, fromZDFCommentList(_zdfEntry.Comments));
 
-                
+
 
             }
             catch (NullReferenceException nre)
             {
                 throw nre;
             }
-            
+
         }
 
 
@@ -112,7 +114,7 @@ namespace ZaveViewModel.ViewModels
 
         protected virtual void EventSetProperties(string id)
         {
-            
+
 
             if (id != null && id != "")
             {
@@ -127,13 +129,13 @@ namespace ZaveViewModel.ViewModels
 
 
         }
-        
+
 
 
         public static ZDFEntryViewModel EntryVmFactory(IEventAggregator eventAgg, IRegionManager regionManager, IUnityContainer container, ZaveService.ZDFEntry.IZDFEntryService entryService, IZDFEntry entry)
         {
             var entryVm = new ZDFEntryViewModel(eventAgg, regionManager, container, entryService);
-            entryVm._zdfEntry = entry;            
+            entryVm._zdfEntry = entry;
 
             try
             {
@@ -154,7 +156,7 @@ namespace ZaveViewModel.ViewModels
             }
             protected set
             {
-                
+
                 SetProperty(ref _txtDocID, value);
                 //_zdfEntry.ID = int.Parse(_txtDocID);
             }
@@ -169,10 +171,10 @@ namespace ZaveViewModel.ViewModels
                 ec.CommentText = ((CommentInputDialogViewModel)sender).CommentText;
 
                 _zdfEntry.Comments.Add(new EntryComment(ec.CommentText, "User"));
-                
+
             }
-            
-            
+
+
             IsEditing = false;
         }
 
@@ -185,27 +187,27 @@ namespace ZaveViewModel.ViewModels
             //dlgBoxCollection.Clear();
             var comment = new EntryComment();
             IsEditing = true;
-            CommentInputDialogViewModel vm = new CommentInputDialogViewModel();
+            CommentInputDialogViewModel vm = new CommentInputDialogViewModel(_container);
             vm.Title = "Add New Comment";
 
             this.CommentDialogRequest.Raise(
                 vm,
                 addComment =>
                 {
-                    if(addComment.Confirmed)
+                    if (addComment.Confirmed)
                     {
 
                         comment.CommentText = vm.CommentText;
                         comment.Author = (User)"User";
                         TxtDocComments.Add(comment);
-
+                        _eventAggregator.GetEvent<CommentCreatedEvent>().Publish(comment);
                     }
                 }
                 );
 
             IsEditing = false;
 
-            
+
 
             //dlg.Show(dlgBoxCollection);
             //System.Windows.MessageBox.Show(("From addComment: " +  vm.GetHashCode()));
@@ -218,10 +220,10 @@ namespace ZaveViewModel.ViewModels
         //    if (args.PropertyName == "CommentText")
         //    {
         //        var commentIndex = _zdfEntry.Comments.IndexOf(_zdfEntry.Comments.FirstOrDefault(x => x.CommentText == EditedComment.CommentText));
-                
+
         //        _zdfEntry.Comments[commentIndex].CommentText = ((CommentInputDialogViewModel)sender).CommentText;
 
-                
+
         //    }
         //}
 
@@ -231,7 +233,7 @@ namespace ZaveViewModel.ViewModels
             {
                 //var comment = commentList.
                 var vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
-                var dlg = new CommentInputDialogViewModel();
+                var dlg = new CommentInputDialogViewModel(_container);
                 vm.Clear();
 
                 //EditedComment = TxtDocComments.FirstOrDefault(x => x.CommentText == (commentList[0] as ZaveCommentViewModel).CommentText);
@@ -239,7 +241,7 @@ namespace ZaveViewModel.ViewModels
                 //dlg.PropertyChanged += new PropertyChangedEventHandler(EditDlgBoxReturn);
                 ////dlg.Show(vm);
                 //dlg.PropertyChanged -= new PropertyChangedEventHandler(EditDlgBoxReturn);
-                    
+
             }
             catch (NullReferenceException nre)
             {
@@ -256,9 +258,40 @@ namespace ZaveViewModel.ViewModels
             throw new NotImplementedException();
         }
 
-        protected override void EditComment(IList commentList)
+        protected override void EditComment(Object comment)
         {
-            throw new NotImplementedException();
+            var commentToEdit = comment as IEntryComment;
+            //IsEditing = true;
+            CommentInputDialogViewModel vm = new CommentInputDialogViewModel(_container);
+
+            vm.Title = "Edit Comment";
+            vm.Content = commentToEdit.CommentText;
+            //vm.
+
+            this.CommentDialogRequest.Raise(
+                vm,
+                dialogEditedComment =>
+                {
+                    
+                    if (dialogEditedComment != null & dialogEditedComment.Confirmed)
+                    {
+
+
+                        //comment.Author = (User)"User";
+                        var newComment = new EntryComment(commentToEdit, true);
+                        TxtDocComments =  TxtDocComments.Replace(commentToEdit, newComment, new CommentEqualityComparer()) as ObservableImmutableList<IEntryComment>;
+                        _eventAggregator.GetEvent<CommentUpdateEvent>().Publish(newComment);
+                    }
+                }
+                );
+            //vm.
         }
+
+        //TODO Add Authorization
+        private bool CheckIfAuthorizedUser()
+        {
+            return true;
+        }
+
     }
 }

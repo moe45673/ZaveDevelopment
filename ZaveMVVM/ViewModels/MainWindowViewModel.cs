@@ -156,9 +156,9 @@ namespace ZaveViewModel.ViewModels
             _eventAggregator.GetEvent<ZDFOpenedEvent>().Subscribe(setFileName);
             _WindowModeChangeResult = new TaskCompletionSource<bool>();
 
-            SaveZDFDelegateCommand = DelegateCommand.FromAsyncHandler(SaveZDFAsync);
-            OpenZDFDelegateCommand = DelegateCommand.FromAsyncHandler(OpenZDF);
-            OpenZDFFromFileDelegateCommand = DelegateCommand<string>.FromAsyncHandler(x => OpenZDF(x));
+            SaveZDFDelegateCommand = new DelegateCommand(SaveZDFAsync);
+            OpenZDFDelegateCommand = new DelegateCommand(OpenZDFAsync);
+            OpenZDFFromFileDelegateCommand = new DelegateCommand<string>(OpenZDFAsync);
             NewZDFDelegateCommand = new DelegateCommand(NewZDF);
             NewZDFEntryDelegateCommand = new DelegateCommand(NewZDFEntry);
             UndoZDFDelegateCommand = new DelegateCommand(UndoZDF);
@@ -218,9 +218,15 @@ namespace ZaveViewModel.ViewModels
             return WindowMode.WIDGET;
         }
 
-        private async Task OpenZDF(string filename)
+        private void OpenZDFAsync(string filename)
         {
             ZDFSingleton activeZdf = _container.Resolve<ZDFSingleton>(InstanceNames.ActiveZDF);
+            OpenZDF(filename, activeZdf);
+            
+        }
+
+        private async Task OpenZDF(string filename, ZDFSingleton activeZdf)
+        {
             using (var sr = _ioService.OpenFileService(filename))
             {
                 try
@@ -1116,17 +1122,17 @@ namespace ZaveViewModel.ViewModels
         /// 
         /// </summary>
         /// <returns></returns>
-        private async Task SaveZDFAsync()
+        private void SaveZDFAsync()
         {
             if (SaveLocation == null || SaveLocation == String.Empty || SaveLocation == GuidGenerator.UNSAVEDFILENAME)
             {
                 var filename = _ioService.SaveFileDialogService(getSaveDirectory());
-                await SaveLogicAsync(Convert.ToString(filename));
+                SaveLogicAsync(Convert.ToString(filename));
             }
             else
             {
                 var filename = SaveLocation;
-                await SaveLogicAsync(Convert.ToString(filename));
+                SaveLogicAsync(Convert.ToString(filename));
             }
         }
 
@@ -1245,7 +1251,7 @@ namespace ZaveViewModel.ViewModels
         /// 
         /// </summary>
         /// <returns></returns>
-        private async Task OpenZDF()
+        private void OpenZDFAsync()
         {
             //var activeZDFVM = _container.Resolve(typeof(ZDFViewModel), "ZDFView") as ZDFViewModel;
 
@@ -1257,7 +1263,7 @@ namespace ZaveViewModel.ViewModels
             if (filename != String.Empty) //If the user did not press cancel
             {
 
-                await OpenZDF(filename);
+                OpenZDFAsync(filename);
 
             }
 

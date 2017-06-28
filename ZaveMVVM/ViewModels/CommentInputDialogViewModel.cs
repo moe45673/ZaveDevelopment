@@ -10,25 +10,28 @@ using Prism.Properties;
 using Prism.Common;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Regions;
+using Microsoft.Practices.Unity;
 using ZaveViewModel.Data_Structures;
 using ZaveGlobalSettings.Data_Structures;
 
 namespace ZaveViewModel.ViewModels
 {
-    public class CommentInputDialogViewModel : BindableBase, IConfirmation, IInteractionRequestAware, IDialogViewModel, IConfirmNavigationRequest
+    public class CommentInputDialogViewModel : BindableBase, IConfirmation, IInteractionRequestAware, IConfirmNavigationRequest
     {
         string originalValue;
         IEditingItemState editingState;
-        
+        IUnityContainer _container;
+
         //private Object _sender;
 
-        public CommentInputDialogViewModel()
+        public CommentInputDialogViewModel(IUnityContainer cont)
         {
             //toReturn = fromSender;
             SaveCommentDelegateCommand = new DelegateCommand(SaveComment);
             CancelCommentDelegateCommand = new DelegateCommand(CancelComment);
-            _commentText = "";
+            
             editingState = new EditingItemState();
+            _container = cont;
 
             //OnCloseRequest = (sender) =>
             //{
@@ -41,7 +44,23 @@ namespace ZaveViewModel.ViewModels
 
         public string Title { get; set; }
 
-        public object Content { get; set; }
+        private object _content;
+        public object Content
+        {
+            get
+            {
+                return _content;
+            }
+            set
+            {
+                if (value is string || value is String)
+                {
+                    CommentText = (string)value;
+                }
+
+                SetProperty(ref _content, value);
+            }
+        }
 
         public INotification Notification { get; set; }
 
@@ -68,7 +87,7 @@ namespace ZaveViewModel.ViewModels
 
         private void SaveComment()
         {
-            
+
             try
             {
                 editingState = new FinishedEditingItemState();
@@ -83,15 +102,19 @@ namespace ZaveViewModel.ViewModels
             }
             finally
             {
-                
+
             }
         }
 
         private string _commentText;
         public string CommentText
         {
-            get { return _commentText;}
-            set { SetProperty(ref _commentText, value); }
+            get { return _commentText; }
+            set
+            {
+                SetProperty(ref _commentText, value);
+                //Content = value;
+            }
         }
 
         private string _caption;
@@ -120,7 +143,7 @@ namespace ZaveViewModel.ViewModels
             if (paramaters.Any())
             {
                 CommentText = paramaters[ZaveNavigationParameters.CommentText] as string;
-                
+
             }
         }
 

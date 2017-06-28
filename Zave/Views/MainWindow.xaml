@@ -19,8 +19,8 @@
         mc:Ignorable="d"
         zaveDialogs:DialogBehavior.DialogViewModels="{Binding Dialogs}"   
         Title="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight" Background="Transparent" AllowsTransparency="True" WindowStyle="None" 
-        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}" ResizeMode="NoResize" SnapsToDevicePixels="False" Deactivated="Window_Deactivated" Activated="Window_Activated" LostMouseCapture="Window_LostFocus" Closed="Window_Closed" Unloaded="Window_Unloaded" Closing="Window_Closing_1" >
-
+        ResizeMode="NoResize" SnapsToDevicePixels="False" Deactivated="Window_Deactivated" Activated="Window_Activated" LostMouseCapture="Window_LostFocus" Closed="Window_Closed" Unloaded="Window_Unloaded" Closing="Window_Closing_1" >
+    <!--d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}"-->
     <i:Interaction.Triggers>
 
         <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">

@@ -201,6 +201,8 @@ namespace ZaveViewModel.ViewModels
                
             }
 
+            
+
             _eventAggregator.GetEvent<EntrySelectedEvent>().Publish(id);
 
             
@@ -320,7 +322,7 @@ namespace ZaveViewModel.ViewModels
             throw new NotImplementedException();
         }
 
-        protected override void EditComment(IList commentList)
+        protected override void EditComment(Object commentList)
         {
             throw new NotImplementedException();
         }

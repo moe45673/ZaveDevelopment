@@ -7,9 +7,12 @@
         xmlns:zdfviewmodelns="clr-namespace:ZaveViewModel.ViewModels;assembly=ZaveViewModel"
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True">
-
+             >
+    <!--prism:ViewModelLocator.AutoWireViewModel="True"-->
+    
+    
     <UserControl.Resources>
+        <zdfviewmodelns:CommentInputDialogViewModel x:Key="CommentInputViewModel"/>
         <Style x:Key="Comment_TxtField" TargetType="TextBox">
             <Setter Property="Margin" Value="10,0,10,0"></Setter>
             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
@@ -67,7 +70,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <TextBox Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" AcceptsReturn="False" Grid.Row="0" Grid.Column="0" Style="{StaticResource Comment_TxtField}" />
+                <TextBox Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AcceptsReturn="False" Grid.Row="0" Grid.Column="0" Style="{StaticResource Comment_TxtField}" />
 
 
                 <Grid Grid.Row="0" Grid.Column="1">

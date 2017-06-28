@@ -22,6 +22,7 @@ namespace Zave.Views
         public CommentInputDialog()
         {
             InitializeComponent();
+            
         }
     }
 }

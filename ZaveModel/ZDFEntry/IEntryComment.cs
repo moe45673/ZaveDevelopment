@@ -9,6 +9,8 @@
 using System;
 using Prism.Mvvm;
 using Newtonsoft.Json;
+using System.Collections;
+using System.Collections.Generic;
 
 //using System.Security.Principal;
 
@@ -43,7 +45,23 @@ namespace ZaveModel.ZDFEntry {
 
     }
 
-	public interface IEntryComment  {
+    public class CommentEqualityComparer : EqualityComparer<IEntryComment>
+    {
+        public override bool Equals(IEntryComment x, IEntryComment y)
+        {
+            return x.CommentID == y.CommentID;
+        }
+
+        public override int GetHashCode(IEntryComment obj)
+        {
+            
+            return obj.CommentID.GetHashCode();
+        }
+    }
+
+    public interface IEntryComment {
+
+        
 
         int CommentID
         {
@@ -80,6 +98,8 @@ namespace ZaveModel.ZDFEntry {
         }
     }
 
+
+
     [JsonObject]
     public class EntryComment : BindableBase, IEntryComment
     {
@@ -91,14 +111,18 @@ namespace ZaveModel.ZDFEntry {
             _commentText = commText;
             _author = (User)author;
             IDTracker.setCommentID(this, out _commentID);
+            
 
             
 
         }
 
-        public EntryComment(IEntryComment newComm) : this(newComm.CommentText, newComm.Author.Name)
+        public EntryComment(IEntryComment newComm, bool SameID = false) : this(newComm.CommentText, newComm.Author.Name)
         {
-
+            if (SameID)
+            {
+                CommentID = newComm.CommentID;
+            }
         }
         
 
@@ -131,7 +155,9 @@ namespace ZaveModel.ZDFEntry {
             set { SetProperty(ref _author, value); }
         }
 
+        
 
+        
     }
 
 }//end namespace ZDFEntry

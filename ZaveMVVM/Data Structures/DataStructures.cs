@@ -25,6 +25,7 @@ namespace ZaveViewModel.Data_Structures
 {
     using Prism;
     using Prism.Regions;
+    using System.Windows.Data;
     using System.Windows.Threading;
     using CommentList = ObservableImmutableList<IEntryComment>;
 
@@ -403,7 +404,7 @@ namespace ZaveViewModel.Data_Structures
             //DeleteEntryDelegateCommand = new DelegateCommand<string>(DeleteEntry);
             SelectCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(SelectComment);
             //AddCommentDelegateCommand = new DelegateCommand(AddComment).ObservesCanExecute(p => CanAdd);
-            EditCommentDelegateCommand = new DelegateCommand<System.Collections.IList>(EditComment).ObservesCanExecute(p => CanEdit);
+            EditCommentDelegateCommand = new DelegateCommand<Object>(EditComment).ObservesCanExecute(() => CanEdit);
 
 
             _zdfEntry.Comments.CollectionChanged -= new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
@@ -499,8 +500,9 @@ namespace ZaveViewModel.Data_Structures
         {
             if (items != null)
             {
-                //EditedComment = items.Cast<ZaveCommentViewModel>().ToList<ZaveCommentViewModel>().FirstOrDefault();
 
+                //EditedComment = items.Cast<ZaveCommentViewModel>().ToList<ZaveCommentViewModel>().FirstOrDefault();
+                //var comment = items.Cast<IEntryComment>().FirstOrDefault();
                 CanDelete = true;
                 CanEdit = true;
             }
@@ -539,13 +541,13 @@ namespace ZaveViewModel.Data_Structures
             ;
         }
 
-        public virtual DelegateCommand<System.Collections.IList> EditCommentDelegateCommand
+        public virtual DelegateCommand<Object> EditCommentDelegateCommand
         {
             get;
             protected set;
         }
 
-        protected abstract void EditComment(System.Collections.IList commentList);
+        protected abstract void EditComment(Object commentList);
 
 
 
