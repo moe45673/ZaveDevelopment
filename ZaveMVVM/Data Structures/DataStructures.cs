@@ -757,13 +757,14 @@ namespace ZaveViewModel.Data_Structures
         protected CommentList _txtDocComments;
         public CommentList TxtDocComments
         {
-            get { return _txtDocComments; }
+            get { return ZDFEntry.Comments; }
 
             protected set
             {
                 //lock (_docCommentsLock)
                 //{
-                _txtDocComments = value;
+                ZDFEntry.Comments = value;
+                
 
 
                 //}

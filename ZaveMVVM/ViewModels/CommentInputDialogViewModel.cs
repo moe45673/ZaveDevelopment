@@ -53,10 +53,10 @@ namespace ZaveViewModel.ViewModels
             }
             set
             {
-                if (value is string || value is String)
-                {
-                    CommentText = (string)value;
-                }
+                //if (value is string || value is String)
+                //{
+                //    CommentText = (string)value;
+                //}
 
                 SetProperty(ref _content, value);
             }
@@ -109,10 +109,10 @@ namespace ZaveViewModel.ViewModels
         private string _commentText;
         public string CommentText
         {
-            get { return _commentText; }
+            get { return Content as string; }
             set
             {
-                SetProperty(ref _commentText, value);
+                Content = value;
                 //Content = value;
             }
         }

@@ -27,6 +27,7 @@ using ZaveModel.ZDF;
 using ZaveService.ZDFEntry;
 using Prism.Interactivity.InteractionRequest;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
+using System.Globalization;
 
 //using Zave
 
@@ -279,8 +280,19 @@ namespace ZaveViewModel.ViewModels
 
                         //comment.Author = (User)"User";
                         var newComment = new EntryComment(commentToEdit, true);
-                        TxtDocComments =  TxtDocComments.Replace(commentToEdit, newComment, new CommentEqualityComparer()) as ObservableImmutableList<IEntryComment>;
+                        newComment.CommentText = dialogEditedComment.CommentText;
+                        
+                        var newList = TxtDocComments.ToList();
+                        var index = TxtDocComments.IndexOf(commentToEdit);
+                        newList.Remove(commentToEdit);
+                        newList.Insert(index, newComment);
+                        
+                        
+                        TxtDocComments.Clear();
+                        TxtDocComments.AddRange(newList);
+                        //TxtDocComments.Replace(commentToEdit, newComment, new CommentEqualityComparer());
                         _eventAggregator.GetEvent<CommentUpdateEvent>().Publish(newComment);
+                        
                     }
                 }
                 );
