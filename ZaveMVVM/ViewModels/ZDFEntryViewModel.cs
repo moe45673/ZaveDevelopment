@@ -50,10 +50,13 @@ namespace ZaveViewModel.ViewModels
         private IZDFEntryService _entryService;
 
         public InteractionRequest<CommentInputDialogViewModel> CommentDialogRequest { get; set; }
+        public InteractionRequest<IConfirmation> ConfirmDialog { get; set; }
         public DelegateCommand AddCommentDelegateCommand { get; set; }
         public DelegateCommand<Object> EditCommentDelegateCommand { get; set; }
+        public DelegateCommand<Object> DeleteCommentDelegateCommand { get; set; }
 
-        public override DelegateCommand<string> DeleteEntryDelegateCommand { get; set; }
+
+        
 
 
 
@@ -76,9 +79,10 @@ namespace ZaveViewModel.ViewModels
                 _container = container;
                 _commentDlg = new CommentInputDialogViewModel(_container);
                 CommentDialogRequest = new InteractionRequest<CommentInputDialogViewModel>();
+                ConfirmDialog = new InteractionRequest<IConfirmation>();
                 AddCommentDelegateCommand = new DelegateCommand(AddComment);
                 EditCommentDelegateCommand = new DelegateCommand<Object>(EditComment);
-                //EditCommentDelegateCommand = new DelegateCommand<ICollection<ZaveCommentItem>>(EditComment);
+                DeleteCommentDelegateCommand = new DelegateCommand<Object>(DeleteComment);
                 DeleteEntryDelegateCommand = _container.Resolve<MainWindowViewModel>(InstanceNames.MainWindowViewModel).DeleteZDFEntryCommand;
                 _entryService = entryService;
                 _zdfEntry = _entryService.getZDFEntry(entryService.ActiveZDFEntryId);
@@ -99,6 +103,7 @@ namespace ZaveViewModel.ViewModels
 
         }
 
+       
 
         protected override void DeleteEntry(string id)
         {
@@ -203,7 +208,7 @@ namespace ZaveViewModel.ViewModels
                         comment.Author = (User)"User";
                         TxtDocComments.Add(comment);
                         //ModelCollectionChanged(new List<IEntryComment> { comment }, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, comment));
-                        _eventAggregator.GetEvent<CommentCreatedEvent>().Publish(comment);
+                        _eventAggregator.GetEvent<CommentUpdateEvent>().Publish(comment);
                     }
                 }
                 );
@@ -218,6 +223,31 @@ namespace ZaveViewModel.ViewModels
 
         }
 
+        private void DeleteComment(object commentObj)
+        {
+            var comment = commentObj as IEntryComment;
+            IsEditing = true;
+            //CommentInputDialogViewModel vm = new CommentInputDialogViewModel(_container);
+            //vm.Title = "Add New Comment";
+
+            this.ConfirmDialog.Raise(
+                new Confirmation { Title="Confirm Deletion", Content="Are you sure you wish to delete this comment?"},
+                commentToDelete =>
+                {
+                    if (commentToDelete.Confirmed)
+                    {
+
+                        
+                        TxtDocComments.Remove(comment, new CommentEqualityComparer());
+                        //ModelCollectionChanged(new List<IEntryComment> { comment }, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, comment));
+                        _eventAggregator.GetEvent<CommentDeletedEvent>().Publish(comment);
+                    }
+                }
+                );
+
+            IsEditing = false;
+        }
+
         //private void EditDlgBoxReturn(object sender, PropertyChangedEventArgs args)
         //{
         //    if (args.PropertyName == "CommentText")
@@ -230,31 +260,31 @@ namespace ZaveViewModel.ViewModels
         //    }
         //}
 
-        protected void EditComment(ICollection<ZaveCommentItem> commentList)
-        {
-            try
-            {
-                //var comment = commentList.
-                var vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
-                var dlg = new CommentInputDialogViewModel(_container);
-                vm.Clear();
+        //protected void EditComment(ICollection<ZaveCommentItem> commentList)
+        //{
+        //    try
+        //    {
+        //        //var comment = commentList.
+        //        var vm = _container.Resolve(typeof(ObservableCollection<IDialogViewModel>), "DialogVMList") as ObservableCollection<IDialogViewModel>;
+        //        var dlg = new CommentInputDialogViewModel(_container);
+        //        vm.Clear();
 
-                //EditedComment = TxtDocComments.FirstOrDefault(x => x.CommentText == (commentList[0] as ZaveCommentViewModel).CommentText);
-                //dlg.CommentText = EditedComment.CommentText;
-                //dlg.PropertyChanged += new PropertyChangedEventHandler(EditDlgBoxReturn);
-                ////dlg.Show(vm);
-                //dlg.PropertyChanged -= new PropertyChangedEventHandler(EditDlgBoxReturn);
+        //        //EditedComment = TxtDocComments.FirstOrDefault(x => x.CommentText == (commentList[0] as ZaveCommentViewModel).CommentText);
+        //        //dlg.CommentText = EditedComment.CommentText;
+        //        //dlg.PropertyChanged += new PropertyChangedEventHandler(EditDlgBoxReturn);
+        //        ////dlg.Show(vm);
+        //        //dlg.PropertyChanged -= new PropertyChangedEventHandler(EditDlgBoxReturn);
 
-            }
-            catch (NullReferenceException nre)
-            {
-                System.Windows.Forms.MessageBox.Show(nre.Message + "\nMust Select a comment!");
-            }
-            catch (ArgumentOutOfRangeException arg)
-            {
-                System.Windows.Forms.MessageBox.Show(arg.Message + "\nMust Select a comment!");
-            }
-        }
+        //    }
+        //    catch (NullReferenceException nre)
+        //    {
+        //        System.Windows.Forms.MessageBox.Show(nre.Message + "\nMust Select a comment!");
+        //    }
+        //    catch (ArgumentOutOfRangeException arg)
+        //    {
+        //        System.Windows.Forms.MessageBox.Show(arg.Message + "\nMust Select a comment!");
+        //    }
+        //}
 
         private void Dlg_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

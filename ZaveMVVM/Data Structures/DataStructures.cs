@@ -346,6 +346,16 @@ namespace ZaveViewModel.Data_Structures
 
                             break;
 
+                        case NotifyCollectionChangedAction.Remove:
+
+                            
+                            foreach(IEntryComment comment in e.OldItems)
+                            {
+                                TxtDocComments.Remove(comment, new CommentEqualityComparer());
+                            }
+
+                            break;
+
 
                             //            case NotifyCollectionChangedAction.Replace:
 

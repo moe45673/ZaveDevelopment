@@ -26,7 +26,16 @@
 
             <!--<prism:InvokeCommandAction Command="{Binding AddCommentDelegateCommand}" />-->
         </prism:InteractionRequestTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmDialog, Mode=OneWay}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <!--<prism:PopupWindowAction.WindowContent>
+                    <view:ModalInputDialog></view:ModalInputDialog>
+                </prism:PopupWindowAction.WindowContent>-->
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
     </interactivity:Interaction.Triggers>
+    
+    
     <UserControl.Resources>
 
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -224,7 +233,7 @@
                                 <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Author}"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
-                                <Button Name="EditButton" Content="Edit" Tag="{Binding DataContext, RelativeSource={RelativeSource Self}}" Style="{StaticResource CommentHeader_Button_Action}" DataContext="{Binding Mode=OneWay}" IsEnabled="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" >
+                                <Button Name="EditButton" Content="Edit" Tag="{Binding DataContext, RelativeSource={RelativeSource Self}}" Style="{StaticResource CommentHeader_Button_Action}" DataContext="{Binding Mode=OneWay}" >
 
                                     <ei:Interaction.Triggers>
                                         <interactivity:EventTrigger EventName="Click">
@@ -234,7 +243,14 @@
 
 
                                 </Button>
-                                <Button Name="DeleteButton" Content="Delete"  Style="{StaticResource Comment_Button_Delete}" IsEnabled="False" Visibility="Hidden"/>
+                                <Button Name="DeleteButton" Content="Delete" Tag="{Binding DataContext, RelativeSource={RelativeSource Self}}" Style="{StaticResource Comment_Button_Delete}" >
+                                    <ei:Interaction.Triggers>
+                                        <interactivity:EventTrigger EventName="Click">
+                                            <prism:InvokeCommandAction Command="{Binding ElementName=LB_CommentList, Mode=OneWay, Path=DataContext.DeleteCommentDelegateCommand}" CommandParameter="{Binding Mode=OneWay}"/>
+                                        </interactivity:EventTrigger>
+                                    </ei:Interaction.Triggers>
+                                    
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
