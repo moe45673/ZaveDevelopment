@@ -55,7 +55,7 @@ namespace ZaveModel.ZDFEntry {
         public override int GetHashCode(IEntryComment obj)
         {
             
-            return obj.CommentID.GetHashCode();
+            return obj.CommentID.GetHashCode() * obj.CommentText.GetHashCode() * obj.Author.GetHashCode();
         }
     }
 
@@ -124,9 +124,18 @@ namespace ZaveModel.ZDFEntry {
                 CommentID = newComm.CommentID;
             }
         }
-        
 
-        
+        //public override bool Equals(object obj)
+        //{
+        //    var commEq = new CommentEqualityComparer();
+        //    return commEq.Equals(this as IEntryComment, obj as IEntryComment);
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    return new CommentEqualityComparer().GetHashCode(this as IEntryComment);
+        //}
+
 
         [JsonIgnore]
         private int _commentID;

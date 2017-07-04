@@ -720,4 +720,29 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+    public static class ZaveListExtensions
+    {
+        public static bool AreEqual<T>(this List<T> list1, List<T> list2)
+        {
+
+
+            var firstNotSecond = list1.Except(list2).ToList();
+            var secondNotFirst = list2.Except(list1).ToList();
+
+            return !firstNotSecond.Any() && !secondNotFirst.Any();
+        }
+
+
+
+        public static bool AreEqual<T>(this List<T> list1, List<T> list2, IEqualityComparer<T> compEq)
+        {
+
+
+            var firstNotSecond = list1.Except(list2, compEq).ToList();
+            var secondNotFirst = list2.Except(list1, compEq).ToList();
+
+            return !firstNotSecond.Any() && !secondNotFirst.Any();
+        }
+    }
+
 }

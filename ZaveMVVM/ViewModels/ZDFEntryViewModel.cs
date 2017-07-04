@@ -28,6 +28,7 @@ using ZaveService.ZDFEntry;
 using Prism.Interactivity.InteractionRequest;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
 using System.Globalization;
+using System.Collections.Specialized;
 
 //using Zave
 
@@ -201,6 +202,7 @@ namespace ZaveViewModel.ViewModels
                         comment.CommentText = vm.CommentText;
                         comment.Author = (User)"User";
                         TxtDocComments.Add(comment);
+                        //ModelCollectionChanged(new List<IEntryComment> { comment }, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, comment));
                         _eventAggregator.GetEvent<CommentCreatedEvent>().Publish(comment);
                     }
                 }

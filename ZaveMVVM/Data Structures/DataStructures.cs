@@ -315,59 +315,71 @@ namespace ZaveViewModel.Data_Structures
         {
             try
             {
-                switch (e.Action)
+                if (!(TxtDocComments.ToList()).AreEqual(((CommentList)sender).ToList(), new CommentEqualityComparer())) //ensure the VM list and the Model list are not equal before propagating changes to the VM
                 {
+                    switch (e.Action)
+                    {
 
 
-                    case NotifyCollectionChangedAction.Add:
+                        case NotifyCollectionChangedAction.Add:
 
 
-                        var listSend = ((IEnumerable<IEntryComment>)sender).ToList<IEntryComment>();
-                        var tempComment = listSend.LastOrDefault();
+                            var listSend = ((IEnumerable<IEntryComment>)sender).ToList<IEntryComment>();
+                            var tempComment = listSend.LastOrDefault();
 
-                        var newComment = new EntryComment(tempComment);
+                            var newComment = new EntryComment(tempComment);
 
-                        var tempList = new ObservableImmutableList<ZaveCommentViewModel>();
-                        tempList.Add(newComment);
+                            //var tempList = new ObservableImmutableList<IEntryComment>();
+                            //tempList.Add(newComment);
 
-                        TxtDocComments.DoAdd(x => newComment);
-
-
-
-                        break;
-
-
-                        //            case NotifyCollectionChangedAction.Replace:
-
-                        //                System.Windows.Forms.MessageBox.Show("Replace Action Called!");
-
-                        //                break;
-
-                        //            default:
-                        //                System.Windows.Forms.MessageBox.Show("Nothing Done!");
-                        //                break;
-                        //        }
-
-                        //    }
-                        //    catch (Exception ex)
-                        //    {
-                        //        System.Windows.Forms.MessageBox.Show(ex.Message);
-                        //    }
+                            TxtDocComments.Add(newComment);
 
 
 
-                        //    //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
-                        //    //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
-                        //    //ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
-                        //    //UpdateGui(zdfEntry.Source);
+
+                            break;
+
+                        case NotifyCollectionChangedAction.Reset:
+
+                            TxtDocComments.Clear();
+                            TxtDocComments.AddRange(sender as IEnumerable<IEntryComment>);
+
+                            break;
+
+
+                            //            case NotifyCollectionChangedAction.Replace:
+
+                            //                System.Windows.Forms.MessageBox.Show("Replace Action Called!");
+
+                            //                break;
+
+                            //            default:
+                            //                System.Windows.Forms.MessageBox.Show("Nothing Done!");
+                            //                break;
+                            //        }
+
+                            //    }
+                            //    catch (Exception ex)
+                            //    {
+                            //        System.Windows.Forms.MessageBox.Show(ex.Message);
+                            //    }
+
+
+
+                            //    //ActiveZDFEntry = new ZDFEntryViewModel(activeZDF.EntryList[index]);
+                            //    //System.Windows.Forms.MessageBox.Show(zdfEntry.Source.SelectionText);
+                            //    //ZDFEntries.Add(new ZDFEntryViewModel(activeZDF.EntryList[index], _eventAggregator));
+                            //    //UpdateGui(zdfEntry.Source);
+
+                    }
 
                 }
-
             }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show("Unable to Add New Comment!");
             }
+        
         }
 
 
@@ -409,6 +421,7 @@ namespace ZaveViewModel.Data_Structures
 
             _zdfEntry.Comments.CollectionChanged -= new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
             _zdfEntry.Comments.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
+            
 
 
 
@@ -763,7 +776,12 @@ namespace ZaveViewModel.Data_Structures
             {
                 //lock (_docCommentsLock)
                 //{
-                ZDFEntry.Comments = value;
+                if (_txtDocComments == null)
+                {
+                    _txtDocComments = new CommentList(ZDFEntry.Comments);
+                }
+                if (SetProperty(ref _txtDocComments, value))
+                    ZDFEntry.Comments = value;
                 
 
 
