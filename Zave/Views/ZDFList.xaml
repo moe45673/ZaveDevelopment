@@ -23,7 +23,7 @@
         </Style>
     </UserControl.Resources>
     <Canvas>
-        <ListBox Style="{StaticResource FileList_Container}" ItemsSource="{Binding RecentFiles}">
+        <ListBox Style="{StaticResource FileList_Container}" ItemsSource="{Binding RecentFiles}" Tag="{Binding DataContext, RelativeSource={RelativeSource Self}}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -32,13 +32,22 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid  Style="{StaticResource FileList_Container_Item}">
-                        <Grid.RowDefinitions>
+                        <!--<Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Image Source="/Zave;component/media/images/zdf.png"/>
+                        </Grid.RowDefinitions>-->
+                        <!--<Image Source="/Zave;component/media/images/zdf.png"/>
                         <Label Grid.Row="1" Content="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource filenameConverter}}"/>
+                    </Grid>-->
+
+                        <Button  Command="{Binding DataContext.OpenZDFDelegateCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"  CommandParameter="{Binding Mode=OneWay}">
+                            <StackPanel>
+                                <Image Source="/Zave;component/media/images/zdf.png"/>
+                                <TextBlock Text="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource filenameConverter}}"/>
+                            </StackPanel>
+                        </Button>
                     </Grid>
+
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

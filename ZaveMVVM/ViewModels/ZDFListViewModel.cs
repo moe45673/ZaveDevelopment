@@ -14,6 +14,7 @@ using System.IO;
 using Westwind.Utilities;
 using System.Runtime.InteropServices;
 using ZaveGlobalSettings.Data_Structures.ZaveObservableCollection;
+using Prism.Commands;
 
 namespace ZaveViewModel.ViewModels
 {
@@ -23,6 +24,7 @@ namespace ZaveViewModel.ViewModels
         IUnityContainer _container;
         IEventAggregator _aggregator;
         private static readonly int MAXLISTSIZE = 6;
+        public DelegateCommand<string> OpenZDFDelegateCommand { get; set; }
 
 
 
@@ -35,7 +37,8 @@ namespace ZaveViewModel.ViewModels
             _aggregator.GetEvent<ZDFOpenedEvent>().Subscribe(addToMRU);
             _aggregator.GetEvent<ZDFSavedEvent>().Subscribe(addToMRU);
             _aggregator.GetEvent<NewZDFCreatedEvent>().Subscribe(addToMRU);
-
+            var MainWinVM = _container.Resolve<MainWindowViewModel>();
+            OpenZDFDelegateCommand = MainWinVM.OpenZDFFromFileDelegateCommand;
             //_recentFileList.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(generate)
             ResetListAsync();
 
