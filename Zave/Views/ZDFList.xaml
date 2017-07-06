@@ -31,22 +31,25 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid  Style="{StaticResource FileList_Container_Item}">
+                    <!--<Grid  Style="{StaticResource FileList_Container_Item}">-->
                         <!--<Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>-->
+                        <RowDefinition Height="auto"/>
+                            <RowDefinition Height=""/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>-->
                         <!--<Image Source="/Zave;component/media/images/zdf.png"/>
                         <Label Grid.Row="1" Content="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource filenameConverter}}"/>
                     </Grid>-->
 
-                        <Button  Command="{Binding DataContext.OpenZDFDelegateCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"  CommandParameter="{Binding Mode=OneWay}">
+                        <Button Command="{Binding DataContext.OpenZDFDelegateCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"  CommandParameter="{Binding Mode=OneWay}">
                             <StackPanel>
                                 <Image Source="/Zave;component/media/images/zdf.png"/>
                                 <TextBlock Text="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource filenameConverter}}"/>
                             </StackPanel>
                         </Button>
-                    </Grid>
+                    <!--</Grid>-->
 
                 </DataTemplate>
             </ListBox.ItemTemplate>
