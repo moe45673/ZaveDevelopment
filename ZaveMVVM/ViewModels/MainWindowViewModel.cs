@@ -102,9 +102,9 @@ namespace ZaveViewModel.ViewModels
         //    {
         //        try
         //        {
-        //            var mcvm = await Task<MainContainerViewModel>.Factory.StartNew(() =>
+        //            var mcvm = await Task<ExpandedViewModel>.Factory.StartNew(() =>
         //            {
-        //                return _container.Resolve<MainContainerViewModel>() as MainContainerViewModel;
+        //                return _container.Resolve<ExpandedViewModel>() as ExpandedViewModel;
         //            });                   
 
         //            return mcvm.getSaveDirectory() + "ZDF_" + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToShortTimeString() + ".zdf"; ;
@@ -1360,7 +1360,7 @@ namespace ZaveViewModel.ViewModels
         {
             ZDFSingleton activeZDF = ZDFSingleton.GetInstance();
             activeZDF.EntryList.Clear();
-            MainContainerViewModel.activeZdfUndo.Clear();
+            ExpandedViewModel.activeZdfUndo.Clear();
             SaveLocation = getSaveDirectory();
             Filename = GuidGenerator.UNSAVEDFILENAME;
             new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);

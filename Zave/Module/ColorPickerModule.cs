@@ -11,7 +11,7 @@ using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {
-    //[ModuleDependency("MainContainerModule")]
+    //[ModuleDependency("ExpandedViewModule")]
     //[ModuleDependency("WidgetModule")]
     [Module(ModuleName = "ColorPickerModule")]
     [ModuleDependency("AppSettingsModule")]

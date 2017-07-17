@@ -206,11 +206,12 @@
     <Compile Include="Module\DataServiceModule.cs" />
     <Compile Include="Module\IOModule.cs" />
     <Compile Include="Module\JsonModule.cs" />
-    <Compile Include="Module\MainContainerModule.cs" />
+    <Compile Include="Module\ExpandedViewModule.cs" />
     <Compile Include="Module\MainWindowModule.cs" />
     <Compile Include="Module\MenuModule.cs" />
     <Compile Include="Module\ModuleBaseClass.cs" />
     <Compile Include="Module\WidgetModule.cs" />
+    <Compile Include="Module\ZDFAppContainerModule.cs" />
     <Compile Include="Module\ZDFEntryModule.cs" />
     <Compile Include="Module\ZDFModule.cs" />
     <Compile Include="Settings.cs" />
@@ -220,8 +221,8 @@
     <Compile Include="Views\ControlBar.xaml.cs">
       <DependentUpon>ControlBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainContainer.xaml.cs">
-      <DependentUpon>MainContainer.xaml</DependentUpon>
+    <Compile Include="Views\ExpandedView.xaml.cs">
+      <DependentUpon>ExpandedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
@@ -247,6 +248,9 @@
     <Compile Include="Views\WidgetView.xaml.cs">
       <DependentUpon>WidgetView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ZDFAppContainer.xaml.cs">
+      <DependentUpon>ZDFAppContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ZaveControl.cs" />
     <Compile Include="ZaveControl.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -261,7 +265,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainContainer.xaml">
+    <Page Include="Views\ExpandedView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -316,6 +320,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WidgetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ZDFAppContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

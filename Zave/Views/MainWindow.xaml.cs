@@ -39,21 +39,24 @@ namespace Zave.Views
 
 
 
-        public static readonly new DependencyProperty HeightProperty =
+        public static readonly DependencyProperty DynamicHeightProperty =
             DependencyProperty.Register
             (
-                "DynamicHeight", typeof(int), typeof(MainWindow)
+                "DynamicHeight", typeof(int), typeof(MainWindow), 
+                new FrameworkPropertyMetadata(
+                    600, FrameworkPropertyMetadataOptions.AffectsMeasure
+                    )
             );
 
         public int DynamicHeight
         {
             get
             {
-                return (int)this.GetValue(HeightProperty);
+                return (int)this.GetValue(DynamicHeightProperty);
             }
             set
             {
-                SetValue(HeightProperty, value);
+                SetValue(DynamicHeightProperty, value);
             }
         }
 

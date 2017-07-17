@@ -92,8 +92,9 @@ namespace Zave
             moduleCatalog.AddModule(typeof(JsonModule));
             moduleCatalog.AddModule(typeof(DataServiceModule));
             moduleCatalog.AddModule(typeof(MainWindowModule));
+            moduleCatalog.AddModule(typeof(ZDFAppContainerModule));
             moduleCatalog.AddModule(typeof(ZDFModule));
-            moduleCatalog.AddModule(typeof(MainContainerModule));
+            moduleCatalog.AddModule(typeof(ExpandedViewModule));
             moduleCatalog.AddModule(typeof(ZDFEntryModule));
             moduleCatalog.AddModule(typeof(WidgetModule));
             moduleCatalog.AddModule(typeof(ColorPickerModule));

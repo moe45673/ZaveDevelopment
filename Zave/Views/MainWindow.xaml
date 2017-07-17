@@ -54,12 +54,11 @@
         </Grid.RowDefinitions>
         <!--<Border Style="{StaticResource TitleBar_Border}">
             -->
-        <!--<ContentControl x:Name="TitleBarRegion"
-                               prism:RegionManager.RegionName="TitleBarRegion"/>-->
+        <ContentControl x:Name="ContainerRegion"
+                               prism:RegionManager.RegionName="ContainerRegion"/>
         <!--
         </Border>-->
-        <ContentControl x:Name="MainViewRegion"
-                               prism:RegionManager.RegionName="MainViewRegion" />
+
     </Grid>
 
 </Window>

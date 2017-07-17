@@ -21,9 +21,9 @@ namespace Zave.Module
     [Module(ModuleName = "WidgetModule")]
     [ModuleDependency("DataServiceModule")]
     [ModuleDependency("ControlBarModule")]
-    [ModuleDependency("MainWindowModule")]
+    [ModuleDependency("ZDFAppContainerModule")]
     [ModuleDependency("AppSettingsModule")]
-    //[ModuleDependency("MainContainerModule")]
+    //[ModuleDependency("ExpandedViewModule")]
     public class WidgetModule : ModuleBaseClass
     {
         /// <summary>
@@ -40,6 +40,8 @@ namespace Zave.Module
         /// </summary>
         public override void Initialize()
         {
+            //var manager = _unityContainer.Resolve<ModuleManager>();
+            //manager.LoadModule("ZDFAppContainerModule");
 
             UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(WidgetView), InstanceNames.WidgetView);
 

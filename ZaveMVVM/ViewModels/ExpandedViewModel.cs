@@ -62,7 +62,7 @@ namespace ZaveViewModel.ViewModels
 
     }
 
-    public class MainContainerViewModel : BindableBase
+    public class ExpandedViewModel : BindableBase
     {
 
         
@@ -108,7 +108,7 @@ namespace ZaveViewModel.ViewModels
         //    }
         //}
 
-        public MainContainerViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
+        public ExpandedViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator eventAgg, IOService ioService)
         {
 
             if (cont == null) throw new ArgumentNullException("container");

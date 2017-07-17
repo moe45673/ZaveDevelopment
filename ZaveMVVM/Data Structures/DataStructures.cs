@@ -308,6 +308,8 @@ namespace ZaveViewModel.Data_Structures
 
         protected IZDFEntry _zdfEntry;
 
+
+
         public static string SelectedZDFByUser = null;
 
 

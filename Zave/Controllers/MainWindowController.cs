@@ -71,7 +71,7 @@ namespace Zave.Controllers
 
 
                 case (WindowMode.MAIN):
-                    WindowModeChange<Views.MainContainer, MainContainerViewModel>(InstanceNames.MainContainerView);
+                    WindowModeChange<Views.ExpandedView, ExpandedViewModel>(InstanceNames.ExpandedView);
 
                     break;
                 case (WindowMode.WIDGET):

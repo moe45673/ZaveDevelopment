@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace Zave.Views
 {
     /// <summary>
-    /// Interaction logic for MainContainer.xaml
+    /// Interaction logic for ZDFAppContainer.xaml
     /// </summary>
-    public partial class MainContainer : UserControl
+    public partial class ZDFAppContainer : UserControl
     {
-        public MainContainer()
+        public ZDFAppContainer()
         {
             InitializeComponent();
         }
-
-        
     }
 }

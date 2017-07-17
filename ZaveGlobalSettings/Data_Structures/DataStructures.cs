@@ -533,13 +533,14 @@ namespace ZaveGlobalSettings.Data_Structures
         public const string MainWindowView = "MainWindowView";
         public const string MainWindowViewModel = "MainWindowViewModel";
         public const string ActiveZDF = "ActiveZDF";
-        public const string MainContainerView = "MainContainerView";
+        public const string ExpandedView = "ExpandedView";
         public const string WidgetView = "WidgetView";
         public const string AppSettings = "AppSettings";
         public const string ColorPickerView = "ColorPickerView";
         public const string ControlBarView = "ControlBarView";
         public const string ExportedToWord = "ZDF has been exported to your ZDFs Folder";
         public const string ZDFEntry = "ZDFEntry";
+        public const string ZDFAppContainer = "ZDFAppContainer";
     }
 
     public class RegionNames
@@ -579,6 +580,15 @@ namespace ZaveGlobalSettings.Data_Structures
                 return "MainViewRegion";
             }
         }
+
+        public static string ContainerRegion
+        {
+            get
+            {
+                return "ContainerRegion";
+            }
+        }
+
         public static string WidgetMainRegion
         {
             get

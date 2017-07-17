@@ -11,23 +11,23 @@ using ZaveGlobalSettings.Data_Structures;
 
 namespace Zave.Module
 {
-    [Module(ModuleName="MainContainerModule")]
+    [Module(ModuleName="ExpandedViewModule")]
     [ModuleDependency("DataServiceModule")]
-    [ModuleDependency("MainWindowModule")]
+    [ModuleDependency("ZDFAppContainerModule")]
     [ModuleDependency("ControlBarModule")]
     [ModuleDependency("AppSettingsModule")]
-    public class MainContainerModule : ModuleBaseClass
+    public class ExpandedViewModule : ModuleBaseClass
     {
 
         //private Zave.Controllers.ZDFEntryController _mainContainerController;
 
-        public MainContainerModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry) { }
+        public ExpandedViewModule(IUnityContainer cont, IRegionManager registry) : base(cont, registry) { }
 
         //private ZaveController.EventInitSingleton eventInit;
         public override void Initialize()
         {
             //var controlbar = _unityContainer.Resolve<ControlBar>();
-            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(MainContainer), InstanceNames.MainContainerView);
+            UnityContainerExtensions.RegisterType(_unityContainer, typeof(object), typeof(ExpandedView), InstanceNames.ExpandedView);
             //IRegion controlbarRegion = _regionManager.Regions[RegionNames.ControlBarRegion];
             //controlbarRegion.Add(controlbar);
             _regionManager.RegisterViewWithRegion(RegionNames.ControlBarRegion, () => _unityContainer.Resolve<ControlBar>(InstanceNames.ControlBarView));

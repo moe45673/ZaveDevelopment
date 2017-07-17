@@ -42,7 +42,7 @@ namespace ZaveViewModel.ViewModels
         private string activeSort;
         private void getActiveSort()
         {
-            activeSort = MainContainerViewModel.ACTIVESORT;
+            activeSort = ExpandedViewModel.ACTIVESORT;
         }
         private ZDFSingleton _activeZdf;
         private IEventAggregator _eventAggregator;
