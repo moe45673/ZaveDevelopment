@@ -31,7 +31,9 @@ namespace ZaveController
 {
 
 
-   
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class EventInitSingleton : PubSubEvent<SelectionState>, IDisposable
     {
 
@@ -50,35 +52,21 @@ namespace ZaveController
 
         //SafeHandle handle = new SafeFileHandle(, true);
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         private EventInitSingleton()
         {
-
-            //CreateFileWatcher(Path.GetTempPath());
             CreateFileWatcher(Path.GetTempPath());
-            //using(var sw = ZaveGlobalSettings.ZaveFile.StreamWriterFactory.createStreamWriter(Path.GetTempPath() + APIFileNames.ZaveToSource))
-            //{
-            //    sw.WriteLine("Written!");
-            //}
             lastRead = DateTime.MinValue;
-            //System.Drawing.Color startupColor = ColorCategory.FromWPFColor(setStartupColor()).Color;
-            //activeZDF = ZaveModel.ZDF.ZDFSingleton.GetInstance();
-            //enum Example { None = 0, Something = 1};
-            
-            //ZaveControlsViewModel.Instance.ActiveColor = setStartupColor();
-            //System.Windows.Forms.MessageBox.Show("EventInit Started!");
-            //DateTime date = DateTime.Now;
-            //SelectionState selState1 = new SelectionState(default(int), "ExampleDoc1.doc", "32", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dapibus dolor quis tincidunt. Curabitur leo dui, blandit in consequat eget, luctus ac magna. Quisque leo neque, tincidunt eu ultricies fringilla, convallis eu odio. Vestibulum fringilla mauris id ipsum lobortis, ac accumsan nisi tristique. Sed cursus varius neque eu bibendum. Nam fringilla diam eget turpis pharetra, ac congue urna auctor. Phasellus feugiat, purus ac venenatis varius, risus nisl porta lectus, nec pharetra ipsum velit congue massa. Pellentesque tempus vehicula elit, dictum venenatis mi hendrerit sed. Etiam et diam elementum, tristique est eget, aliquam massa. In id auctor augue. Integer accumsan ante ut ligula pellentesque dictum.\nSed augue dui, faucibus ac neque eget, euismod dignissim mi.Nullam nec varius nulla.In ut enim elit.Sed in leo non nisi ultrices lacinia.Mauris eleifend lectus purus, eget blandit ante suscipit vel.Nunc hendrerit nisl et nunc sodales volutpat.Proin quis metus quam.Proin eget felis tortor.Fusce eget imperdiet velit.\nDuis porta molestie dui, eget facilisis massa venenatis ac.Integer in condimentum est, at iaculis enim.Duis tempus efficitur est, eget sollicitudin turpis.Suspendisse leo velit, aliquet tristique quam id, vulputate tempus purus.Phasellus aliquam aliquet neque at tincidunt.Nam vulputate consequat nulla eu bibendum.Suspendisse auctor, sapien mollis laoreet lacinia, eros velit fermentum purus, non dictum odio tellus vitae diam.Sed enim risus, aliquam sit amet tristique in, interdum in augue.Nunc viverra pulvinar elit eget venenatis.Sed laoreet neque sed nibh fringilla scelerisque.Proin vestibulum rhoncus elit, vel convallis ligula pellen", date.AddMinutes(360), System.Drawing.Color.Yellow);
-            //SelectionState selState2 = new SelectionState();
-            //SelectionState selState3 = new SelectionState();
-
-            //activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState1));
-            //activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState2));
-            //activeZDF.Add(new ZaveModel.ZDFEntry.ZDFEntry(selState3));
-
-
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cont">The Unity DI Container</param>
+        /// <param name="eventAgg">The Prism Event Aggregator</param>
+        /// <returns></returns>
         public static EventInitSingleton GetInstance(IUnityContainer cont, IEventAggregator eventAgg = null)
         {
             if (instance._eventAggregator == null && eventAgg != null)
@@ -188,20 +176,13 @@ namespace ZaveController
         private void OnFileChanged(object source, FileSystemEventArgs e)
         {
 
-            //onchanged called multiple times, this ensures
+            //onFilechanged called multiple times per logical file change, this ensures that only the first file change is caught
             watcher.EnableRaisingEvents = false;
             System.Threading.Thread.Sleep(250);
             watcher.EnableRaisingEvents = true;
 
 
-            // Specify what is done when a file is changed, created, or deleted.
 
-
-            //List<SelectionState> _selState = new List<SelectionState>();
-            //SelectionState selState = new SelectionState();
-
-            //_selState.Add(JsonConvert.DeserializeObject<SelectionState>(File.ReadAllText(e.FullPath)));5
-            //SelectionState temp = new SelectionState>();
 
             using (StreamReader sr = StreamReaderFactory.createStreamReader(e.FullPath))
             {
@@ -300,26 +281,6 @@ namespace ZaveController
 
         }
 
-
-        //public event NotifyCollectionChangedEventHandler CollectionChanged;
-        //protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
-        //{
-
-        //}
-
-        //private void DocumentSelectionChange(Microsoft.Office.Interop.Word.Document Doc)
-        //{
-
-
-        //}
-
-        //private static void ThisDocument_SelectionChange(object sender, Microsoft.Office.Tools.Word.SelectionEventArgs e)
-        //{
-
-        //    string SelectionDocName = e.Selection.Application.ActiveDocument.Name;
-
-        //}
-
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
             // Specify what is done when a file is renamed.
@@ -327,31 +288,7 @@ namespace ZaveController
         }
 
 
-        //public void SrcHighlightEventHandler(Object o, SrcEventArgs e)
-        //{
 
-
-
-        //    ZaveModel.ZDFEntry.ZDFEntry entry = new ZaveModel.ZDFEntry.ZDFEntry();
-
-        //    entry.Source = e.zSrc;
-        //    activeZDF.Add(entry);
-        //zdfEntryHandler = new ZaveService.ZDFEntry.DefaultZDFEntryHandler(e.zSrc, activeZDF);
-        //zdfEntryHandler.CreateZDFEntry(new ZaveModel.ZDFEntry.ZDFEntry(e.zSrc));
-        //            entry.Source = e.zSrc;
-
-        //            _saveZDFEntryCommand = new RelayCommand(param => SaveZDFEntry(entry)
-        //, param => (entry != null));
-
-
-        // activeZDF.Add(entry);
-
-
-        //zevm.TxtDocName = activeZDF.EntryList[activeZDF.EntryList.Count - 1].Source.SelectionDocName;
-
-
-
-        //}
 
 
 

@@ -84,6 +84,7 @@ namespace ZaveGlobalSettings.Data_Structures
         public string Author;
     }
 
+
     /// <summary>
     /// High Level class that holds all data/metadata from an Entry abstractly
     /// </summary>
@@ -110,9 +111,6 @@ namespace ZaveGlobalSettings.Data_Structures
 
             IsValid = true;
         }
-
-
-
         public int ID { get; set; }
         public String SelectionPage { get; set; }
         public Color Color { get; set; }

@@ -15,6 +15,7 @@ using ZaveGlobalSettings.Data_Structures;
 using System.IO;
 using Prism.Commands;
 using System.Threading.Tasks;
+using ZaveViewModel.Data_Structures;
 
 namespace Zave
 {
@@ -117,7 +118,7 @@ namespace Zave
             
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
 
-            
+            Container.RegisterType<ZaveCommentItem, ZaveCommentViewModel>("ZaveCommentVMMapping", new InjectionConstructor(typeof(string), typeof(string)));
 
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(CommentInputDialog), "ModalInputDialog");
             //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialogViewModel), "ModalInputDialogViewModel");

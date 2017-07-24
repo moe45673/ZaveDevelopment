@@ -228,9 +228,9 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <StackPanel>
-
+                                <!--"{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}"-->
                                 <TextBlock x:Name="txtBoxCommentTxt" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Txt}"/>
-                                <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding CommentAuthor, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Author}"/>
+                                <TextBlock x:Name="txtBoxCommentAuthor" Text="{Binding Author.Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Comment_Author}"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
                                 <Button Name="EditButton" Content="Edit" Tag="{Binding DataContext, RelativeSource={RelativeSource Self}}" Style="{StaticResource CommentHeader_Button_Action}" DataContext="{Binding Mode=OneWay}" >

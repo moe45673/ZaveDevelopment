@@ -150,7 +150,7 @@ namespace Zave.Views
             //e.Cancel = true;
             Dispatcher.Invoke(() => ((MainWindowViewModel)DataContext).ConfirmUnsavedChangesCommand.Execute());
             
-
+            
         }
 
         //private void MainViewRegion_LostFocus(object sender, RoutedEventArgs e)

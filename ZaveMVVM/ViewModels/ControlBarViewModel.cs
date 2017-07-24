@@ -116,9 +116,12 @@ namespace ZaveViewModel.ViewModels
             {
                 if (_activeColor != value)
                 {
-                    SetProperty(ref _activeColor, value);
-                    ColorCategory colCat = ColorCategory.FromWPFColor(ActiveColor);
-                    _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(colCat.Color);
+                    SetProperty(ref _activeColor, value, () => 
+                    {
+                        _eventAggregator.GetEvent<ActiveColorUpdatedEvent>().Publish(ColorHelper.FromWPFColor(_activeColor));
+                    });
+                    
+                    
                 }
             }
 

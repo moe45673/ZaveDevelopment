@@ -39,6 +39,12 @@ namespace ZaveViewModel.ViewModels
 
         }
 
+        [InjectionConstructor]
+        public ZaveCommentViewModel() : base(null)
+        {
+            
+        }
+
         private ZaveCommentViewModel(IEntryComment modelComment) : base(modelComment)
         {
 
