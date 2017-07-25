@@ -118,7 +118,7 @@ namespace Zave
             
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ZDFList), "ZDFList");
 
-            Container.RegisterType<ZaveCommentItem, ZaveCommentViewModel>("ZaveCommentVMMapping", new InjectionConstructor(typeof(string), typeof(string)));
+            //Container.RegisterType<ZaveCommentItem, ZaveCommentViewModel>("ZaveCommentVMMapping", new InjectionConstructor(typeof(string), typeof(string)));
 
             UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(CommentInputDialog), "ModalInputDialog");
             //UnityContainerExtensions.RegisterType(Container, typeof(object), typeof(ModalInputDialogViewModel), "ModalInputDialogViewModel");

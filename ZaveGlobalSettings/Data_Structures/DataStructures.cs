@@ -17,12 +17,18 @@ namespace ZaveGlobalSettings.Data_Structures
     /// holds all allowable platforms for Zave to integrate with. Value must be a power of 2
     /// </summary>
     [Flags]
-    public enum SrcType { NONE = 0, WORD = 1, EXCEL = 2, OUTLOOK = 3 }
+    public enum SrcType { NONE = 0, WORD = 1, EXCEL = 2, OUTLOOK = 4 }
 
+
+    /// <summary>
+    /// A small signifier meant to be used for ID-ing what state the Window is in
+    /// </summary>
     public enum WindowMode { NONE = 0, MAIN = 1, WIDGET = 2 }
 
 
-
+    /// <summary>
+    /// An idea but ultimately unused
+    /// </summary>
     public sealed class SelectionStateList : List<SelectionState>
     {
         public List<SelectionState> SelStateList;
@@ -60,7 +66,7 @@ namespace ZaveGlobalSettings.Data_Structures
 
     /// <summary>
     /// 
-    /// 
+    /// The 16 standard colors of highlighters. Should be revised to be dynamic.
     /// </summary>
     [Flags]
     public enum AvailableColors
@@ -77,6 +83,10 @@ namespace ZaveGlobalSettings.Data_Structures
     //    }
 
     //}
+
+    /// <summary>
+    /// A generic struct for comments to be communicated, usually embedded inside a SelectionState
+    /// </summary>
     public struct SelectionComment
     {
         public int ID;
@@ -84,12 +94,13 @@ namespace ZaveGlobalSettings.Data_Structures
         public string Author;
     }
 
-
+    
     /// <summary>
-    /// High Level class that holds all data/metadata from an Entry abstractly
+    /// High Level class that holds all data/metadata from a Zave Entry abstractly
     /// </summary>
     public class SelectionState
     {
+        //TODO change so that the properties aren't hardcoded for Documents (eg Title, Page #), but also allow metadata for formats such as emails or webpages
 
         public SelectionState(int id = -1, string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
         {
@@ -142,6 +153,7 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+    //Unused
     public class Object<T1, T2, T3>
     {
 
@@ -201,6 +213,7 @@ namespace ZaveGlobalSettings.Data_Structures
 
 
 
+        //Unused
     public class ModelEventArgs : EventArgs
     {
         public ModelEventArgs(string description)
@@ -224,6 +237,7 @@ namespace ZaveGlobalSettings.Data_Structures
         }
     }
 
+    //Unused
     public class MouseMessageFilter : IMessageFilter
     {
         public static event MouseEventHandler MouseMove = delegate { };
@@ -244,6 +258,7 @@ namespace ZaveGlobalSettings.Data_Structures
         }
     }
 
+    //Unsure if unused? If so, barely
     public class SrcEventArgs : EventArgs
     {
         public SelectionState zSrc { get; set; }
@@ -255,6 +270,7 @@ namespace ZaveGlobalSettings.Data_Structures
         }
     }
 
+    //Unused
     public abstract class SourceFactory : IDisposable
     {
 
@@ -352,7 +368,7 @@ namespace ZaveGlobalSettings.Data_Structures
 
 
 
-
+    //Unused
     public abstract class ObservableObject : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Members
@@ -416,7 +432,7 @@ namespace ZaveGlobalSettings.Data_Structures
 
 
     }
-
+    #region Global Events
     public class EntryUpdateEvent : PubSubEvent<Object>
     {
 
@@ -501,6 +517,11 @@ namespace ZaveGlobalSettings.Data_Structures
 
     public class WindowModeChangedEvent : PubSubEvent<bool> { }
 
+    #endregion
+
+    /// <summary>
+    /// Custom Zave Exception class
+    /// </summary>
     public class ZaveOperationFailedException : Exception
     {
         public ZaveOperationFailedException() : base()
@@ -525,7 +546,9 @@ namespace ZaveGlobalSettings.Data_Structures
         }
     }
 
-
+    /// <summary>
+    /// Hardcoded instance names, mainly used with registered types and instances in the Unity container
+    /// </summary>
     public static class InstanceNames
     {
         public const string MainWindowView = "MainWindowView";
@@ -541,6 +564,10 @@ namespace ZaveGlobalSettings.Data_Structures
         public const string ZDFAppContainer = "ZDFAppContainer";
     }
 
+
+    /// <summary>
+    /// Hardcoded Region names in the RegionManager
+    /// </summary>
     public class RegionNames
     {
         public static string RecentZDFListRegion
@@ -632,6 +659,9 @@ namespace ZaveGlobalSettings.Data_Structures
         }
     }
 
+    /// <summary>
+    /// Implementations of IConfirmation to be used as modal dialog boxes
+    /// </summary>
     public struct ZaveMessageBoxes
     {
         public static IConfirmation ConfirmUnsavedChanges = new Confirmation { Content = "You have unsaved changes. Would you first like to save these?", Title = "Save Unsaved Changes?" };
@@ -640,11 +670,15 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+
     public struct ZaveNavigationParameters
     {
         public static readonly string CommentText = "CommentText";
     }
 
+    /// <summary>
+    /// Hardcoded Names of the files that are written to the Temp folder for Zave to communicate with other software
+    /// </summary>
     public static class APIFileNames
     {
         public static readonly string SourceToZave = GuidGenerator.getGuid() + "1";
@@ -662,10 +696,21 @@ namespace ZaveGlobalSettings.Data_Structures
         Color ActiveColor { get; set; }
     }
 
+    /// <summary>
+    /// Static class to perform operations on colors
+    /// </summary>
     public static class ColorHelper
     {
-
+        /// <summary>
+        /// What to multiply the RGB values to convert a color to greyscale
+        /// </summary>
         private static readonly float[] grayscaleValues = { 0.299F, 0.587F, 0.114F };
+
+        /// <summary>
+        /// Takes a color and returns it as greyscale value 
+        /// </summary>
+        /// <param name="col">The color to convert to greyscale</param>
+        /// <returns>The color as it would be represented in greyscale</returns>
         public static Color ToGrayscaleARGB(Color col)
         {
             int grayscale = (int)((col.R * grayscaleValues[0]) + (col.G * grayscaleValues[1]) + (col.B * grayscaleValues[2]));
@@ -673,12 +718,22 @@ namespace ZaveGlobalSettings.Data_Structures
 
         }
 
+        /// <summary>
+        /// Changes System.Drawing.Color to System.Windows.Media.Color (used with XAML)
+        /// </summary>
+        /// <param name="col">System Color to convert</param>
+        /// <returns>The color as a System.Windows.Media.Color</returns>
         public static WPFColor toWPFColor(Color col)
         {
             return WPFColor.FromArgb(col.A, col.R, col.G, col.B);
 
         }
 
+        /// <summary>
+        /// Turns a System.Windows.Media.Color (used with XAML and WPF) into a System.Drawing.Color
+        /// </summary>
+        /// <param name="wCol">The System.Windows.Media.Color to convert</param>
+        /// <returns>The color as a System.Drawing.Color</returns>
         public static Color FromWPFColor(WPFColor wCol)
         {
 
@@ -704,6 +759,11 @@ namespace ZaveGlobalSettings.Data_Structures
 
         }
 
+        /// <summary>
+        /// Gets a color from a name provided as a string
+        /// </summary>
+        /// <param name="str">Name of the color</param>
+        /// <returns>The System.Drawing.Color type that represents the input</returns>
         public static Color ParseFromString(string str)
         {
             ColorConverter converter = new ColorConverter();
@@ -713,6 +773,11 @@ namespace ZaveGlobalSettings.Data_Structures
 
         }
 
+        /// <summary>
+        /// Gets the name of a System.Windows.Media.Color
+        /// </summary>
+        /// <param name="color">The color from which to extract the name</param>
+        /// <returns>A string representation of the color name</returns>
         private static string GetWPFColorName(WPFColor color)
         {
             Type colors = typeof(System.Windows.Media.Colors);
@@ -728,8 +793,19 @@ namespace ZaveGlobalSettings.Data_Structures
 
     }
 
+    /// <summary>
+    /// Extension methods for List<> types
+    /// </summary>
     public static class ZaveListExtensions
     {
+
+        /// <summary>
+        /// Tests if two lists are exactly the same in terms of what they contain
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list1"></param>
+        /// <param name="list2"></param>
+        /// <returns>true if the lists are the </returns>
         public static bool AreEqual<T>(this List<T> list1, List<T> list2)
         {
 
@@ -741,7 +817,14 @@ namespace ZaveGlobalSettings.Data_Structures
         }
 
 
-
+        /// <summary>
+        /// Tests if two lists are exactly the same in terms of what they contain
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list1"></param>
+        /// <param name="list2"></param>
+        /// <param name="compEq">An instance of IEqualityComparer<> specifically made for T</param>
+        /// <returns></returns>
         public static bool AreEqual<T>(this List<T> list1, List<T> list2, IEqualityComparer<T> compEq)
         {
 
