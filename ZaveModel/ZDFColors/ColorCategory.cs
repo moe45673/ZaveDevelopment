@@ -17,6 +17,10 @@ using Newtonsoft.Json;
 
 
 namespace ZaveModel.ZDFColors {
+
+    /// <summary>
+    /// Class to hold all info about Colors that Zave may need
+    /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class ColorCategory : IComparable<ColorCategory>
     {
@@ -34,7 +38,9 @@ namespace ZaveModel.ZDFColors {
         ~ColorCategory() {
 
         }
-
+        /// <summary>
+        /// The System.Drawing.Color of the ZaveColor
+        /// </summary>
         [JsonProperty]
         public Color Color
         {
@@ -42,6 +48,9 @@ namespace ZaveModel.ZDFColors {
             set;
         }
 
+        /// <summary>
+        /// Name of the color. Most of the time, should be the same as Color.Name
+        /// </summary>
         [JsonProperty]
         public String Name
         {
@@ -49,12 +58,21 @@ namespace ZaveModel.ZDFColors {
             set;
         }
 
+        /// <summary>
+        /// Returns the System.Windows.Media.Color representation of the color. It should no longer be used and instead the ColorHelper static class should be used.
+        /// </summary>
+        /// <returns></returns>
         public WPFColor toWPFColor()
         {
             WPFColor wCol = WPFColor.FromArgb(Color.A, Color.R, Color.G, Color.B);
             return wCol;
         }
 
+        /// <summary>
+        /// Takes a System.Windows.Media.Color and returns a ColorCategory. It should no longer be used and instead the ColorHelper static class should be used.
+        /// </summary>
+        /// <param name="wCol">The System.Windows.Media.Color to turn into ColorCategory</param>
+        /// <returns>A ColorCategory representation of the input parameter</returns>
         public static ColorCategory FromWPFColor(WPFColor wCol)
         {
             
@@ -80,12 +98,27 @@ namespace ZaveModel.ZDFColors {
 
         }
 
-        public ColorCategory ParseFromString(string str)
+        /// <summary>
+        /// Returns a 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static ColorCategory ParseFromString(string str)
         {
             ColorConverter converter = new ColorConverter();
-            Color = (Color)converter.ConvertFromString(str);
-            Name = str;
-            return this;
+            Color color = new Color();
+            try
+            {
+                color = (Color)converter.ConvertFromString(str);
+                
+            }
+            catch(NotSupportedException nse)
+            {
+                throw nse;
+            }
+            
+            var name = str;
+            return new ColorCategory(color, name);
 
         }
 
@@ -101,9 +134,14 @@ namespace ZaveModel.ZDFColors {
             throw new System.Data.ObjectNotFoundException("The provided Color is not named.");
         }
 
+        /// <summary>
+        /// Compares two ColorCategory classes. Note that the comparison is based off the color's ARGB value
+        /// </summary>
+        /// <param name="other">The ColorCategory instance to compare with this one</param>
+        /// <returns>-1 if this instance precedes the other, 0 if equal, 1 if it follows the other</returns>
         public int CompareTo(ColorCategory other)
         {
-            return this.Color.ToString().CompareTo(other.Color.ToString());
+            return this.Color.ToArgb().CompareTo(other.Color.ToArgb());
         }
     }//end ColorCategory
 }

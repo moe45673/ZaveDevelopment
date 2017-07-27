@@ -10,6 +10,10 @@ using Newtonsoft.Json;
 
 namespace ZaveGlobalSettings.Data_Structures.ZaveObservableCollection
 {
+    /// <summary>
+    /// A substitute for the ObservableCollection<T> class to prevent crashes when the UI thread (which is STA) attempts to update the List while it is also being modified from the background thread
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [JsonObject(MemberSerialization.OptIn)]
 	public class ObservableImmutableList<T> : ObservableCollectionObject, IList, ICollection, IEnumerable, IList<T>, IImmutableList<T>, ICollection<T>, IEnumerable<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged, INotifyPropertyChanged
 		{

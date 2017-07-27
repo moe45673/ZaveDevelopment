@@ -100,7 +100,7 @@ namespace ZaveGlobalSettings.Data_Structures
     /// </summary>
     public class SelectionState
     {
-        //TODO change so that the properties aren't hardcoded for Documents (eg Title, Page #), but also allow metadata for formats such as emails or webpages
+        //TODO change so that the properties aren't hardcoded for Documents (eg with metadata Title, Page #), but rather dynamically appropriate metadata for formats such as emails or webpages
 
         public SelectionState(int id = -1, string name = "", string page = "", string text = "", DateTime date = default(DateTime), Color col = default(Color), SrcType src = SrcType.WORD, List<SelectionComment> comments = null)
         {
@@ -681,8 +681,8 @@ namespace ZaveGlobalSettings.Data_Structures
     /// </summary>
     public static class APIFileNames
     {
-        public static readonly string SourceToZave = GuidGenerator.getGuid() + "1";
-        public static readonly string ZaveToSource = GuidGenerator.getGuid() + "2";
+        public static readonly string SourceToZave = GuidGenerator.getExecutingAssemblyGuid() + "1";
+        public static readonly string ZaveToSource = GuidGenerator.getExecutingAssemblyGuid() + "2";
     }
 
     public abstract class WatcherFactory

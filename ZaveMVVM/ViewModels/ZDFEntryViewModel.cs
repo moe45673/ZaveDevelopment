@@ -311,7 +311,7 @@ namespace ZaveViewModel.ViewModels
 
 
                         //comment.Author = (User)"User";
-                        var newComment = new EntryComment(commentToEdit, true);
+                        var newComment = this.TxtDocComments.First(x => x.CommentID == commentToEdit.CommentID);
                         newComment.CommentText = dialogEditedComment.CommentText;
                         
                         var newList = TxtDocComments.ToList();

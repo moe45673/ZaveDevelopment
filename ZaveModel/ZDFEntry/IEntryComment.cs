@@ -17,9 +17,17 @@ using System.Collections.Generic;
 
 
 namespace ZaveModel.ZDFEntry {
+
+    /// <summary>
+    /// Placeholder for early development. Eventually should be replaced by the user defined by the login system
+    /// </summary>
     [JsonObject]
     public class User
     {
+
+        /// <summary>
+        /// The Name of the user
+        /// </summary>
         [JsonProperty]
         public string Name { get; set; }
 
@@ -31,7 +39,7 @@ namespace ZaveModel.ZDFEntry {
             return u;
         }
 
-        public static explicit operator string(User u = null)  // explicit string to User conversion operator
+        public static explicit operator string(User u = null)  // explicit User to string conversion operator
         {
             try
             {
@@ -45,6 +53,9 @@ namespace ZaveModel.ZDFEntry {
 
     }
 
+    /// <summary>
+    /// EqualityComparer implementation for comparing Comments
+    /// </summary>
     public class CommentEqualityComparer : EqualityComparer<IEntryComment>
     {
         public override bool Equals(IEntryComment x, IEntryComment y)
@@ -59,6 +70,9 @@ namespace ZaveModel.ZDFEntry {
         }
     }
 
+    /// <summary>
+    /// Interface that all Zave Comment classes implement
+    /// </summary>
     public interface IEntryComment {
 
         
@@ -99,13 +113,20 @@ namespace ZaveModel.ZDFEntry {
     }
 
 
-
+    /// <summary>
+    /// Comments made by Users on various ZDF attributes
+    /// </summary>
     [JsonObject]
     public class EntryComment : BindableBase, IEntryComment
     {
 
         //private static int idCounter = 0;
 
+            /// <summary>
+            /// Create a new EntryComment
+            /// </summary>
+            /// <param name="commText"></param>
+            /// <param name="author"></param>
         public EntryComment(string commText = "", string author = default(string) ) : base()
         {
             _commentText = commText;

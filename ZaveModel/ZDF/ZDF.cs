@@ -21,6 +21,11 @@ using Prism.Events;
 namespace ZaveModel.ZDF
 {
 
+    /// <summary>
+    /// The base ZDF class. 
+    /// </summary>
+    // 
+    //TODO Remove the Singleton pattern and use the DI Container for resolving instances
     [JsonObject]
     [JsonConverter(typeof(ZDFConverter))]
     public sealed class ZDFSingleton : BindableBase, IZDF
@@ -98,14 +103,16 @@ namespace ZaveModel.ZDF
 
 
         }
-
+        
+        /// <summary>
+        /// Keeps track of the Entry IDs. 
+        /// </summary>
+        //TODO Make more robust ID Generator
         [JsonProperty]
         public static int EntryIDTracker { get { return _entryIDTracker; } }
 
         
-       
-        [JsonIgnore]
-        private ObservableImmutableList<ZDFEntry.IZDFEntry> _entryList;
+        
 
         //public event NotifyCollectionChangedEventHandler CollectionChanged;
 
@@ -117,6 +124,9 @@ namespace ZaveModel.ZDF
             return EntryIDTracker;
         }
 
+        /// <summary>
+        /// Name of the ZDF
+        /// </summary>
         [JsonIgnore]
         private string _name;
         [JsonProperty]
@@ -129,6 +139,12 @@ namespace ZaveModel.ZDF
             }
         }
 
+        
+        [JsonIgnore]
+        private ObservableImmutableList<ZDFEntry.IZDFEntry> _entryList;
+        /// <summary>
+        /// List of Entries that sends notification events when updated
+        /// </summary>
         [JsonProperty]
         public ObservableImmutableList<ZDFEntry.IZDFEntry> EntryList
         {
@@ -147,7 +163,10 @@ namespace ZaveModel.ZDF
                 SetProperty(ref _id, value);
             }
         }
-
+        /// <summary>
+        /// unused
+        /// </summary>
+        /// <returns></returns>
         public SelectionStateList toSelectionStateList()
         {
             SelectionStateList selStateList = SelectionStateList.Instance;
@@ -169,6 +188,10 @@ namespace ZaveModel.ZDF
             return EntryList.ToList<ZDFEntry.IZDFEntry>();
         }
 
+        /// <summary>
+        /// Add Wrapper for IList<>
+        /// </summary>
+        /// <param name="zEntry">Entry to add to list</param>
         public void Add(ZDFEntry.IZDFEntry zEntry)
         {
             try
@@ -186,11 +209,18 @@ namespace ZaveModel.ZDF
             }
         }
 
+        /// <summary>
+        /// Way to add ZDFEntry to active instance of ZDFSingleton without having reference to active ZDF. Horrible early design and should be replaced with DI methods
+        /// </summary>
+        /// <param name="obj"></param>
         public static void Add(object obj)
         {
             Instance.Add(obj as ZDFEntry.IZDFEntry);
         }
 
+        /// <summary>
+        /// Unused
+        /// </summary>
         public void Clear()
         {
             IEventAggregator ea = this._eventAggregator;
@@ -201,6 +231,9 @@ namespace ZaveModel.ZDF
         
     }
 
+    /// <summary>
+    /// Class to convert ZDFs to Json
+    /// </summary>
     class ZDFConverter : JsonConverter
     {
 
@@ -219,26 +252,7 @@ namespace ZaveModel.ZDF
             }
         }
 
-        //public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        //{
-        //    //var jsonObject = JObject.Load(reader);
-        //    var zdf = ZDFSingleton.GetInstance();
-        //    //System.Windows.Forms.MessageBox.Show(existingValue.ToString());
-        //    if (reader.TokenType == JsonToken.StartObject)
-        //    {
-
-        //        T instance = (T)serializer.Deserialize<T>(reader);
-
-        //        //Comments = (List<EntryComment>) jsonObject.Se
-        //    }
-     
-
-
-
-        //    //serializer.Populate(jsonObject.CreateReader(), commentList);
-        //    //return commentList;
-        //    return new object();
-        //}
+        
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jObject = JObject.Load(reader);

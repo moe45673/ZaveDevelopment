@@ -17,6 +17,9 @@ namespace ZaveGlobalSettings.ZaveResources
 
     }
 
+    /// <summary>
+    /// LowLevel Hook to manipulate the the mouse cursor
+    /// </summary>
     public class ZaveCursorHook : IZaveLowLevelHook
 
     {
@@ -32,16 +35,13 @@ namespace ZaveGlobalSettings.ZaveResources
         private Cursor DefaultCursor = null;
         //private static GCHandle ptr_IBeamConst = GCHandle.Alloc(PTR_OCR_IBEAM.ToInt32(), GCHandleType.Pinned);
 
-
+            /// <summary>
+            /// Initializes two cursor references, one for the default System I_Beam and one for the custom Zave cursor
+            /// </summary>
         public void Init()
         {
 
-            //programCursor = Marshal.AllocHGlobal(resourceCursor.marker_cursor2.Length);
-            //Marshal.Copy(resourceCursor.marker_cursor2, 0, programCursor, resourceCursor.marker_cursor2.Length);
-            //using (MemoryStream ms = new MemoryStream(Properties.Resources.marker_cursor2))
-            //{
-            //    ZaveCursor = new Cursor(ms);
-            //}
+        
 
             var cross_i = Properties.Resources.zave_cursor3;
             ZaveCursor = cross_i.CursorFromArray(0);
@@ -51,6 +51,9 @@ namespace ZaveGlobalSettings.ZaveResources
 
         }
 
+        /// <summary>
+        /// Set System I_Beam cursor to the Zave one
+        /// </summary>
         public void Start()
         {
             programCursor = ZaveCursor.CopyHandle();
@@ -58,7 +61,9 @@ namespace ZaveGlobalSettings.ZaveResources
 
         }
 
-
+        /// <summary>
+        /// Set System I_Beam cursor to default one
+        /// </summary>
         public void Stop()
         {
             systemCursor = DefaultCursor.CopyHandle();

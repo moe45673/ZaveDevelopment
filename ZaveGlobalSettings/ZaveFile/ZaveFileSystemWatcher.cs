@@ -7,6 +7,10 @@ using System.IO;
 
 namespace ZaveGlobalSettings.ZaveFile
 {
+
+    /// <summary>
+    /// Unused
+    /// </summary>
     public class ZaveFileSystemWatcher : FileSystemWatcher, IDisposable
     {
         #region Private Members
