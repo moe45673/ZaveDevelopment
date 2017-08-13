@@ -27,16 +27,25 @@ namespace ZaveViewModel.Data_Structures
     using Prism.Regions;
     using System.Windows.Data;
     using System.Windows.Threading;
+    using ZaveGlobalSettings.Data_Structures.CustomAttributes;
     using CommentList = ObservableImmutableList<IEntryComment>;
 
     using selStateCommentList = List<SelectionComment>;
 
+
     #region Form Editing States
-    public interface IEditingItemState: IConfirmNavigationRequest
+    /// <summary>
+    /// Interface for all FormEditingState objects to inherit from
+    /// </summary>
+    /// <remarks>Implementation of the State design pattern</remarks>
+    public interface IEditingItemState : IConfirmNavigationRequest
     {
-       InteractionRequest<IConfirmation> ConfirmExitInteractionRequest { get; }
+        InteractionRequest<IConfirmation> ConfirmExitInteractionRequest { get; }
     }
 
+    /// <summary>
+    /// State to instantiate when a user has not finished editing their form
+    /// </summary>
     public class EditingItemState : IEditingItemState
     {
         protected InteractionRequest<IConfirmation> _confirmExitInteractionRequest;
@@ -82,6 +91,9 @@ namespace ZaveViewModel.Data_Structures
         }
     }
 
+    /// <summary>
+    /// State to instantiate after a user clicks "Finish" but before any processing of the form is done
+    /// </summary>
     public class FinishingEditingItemState : IEditingItemState
     {
 
@@ -116,6 +128,9 @@ namespace ZaveViewModel.Data_Structures
         }
     }
 
+    /// <summary>
+    /// State to instantiate after all form processing has been done
+    /// </summary>
     public class FinishedEditingItemState : IEditingItemState
     {
 
@@ -156,6 +171,12 @@ namespace ZaveViewModel.Data_Structures
     }
     #endregion
 
+    [PlaceHolder(
+        Name = "Default Sorter",
+        Description = "Provides sorting by color. Needs update to allow " +
+        "sorting to be set by user preference"
+        )
+    ]
     public class ZDFSorting
     {
         public static List<T> EntrySort<T>(List<T> listToSort, string propName)
@@ -176,6 +197,10 @@ namespace ZaveViewModel.Data_Structures
         }
     }
 
+    /// <summary>
+    /// Class that all Comments inherit from
+    /// </summary>
+    /// <remarks>Not a good design. Each ViewModel should be a separate class</remarks>
     public abstract class ZaveCommentItem : BindableBase, INavigationAware, IActiveAware
     {
         protected ZaveCommentItem(IEntryComment modelComment = null, string text = default(string), string author = default(string), int id = 0)
@@ -201,10 +226,17 @@ namespace ZaveViewModel.Data_Structures
                 _modelComment = new EntryComment();
                 _commentID = -1;
             }
+
+            //If the Model changes in any way, this should reflect that change
             ((EntryComment)_modelComment).PropertyChanged += ZDFCommentItem_PropertyChanged;
 
         }
 
+        /// <summary>
+        /// Update the ViewModel if the corresponding Model changes
+        /// </summary>
+        /// <param name="sender">The Model that has changed</param>
+        /// <param name="e">The Properties that were changed</param>
         protected void ZDFCommentItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             IEntryComment temp = sender as IEntryComment;
@@ -221,8 +253,9 @@ namespace ZaveViewModel.Data_Structures
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             IsActive = true;
-            
+
         }
+
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -234,6 +267,7 @@ namespace ZaveViewModel.Data_Structures
             IsActive = false;
         }
 
+        
         protected IEntryComment _modelComment;
 
 
@@ -257,6 +291,9 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
+        /// <summary>
+        /// Corresponding IEntryComment to expose to the View
+        /// </summary>
         public IEntryComment ModelComment
         {
             get { return _modelComment; }
@@ -267,12 +304,14 @@ namespace ZaveViewModel.Data_Structures
 
         public event EventHandler IsActiveChanged;
 
+
         protected virtual void OnIsActiveChanged()
         {
             var handler = IsActiveChanged;
             if (handler != null)
                 handler(this, EventArgs.Empty);
         }
+
 
         public String CommentAuthor
         {
@@ -294,14 +333,19 @@ namespace ZaveViewModel.Data_Structures
 
             set
             {
-                if(SetProperty(ref _isActive, value))
+                SetProperty(ref _isActive, value, () =>
                 {
-                    OnIsActiveChanged();
-                }
+                    OnIsActiveChanged(); 
+                });
+                
             }
         }
     }
 
+    /// <summary>
+    /// Class that ZDFEntry ViewModels inherit from in the List -> Detail view pattern
+    /// </summary>
+    /// <remarks>Should be better implemented, all Viewmodels should be separate</remarks>
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class ZDFEntryItem : BindableBase, INavigationAware
     {
@@ -312,7 +356,11 @@ namespace ZaveViewModel.Data_Structures
 
         public static string SelectedZDFByUser = null;
 
-
+        /// <summary>
+        /// Called when the corresponding IZDFEntry model's comments are changed to update the viewmodel
+        /// </summary>
+        /// <param name="sender">The corresponding model's collection</param>
+        /// <param name="e">details about how the collection was changed</param>
         protected void ModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             try
@@ -350,8 +398,8 @@ namespace ZaveViewModel.Data_Structures
 
                         case NotifyCollectionChangedAction.Remove:
 
-                            
-                            foreach(IEntryComment comment in e.OldItems)
+
+                            foreach (IEntryComment comment in e.OldItems)
                             {
                                 TxtDocComments.Remove(comment, new CommentEqualityComparer());
                             }
@@ -391,12 +439,22 @@ namespace ZaveViewModel.Data_Structures
             {
                 System.Windows.Forms.MessageBox.Show("Unable to Add New Comment!");
             }
-        
+
         }
 
 
         //private string _txtDocId;
 
+            /// <summary>
+            /// Method to ensure object integrity whenever created or modified
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="name"></param>
+            /// <param name="page"></param>
+            /// <param name="txt"></param>
+            /// <param name="dateModded"></param>
+            /// <param name="col">The Color associated with the Entry</param>
+            /// <param name="comments"></param>
         protected void setProperties(int id = 0, string name = default(string), string page = default(string), string txt = default(string), DateTime dateModded = default(DateTime), Color col = default(Color), CommentList comments = null)
         {
             if (_zdfEntry == null)
@@ -433,7 +491,7 @@ namespace ZaveViewModel.Data_Structures
 
             _zdfEntry.Comments.CollectionChanged -= new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
             _zdfEntry.Comments.CollectionChanged += new NotifyCollectionChangedEventHandler(ModelCollectionChanged);
-            
+
 
 
 
@@ -464,7 +522,12 @@ namespace ZaveViewModel.Data_Structures
         //}
 
 
-
+        /// <summary>
+        /// Method to ensure object integrity whenever created or modified
+        /// </summary>
+        /// <param name="selState">The SelectionState object to get the data from</param>
+        /// <exception cref="NullReferenceException">Thrown if SelectionState is null</exception>
+        
         protected virtual void setProperties(SelectionState selState)
         {
             try
@@ -482,6 +545,11 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
+        /// <summary>
+        /// Method to ensure object integrity whenever created or modified
+        /// </summary>
+        /// <param name="zEntry">The model with which to get the data from</param>
+        /// <exception cref="NullReferenceException"/>
         public virtual void setProperties(IZDFEntry zEntry)
         {
             try
@@ -499,7 +567,9 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
-
+        /// <summary>
+        /// The Commands that the view sends to the corresponding ViewModel
+        /// </summary>
         #region Commands
 
 
@@ -549,6 +619,10 @@ namespace ZaveViewModel.Data_Structures
         //}
 
         private bool _isNotEditing;
+        /// <summary>
+        /// Flag to declare if the Entry is being edited
+        /// </summary>
+        /// <remarks>Should be replaced by Prism's built-in enabling/disabling (using commands) and/or the State design pattern</remarks>
         protected bool IsNotEditing
         {
             get { return _isNotEditing; }
@@ -582,7 +656,10 @@ namespace ZaveViewModel.Data_Structures
 
 
 
-
+        /// <summary>
+        /// Sets this ViewModel's Model
+        /// </summary>
+        /// <param name="zdfEntry">The ZDFEntry with the relevant data</param>
         protected ZDFEntryItem(ZDFEntry zdfEntry)
         {
             _zdfEntry = zdfEntry;
@@ -604,6 +681,11 @@ namespace ZaveViewModel.Data_Structures
             return _zdfEntry.toSelectionState();
         }
 
+        /// <summary>
+        /// Turns a List of SelectionState Comments into ZaveEntry comments
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static CommentList fromObjectList(selStateCommentList list)
         {
             if (list == null)
@@ -620,6 +702,11 @@ namespace ZaveViewModel.Data_Structures
             return tempList;
         }
 
+        /// <summary>
+        /// Returns an ObservableImmutableList{IEntryComment} from an IList{IEntryComment}
+        /// </summary>
+        /// <param name="zComments"></param>
+        /// <returns></returns>
         public static CommentList fromZDFCommentList(IList<IEntryComment> zComments)
         {
 
@@ -653,14 +740,19 @@ namespace ZaveViewModel.Data_Structures
 
         public virtual void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            
+
         }
 
         #endregion
 
+
         #region Properties
 
         protected String _txtDocName;
+        /// <summary>
+        /// Name of the Source Document
+        /// </summary>
+        /// <remarks>Should be redesigned to allow for more diverse source materials (EG emails)</remarks>
         public String TxtDocName
         {
             get { return _zdfEntry.Name; }
@@ -675,6 +767,9 @@ namespace ZaveViewModel.Data_Structures
 
         }
 
+        /// <summary>
+        /// Identifier of the ZDFEntry
+        /// </summary>
         protected String _txtDocID;
         public virtual string TxtDocID
         {
@@ -699,7 +794,10 @@ namespace ZaveViewModel.Data_Structures
             }
 
         }
-
+        /// <summary>
+        /// Page in the source doc that this Entry came from
+        /// </summary>
+        /// <remarks>Should be redesigned to allow for more diverse source materials (EG emails)</remarks>
         protected String _txtDocPage;
         public String TxtDocPage
         {
@@ -713,7 +811,9 @@ namespace ZaveViewModel.Data_Structures
             }
 
         }
-
+        /// <summary>
+        /// Highlighted Text from the original document
+        /// </summary>
         protected String _txtDocText;
         public String TxtDocText
         {
@@ -767,6 +867,9 @@ namespace ZaveViewModel.Data_Structures
             }
         }
 
+        /// <summary>
+        /// The corresponding Model of the ViewModel
+        /// </summary>
         public IZDFEntry ZDFEntry
         {
             get { return _zdfEntry; }
@@ -775,10 +878,7 @@ namespace ZaveViewModel.Data_Structures
                 SetProperty(ref _zdfEntry, value);
             }
         }
-
-        //protected IEnumerable<>
-
-        //private readonly object _docCommentsLock;
+        
         protected CommentList _txtDocComments;
         public CommentList TxtDocComments
         {
@@ -794,7 +894,7 @@ namespace ZaveViewModel.Data_Structures
                 }
                 if (SetProperty(ref _txtDocComments, value))
                     ZDFEntry.Comments = value;
-                
+
 
 
                 //}
@@ -803,6 +903,13 @@ namespace ZaveViewModel.Data_Structures
 
         private bool _canEdit;
 
+        /// <summary>
+        /// Flag to determine if able to edit a Comment
+        /// </summary>
+        /// <remarks>
+        /// Should be true if one Comment is selected
+        /// Should be redesigned, likely using the State Pattern
+        /// </remarks>
         public bool CanEdit
         {
             get { return this._canEdit; }
@@ -811,7 +918,13 @@ namespace ZaveViewModel.Data_Structures
 
 
         private bool _canDelete;
-
+        /// <summary>
+        /// Flag to determine if able to Delete a Comment
+        /// </summary>
+        /// <remarks>
+        /// Should be true if one Comment is selected
+        /// Should be redesigned, likely using the State Pattern
+        /// </remarks>
         public bool CanDelete
         {
             get { return this._canDelete; }
@@ -820,7 +933,12 @@ namespace ZaveViewModel.Data_Structures
 
 
         private bool _isEditing;
-
+        /// <summary>
+        /// Flag to determine if a comment is being edited
+        /// </summary>
+        /// <remarks>
+        /// Horrible code. Permission should be set by dialog window, not by calling window
+        /// </remarks>
         public bool IsEditing
         {
             get { return this._isEditing; }
@@ -836,6 +954,12 @@ namespace ZaveViewModel.Data_Structures
 
         private bool _canAdd;
 
+        /// <summary>
+        /// Flag to determine if able to add Comment to ZDFEntry
+        /// </summary>
+        /// <remarks>
+        /// Should be true if a ZDFEntry has been selected from the list and a Comment is not currently being edited
+        /// </remarks>
         public bool CanAdd
         {
             get { return this._canAdd; }
@@ -881,7 +1005,7 @@ namespace ZaveViewModel.Data_Structures
         #endregion 
     }
 
-    
+
 
 
 

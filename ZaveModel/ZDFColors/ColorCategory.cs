@@ -10,11 +10,7 @@ using System;
 using System.Drawing;
 using WPFColor = System.Windows.Media.Color;
 using Newtonsoft.Json;
-
-
-
-
-
+using ZaveGlobalSettings.Data_Structures;
 
 namespace ZaveModel.ZDFColors {
 
@@ -59,9 +55,10 @@ namespace ZaveModel.ZDFColors {
         }
 
         /// <summary>
-        /// Returns the System.Windows.Media.Color representation of the color. It should no longer be used and instead the ColorHelper static class should be used.
+        /// Returns the System.Windows.Media.Color representation of the color.
         /// </summary>
         /// <returns></returns>
+        [Obsolete("Use ColorHelper.toWPFColor() instead")]
         public WPFColor toWPFColor()
         {
             WPFColor wCol = WPFColor.FromArgb(Color.A, Color.R, Color.G, Color.B);
@@ -69,10 +66,11 @@ namespace ZaveModel.ZDFColors {
         }
 
         /// <summary>
-        /// Takes a System.Windows.Media.Color and returns a ColorCategory. It should no longer be used and instead the ColorHelper static class should be used.
+        /// Takes a System.Windows.Media.Color and returns a ColorCategory.
         /// </summary>
         /// <param name="wCol">The System.Windows.Media.Color to turn into ColorCategory</param>
         /// <returns>A ColorCategory representation of the input parameter</returns>
+        [Obsolete("Use ColorHelper.FromWPFColor(WPFColor) instead")]
         public static ColorCategory FromWPFColor(WPFColor wCol)
         {
             
@@ -99,10 +97,11 @@ namespace ZaveModel.ZDFColors {
         }
 
         /// <summary>
-        /// Returns a 
+        /// Returns a ColorCategory object from a string representation of a Color
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str">The name of the color</param>
+        /// <returns>A ColorCategory object matching the name</returns>
+        [Obsolete("Use ColorHelper.ParseFromString(string) instead")]
         public static ColorCategory ParseFromString(string str)
         {
             ColorConverter converter = new ColorConverter();
@@ -119,9 +118,13 @@ namespace ZaveModel.ZDFColors {
             
             var name = str;
             return new ColorCategory(color, name);
-
         }
 
+        /// <summary>
+        /// Returns the name of a color
+        /// </summary>
+        /// <param name="color">A WPFColor object</param>
+        /// <returns>The name of the Color</returns>
         private static string GetWPFColorName(WPFColor color)
         {
             Type colors = typeof(System.Windows.Media.Colors);

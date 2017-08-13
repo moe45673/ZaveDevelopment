@@ -19,6 +19,9 @@ using Prism.Commands;
 
 namespace ZaveViewModel.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the ColorPicker
+    /// </summary>
     public class ColorPickerViewModel : BindableBase
     {
 

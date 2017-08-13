@@ -11,6 +11,7 @@ using Prism.Mvvm;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using ZaveGlobalSettings.Data_Structures.CustomAttributes;
 
 //using System.Security.Principal;
 
@@ -19,9 +20,10 @@ using System.Collections.Generic;
 namespace ZaveModel.ZDFEntry {
 
     /// <summary>
-    /// Placeholder for early development. Eventually should be replaced by the user defined by the login system
+    /// The class for identifying a User of the system
     /// </summary>
     [JsonObject]
+    [PlaceHolder(Name = "Author", Description = "To be used until a proper User Authentication system is implemented")]
     public class User
     {
 
@@ -31,14 +33,20 @@ namespace ZaveModel.ZDFEntry {
         [JsonProperty]
         public string Name { get; set; }
 
-
+        /// <summary>
+        /// Explicit cast from String to create new User object
+        /// </summary>
+        /// <param name="s">Name of the new user</param>
         public static explicit operator User(string s)  // explicit string to User conversion operator
         {
             User u = new User();
             u.Name = s;
             return u;
         }
-
+        /// <summary>
+        /// Explicit cast of a User to a string
+        /// </summary>
+        /// <param name="u">The User to input in a string field</param>
         public static explicit operator string(User u = null)  // explicit User to string conversion operator
         {
             try
@@ -97,6 +105,9 @@ namespace ZaveModel.ZDFEntry {
 		
 	}//end IEntryComment
 
+    /// <summary>
+    /// Keeps track of all IDs
+    /// </summary>
     internal static class IDTracker
     {
         private static int idCounter = 0;
@@ -120,13 +131,13 @@ namespace ZaveModel.ZDFEntry {
     public class EntryComment : BindableBase, IEntryComment
     {
 
-        //private static int idCounter = 0;
+        
 
             /// <summary>
             /// Create a new EntryComment
             /// </summary>
-            /// <param name="commText"></param>
-            /// <param name="author"></param>
+            /// <param name="commText">Text of the Comment</param>
+            /// <param name="author">User who wrote the comment</param>
         public EntryComment(string commText = "", string author = default(string) ) : base()
         {
             _commentText = commText;
@@ -137,7 +148,12 @@ namespace ZaveModel.ZDFEntry {
             
 
         }
-
+        /// <summary>
+        /// Create a new EntryComment
+        /// </summary>
+        /// <param name="newComm">Comment instance that new Comment should take its deatils from</param>
+        /// <param name="SameID">If this is code that already exists, then give it the same ID and do not create a new object in the DB</param>
+        /// <remarks>This is terrible code, it puts the responsibility on deciding if the code is a duplicate or not on the calling method. Needs a redesign</remarks>
         public EntryComment(IEntryComment newComm, bool SameID = false) : this(newComm.CommentText, newComm.Author.Name)
         {
             if (SameID)
@@ -160,6 +176,9 @@ namespace ZaveModel.ZDFEntry {
 
         [JsonIgnore]
         private int _commentID;
+        /// <summary>
+        /// Identifier for the comment
+        /// </summary>
         [JsonProperty]
         public int CommentID
         {

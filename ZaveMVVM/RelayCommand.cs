@@ -9,6 +9,7 @@ namespace ZaveViewModel
     /// objects by invoking delegates. The default return value for the
     /// CanExecute method is 'true'.
     /// </summary>
+    [Obsolete("Use Prism's DelegateCommand instead", true)]
     public class RelayCommand : ICommand
     {
         #region Fields

@@ -24,9 +24,12 @@ using Newtonsoft.Json.Linq;
 namespace ZaveModel.ZDFEntry
 {
 
-
+    //Alias
     using CommentList = ObservableImmutableList<IEntryComment>;
 
+    /// <summary>
+    /// Concrete implementation of IZDFEntry
+    /// </summary>
     [JsonObject]
     [JsonConverter(typeof(ZDFEntryConverter))]
     public class ZDFEntry : BindableBase, IZDFEntry
@@ -42,7 +45,9 @@ namespace ZaveModel.ZDFEntry
         public int ID { get { return _id; } }
 
 
-        
+        /// <summary>
+        /// Sets all properties to their defaults
+        /// </summary>
         public ZDFEntry()
         {
             m_IEntryComment = new CommentList();
@@ -57,6 +62,11 @@ namespace ZaveModel.ZDFEntry
             _format = new SrcType();
         }
 
+        /// <summary>
+        /// Factory method to create a ZDFEntry from a SelectionState instance
+        /// </summary>
+        /// <param name="src">The SelectionState with the relevant data for creation</param>
+        /// <returns>New ZDFEntry object with the data supplied by the src parameter</returns>
         public static ZDFEntry CreateZDFEntry(SelectionState src)
         {
 
@@ -89,6 +99,10 @@ namespace ZaveModel.ZDFEntry
 
         }
 
+        /// <summary>
+        /// Converts this ZDFEntry object into a SelectionState object
+        /// </summary>
+        /// <returns>The SelectionState representation of this object</returns>
         public SelectionState toSelectionState()
         {
             var commentList = new List<SelectionComment>();
@@ -200,7 +214,9 @@ namespace ZaveModel.ZDFEntry
     }
 
     //end ZDFEntry
-
+    /// <summary>
+    /// Class to return a Json representation of a ZDFEntry
+    /// </summary>
     class ZDFEntryConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)

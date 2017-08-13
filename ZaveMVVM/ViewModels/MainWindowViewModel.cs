@@ -41,12 +41,20 @@ using Microsoft.Office.Tools.Word;
 using Prism.Interactivity.InteractionRequest;
 using Word = Microsoft.Office.Tools.Word;
 using Task = System.Threading.Tasks.Task;
+using ZaveGlobalSettings.Data_Structures.CustomAttributes;
 
 
 //using GalaSoft.MvvmLight.CommandWpf;
 
 namespace ZaveViewModel.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the Shell
+    /// </summary>
+    /// <remarks>
+    /// Many commands and their implementations are ZDF-centric and not 
+    /// Application-centric and should be moved to the ZDFAppContainerViewModel
+    /// </remarks>
     public class MainWindowViewModel : BindableBase
     {
         private readonly IRegionManager _regionManager;
@@ -66,62 +74,83 @@ namespace ZaveViewModel.ViewModels
         public InteractionRequest<IConfirmation> ConfirmationRequest { get; private set; }
 
         #region Delegate Properties
+
+        /// <summary>
+        /// Command to be called when switching Window Mode using Default switch method(eg fullsize to Widget)
+        /// </summary>
         public DelegateCommand SwitchWindowModeCommand { get; set; }
 
+        /// <summary>
+        /// Command to be called when deleting a ZDFEntry
+        /// </summary>
+        /// <remarks>Should be moved to ZDFAppContainerViewModel</remarks>
         public DelegateCommand<string> DeleteZDFEntryCommand { get; set; }
 
+        /// <summary>
+        /// Command to be called when switching to a specific Window Mode
+        /// </summary>
+        /// <remarks>Should be moved to ZDFAppContainerViewModel</remarks>
         public DelegateCommand<WindowMode?> SwitchSpecificWindowModeCommand { get; set; }
 
+        /// <summary>
+        /// Command to be called when saving a ZDF
+        /// </summary>
         public DelegateCommand SaveZDFDelegateCommand { get; set; }
+        /// <summary>
+        /// Command to be called when opening a previously saved ZDF
+        /// </summary>
+        /// <remarks>Identical to OpenZDFDelegateCommand</remarks>
         public DelegateCommand OpenZDFDelegateCommand { get; set; }
+
+        /// <summary>
+        /// Command to be called when opening a previously saved ZDF
+        /// </summary>
+        /// <remarks>Identical to OpenZDFDelegateCommand</remarks>
         public DelegateCommand<string> OpenZDFFromFileDelegateCommand { get; set; }
 
 
-
+        /// <summary>
+        /// Command to be called when opening a new ZDF Document
+        /// </summary>
         public DelegateCommand NewZDFDelegateCommand { get; set; }
 
+        /// <summary>
+        /// Command to be called when Adding a New ZDFEntry to the list
+        /// </summary>
         public DelegateCommand NewZDFEntryDelegateCommand { get; set; }
 
+        /// <summary>
+        /// Command to be called when "Undo" is clicked or "Ctrl-Z" is pressed
+        /// </summary>
+        /// <remarks>Should be moved to ZDFAppContainerViewModel</remarks>
         public DelegateCommand UndoZDFDelegateCommand { get; set; }
-
+        /// <summary>
+        /// Command to be called when "Redo" is clicked or "Ctrl-Y" is pressed
+        /// </summary>
         public DelegateCommand RedoZDFDelegateCommand { get; set; }
-
+        /// <summary>
+        /// Command to be called when the "Screenshot" button is clicked
+        /// </summary>
         public DelegateCommand ScreenshotZDFDelegateCommand { get; set; }
-
+        /// <summary>
+        /// Command to be called when the Export function is chosen
+        /// </summary>
+        /// <remarks>Should be moved to ZDFAppContainerViewModel</remarks>
         public DelegateCommand<String> ExportZDFDelegateCommand { get; set; }
-
+        /// <summary>
+        /// Command to be called when the "Save As..." option is chosen
+        /// </summary>
         public DelegateCommand SaveASZDFDelegateCommand { get; set; }
 
+        /// <summary>
+        /// Command to be called when a ZDF is being unloaded with unsaved changes
+        /// </summary> 
+        /// <remarks>Should be moved to ZDFAppContainerViewModel</remarks>
         public DelegateCommand ConfirmUnsavedChangesCommand { get; set; }
 
         #endregion
 
-        //async Task<string> GetDefaultSaveDirectory()
-        //{
-        //    for(int i = 0; i<20; i++)
-        //    {
-        //        try
-        //        {
-        //            var mcvm = await Task<ExpandedViewModel>.Factory.StartNew(() =>
-        //            {
-        //                return _container.Resolve<ExpandedViewModel>() as ExpandedViewModel;
-        //            });                   
-
-        //            return mcvm.getSaveDirectory() + "ZDF_" + DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToShortTimeString() + ".zdf"; ;
-
-
-        //        }
-        //        catch(NullReferenceException nre)
-        //        {
-        //            Thread.Sleep(100);
-        //        }
-
-
-
-        //    }
-
-        //    return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        //}
+    
 
         public MainWindowViewModel(IRegionManager regionManager, IUnityContainer cont, IEventAggregator agg, IIOService ioservice, IJsonService jsonService)
         {
@@ -211,12 +240,13 @@ namespace ZaveViewModel.ViewModels
             
             
         }
-
+        //TODO Create method to make it user's choice as to how Zave starts up
         private WindowMode GetStartupWinMode()
         {
             //TODO Make this configurable by the user settings
             return WindowMode.WIDGET;
         }
+
 
         private void OpenZDFAsync(string filename)
         {
@@ -340,6 +370,7 @@ namespace ZaveViewModel.ViewModels
             _WindowModeChangeResult.TrySetResult(result);
         }
 
+        //TODO Needs to be improved by an isDirty() flag
         private bool CheckForUnsavedChanges()
         {
             bool result = false;
@@ -792,7 +823,14 @@ namespace ZaveViewModel.ViewModels
 
 
         }
-
+        /// <summary>
+        /// Used when exporting ZDF to WordDoc
+        /// </summary>
+        /// <param name="wordDoc">The word Document that is the target of the export</param>
+        /// <param name="entry">The ZDF Entry</param>
+        /// <param name="rngStart">The location in the Doc where to start the ColorHeading</param>
+        /// <param name="rngEnd">The location in the Doc where to end the Color Heading</param>
+        /// <param name="bmName">Unused</param>
         private void addColorHeadingToWordDoc(Microsoft.Office.Interop.Word.Document wordDoc, IZDFEntry entry, object rngStart, object rngEnd, string bmName)
         {
             var colorRng = wordDoc.Range(ref rngStart, ref rngEnd);
@@ -1075,48 +1113,7 @@ namespace ZaveViewModel.ViewModels
             #endregion
         }
 
-        //public void SaveScreen(double x, double y, double width, double height)
-        //{
-        //    int ix, iy, iw, ih;
-        //    ix = Convert.ToInt32(x);
-        //    iy = Convert.ToInt32(y);
-        //    iw = Convert.ToInt32(width);
-        //    ih = Convert.ToInt32(height);
-        //    try
-        //    {
-        //        Bitmap myImage = new Bitmap(iw, ih);
-
-        //        Graphics gr1 = Graphics.FromImage(myImage);
-        //        IntPtr dc1 = gr1.GetHdc();
-        //        IntPtr dc2 = NativeMethods.GetWindowDC(NativeMethods.GetForegroundWindow());
-        //        NativeMethods.BitBlt(dc1, ix, iy, iw, ih, dc2, ix, iy, 13369376);
-        //        gr1.ReleaseHdc(dc1);
-        //        SaveFileDialog dlg = new SaveFileDialog();
-        //        dlg.DefaultExt = "png";
-        //        dlg.Filter = "Png Files|*.png";
-        //        DialogResult res = dlg.ShowDialog();
-        //        if (res == System.Windows.Forms.DialogResult.OK)
-        //            myImage.Save(dlg.FileName, ImageFormat.Png);
-        //    }
-        //    catch { }
-        //}
-        //public void CaptureScreen(double x, double y, double width, double height)
-        //{
-        //    int ix, iy, iw, ih;
-        //    ix = Convert.ToInt32(x);
-        //    iy = Convert.ToInt32(y);
-        //    iw = Convert.ToInt32(width);
-        //    ih = Convert.ToInt32(height);
-        //    Bitmap image = new Bitmap(iw, ih, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-        //    Graphics g = Graphics.FromImage(image);
-        //    g.CopyFromScreen(ix, iy, ix, iy, new System.Drawing.Size(iw, ih), CopyPixelOperation.SourceCopy);
-        //    SaveFileDialog dlg = new SaveFileDialog();
-        //    dlg.DefaultExt = "png";
-        //    dlg.Filter = "Png Files|*.png";
-        //    DialogResult res = dlg.ShowDialog();
-        //    if (res == System.Windows.Forms.DialogResult.OK)
-        //        image.Save(dlg.FileName, ImageFormat.Png);
-        //}
+        
 
         /// <summary>
         /// 
@@ -1336,7 +1333,11 @@ namespace ZaveViewModel.ViewModels
         #endregion
 
 
-
+        /// <summary>
+        /// Used when exporting a ZDF to Word
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
         private WdColor ConvertColortoWdColor(System.Drawing.Color c)
         {
             return (WdColor)(c.R + 0x100 * c.G + 0x10000 * c.B);

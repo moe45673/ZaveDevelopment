@@ -9,6 +9,11 @@
 using System;
 
 namespace ZaveModel.ZDFEntry {
+    /// <summary>
+    /// Unused
+    /// </summary>
+    
+    [Obsolete("Do not use this class!", true)]
 	public abstract class Source  {
 
         

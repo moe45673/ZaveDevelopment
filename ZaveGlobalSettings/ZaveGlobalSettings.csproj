@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Data_Structures\AddInInterface\IZaveAddIn.cs" />
+    <Compile Include="Data_Structures\CustomAttributes\PlaceHolder.cs" />
     <Compile Include="Data_Structures\DataStructures.cs" />
     <Compile Include="Data_Structures\MostRecentlyUsedList\MostRecentlyUsedList.cs" />
     <Compile Include="Data_Structures\ZaveObservableCollection\ObservableCollectionObject.cs" />

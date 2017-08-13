@@ -32,7 +32,7 @@ namespace ZaveController
 
 
     /// <summary>
-    /// 
+    /// EventListener that checks for highlighted Text from any source with a Zave plugin
     /// </summary>
     public sealed class EventInitSingleton : PubSubEvent<SelectionState>, IDisposable
     {
@@ -90,6 +90,10 @@ namespace ZaveController
         //}
 
         private WPFColor activeColor;
+        /// <summary>
+        /// Sets the active color
+        /// </summary>
+        /// <param name="color"></param>
         public void SetActiveColor(System.Drawing.Color color)
         {
             string colorName = "Unknown Color";
@@ -105,6 +109,11 @@ namespace ZaveController
 
         }
 
+        /// <summary>
+        /// Gets the allowed Colors that the user can pick from the ColorPicker
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>Bad design (early code), should be implemented elsewhere. Additionally, should be coded to allow ColorList to come from more abstract location </remarks>
         private IEnumerable<KeyValuePair<String, System.Drawing.Color>> GetColors()
         {
             return typeof(System.Drawing.SystemColors)
@@ -149,6 +158,10 @@ namespace ZaveController
             }
         }
 
+        /// <summary>
+        /// Creates the Filewatcher that listens for the temp file to be changed
+        /// </summary>
+        /// <param name="path">Location of the file to be changed</param>
         public void CreateFileWatcher(string path)
         {
             // Create a new FileSystemWatcher and set its properties.
@@ -173,6 +186,12 @@ namespace ZaveController
             watcher.EnableRaisingEvents = true;
         }
 
+        /// <summary>
+        /// Code to be run when the file is changed
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        /// <remarks>This is raised when a Source application writes a SelectionState object to the temp folder</remarks>
         private void OnFileChanged(object source, FileSystemEventArgs e)
         {
 
